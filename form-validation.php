@@ -119,9 +119,9 @@ class Form_Validation {
 		$valid_data = $gump->run( $this->sane_post );
 
 		if( $valid_data === false ) {
-		    echo $gump->get_readable_errors( true );
+		    return $gump->get_readable_errors( true );
 		} else {
-		    print_r( $valid_data ); // validation successful
+		    return $valid_data ; // validation successful
 		}
 	}
 
