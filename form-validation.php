@@ -1,8 +1,8 @@
 <?php defined( 'ABSPATH' ) or die();
 /*
-Plugin Name: Contact Form Endpoint
-Plugin URI:  https://github.com/macder/wp-contact-form-endpoint
-Description: Simple api endpoint to post data from a contact form. Intended for developers
+Plugin Name: Form Validation
+Plugin URI:  https://github.com/macder/wp-form-validation
+Description: TBD
 Version:     0.0.1
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
@@ -23,7 +23,7 @@ require "vendor/wixel/gump/gump.class.php";
  *
  * @since 0.0.1
  */
-class Contact_Form_Endpoint {
+class Form_Validation {
 
 	/**
 	 * Validation rules
@@ -138,4 +138,4 @@ class Contact_Form_Endpoint {
 
 }
 
-$Contact_Form_Endpoint = new Contact_Form_Endpoint();
+$Form_Validation = new Form_Validation();
