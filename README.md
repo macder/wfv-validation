@@ -8,8 +8,6 @@ Provides your theme with an easy way to perform backend form input validation
 
 MVC framework like [Laravel](https://laravel.com/) or [CodeIgniter](https://codeigniter.com/) provide an intuitive and simple class to validate forms. [WordPress](https://wordpress.org/) falls short, leaving much to be desired. Aside from some general [sanitation methods](https://codex.wordpress.org/Data_Validation), validation for custom forms can be a pain.
 
-[WordPress](https://wordpress.org/) doesn't provide much for elegant validation, just some general [sanitation methods](https://codex.wordpress.org/Data_Validation).
-
 We want to be able to create and array of rules, attach it to a form, and pass it off to a validator, just as we would with most MVC's. Nobody has time to deal with all the details that come with data validation and feedback.
 
 wp-form-validation solves this shortfall by introducing a form validation class.
