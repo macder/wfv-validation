@@ -59,7 +59,7 @@ class Form_Validation {
 	 *
 	 */
 	function __construct() {
-		$this->create_gimp();
+		$this->create_gump();
 		$this->add_actions();
 		$this->set_rules();
 	}
@@ -71,7 +71,7 @@ class Form_Validation {
 	 * @since 0.0.1
 	 * @access private
 	 */
-	private function create_gimp() {
+	private function create_gump() {
 		$this->gump = new GUMP();
 	}
 
