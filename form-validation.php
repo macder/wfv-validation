@@ -58,10 +58,10 @@ class Form_Validation {
 	 * @since 0.0.1
 	 *
 	 */
-	function __construct() {
+	function __construct($rules) {
+		$this->rules = $rules;
 		$this->create_gump();
 		$this->add_actions();
-		$this->set_rules();
 	}
 
 	/**
@@ -87,19 +87,6 @@ class Form_Validation {
 	}
 
 	/**
-	 * Sets the $rules property
-	 *
-	 * @since 0.0.1
-	 * @access private
-	 */
-	private function set_rules() {
-		$this->rules = array(
-		    'name' => 'required|alpha_numeric',
-		    'email' => 'required|valid_email'
-		);
-	}
-
-	/**
 	 *
 	 * Sanitize the post data and assign to $sane_post property
 	 *
@@ -119,7 +106,7 @@ class Form_Validation {
 	 */
 	public function post_entry() {
 
-		print_r($_POST);
+		// print_r($_POST);
 		$gump = $this->gump;
 
 		// sanitize post data - just in case WordPress doesn't
@@ -131,11 +118,11 @@ class Form_Validation {
 
 		$valid_data = $gump->run( $this->sane_post );
 
-		/*if( $valid_data === false ) {
+		if( $valid_data === false ) {
 		    echo $gump->get_readable_errors( true );
 		} else {
 		    print_r( $valid_data ); // validation successful
-		}*/
+		}
 	}
 
 }
