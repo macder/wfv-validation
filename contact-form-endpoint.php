@@ -26,7 +26,7 @@ require "vendor/wixel/gump/gump.class.php";
 class Contact_Form_Endpoint {
 
 	/**
-	 * Summary.
+	 * Validation rules
 	 *
 	 * @since 0.0.1
 	 * @access protected
@@ -35,14 +35,34 @@ class Contact_Form_Endpoint {
 	protected $rules;
 
 	/**
+	 * Instance of GUMP class
+	 *
+	 * @since 0.0.1
+	 * @access protected
+	 * @var class $gump Instance of GUMP.
+	 */
+	protected $gump;
+
+	/**
 	 * Class constructor
 	 *
 	 * @since 0.0.1
 	 *
 	 */
 	function __construct() {
+		$this->create_gimp();
 		$this->add_actions();
 		$this->set_rules();
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.0.1
+	 * @access private
+	 */
+	private function create_gimp() {
+		$this->gump = new GUMP();
 	}
 
 	/**
@@ -57,7 +77,7 @@ class Contact_Form_Endpoint {
 	}
 
 	/**
-	 * sets $rules property
+	 * sets the $rules property
 	 *
 	 * @since 0.0.1
 	 * @access private
@@ -80,6 +100,18 @@ class Contact_Form_Endpoint {
 		// 1. Sanitize input data
 		// 2. Validate input data
 		// 3. Format input data
+
+		$test = $this->gump->run($_POST, true);
+
+		print_r($test);
+
+		/*$is_valid = GUMP::is_valid( $_POST, $this->rules );
+
+		if($is_valid === true) {
+		    echo 'pass';
+		} else {
+		    print_r($is_valid);
+		}*/
 	}
 
 }
