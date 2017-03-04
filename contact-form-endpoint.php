@@ -44,7 +44,7 @@ class Contact_Form_Endpoint {
 	protected $gump;
 
 	/**
-	 *	Sanitized post data
+	 * Sanitized post data
 	 *
 	 * @since 0.0.1
 	 * @access protected
