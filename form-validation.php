@@ -25,120 +25,120 @@ require "vendor/wixel/gump/gump.class.php";
  */
 class Form_Validation {
 
-	/**
-	 * Validation rules
-	 *
-	 * @since 0.0.1
-	 * @access protected
-	 * @var array $rules Form validation rules.
-	 */
-	protected $rules;
+  /**
+   * Validation rules
+   *
+   * @since 0.0.1
+   * @access protected
+   * @var array $rules Form validation rules.
+   */
+  protected $rules;
 
-	/**
-	 *
-	 *
-	 * @since 0.0.1
-	 * @access protected
-	 * @var
-	 */
-	public $errors;
+  /**
+   *
+   *
+   * @since 0.0.1
+   * @access protected
+   * @var
+   */
+  public $errors;
 
-	/**
-	 * Instance of GUMP class
-	 *
-	 * @since 0.0.1
-	 * @access protected
-	 * @var class $gump Instance of GUMP.
-	 */
-	protected $gump;
+  /**
+   * Instance of GUMP class
+   *
+   * @since 0.0.1
+   * @access protected
+   * @var class $gump Instance of GUMP.
+   */
+  protected $gump;
 
-	/**
-	 * Sanitized post data
-	 *
-	 * @since 0.0.1
-	 * @access protected
-	 * @var array Sanitized $_POST
-	 */
-	protected $sane_post;
+  /**
+   * Sanitized post data
+   *
+   * @since 0.0.1
+   * @access protected
+   * @var array Sanitized $_POST
+   */
+  protected $sane_post;
 
-	/**
-	 * Class constructor
-	 *
-	 * @since 0.0.1
-	 * @param string $form_name The name of the form for validation
-	 * @param array $rules Validation rules
-	 *
-	 */
-	function __construct($form_name, $rules) {
-		$this->rules = $rules;
-		$this->create_gump();
-		$this->add_actions($form_name);
-	}
+  /**
+   * Class constructor
+   *
+   * @since 0.0.1
+   * @param string $form_name The name of the form for validation
+   * @param array $rules Validation rules
+   *
+   */
+  function __construct($form_name, $rules) {
+    $this->rules = $rules;
+    $this->create_gump();
+    $this->add_actions($form_name);
+  }
 
-	/**
-	 * Create an instance of GUMP and assign it to $gump property
-	 *
-	 *
-	 * @since 0.0.1
-	 * @access private
-	 */
-	private function create_gump() {
-		$this->gump = new GUMP();
-	}
+  /**
+   * Create an instance of GUMP and assign it to $gump property
+   *
+   *
+   * @since 0.0.1
+   * @access private
+   */
+  private function create_gump() {
+    $this->gump = new GUMP();
+  }
 
-	/**
-	 * Creates the action hooks for contact form post
-	 *
-	 * @since 0.0.1
-	 * @access private
-	 */
-	private function add_actions($form_name) {
-		add_action( 'admin_post_nopriv_'. $form_name .'_form', array( $this, 'validate' ) );
-		add_action( 'admin_post_'. $form_name .'_form', array( $this, 'validate' ) );
-	}
+  /**
+   * Creates the action hooks for contact form post
+   *
+   * @since 0.0.1
+   * @access private
+   */
+  private function add_actions($form_name) {
+    add_action( 'admin_post_nopriv_'. $form_name .'_form', array( $this, 'validate' ) );
+    add_action( 'admin_post_'. $form_name .'_form', array( $this, 'validate' ) );
+  }
 
-	/**
-	 *
-	 * Sanitize the post data and assign to $sane_post property
-	 *
-	 * @since 0.0.1
-	 * @access private
-	 */
-	private function sanitize() {
-		$this->sane_post = $this->gump->sanitize( $_POST );
-	}
+  /**
+   *
+   * Sanitize the post data and assign to $sane_post property
+   *
+   * @since 0.0.1
+   * @access private
+   */
+  private function sanitize() {
+    $this->sane_post = $this->gump->sanitize( $_POST );
+  }
 
-	/**
-	 * Callback for post action
-	 *
-	 * Prepares $_POST data for sanitation and validation
-	 *
-	 * @since 0.0.1
-	 */
-	public function validate() {
-		$gump = $this->gump;
+  /**
+   * Callback for post action
+   *
+   * Prepares $_POST data for sanitation and validation
+   *
+   * @since 0.0.1
+   */
+  public function validate() {
+    $gump = $this->gump;
 
-		// sanitize post data - just in case WordPress doesn't
-		$this->sanitize();
+    // sanitize post data - just in case WordPress doesn't
+    $this->sanitize();
 
-		$gump->validation_rules( $this->rules );
+    $gump->validation_rules( $this->rules );
 
-		// $this->$gump->filter_rules();
+    // $this->$gump->filter_rules();
 
-		$valid_data = $gump->run( $this->sane_post );
+    $valid_data = $gump->run( $this->sane_post );
 
-		if( $valid_data === false ) {
+    if( $valid_data === false ) {
 
 
-			// create an event here - eg.
+      // create an event here - eg.
 
-		    //$this->errors = $gump->get_errors_array();
-		    print_r($gump->get_errors_array());
-		    // $gump->get_readable_errors( true );
-		} else {
-		    //return $valid_data ; // validation successful
-		    echo 'success';
-		}
-	}
+        //$this->errors = $gump->get_errors_array();
+        print_r($gump->get_errors_array());
+        // $gump->get_readable_errors( true );
+    } else {
+        //return $valid_data ; // validation successful
+        echo 'success';
+    }
+  }
 
 }
