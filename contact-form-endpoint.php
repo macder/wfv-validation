@@ -14,32 +14,32 @@ require "vendor/wixel/gump/gump.class.php";
 
 class Contact_Form_Endpoint {
 
-  function __construct() {
-    $this->add_actions();
-  }
+	function __construct() {
+		$this->add_actions();
+	}
 
-  /**
-   * creates the action hooks for contact form post
-   *
-   * @since 0.0.1
-   * @access private
-   */
-  private function add_actions() {
-    add_action( 'admin_post_nopriv_contact_form', array( $this, 'post_entry' ) );
-    add_action( 'admin_post_contact_form', array( $this, 'post_entry' ) );
-  }
+	/**
+	* creates the action hooks for contact form post
+	*
+	* @since 0.0.1
+	* @access private
+	*/
+	private function add_actions() {
+		add_action( 'admin_post_nopriv_contact_form', array( $this, 'post_entry' ) );
+		add_action( 'admin_post_contact_form', array( $this, 'post_entry' ) );
+	}
 
-  /**
-   * callback for contact_form post action
-   *
-   * prepares $_POST data for sanitation and validation
-   *
-   * @since 0.0.1
-   */
-  public function post_entry() {
-    
-  }
+	/**
+	* callback for contact_form post action
+	*
+	* prepares $_POST data for sanitation and validation
+	*
+	* @since 0.0.1
+	*/
+	public function post_entry() {
+
+	}
 
 }
- 
+
 $Contact_Form_Endpoint = new Contact_Form_Endpoint();
