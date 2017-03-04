@@ -1,5 +1,7 @@
 # wp-form-validation
 
+** WORK IN PROGRESS ** - release date TBD
+
 Provides your theme with an easy way to perform backend form input validation
 
 If you have ever worked with an MVC framework like [Laravel](https://laravel.com/) or [CodeIgniter](https://codeigniter.com/), then you know how easy form validation is.
