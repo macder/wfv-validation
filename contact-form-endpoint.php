@@ -10,6 +10,10 @@ License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
+
+/**
+ * Require GUMP for data validation and filtering
+ */
 require "vendor/wixel/gump/gump.class.php";
 
 /**
@@ -26,9 +30,9 @@ class Contact_Form_Endpoint {
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var array $validation_rules Form validation rules.
+	 * @var array $rules Form validation rules.
 	 */
-	protected $validation_rules;
+	protected $rules;
 
 	/**
 	 * Class constructor
@@ -38,6 +42,7 @@ class Contact_Form_Endpoint {
 	 */
 	function __construct() {
 		$this->add_actions();
+		$this->set_rules();
 	}
 
 	/**
@@ -51,8 +56,17 @@ class Contact_Form_Endpoint {
 		add_action( 'admin_post_contact_form', array( $this, 'post_entry' ) );
 	}
 
-	private function validation_rules() {
-
+	/**
+	 * sets $rules property
+	 *
+	 * @since 0.0.1
+	 * @access private
+	 */
+	private function set_rules() {
+		$this->rules = array(
+		    'name' => 'required|alpha_numeric',
+		    'email' => 'valid_email'
+		);
 	}
 
 	/**
@@ -63,7 +77,9 @@ class Contact_Form_Endpoint {
 	 * @since 0.0.1
 	 */
 	public function post_entry() {
-		// where the magic starts
+		// 1. Sanitize input data
+		// 2. Validate input data
+		// 3. Format input data
 	}
 
 }
