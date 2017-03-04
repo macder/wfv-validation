@@ -56,12 +56,14 @@ class Form_Validation {
 	 * Class constructor
 	 *
 	 * @since 0.0.1
+	 * @param string $form_name The name of the form for validation
+	 * @param array $rules Validation rules
 	 *
 	 */
-	function __construct($rules) {
+	function __construct($form_name, $rules) {
 		$this->rules = $rules;
 		$this->create_gump();
-		$this->add_actions();
+		$this->add_actions($form_name);
 	}
 
 	/**
@@ -81,9 +83,9 @@ class Form_Validation {
 	 * @since 0.0.1
 	 * @access private
 	 */
-	private function add_actions() {
-		add_action( 'admin_post_nopriv_contact_form', array( $this, 'post_entry' ) );
-		add_action( 'admin_post_contact_form', array( $this, 'post_entry' ) );
+	private function add_actions($form_name) {
+		add_action( 'admin_post_nopriv_'. $form_name .'_form', array( $this, 'post_entry' ) );
+		add_action( 'admin_post_'. $form_name .'_form', array( $this, 'post_entry' ) );
 	}
 
 	/**
@@ -105,8 +107,6 @@ class Form_Validation {
 	 * @since 0.0.1
 	 */
 	public function post_entry() {
-
-		// print_r($_POST);
 		$gump = $this->gump;
 
 		// sanitize post data - just in case WordPress doesn't
