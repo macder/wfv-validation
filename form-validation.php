@@ -118,6 +118,8 @@ class Form_Validation {
 	 * @since 0.0.1
 	 */
 	public function post_entry() {
+
+		print_r($_POST);
 		$gump = $this->gump;
 
 		// sanitize post data - just in case WordPress doesn't
@@ -129,13 +131,11 @@ class Form_Validation {
 
 		$valid_data = $gump->run( $this->sane_post );
 
-		if( $valid_data === false ) {
+		/*if( $valid_data === false ) {
 		    echo $gump->get_readable_errors( true );
 		} else {
 		    print_r( $valid_data ); // validation successful
-		}
+		}*/
 	}
 
 }
-
-$Form_Validation = new Form_Validation();
