@@ -84,8 +84,8 @@ class Form_Validation {
 	 * @access private
 	 */
 	private function add_actions($form_name) {
-		add_action( 'admin_post_nopriv_'. $form_name .'_form', array( $this, 'post_entry' ) );
-		add_action( 'admin_post_'. $form_name .'_form', array( $this, 'post_entry' ) );
+		add_action( 'admin_post_nopriv_'. $form_name .'_form', array( $this, 'validate' ) );
+		add_action( 'admin_post_'. $form_name .'_form', array( $this, 'validate' ) );
 	}
 
 	/**
@@ -100,13 +100,13 @@ class Form_Validation {
 	}
 
 	/**
-	 * Callback for contact_form post action
+	 * Callback for post action
 	 *
 	 * Prepares $_POST data for sanitation and validation
 	 *
 	 * @since 0.0.1
 	 */
-	public function post_entry() {
+	public function validate() {
 		$gump = $this->gump;
 
 		// sanitize post data - just in case WordPress doesn't
