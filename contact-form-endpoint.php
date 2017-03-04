@@ -125,9 +125,7 @@ class Contact_Form_Endpoint {
 
 		$gump->validation_rules( $this->rules );
 
-		/*$this->$gump->filter_rules(
-
-		);*/
+		// $this->$gump->filter_rules();
 
 		$valid_data = $gump->run( $this->sane_post );
 
