@@ -35,6 +35,15 @@ class Form_Validation {
 	protected $rules;
 
 	/**
+	 *
+	 *
+	 * @since 0.0.1
+	 * @access protected
+	 * @var
+	 */
+	public $errors;
+
+	/**
 	 * Instance of GUMP class
 	 *
 	 * @since 0.0.1
@@ -119,9 +128,15 @@ class Form_Validation {
 		$valid_data = $gump->run( $this->sane_post );
 
 		if( $valid_data === false ) {
-		    return $gump->get_readable_errors( true );
+
+			// create an event here - eg.
+
+		    //$this->errors = $gump->get_errors_array();
+		    print_r($gump->get_errors_array());
+		    // $gump->get_readable_errors( true );
 		} else {
-		    return $valid_data ; // validation successful
+		    //return $valid_data ; // validation successful
+		    echo 'success';
 		}
 	}
 
