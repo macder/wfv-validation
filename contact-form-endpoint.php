@@ -10,6 +10,8 @@ License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
+require "vendor/wixel/gump/gump.class.php";
+
 class Contact_Form_Endpoint {
 
   function __construct() {
@@ -33,10 +35,9 @@ class Contact_Form_Endpoint {
    * prepares $_POST data for sanitation and validation
    *
    * @since 0.0.1
-   * @access private
    */
-  private function post_entry() {
-
+  public function post_entry() {
+    
   }
 
 }
