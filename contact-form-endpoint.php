@@ -56,6 +56,7 @@ class Contact_Form_Endpoint {
 	}
 
 	/**
+	 * Create an instance of GUMP and assign it to $gump property
 	 *
 	 *
 	 * @since 0.0.1
@@ -85,7 +86,7 @@ class Contact_Form_Endpoint {
 	private function set_rules() {
 		$this->rules = array(
 		    'name' => 'required|alpha_numeric',
-		    'email' => 'valid_email'
+		    'email' => 'required|valid_email'
 		);
 	}
 
@@ -97,21 +98,24 @@ class Contact_Form_Endpoint {
 	 * @since 0.0.1
 	 */
 	public function post_entry() {
-		// 1. Sanitize input data
-		// 2. Validate input data
-		// 3. Format input data
+		$gump = $this->gump;
 
-		$test = $this->gump->run($_POST, true);
+		// sanitize post data - just in case WordPress doesn't
+		$_POST = $gump->sanitize( $_POST );
 
-		print_r($test);
+		$gump->validation_rules( $this->rules );
 
-		/*$is_valid = GUMP::is_valid( $_POST, $this->rules );
+		/*$this->$gump->filter_rules(
 
-		if($is_valid === true) {
-		    echo 'pass';
+		);*/
+
+		$valid_data = $gump->run( $_POST );
+
+		if( $valid_data === false ) {
+		    echo $gump->get_readable_errors( true );
 		} else {
-		    print_r($is_valid);
-		}*/
+		    print_r( $valid_data ); // validation successful
+		}
 	}
 
 }
