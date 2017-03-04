@@ -9,8 +9,18 @@ Description soon...
 
 ## Getting Started
 
-in theme functions.php add:
-`$form_validation = new Form_Validation();`
+functions.php example:
+
+```
+$form_name = 'contact';
+
+$rules = array(
+  'name' => 'required|alpha_numeric',
+  'email' => 'required|valid_email'
+);
+
+$form_validation = new Form_Validation($form_name, $rules);
+```
 
 ## Development
 
