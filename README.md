@@ -1,7 +1,8 @@
 # wp-form-validation
 
 ** WORK IN PROGRESS **
--release date TBD
+
+Release date: TBD
 
 Provides your theme with an easy way to perform backend form input validation
 
