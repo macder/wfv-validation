@@ -43,7 +43,7 @@ $rules = array(
   'msg'   => 'required'
 );
 
-$form_validation = new Form_Validation($form_name, $rules);
+$validate = new Form_Validation( 'contact', $rules );
 ```
 
 For available validation rules, reference the [GUMP](https://github.com/Wixel/GUMP) doc
