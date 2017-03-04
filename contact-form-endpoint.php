@@ -44,6 +44,15 @@ class Contact_Form_Endpoint {
 	protected $gump;
 
 	/**
+	 *	Sanitized post data
+	 *
+	 * @since 0.0.1
+	 * @access protected
+	 * @var array Sanitized $_POST
+	 */
+	protected $sane_post;
+
+	/**
 	 * Class constructor
 	 *
 	 * @since 0.0.1
@@ -67,7 +76,7 @@ class Contact_Form_Endpoint {
 	}
 
 	/**
-	 * creates the action hooks for contact form post
+	 * Creates the action hooks for contact form post
 	 *
 	 * @since 0.0.1
 	 * @access private
@@ -78,7 +87,7 @@ class Contact_Form_Endpoint {
 	}
 
 	/**
-	 * sets the $rules property
+	 * Sets the $rules property
 	 *
 	 * @since 0.0.1
 	 * @access private
@@ -91,9 +100,20 @@ class Contact_Form_Endpoint {
 	}
 
 	/**
-	 * callback for contact_form post action
 	 *
-	 * prepares $_POST data for sanitation and validation
+	 * Sanitize the post data and assign to $sane_post property
+	 *
+	 * @since 0.0.1
+	 * @access private
+	 */
+	private function sanitize() {
+		$this->sane_post = $this->gump->sanitize( $_POST );
+	}
+
+	/**
+	 * Callback for contact_form post action
+	 *
+	 * Prepares $_POST data for sanitation and validation
 	 *
 	 * @since 0.0.1
 	 */
@@ -101,7 +121,7 @@ class Contact_Form_Endpoint {
 		$gump = $this->gump;
 
 		// sanitize post data - just in case WordPress doesn't
-		$_POST = $gump->sanitize( $_POST );
+		$this->sanitize();
 
 		$gump->validation_rules( $this->rules );
 
@@ -109,7 +129,7 @@ class Contact_Form_Endpoint {
 
 		);*/
 
-		$valid_data = $gump->run( $_POST );
+		$valid_data = $gump->run( $this->sane_post );
 
 		if( $valid_data === false ) {
 		    echo $gump->get_readable_errors( true );
