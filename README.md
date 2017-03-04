@@ -7,7 +7,13 @@ Description soon...
 
 ...
 
-## Usage
+## Getting Started
 
 in theme functions.php add:
 `$form_validation = new Form_Validation();`
+
+## Development
+
+`$ git clone` inside `./wp-content/plugins`
+
+`$ composer install`
