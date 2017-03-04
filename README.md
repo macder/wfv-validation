@@ -6,7 +6,7 @@ Release date: TBD
 
 Provides your theme with an easy way to perform backend form input validation
 
-If you have ever worked with an MVC framework like [Laravel](https://laravel.com/) or [CodeIgniter](https://codeigniter.com/), then you know how easy form validation is.
+If you worked with an MVC framework like [Laravel](https://laravel.com/) or [CodeIgniter](https://codeigniter.com/), then you know how easy form validation is.
 
 [WordPress](https://wordpress.org/) doesn't provide much for elegant validation, just some general [sanitation methods](https://codex.wordpress.org/Data_Validation).
 
@@ -25,14 +25,24 @@ If you don't know how to install a WordPress plugin, this isn't for you.
 
 ## Getting Started
 
-functions.php example:
+Create a form somewhere in your theme:
+```
+<form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
+  <input id="name" name="name" type="text">
+  <input id="email" name="org" type="text">
+  <textarea id="msg"></textarea>
+</form>
+```
+
+Set rules and instantiate validation class in functions.php, or wherever it makes sense:
 
 ```
 $form_name = 'contact';
 
 $rules = array(
-  'name' => 'required|alpha_numeric',
-  'email' => 'required|valid_email'
+  'name'  => 'required|alpha_numeric',
+  'email' => 'required|valid_email',
+  'msg'   => 'required'
 );
 
 $form_validation = new Form_Validation($form_name, $rules);
