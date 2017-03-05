@@ -44,15 +44,6 @@ class Form_Validation {
 	protected $rules;
 
 	/**
-	 *
-	 *
-	 * @since 0.0.1
-	 * @access protected
-	 * @var
-	 */
-	public $errors;
-
-	/**
 	 * Instance of Valitron\Validator
 	 *
 	 * @since 0.0.1
@@ -68,7 +59,7 @@ class Form_Validation {
 	 * @access protected
 	 * @var array Sanitized $_POST
 	 */
-	protected $sane_post;
+	protected $sane_post = array();
 
 	/**
 	 * Class constructor
@@ -82,8 +73,21 @@ class Form_Validation {
 		$this->form_name = $form;
 		$this->rules = $rules;
 
-		$this->create_valitron();
 		$this->add_actions();
+	}
+
+	/**
+	 * Sanitize input and keys in $_POST
+	 * Assign the sanitized data to $sane_post property
+	 *
+	 *
+	 * @since 0.0.1
+	 * @access private
+	 */
+	private function sanitize() {
+		foreach ( $_POST as $key => $value ) {
+			$this->sane_post[sanitize_key($key)] = sanitize_text_field($value);
+		}
 	}
 
 	/**
@@ -95,7 +99,7 @@ class Form_Validation {
 	 * @access private
 	 */
 	private function create_valitron() {
-		$this->valitron = new Valitron\Validator($_POST);
+		$this->valitron = new Valitron\Validator($this->sane_post);
 		$this->valitron->mapFieldsRules($this->rules);
 	}
 
@@ -119,9 +123,11 @@ class Form_Validation {
 	 */
 	public function validate() {
 
-		$this->valitron->validate();
-		print_r($this->valitron);
+		$this->sanitize();
+		$this->create_valitron();
 
+		$this->valitron->validate();
+		do_action('validate_'. $this->form_name, $this);
 	}
 
 }
