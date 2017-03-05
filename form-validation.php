@@ -78,12 +78,8 @@ class Form_Validation {
 	 * @param array $rules Validation rules
 	 *
 	 */
-	function __construct() {
-
-		$this->rules = array(
-			'name' => ['required'],
-			'email'=> ['email', 'required']
-		);
+	function __construct($rules) {
+		$this->rules = $rules;
 
 		$this->create_valitron();
 
@@ -166,4 +162,4 @@ class Form_Validation {
 
 }
 
-new Form_Validation();
+// new Form_Validation();
