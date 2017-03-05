@@ -53,13 +53,13 @@ class Form_Validation {
 	public $errors;
 
 	/**
-	 * Instance of GUMP class
+	 * Instance of Valitron\Validator
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var class $gump Instance of GUMP.
+	 * @var class $valitron Valitron\Validator.
 	 */
-	protected $gump;
+	protected $valitron;
 
 	/**
 	 * Sanitized post data
@@ -79,9 +79,19 @@ class Form_Validation {
 	 *
 	 */
 	function __construct() {
-		$v = new Valitron\Validator($_POST);
 
-		print_r($v);
+		$rules = array(
+			'name' => ['required'],
+			'email'=> ['email', 'required']
+		);
+
+		$this->create_valitron();
+
+		// $v = new Valitron\Validator($_POST);
+		$this->valitron->mapFieldsRules($rules);
+		$this->valitron->validate();
+
+		print_r($this->valitron);
 		/*$this->form_name = $form_name;
 		$this->rules = $rules;
 		$this->create_gump();
@@ -89,14 +99,14 @@ class Form_Validation {
 	}
 
 	/**
-	 * Create an instance of GUMP and assign it to $gump property
+	 * Create an instance of Valitron\Validator and assign it to $valitron property
 	 *
 	 *
 	 * @since 0.0.1
 	 * @access private
 	 */
-	private function create_gump() {
-		$this->gump = new GUMP();
+	private function create_valitron() {
+		$this->valitron = new Valitron\Validator($_POST);
 	}
 
 	/**
