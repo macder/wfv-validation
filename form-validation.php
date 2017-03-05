@@ -12,7 +12,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 
 /**
- * Require GUMP for data validation and filtering
+ * Require Valitron for data validation and filtering
  */
 require "vendor/vlucas/valitron/src/Valitron/Validator.php";
 
