@@ -12,7 +12,7 @@ We want to be able to create and array of rules, attach it to a form, and pass i
 
 wp-form-validation solves this shortfall by introducing a form validation class.
 
-In a nutshell, it's an interface for [GUMP](https://github.com/Wixel/GUMP), but all you need to do is instantiate the `Form_Validation` class, pass in the rules array with form name.
+In a nutshell, it's an interface for [Valitron](https://github.com/vlucas/valitron), but all you need to do is instantiate the `Form_Validation` class, pass in the rules array with form name.
 
 Boom
 
@@ -39,15 +39,14 @@ Set rules and instantiate validation class in functions.php, or wherever it make
 $form_name = 'contact';
 
 $rules = array(
-  'name'  => 'required|alpha_numeric',
-  'email' => 'required|valid_email',
-  'msg'   => 'required'
+  'name' => [ 'required' ],
+  'email'=> [ 'email', 'required' ]
 );
 
-$validate = new Form_Validation( $form_name, $rules );
+new Form_Validation( $form_name, $rules );
 ```
 
-For available validation rules, reference the [GUMP](https://github.com/Wixel/GUMP) doc
+For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
 
 ## Development
 
