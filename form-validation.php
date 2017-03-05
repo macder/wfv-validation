@@ -44,15 +44,6 @@ class Form_Validation {
 	protected $rules;
 
 	/**
-	 *
-	 *
-	 * @since 0.0.1
-	 * @access protected
-	 * @var
-	 */
-	// public $errors;
-
-	/**
 	 * Instance of Valitron\Validator
 	 *
 	 * @since 0.0.1
