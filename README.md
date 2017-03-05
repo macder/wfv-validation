@@ -61,3 +61,11 @@ For available validation rules, reference the [Valitron](https://github.com/vluc
 `$ git clone` inside `./wp-content/plugins`
 
 `$ composer install`
+
+Create new feature branch
+
+`$ git checkout -b feature/[name]`
+
+`$ git push origin feature/[name]`
+
+When ready to merge into `develop`, create a pull request
