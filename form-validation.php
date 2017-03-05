@@ -109,7 +109,7 @@ class Form_Validation {
 	}
 
 	/**
-	 * Creates the action hooks for contact form post
+	 * Creates unique action hooks for the form POST
 	 *
 	 * @since 0.0.1
 	 * @access private
