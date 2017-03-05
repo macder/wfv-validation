@@ -131,7 +131,7 @@ class Form_Validation {
 		$this->create_valitron();
 
 		$this->valitron->validate();
-		do_action('validate_'. $this->action, $this);
+		do_action('validate_'. $this->action, $this->valitron);
 	}
 
 }
