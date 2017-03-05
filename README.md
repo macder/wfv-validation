@@ -19,7 +19,7 @@ Boom
 
 ## Install
 
-Currently there is still no Release
+Currently there is no release available
 
 Until then, install for development
 
@@ -62,10 +62,24 @@ For available validation rules, reference the [Valitron](https://github.com/vluc
 
 `$ composer install`
 
+Checkout the `develop` branch
+
+`$ git checkout develop`
+
 Create new feature branch
 
 `$ git checkout -b feature/[name]`
 
 `$ git push origin feature/[name]`
 
-When ready to merge into `develop`, create a pull request
+When your feature is ready and tested
+
+`$ git fetch origin develop`
+
+`$ git merge origin/develop`
+
+`$ git push origin feature/[name]`
+
+Now test to ensure your code works on `develop`
+
+Create a pull request to merge your feature branch into `develop`
