@@ -83,16 +83,7 @@ class Form_Validation {
 		$this->rules = $rules;
 
 		$this->create_valitron();
-
-		// $v = new Valitron\Validator($_POST);
-		// $this->valitron->mapFieldsRules($this->rules);
-		$this->valitron->validate();
-
-		print_r($this->valitron);
-		/*$this->form_name = $form_name;
-		$this->rules = $rules;
-		$this->create_gump();
-		$this->add_actions($form_name);*/
+		$this->add_actions();
 	}
 
 	/**
@@ -114,9 +105,9 @@ class Form_Validation {
 	 * @since 0.0.1
 	 * @access private
 	 */
-	private function add_actions($form_name) {
-		add_action( 'admin_post_nopriv_'. $form_name .'_form', array( $this, 'validate' ) );
-		add_action( 'admin_post_'. $form_name .'_form', array( $this, 'validate' ) );
+	private function add_actions() {
+		add_action( 'admin_post_nopriv_'. $this->form_name .'_form', array( $this, 'validate' ) );
+		add_action( 'admin_post_'. $this->form_name .'_form', array( $this, 'validate' ) );
 	}
 
 	/**
@@ -138,27 +129,10 @@ class Form_Validation {
 	 * @since 0.0.1
 	 */
 	public function validate() {
-		$gump = $this->gump;
 
-		// sanitize post data - just in case WordPress doesn't
-		$this->sanitize();
+		$this->valitron->validate();
+		print_r($this->valitron);
 
-		$gump->validation_rules( $this->rules );
-
-		// $this->$gump->filter_rules();
-
-		$valid_data = $gump->run( $this->sane_post );
-
-		if( $valid_data === false ) {
-			$this->errors = $gump->get_errors_array();
-			//print_r($gump->get_errors_array());
-			// $gump->get_readable_errors( true );
-			do_action('validate_'. $this->form_name, $this);
-		} else {
-			//return $valid_data ; // validation successful
-			do_action('validate_'. $this->form_name, $this);
-			echo 'success';
-		}
 	}
 
 }
