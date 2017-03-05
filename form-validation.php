@@ -68,7 +68,7 @@ class Form_Validation {
 	 * @access protected
 	 * @var array Sanitized $_POST
 	 */
-	protected $sane_post;
+	protected $sane_post = array();
 
 	/**
 	 * Class constructor
@@ -82,8 +82,24 @@ class Form_Validation {
 		$this->form_name = $form;
 		$this->rules = $rules;
 
-		$this->create_valitron();
-		$this->add_actions();
+		$this->sanitize();
+
+		// $this->create_valitron();
+		// $this->add_actions();
+	}
+
+	/**
+	 * Sanitize input and keys in $_POST
+	 * Assign the sanitized data to $sane_post property
+	 *
+	 *
+	 * @since 0.0.1
+	 * @access private
+	 */
+	private function sanitize() {
+		foreach ( $_POST as $key => $value ) {
+			$this->sane_post[sanitize_key($key)] = sanitize_text_field($value);
+		}
 	}
 
 	/**
