@@ -111,17 +111,6 @@ class Form_Validation {
 	}
 
 	/**
-	 *
-	 * Sanitize the post data and assign to $sane_post property
-	 *
-	 * @since 0.0.1
-	 * @access private
-	 */
-	private function sanitize() {
-		$this->sane_post = $this->gump->sanitize( $_POST );
-	}
-
-	/**
 	 * Callback for post action
 	 *
 	 * Prepares $_POST data for sanitation and validation
