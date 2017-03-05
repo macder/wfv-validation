@@ -26,13 +26,13 @@ require "vendor/vlucas/valitron/src/Valitron/Validator.php";
 class Form_Validation {
 
 	/**
-	 * Form name
+	 * Form identifier
 	 *
 	 * @since 0.0.1
 	 * @access protected
-	 * @var array $form_name
+	 * @var array $action
 	 */
-	protected $form_name;
+	protected $action;
 
 	/**
 	 * Validation rules
@@ -63,17 +63,22 @@ class Form_Validation {
 
 	/**
 	 * Class constructor
+	 * check if action parameter matches sane $_POST action value
+	 * init only if true
 	 *
 	 * @since 0.0.1
-	 * @param string $form_name The name of the form for validation
+	 * @param string $action Action that identifies the form
 	 * @param array $rules Validation rules
 	 *
 	 */
-	function __construct($form, $rules) {
-		$this->form_name = $form;
-		$this->rules = $rules;
+	function __construct($action, $rules) {
+		$sane_action = sanitize_text_field( $_POST['action'] );
 
-		$this->add_actions();
+		if ($sane_action == $action) {
+			$this->action = $sane_action;
+			$this->rules = $rules;
+			$this->add_actions();
+		}
 	}
 
 	/**
@@ -110,8 +115,8 @@ class Form_Validation {
 	 * @access private
 	 */
 	private function add_actions() {
-		add_action( 'admin_post_nopriv_'. $this->form_name .'_form', array( $this, 'validate' ) );
-		add_action( 'admin_post_'. $this->form_name .'_form', array( $this, 'validate' ) );
+		add_action( 'admin_post_nopriv_'. $this->action, array( $this, 'validate' ) );
+		add_action( 'admin_post_'. $this->action, array( $this, 'validate' ) );
 	}
 
 	/**
@@ -122,12 +127,11 @@ class Form_Validation {
 	 * @since 0.0.1
 	 */
 	public function validate() {
-
 		$this->sanitize();
 		$this->create_valitron();
 
 		$this->valitron->validate();
-		do_action('validate_'. $this->form_name, $this);
+		do_action('validate_'. $this->action, $this);
 	}
 
 }
