@@ -50,7 +50,7 @@ class Form_Validation {
 	 * @access protected
 	 * @var
 	 */
-	public $errors;
+	// public $errors;
 
 	/**
 	 * Instance of Valitron\Validator
@@ -118,10 +118,8 @@ class Form_Validation {
 	 * @since 0.0.1
 	 */
 	public function validate() {
-
 		$this->valitron->validate();
-		print_r($this->valitron);
-
+		do_action('validate_'. $this->form_name, $this);
 	}
 
 }
