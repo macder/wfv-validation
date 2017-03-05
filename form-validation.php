@@ -17,9 +17,9 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 require "vendor/vlucas/valitron/src/Valitron/Validator.php";
 
 /**
- * Summary.
+ * Form_Validation validate a form
  *
- * Description.
+ * Validates a form against an array of rules using Valitron
  *
  * @since 0.0.1
  */
