@@ -82,10 +82,7 @@ class Form_Validation {
 		$this->form_name = $form;
 		$this->rules = $rules;
 
-		$this->sanitize();
-
-		// $this->create_valitron();
-		// $this->add_actions();
+		$this->add_actions();
 	}
 
 	/**
@@ -111,7 +108,7 @@ class Form_Validation {
 	 * @access private
 	 */
 	private function create_valitron() {
-		$this->valitron = new Valitron\Validator($_POST);
+		$this->valitron = new Valitron\Validator($this->sane_post);
 		$this->valitron->mapFieldsRules($this->rules);
 	}
 
@@ -134,6 +131,10 @@ class Form_Validation {
 	 * @since 0.0.1
 	 */
 	public function validate() {
+
+		$this->sanitize();
+		$this->create_valitron();
+
 		$this->valitron->validate();
 		do_action('validate_'. $this->form_name, $this);
 	}
