@@ -2,8 +2,8 @@
 /*
 Plugin Name: Form Validation
 Plugin URI:  https://github.com/macder/wp-form-validation
-Description: TBD
-Version:     0.0.1
+Description: See README.md
+Version:     0.1.0
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
 License:     GPL3
@@ -21,14 +21,14 @@ require "vendor/vlucas/valitron/src/Valitron/Validator.php";
  *
  * Validates a form against an array of rules using Valitron
  *
- * @since 0.0.1
+ * @since 0.1.0
  */
 class Form_Validation {
 
 	/**
 	 * Form identifier
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 * @access protected
 	 * @var array $action
 	 */
@@ -37,7 +37,7 @@ class Form_Validation {
 	/**
 	 * Validation rules
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 * @access protected
 	 * @var array $rules Form validation rules.
 	 */
@@ -46,7 +46,7 @@ class Form_Validation {
 	/**
 	 * Instance of Valitron\Validator
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 * @access protected
 	 * @var class $valitron Valitron\Validator.
 	 */
@@ -55,7 +55,7 @@ class Form_Validation {
 	/**
 	 * Sanitized post data
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 * @access protected
 	 * @var array Sanitized $_POST
 	 */
@@ -66,7 +66,7 @@ class Form_Validation {
 	 * check if action parameter matches sane $_POST action value
 	 * init only if true
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 * @param string $action Action that identifies the form
 	 * @param array $rules Validation rules
 	 *
@@ -86,7 +86,7 @@ class Form_Validation {
 	 * Assign the sanitized data to $sane_post property
 	 *
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 * @access private
 	 */
 	private function sanitize() {
@@ -100,7 +100,7 @@ class Form_Validation {
 	 * Map $rules property Valitron
 	 *
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 * @access private
 	 */
 	private function create_valitron() {
@@ -111,7 +111,7 @@ class Form_Validation {
 	/**
 	 * Creates unique action hooks for the form POST
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 * @access private
 	 */
 	private function add_actions() {
@@ -124,7 +124,7 @@ class Form_Validation {
 	 *
 	 * Prepares $_POST data for sanitation and validation
 	 *
-	 * @since 0.0.1
+	 * @since 0.1.0
 	 */
 	public function validate() {
 		$this->sanitize();
