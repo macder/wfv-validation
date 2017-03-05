@@ -12,7 +12,7 @@ We want to be able to create and array of rules, attach it to a form, and pass i
 
 wp-form-validation solves this shortfall by introducing a form validation class.
 
-In a nutshell, it's an interface for [Valitron](https://github.com/vlucas/valitron), but all you need to do is instantiate the `Form_Validation` class, pass in the rules array with form name.
+In a nutshell, it's an interface for [Valitron](https://github.com/vlucas/valitron), but all you need to do is instantiate the `Form_Validation` class, pass in the rules and an identifier for the form.
 
 Boom
 
@@ -21,7 +21,9 @@ Boom
 
 Currently there is no release available
 
-Until then, install for development
+Under active development - Not recommended for usage yet
+
+If you can't wait, install as development
 
 `$ git clone` inside `./wp-content/plugins`
 
@@ -32,26 +34,42 @@ Once a release is packaged, install will be the usual WordPress way
 ## Getting Started
 
 Create a form somewhere in your theme:
-```
+```html
 <form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
   <input id="name" name="name" type="text">
   <input id="email" name="org" type="text">
   <textarea id="msg"></textarea>
+
+  <input type="hidden" name="action" value="contact_form">
   <input type="submit" value="Submit">
 </form>
 ```
 
+The unique identifier for the form is the action value:
+
+`<input type="hidden" name="action" value="contact_form">`
+
+
 Set rules and instantiate validation class in functions.php, or wherever it makes sense:
 
-```
-$form_name = 'contact';
+```php
+<?php
+$action = 'contact_form'; // unique identifier
 
 $rules = array(
   'name' => [ 'required' ],
   'email'=> [ 'email', 'required' ]
 );
 
-new Form_Validation( $form_name, $rules );
+$validate_contact_form = new Form_Validation( $action, $rules );
+
+add_action('validate_'. $action, 'validate_form', 10, 1);
+
+function validate_form($validator) {
+  print_r($validator); // inspect the validator object
+
+  // do something...
+}
 ```
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
