@@ -26,6 +26,15 @@ require "vendor/wixel/gump/gump.class.php";
 class Form_Validation {
 
 	/**
+	 * Form name
+	 *
+	 * @since 0.0.1
+	 * @access protected
+	 * @var array $form_name
+	 */
+	protected $form_name;
+
+	/**
 	 * Validation rules
 	 *
 	 * @since 0.0.1
@@ -70,6 +79,7 @@ class Form_Validation {
 	 *
 	 */
 	function __construct($form_name, $rules) {
+		$this->form_name = $form_name;
 		$this->rules = $rules;
 		$this->create_gump();
 		$this->add_actions($form_name);
@@ -128,12 +138,13 @@ class Form_Validation {
 		$valid_data = $gump->run( $this->sane_post );
 
 		if( $valid_data === false ) {
-			// create an event here - eg.
 			//$this->errors = $gump->get_errors_array();
-			print_r($gump->get_errors_array());
+			//print_r($gump->get_errors_array());
 			// $gump->get_readable_errors( true );
+			do_action('validate_'. $this->form_name, $this);
 		} else {
 			//return $valid_data ; // validation successful
+			do_action('validate_'. $this->form_name, $this);
 			echo 'success';
 		}
 	}
