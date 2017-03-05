@@ -80,7 +80,7 @@ class Form_Validation {
 	 */
 	function __construct() {
 
-		$rules = array(
+		$this->rules = array(
 			'name' => ['required'],
 			'email'=> ['email', 'required']
 		);
@@ -88,7 +88,7 @@ class Form_Validation {
 		$this->create_valitron();
 
 		// $v = new Valitron\Validator($_POST);
-		$this->valitron->mapFieldsRules($rules);
+		// $this->valitron->mapFieldsRules($this->rules);
 		$this->valitron->validate();
 
 		print_r($this->valitron);
@@ -99,7 +99,8 @@ class Form_Validation {
 	}
 
 	/**
-	 * Create an instance of Valitron\Validator and assign it to $valitron property
+	 * Create an instance of Valitron\Validator, assign to $valitron property
+	 * Map $rules property Valitron
 	 *
 	 *
 	 * @since 0.0.1
@@ -107,6 +108,7 @@ class Form_Validation {
 	 */
 	private function create_valitron() {
 		$this->valitron = new Valitron\Validator($_POST);
+		$this->valitron->mapFieldsRules($this->rules);
 	}
 
 	/**
