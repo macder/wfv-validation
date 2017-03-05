@@ -14,7 +14,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 /**
  * Require GUMP for data validation and filtering
  */
-require "vendor/wixel/gump/gump.class.php";
+require "vendor/vlucas/valitron/src/Valitron/Validator.php";
 
 /**
  * Summary.
@@ -78,11 +78,14 @@ class Form_Validation {
 	 * @param array $rules Validation rules
 	 *
 	 */
-	function __construct($form_name, $rules) {
-		$this->form_name = $form_name;
+	function __construct() {
+		$v = new Valitron\Validator($_POST);
+
+		print_r($v);
+		/*$this->form_name = $form_name;
 		$this->rules = $rules;
 		$this->create_gump();
-		$this->add_actions($form_name);
+		$this->add_actions($form_name);*/
 	}
 
 	/**
@@ -138,7 +141,7 @@ class Form_Validation {
 		$valid_data = $gump->run( $this->sane_post );
 
 		if( $valid_data === false ) {
-			//$this->errors = $gump->get_errors_array();
+			$this->errors = $gump->get_errors_array();
 			//print_r($gump->get_errors_array());
 			// $gump->get_readable_errors( true );
 			do_action('validate_'. $this->form_name, $this);
@@ -150,3 +153,5 @@ class Form_Validation {
 	}
 
 }
+
+new Form_Validation();
