@@ -19,7 +19,15 @@ Boom
 
 ## Install
 
-If you don't know how to install a WordPress plugin, this isn't for you.
+Currently there is still no Release
+
+Until then, install for development
+
+`$ git clone` inside `./wp-content/plugins`
+
+`$ composer install`
+
+Once a release is packaged, install will be the usual WordPress way
 
 ## Getting Started
 
