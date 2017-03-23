@@ -47,19 +47,19 @@ class Form_Validation {
 	 * Instance of Valitron\Validator
 	 *
 	 * @since 0.1.0
-	 * @access protected
+	 * @access public
 	 * @var class $valitron Valitron\Validator.
 	 */
-	protected $valitron;
+	public $valitron;
 
 	/**
 	 * Sanitized post data
 	 *
 	 * @since 0.1.0
-	 * @access protected
+	 * @access public
 	 * @var array Sanitized $_POST
 	 */
-	protected $sane_post = array();
+	public $sane_post = array();
 
 	/**
 	 * Class constructor
