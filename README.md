@@ -50,26 +50,30 @@ The unique identifier for the form is the action value:
 `<input type="hidden" name="action" value="contact_form">`
 
 
-Set rules and instantiate validation class in functions.php, or wherever it makes sense:
+Set rules and instantiate validation class in functions.php, or wherever it makes sense.
 
+Basic example:
 ```php
 <?php
-$action = 'contact_form'; // unique identifier
 
+$action = 'contact_form'; // unique indenfier - value from hidden action field
 $rules = array(
   'name' => [ 'required' ],
   'email'=> [ 'email', 'required' ]
 );
 
-$validate_contact_form = new Form_Validation( $action, $rules );
+// instantiate form validation
+$validate_contact = new Form_Validation( $action, $rules );
 
-add_action('validate_'. $action, 'validate_form', 10, 1);
+// action for validation pass
+add_action( 'valid_'.$action, 'valid_contact' );
 
-function validate_form($validator) {
-  print_r($validator); // inspect the validator object
-
-  // do something...
+function valid_contact($input) {
+  // form validated, do something...
+  echo $input['name'];
+  echo $input['email'];
 }
+
 ```
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
