@@ -59,15 +59,33 @@ class Form_Validate_Post {
   }
 
   /**
-   * Create an instance of Valitron\Validator, assign to $valitron property
-   * Map $rules property Valitron
+   * Do the validation
    *
    *
    * @since 0.2.0
    * @access private
    */
-  private function create_valitron() {
-    $this->valitron = new Valitron\Validator($this->sane_post);
-    $this->valitron->mapFieldsRules($this->rules);
+  private function validate() {
+    $v = $this->valitron;
+
+    if ($v->validate()) {
+      echo 'thanks... emailing';
+    } else {
+      echo 'fail';
+    }
+  }
+
+  /**
+   * Create an instance of Valitron\Validator, assign to $valitron property
+   * Map $rules property Valitron
+   *
+   *
+   * @since 0.2.0
+   * @param array $rules Validation rules
+   * @access private
+   */
+  private function create_valitron($rules) {
+    $this->valitron = new Valitron\Validator($this->input);
+    $this->valitron->mapFieldsRules($rules);
   }
 }
