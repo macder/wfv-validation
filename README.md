@@ -37,7 +37,7 @@ Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
   <input id="name" name="name" type="text">
-  <input id="email" name="org" type="text">
+  <input id="email" name="email" type="text">
   <textarea id="msg"></textarea>
 
   <input type="hidden" name="action" value="contact_form">
