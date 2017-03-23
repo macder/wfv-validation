@@ -37,11 +37,9 @@ class Form_Validate_Post {
    *
    */
   function __construct($rules) {
-    $this->rules = $rules;
     $this->sanitize_post();
-    $this->create_valitron();
-
-    print_r($this);
+    $this->create_valitron($rules);
+    $this->validate();
   }
 
   /**
