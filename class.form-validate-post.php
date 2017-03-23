@@ -69,8 +69,22 @@ class Form_Validate_Post {
     if ($v->validate()) {
       echo 'thanks... emailing';
     } else {
-      echo 'fail';
+      $this->validate_fail();
     }
+  }
+
+
+  /**
+   * Validation failed
+   *
+   *
+   * @since 0.2.0
+   * @access private
+   */
+  private function validate_fail() {
+    $url_query = null;
+    $url = add_query_arg( $this->input, wp_get_referer() );
+    wp_safe_redirect( $url );    
   }
 
   /**
