@@ -72,13 +72,15 @@ class Form_Validation {
 	 *
 	 */
 	function __construct($action, $rules) {
-		$sane_action = sanitize_text_field( $_POST['action'] );
-
-		if ($sane_action == $action) {
-			$this->action = $sane_action;
-			$this->rules = $rules;
-			$this->add_actions();
-		}
+		if($_POST){
+			$sane_action = sanitize_text_field( $_POST['action'] );
+			
+			if ($sane_action == $action) {
+				$this->action = $sane_action;
+				$this->rules = $rules;
+				$this->add_actions();
+			}
+		} 
 	}
 
 	/**
