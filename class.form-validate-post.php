@@ -1,9 +1,10 @@
 <?php defined( 'ABSPATH' ) or die();
 
 /**
- * Summary
+ * Performs the input validation
  *
- * Description
+ * Uses Valitron to validate form
+ * If form validates, an action is triggered
  *
  * @since 0.2.0
  */
