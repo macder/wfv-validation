@@ -132,8 +132,8 @@ class Form_Validation {
 		$this->sanitize();
 		$this->create_valitron();
 
-		$this->valitron->validate();
-		do_action('validate_'. $this->action, $this->valitron);
+		// $this->valitron->validate();
+		do_action('validate_'. $this->action, $this);
 	}
 
 }
