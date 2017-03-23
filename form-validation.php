@@ -16,4 +16,4 @@ define( 'FORM_VALIDATION__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once( FORM_VALIDATION__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validation.php' );
-
+require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
