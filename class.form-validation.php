@@ -27,15 +27,6 @@ class Form_Validation {
 	 */
 	protected $rules;
 
-	/**
-	 * Instance of Valitron\Validator
-	 *
-	 * @since 0.1.0
-	 * @access public
-	 * @var class $valitron Valitron\Validator.
-	 */
-	// public $valitron;
-
 
 	/**
 	 * Class constructor
@@ -51,20 +42,6 @@ class Form_Validation {
 		$this->action = $action;
 		$this->rules = $rules;
 		$this->add_actions();
-	}
-
-
-	/**
-	 * Create an instance of Valitron\Validator, assign to $valitron property
-	 * Map $rules property Valitron
-	 *
-	 *
-	 * @since 0.1.0
-	 * @access private
-	 */
-	private function create_valitron() {
-		$this->valitron = new Valitron\Validator($this->sane_post);
-		$this->valitron->mapFieldsRules($this->rules);
 	}
 
 	/**
@@ -86,11 +63,7 @@ class Form_Validation {
 	 * @since 0.1.0
 	 */
 	public function validate() {
-		/*$this->sanitize();
-		$this->create_valitron();*/
-
 		$validate = new Form_Validate_Post( $this->rules );
-
 		// do_action('validate_'. $this->action, $this);
 	}
 
