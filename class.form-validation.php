@@ -109,15 +109,12 @@ class Form_Validation {
 	 * @since 0.1.0
 	 */
 	public function validate() {
-        // echo 'validate';
 		/*$this->sanitize();
 		$this->create_valitron();*/
 
-		do_action('validate_'. $this->action, $this);
+		$validate = new Form_Validate_Post();
+
+		// do_action('validate_'. $this->action, $this);
 	}
 
 }
-
-// add_action( 'admin_post_nopriv_'. $this->action, array( $this, 'validate' ) );
-// add_action( 'admin_post_'. $this->action, array( $this, 'validate' ) );
-// $GLOBALS['validator'] = new Form_Validation();
