@@ -13,19 +13,19 @@ class Form_Validation {
 	 * Form identifier
 	 *
 	 * @since 0.1.0
-	 * @access protected
+	 * @access public
 	 * @var array $action
 	 */
-	protected $action;
+	public $action;
 
 	/**
 	 * Validation rules
 	 *
 	 * @since 0.1.0
-	 * @access protected
+	 * @access public
 	 * @var array $rules Form validation rules.
 	 */
-	protected $rules;
+	public $rules;
 
 
 	/**
@@ -61,10 +61,11 @@ class Form_Validation {
 	 * Prepares $_POST data for sanitation and validation
 	 *
 	 * @since 0.1.0
+	 * @access public
 	 */
 	public function validate() {
-		$validate = new Form_Validate_Post( $this->rules );
-		// do_action('validate_'. $this->action, $this);
+		// $this->result = new Form_Validate_Post( $this->rules );
+		do_action(FORM_VALIDATION__ACTION_POST, $this->rules);
 	}
 
 }
