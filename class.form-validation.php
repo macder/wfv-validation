@@ -27,6 +27,14 @@ class Form_Validation {
 	 */
 	public $rules;
 
+	/**
+	 * User input from failed validation
+	 *
+	 * @since 0.2.1
+	 * @access public
+	 * @var array $input Form validation rules.
+	 */
+	public $input;
 
 	/**
 	 * Class constructor
@@ -39,9 +47,26 @@ class Form_Validation {
 	 *
 	 */
 	function __construct($action, $rules) {
+		$this->is_retry();
 		$this->action = $action;
 		$this->rules = $rules;
 		$this->add_actions();
+	}
+
+	/**
+	 * Check if this is a retry
+	 * If form validation failed, there will be get vars
+	 * Assign them to property so theme can re-populate fields
+	 *
+	 * @since 0.2.1
+	 * @access private
+	 */
+	private function is_retry() {
+		if ($_GET){
+	    foreach ( $_GET as $key => $value ) {
+	      $this->input[sanitize_key($key)] = sanitize_text_field($value);
+	    }
+		}
 	}
 
 	/**
@@ -66,5 +91,4 @@ class Form_Validation {
 	public function validate() {
 		do_action(FORM_VALIDATION__ACTION_POST, $this);
 	}
-
 }

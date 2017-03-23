@@ -85,7 +85,7 @@ class Form_Validate_Post {
   private function validate_fail() {
     $url_query = null;
     $url = add_query_arg( $this->input, wp_get_referer() );
-    wp_safe_redirect( $url );    
+    wp_safe_redirect( $url );
   }
 
   /**
