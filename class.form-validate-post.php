@@ -18,14 +18,6 @@ class Form_Validate_Post {
    */
   protected $input = array();
 
-  /**
-   * Validation rules
-   *
-   * @since 0.2.0
-   * @access protected
-   * @var array $rules Form validation rules.
-   */
-  protected $rules;
 
   /**
    * Instance of Valitron\Validator
