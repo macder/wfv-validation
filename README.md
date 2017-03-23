@@ -56,20 +56,24 @@ Basic example:
 ```php
 <?php
 
-$action = 'contact_form';
+$action = 'contact_form'; // unique indenfier - value from hidden action field
 $rules = array(
   'name' => [ 'required' ],
   'email'=> [ 'email', 'required' ]
 );
 
+// instantiate form validation
 $validate_contact = new Form_Validation( $action, $rules );
 
+// action for validation pass
 add_action( 'valid_'.$action, 'valid_contact' );
 
 function valid_contact($input) {
-  print_r($input); // the user input
-  echo 'form validated, do something...';
+  // form validated, do something...
+  echo $input['name'];
+  echo $input['email'];
 }
+
 ```
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
