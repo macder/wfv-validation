@@ -55,17 +55,10 @@ class Form_Validation {
 	 * @param array $rules Validation rules
 	 *
 	 */
-	function __construct($action = null, $rules = null) {
-        // echo 'constructor';
-		if($_POST){
-			$sane_action = sanitize_text_field( $_POST['action'] );
-			
-			if ($sane_action == $action) {
-				$this->action = $sane_action;
-				$this->rules = $rules;
-				$this->add_actions();
-			}
-		} 
+	function __construct($action, $rules) {
+		$this->action = $action;
+		$this->rules = $rules;
+		$this->add_actions();
 	}
 
 
