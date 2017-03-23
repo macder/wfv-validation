@@ -37,10 +37,10 @@ class Form_Validate_Post {
    * @param array $rules Validation rules
    *
    */
-  function __construct($rules) {
+  function __construct($form) {
     $this->sanitize_post();
-    $this->create_valitron($rules);
-    $this->validate();
+    $this->create_valitron($form->rules);
+    $this->validate($form);
   }
 
   /**
@@ -64,11 +64,11 @@ class Form_Validate_Post {
    * @since 0.2.0
    * @access private
    */
-  private function validate() {
+  private function validate($form) {
     $v = $this->valitron;
 
     if ($v->validate()) {
-      echo 'thanks... emailing';
+      do_action(FORM_VALIDATION__PASS . $form->action);
     } else {
       $this->validate_fail();
     }
