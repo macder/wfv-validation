@@ -68,7 +68,7 @@ class Form_Validate_Post {
     $v = $this->valitron;
 
     if ($v->validate()) {
-      do_action(FORM_VALIDATION__PASS . $form->action);
+      do_action(FORM_VALIDATION__PASS . $form->action, $this->input);
     } else {
       $this->validate_fail();
     }
