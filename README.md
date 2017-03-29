@@ -52,7 +52,6 @@ The unique identifier for the form is the action value:
 
 Set rules and instantiate validation class in functions.php, or wherever it makes sense.
 
-Basic example:
 ```php
 <?php
 
@@ -77,6 +76,18 @@ function valid_contact($input) {
 ```
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
+
+
+The `input` property on `Form_Validation` contains the users input, and can be used to pre-populate form fields after a failed validation
+
+```php
+<?php
+echo $validate_contact->input['name'];
+```
+
+```html
+<input id="name" name="name" type="text" value="<?= $validate_contact->input['name']; ?>">
+```
 
 ## Development
 
