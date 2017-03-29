@@ -3,7 +3,7 @@
 Plugin Name: Form Validation
 Plugin URI:  https://github.com/macder/wp-form-validation
 Description: See README.md
-Version:     0.2
+Version:     0.2.1
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
 License:     GPL3
