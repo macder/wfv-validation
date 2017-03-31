@@ -36,6 +36,8 @@ class Form_Validation {
 	 */
 	public $input;
 
+	public $nonce_field;
+
 
 	/**
 	 * Class constructor
@@ -51,7 +53,15 @@ class Form_Validation {
 		$this->is_retry();
 		$this->action = $action;
 		$this->rules = $rules;
+		$this->create_nonce_field();
 		$this->add_actions();
+	}
+
+	private function create_nonce_field() {
+		$nonce_action = $this->action;
+		$nonce_name = $this->action.'_token';
+
+		$this->nonce_field = wp_nonce_field( $nonce_action, $nonce_name, false, false );
 	}
 
 	/**
