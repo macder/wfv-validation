@@ -21,8 +21,18 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitro
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validation.php' );
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
 
-function wfv_create($action, $rules) {
-		return new Form_Validation( $action, $rules );
+/**
+ * Instantiate and return a new Form_Validation
+ * Specific to the form defined in $name
+ *
+ * @since 0.3.0
+ *
+ * @param string $name Unique form name
+ * @param array $rules Validation rules
+ * @return Form_Validation
+ */
+function wfv_create($name, $rules) {
+		return new Form_Validation( $name, $rules );
 }
 
 add_action( FORM_VALIDATION__ACTION_POST, 'validate', 10, 1 );
