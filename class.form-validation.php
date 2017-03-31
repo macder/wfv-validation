@@ -36,6 +36,7 @@ class Form_Validation {
 	 */
 	public $input;
 
+
 	/**
 	 * Class constructor
 	 * check if action parameter matches sane $_POST action value
@@ -63,9 +64,9 @@ class Form_Validation {
 	 */
 	private function is_retry() {
 		if ($_GET){
-	    foreach ( $_GET as $key => $value ) {
-	      $this->input[sanitize_key($key)] = sanitize_text_field($value);
-	    }
+			foreach ( $_GET as $key => $value ) {
+				$this->input[sanitize_key($key)] = sanitize_text_field($value);
+			}
 		}
 	}
 

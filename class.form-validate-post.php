@@ -38,9 +38,26 @@ class Form_Validate_Post {
    *
    */
   function __construct($form) {
+    $this->validate_nonce($form->action);
     $this->sanitize_post();
     $this->create_valitron($form->rules);
     $this->validate($form);
+  }
+
+  /**
+   * Verify the nonce
+   * Prevents CSFR exploits
+   *
+   *
+   * @since 0.2.2
+	 * @param string $action
+   * @access private
+   */
+  private function validate_nonce($action) {
+		$nonce = $_REQUEST[$action.'_token'];
+		if ( ! wp_verify_nonce( $nonce, $action ) ) {
+			die( 'invalid token' );
+		}
   }
 
   /**

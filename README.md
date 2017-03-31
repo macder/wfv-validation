@@ -41,6 +41,7 @@ Create a form somewhere in your theme:
   <textarea id="msg"></textarea>
 
   <input type="hidden" name="action" value="contact_form">
+  <?php wp_nonce_field( 'contact_form', 'contact_form_token', false, true ) ?>
   <input type="submit" value="Submit">
 </form>
 ```
