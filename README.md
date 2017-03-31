@@ -33,25 +33,7 @@ Once a release is packaged, install will be the usual WordPress way
 
 ## Getting Started
 
-Create a form somewhere in your theme:
-```html
-<form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
-  <input id="name" name="name" type="text">
-  <input id="email" name="email" type="text">
-  <textarea id="msg"></textarea>
-
-  <input type="hidden" name="action" value="contact_form">
-  <?php wp_nonce_field( 'contact_form', 'contact_form_token', false, true ) ?>
-  <input type="submit" value="Submit">
-</form>
-```
-
-The unique identifier for the form is the action value:
-
-`<input type="hidden" name="action" value="contact_form">`
-
-
-Set rules and instantiate validation class in functions.php, or wherever it makes sense.
+Set rules get the validation class in functions.php, or wherever it makes sense.
 
 ```php
 <?php
@@ -62,13 +44,13 @@ $rules = array(
   'email'=> [ 'email', 'required' ]
 );
 
-// instantiate form validation
-$validate_contact = new Form_Validation( $action, $rules );
+// get a validation class
+$validate_contact = wfv_create( $action, $rules );
 
 // action for validation pass
-add_action( 'valid_'.$action, 'valid_contact' );
+add_action( 'valid_'.$validate_contact->action, 'valid_contact' );
 
-function valid_contact($input) {
+function valid_contact( $input ) {
   // form validated, do something...
   echo $input['name'];
   echo $input['email'];
@@ -79,11 +61,29 @@ function valid_contact($input) {
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
 
 
+Create a form somewhere in your theme:
+```html
+<form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
+  <input id="name" name="name" type="text">
+  <input id="email" name="email" type="text">
+  <textarea id="msg"></textarea>
+
+  <input type="hidden" name="action" value="<?= $validate_contact->action ?>">
+  <?= $validate_contact->nonce_field ?>
+  <input type="submit" value="Submit">
+</form>
+```
+
+The unique identifier for the form is the action value:
+
+`<input type="hidden" name="action" value="contact_form">`
+
+
 The `input` property on `Form_Validation` contains the users input, and can be used to pre-populate form fields after a failed validation
 
 ```php
 <?php
-echo $validate_contact->input['name'];
+print_r( $validate_contact->input );
 ```
 
 ```html
