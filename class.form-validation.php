@@ -57,9 +57,16 @@ class Form_Validation {
 		$this->add_actions();
 	}
 
+	/**
+	 * Create a wp_nonce_field
+	 * Assign it to public $nonce_field property
+	 *
+	 * @since 0.3.0
+	 * @access private
+	 */
 	private function create_nonce_field() {
 		$nonce_action = $this->action;
-		$nonce_name = $this->action.'_token';
+		$nonce_name = $this->action . '_token';
 
 		$this->nonce_field = wp_nonce_field( $nonce_action, $nonce_name, false, false );
 	}
