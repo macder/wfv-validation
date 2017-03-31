@@ -21,7 +21,7 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitro
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validation.php' );
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
 
-add_action(FORM_VALIDATION__ACTION_POST, 'validate', 10, 1);
-function validate($rules) {
-    $result = new Form_Validate_Post($rules);
+add_action( FORM_VALIDATION__ACTION_POST, 'validate', 10, 1 );
+function validate( $rules ) {
+    $result = new Form_Validate_Post( $rules );
 }
