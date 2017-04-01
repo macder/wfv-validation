@@ -105,11 +105,10 @@ class Form_Validation {
   }
 
   /**
-   * Callback for post action
    *
-   * Prepares $_POST data for sanitation and validation
    *
    * @since 0.1.0
+   * @since 0.2.0 POST logic moved to Form_Validation_Post
    * @access public
    */
   public function validate() {
