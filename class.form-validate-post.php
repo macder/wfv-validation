@@ -37,11 +37,11 @@ class Form_Validate_Post {
    * @param array $rules Validation rules
    *
    */
-  function __construct($form) {
-    $this->validate_nonce($form->action);
+  function __construct( $form ) {
+    $this->validate_nonce( $form->action );
     $this->sanitize_post();
-    $this->create_valitron($form->rules);
-    $this->validate($form);
+    $this->create_valitron( $form->rules );
+    $this->validate( $form );
   }
 
   /**
@@ -53,7 +53,7 @@ class Form_Validate_Post {
    * @param string $action
    * @access private
    */
-  private function validate_nonce($action) {
+  private function validate_nonce( $action ) {
     $nonce = $_REQUEST[$action.'_token'];
     if ( ! wp_verify_nonce( $nonce, $action ) ) {
       die( 'invalid token' );
@@ -70,7 +70,7 @@ class Form_Validate_Post {
    */
   private function sanitize_post() {
     foreach ( $_POST as $key => $value ) {
-      $this->input[sanitize_key($key)] = sanitize_text_field($value);
+      $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
     }
   }
 
@@ -81,11 +81,12 @@ class Form_Validate_Post {
    * @since 0.2.0
    * @access private
    */
-  private function validate($form) {
+  private function validate( $form ) {
     $v = $this->valitron;
 
-    if ($v->validate()) {
-      do_action(FORM_VALIDATION__PASS . $form->action, $this->input);
+    if ( $v->validate() ) {
+      $action_hook = FORM_VALIDATION__PASS . $form->action;
+      do_action( $action_hook, $this->input );
     } else {
       $this->validate_fail();
     }
@@ -114,8 +115,8 @@ class Form_Validate_Post {
    * @param array $rules Validation rules
    * @access private
    */
-  private function create_valitron($rules) {
-    $this->valitron = new Valitron\Validator($this->input);
-    $this->valitron->mapFieldsRules($rules);
+  private function create_valitron( $rules ) {
+    $this->valitron = new Valitron\Validator( $this->input );
+    $this->valitron->mapFieldsRules( $rules );
   }
 }
