@@ -33,12 +33,12 @@ Once a release is packaged, install will be the usual WordPress way
 
 ## Getting Started
 
-Set rules get the validation class in functions.php, or wherever it makes sense.
+Set rules and get the validation class in functions.php, or wherever it makes sense.
 
 ```php
 <?php
 
-$action = 'contact_form'; // unique indenfier - value from hidden action field
+$action = 'contact_form'; // unique identifier - value from hidden action field
 $rules = array(
   'name' => [ 'required' ],
   'email'=> [ 'email', 'required' ]
@@ -55,7 +55,6 @@ function valid_contact( $input ) {
   echo $input['name'];
   echo $input['email'];
 }
-
 ```
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
@@ -74,9 +73,10 @@ Create a form somewhere in your theme:
 </form>
 ```
 
-The unique identifier for the form is the action value:
+The unique identifier for the form is the action value.
 
-`<input type="hidden" name="action" value="contact_form">`
+```html
+<input type="hidden" name="action" value="<?= $validate_contact->action ?>">```
 
 
 The `input` property on `Form_Validation` contains the users input, and can be used to pre-populate form fields after a failed validation
@@ -89,6 +89,8 @@ print_r( $validate_contact->input );
 ```html
 <input id="name" name="name" type="text" value="<?= $validate_contact->input['name']; ?>">
 ```
+
+
 
 ## Development
 
