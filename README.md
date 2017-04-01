@@ -45,10 +45,10 @@ $rules = array(
 );
 
 // get a validation class
-$validate_contact = wfv_create( $action, $rules );
+$my_form = wfv_create( $action, $rules );
 
 // action for validation pass
-add_action( 'valid_'.$validate_contact->action, 'valid_contact' );
+add_action( 'valid_'.$my_form->action, 'valid_contact' );
 
 function valid_contact( $input ) {
   // form validated, do something...
@@ -67,8 +67,8 @@ Create a form somewhere in your theme:
   <input id="email" name="email" type="text">
   <textarea id="msg"></textarea>
 
-  <input type="hidden" name="action" value="<?= $validate_contact->action ?>">
-  <?= $validate_contact->nonce_field ?>
+  <input type="hidden" name="action" value="<?= $my_form->action ?>">
+  <?= $my_form->nonce_field ?>
   <input type="submit" value="Submit">
 </form>
 ```
@@ -76,20 +76,18 @@ Create a form somewhere in your theme:
 The unique identifier for the form is the action value.
 
 ```html
-<input type="hidden" name="action" value="<?= $validate_contact->action ?>">```
+<input type="hidden" name="action" value="<?= $my_form->action ?>">```
 
 
 The `input` property on `Form_Validation` contains the users input, and can be used to pre-populate form fields after a failed validation
 
-```php
-<?php
-print_r( $validate_contact->input );
-```
+`$my_form->input`
 
 ```html
-<input id="name" name="name" type="text" value="<?= $validate_contact->input['name']; ?>">
+<input id="name" name="name" type="text" value="<?= $my_form->input['name']; ?>">
 ```
 
+You can create unlimited forms as long as each has a unique `$action` using `$foo = wfv_create( $action, $rules );`
 
 
 ## Development
