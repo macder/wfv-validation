@@ -52,7 +52,7 @@ class Form_Validation {
    * init only if true
    *
    * @since 0.1.0
-   * @since 0.4.0
+   * @since 0.4.0 Reduced to single parameter
    * @param array $form Form configuration (rules, action)
    *
    */
