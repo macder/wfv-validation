@@ -34,14 +34,14 @@ class Form_Validate_Post {
    * __construct
    *
    * @since 0.2.0
-   * @param array $rules Validation rules
+   * @param Object $validation The validation properties
    *
    */
-  function __construct($form) {
-    $this->validate_nonce($form->action);
+  function __construct( $validation ) {
+    $this->validate_nonce( $validation->action );
     $this->sanitize_post();
-    $this->create_valitron($form->rules);
-    $this->validate($form);
+    $this->create_valitron( $validation->rules );
+    $this->validate( $validation );
   }
 
   /**
@@ -53,7 +53,7 @@ class Form_Validate_Post {
    * @param string $action
    * @access private
    */
-  private function validate_nonce($action) {
+  private function validate_nonce( $action ) {
     $nonce = $_REQUEST[$action.'_token'];
     if ( ! wp_verify_nonce( $nonce, $action ) ) {
       die( 'invalid token' );
@@ -70,7 +70,7 @@ class Form_Validate_Post {
    */
   private function sanitize_post() {
     foreach ( $_POST as $key => $value ) {
-      $this->input[sanitize_key($key)] = sanitize_text_field($value);
+      $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
     }
   }
 
@@ -81,11 +81,12 @@ class Form_Validate_Post {
    * @since 0.2.0
    * @access private
    */
-  private function validate($form) {
+  private function validate( $validation ) {
     $v = $this->valitron;
 
-    if ($v->validate()) {
-      do_action(FORM_VALIDATION__PASS . $form->action, $this->input);
+    if ( $v->validate() ) {
+      $action_hook = FORM_VALIDATION__PASS . $validation->action;
+      do_action( $action_hook, $this->input );
     } else {
       $this->validate_fail();
     }
@@ -100,7 +101,6 @@ class Form_Validate_Post {
    * @access private
    */
   private function validate_fail() {
-    $url_query = null;
     $url = add_query_arg( $this->input, wp_get_referer() );
     wp_safe_redirect( $url );
   }
@@ -114,8 +114,8 @@ class Form_Validate_Post {
    * @param array $rules Validation rules
    * @access private
    */
-  private function create_valitron($rules) {
-    $this->valitron = new Valitron\Validator($this->input);
-    $this->valitron->mapFieldsRules($rules);
+  private function create_valitron( $rules ) {
+    $this->valitron = new Valitron\Validator( $this->input );
+    $this->valitron->mapFieldsRules( $rules );
   }
 }

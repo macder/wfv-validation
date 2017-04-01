@@ -76,7 +76,8 @@ Create a form somewhere in your theme:
 The unique identifier for the form is the action value.
 
 ```html
-<input type="hidden" name="action" value="<?= $my_form->action ?>">```
+<input type="hidden" name="action" value="<?= $my_form->action ?>">
+```
 
 
 The `input` property on `Form_Validation` contains the users input, and can be used to pre-populate form fields after a failed validation
