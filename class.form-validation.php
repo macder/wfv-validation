@@ -67,7 +67,6 @@ class Form_Validation {
   private function create_nonce_field() {
     $nonce_action = $this->action;
     $nonce_name = $this->action . '_token';
-
     $this->nonce_field = wp_nonce_field( $nonce_action, $nonce_name, false, false );
   }
 
