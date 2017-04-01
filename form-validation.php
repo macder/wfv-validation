@@ -15,7 +15,6 @@ define( 'FORM_VALIDATION__MINIMUM_WP_VERSION', '4.7' ); // not tested with other
 define( 'FORM_VALIDATION__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 define( 'FORM_VALIDATION__ACTION_POST', 'validate_form' );
-define( 'FORM_VALIDATION__PASS', 'valid_' );
 
 require_once( FORM_VALIDATION__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validation.php' );

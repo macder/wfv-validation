@@ -85,8 +85,7 @@ class Form_Validate_Post {
     $v = $this->valitron;
 
     if ( $v->validate() ) {
-      $action_hook = FORM_VALIDATION__PASS . $validation->action;
-      do_action( $action_hook, $this->input );
+      do_action( $validation->action, $this->input );
     } else {
       $this->validate_fail();
     }
