@@ -36,6 +36,13 @@ class Form_Validation {
    */
   public $input;
 
+  /**
+   * Result from wp_nonce_field()
+   *
+   * @since 0.3.0
+   * @access public
+   * @var string $nonce_field WP rendered nonce field.
+   */
   public $nonce_field;
 
 
