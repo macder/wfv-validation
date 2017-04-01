@@ -36,7 +36,7 @@ Once a release is packaged, install will be the usual WordPress way
 <br>
 In the themes `functions.php`
 
-##### Configure the form and get a validation object:
+#### Configure the form and get a validation object:
 
 ```php
 <?php
@@ -53,7 +53,8 @@ $my_form = wfv_create( $my_form );
 ```
 > For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
 
-##### Create callback function to execute when validation is successful:
+<br>
+#### Create callback function to execute when validation is successful:
 
 ```php
 <?php
@@ -64,8 +65,8 @@ function my_form_valid( $input ) {
 }
 add_action( 'valid_'.$my_form->action, 'my_form_valid' );
 ```
-
-##### Create a form somewhere in your theme:
+<br>
+#### Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
   <input id="name" name="name" type="text">
@@ -85,6 +86,7 @@ add_action( 'valid_'.$my_form->action, 'my_form_valid' );
 ```
 > It connects the form to the validation defined earlier
 
+<br>
 If validation fails, the `input` property on the validation object will be an array of the sanitized key/value pairs the user submitted
 
 This is useful to re-populate the form and not frustrate the users
@@ -93,7 +95,7 @@ eg:
 ```html
 <input id="name" name="name" type="text" value="<?= $my_form->input['name']; ?>">
 ```
-
+<br>
 You can create unlimited forms as long as each has a unique `action` value
 
 
