@@ -56,7 +56,7 @@ class Form_Validation {
    * @param array $rules Validation rules
    *
    */
-  function __construct($action, $rules) {
+  function __construct( $action, $rules ) {
     $this->is_retry();
     $this->action = $action;
     $this->rules = $rules;
@@ -88,7 +88,7 @@ class Form_Validation {
   private function is_retry() {
     if ($_GET){
       foreach ( $_GET as $key => $value ) {
-        $this->input[sanitize_key($key)] = sanitize_text_field($value);
+        $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
       }
     }
   }
@@ -105,13 +105,15 @@ class Form_Validation {
   }
 
   /**
-   *
+   * Callback for POST action
+   * Executes function(s) hooked into validate_form action
+   * Passes this class as parameter
    *
    * @since 0.1.0
    * @since 0.2.0 POST logic moved to Form_Validation_Post
    * @access public
    */
   public function validate() {
-    do_action(FORM_VALIDATION__ACTION_POST, $this);
+    do_action( FORM_VALIDATION__ACTION_POST, $this );
   }
 }
