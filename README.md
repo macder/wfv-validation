@@ -62,7 +62,7 @@ function my_form_valid( $input ) {
   echo $input['name'];
   echo $input['email'];
 }
-add_action( 'valid_'.$my_form->action, 'my_form_valid' );
+add_action( $my_form->action, 'my_form_valid' );
 ```
 
 
