@@ -52,7 +52,8 @@ $my_form = wfv_create( $my_form );
 ```
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
 
-#### Create callback function to execute when validation is successful:
+
+### Create callback function to execute when validation is successful:
 
 ```php
 <?php
@@ -64,7 +65,8 @@ function my_form_valid( $input ) {
 add_action( 'valid_'.$my_form->action, 'my_form_valid' );
 ```
 
-#### Create a form somewhere in your theme:
+
+### Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
   <input id="name" name="name" type="text">
