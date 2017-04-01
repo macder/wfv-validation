@@ -3,14 +3,14 @@
 Plugin Name: Form Validation
 Plugin URI:  https://github.com/macder/wp-form-validation
 Description: See README.md
-Version:     0.2.2
+Version:     0.3
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
 License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
-define( 'FORM_VALIDATION_VERSION', '0.2.2' );
+define( 'FORM_VALIDATION_VERSION', '0.3' );
 define( 'FORM_VALIDATION__MINIMUM_WP_VERSION', '4.7' ); // not tested with other versions
 define( 'FORM_VALIDATION__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
