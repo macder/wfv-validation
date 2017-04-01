@@ -38,7 +38,6 @@ class Form_Validate_Post {
    *
    */
   function __construct( $validation ) {
-    print_r($validation);
     $this->validate_nonce( $validation->action );
     $this->sanitize_post();
     $this->create_valitron( $validation->rules );
