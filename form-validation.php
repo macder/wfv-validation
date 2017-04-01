@@ -36,6 +36,6 @@ function wfv_create($name, $rules) {
 }
 
 add_action( FORM_VALIDATION__ACTION_POST, 'validate', 10, 1 );
-function validate( $rules ) {
-  $result = new Form_Validate_Post( $rules );
+function validate( $validation ) {
+  $result = new Form_Validate_Post( $validation );
 }
