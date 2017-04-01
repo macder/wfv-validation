@@ -50,14 +50,14 @@ class Form_Validate_Post {
    *
    *
    * @since 0.2.2
-	 * @param string $action
+   * @param string $action
    * @access private
    */
   private function validate_nonce($action) {
-		$nonce = $_REQUEST[$action.'_token'];
-		if ( ! wp_verify_nonce( $nonce, $action ) ) {
-			die( 'invalid token' );
-		}
+    $nonce = $_REQUEST[$action.'_token'];
+    if ( ! wp_verify_nonce( $nonce, $action ) ) {
+      die( 'invalid token' );
+    }
   }
 
   /**
