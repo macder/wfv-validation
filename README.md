@@ -33,34 +33,40 @@ Once a release is packaged, install will be the usual WordPress way
 
 ## Getting Started
 
-Set rules and get the validation class in functions.php, or wherever it makes sense.
+
+### Configure the form and get a validation object
+
 
 ```php
 <?php
-
-$action = 'contact_form'; // unique identifier - value from hidden action field
-$rules = array(
-  'name' => [ 'required' ],
-  'email'=> [ 'email', 'required' ]
+$my_form = array(
+  'action'  => 'contact_form', // unique identifier
+  'rules'   => array(
+    'name'  => ['required'],
+    'email' => ['email', 'required'],
+    'org'   => ['required']
+  )
 );
 
-// get a validation class
-$my_form = wfv_create( $action, $rules );
+$my_form = wfv_create( $my_form );
+```
+For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
 
-// action for validation pass
-add_action( 'valid_'.$my_form->action, 'valid_contact' );
 
-function valid_contact( $input ) {
+### Create callback function to execute when validation is successful:
+
+```php
+<?php
+function my_form_valid( $input ) {
   // form validated, do something...
   echo $input['name'];
   echo $input['email'];
 }
+add_action( $my_form->action, 'my_form_valid' );
 ```
 
-For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
 
-
-Create a form somewhere in your theme:
+### Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
   <input id="name" name="name" type="text">
@@ -72,23 +78,22 @@ Create a form somewhere in your theme:
   <input type="submit" value="Submit">
 </form>
 ```
-
 The unique identifier for the form is the action value.
-
 ```html
 <input type="hidden" name="action" value="<?= $my_form->action ?>">
 ```
+It connects the form to the validation defined earlier
 
+If validation fails, the `input` property on the validation object will be an array of the sanitized key/value pairs the user submitted
 
-The `input` property on `Form_Validation` contains the users input, and can be used to pre-populate form fields after a failed validation
+This is useful to re-populate the form and not frustrate the users
 
-`$my_form->input`
-
+eg:
 ```html
 <input id="name" name="name" type="text" value="<?= $my_form->input['name']; ?>">
 ```
 
-You can create unlimited forms as long as each has a unique `$action` using `$foo = wfv_create( $action, $rules );`
+You can create unlimited forms as long as each has a unique `action` value
 
 
 ## Development

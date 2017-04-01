@@ -52,14 +52,14 @@ class Form_Validation {
    * init only if true
    *
    * @since 0.1.0
-   * @param string $action Action that identifies the form
-   * @param array $rules Validation rules
+   * @since 0.4.0 Reduced to single parameter
+   * @param array $form Form configuration (rules, action)
    *
    */
-  function __construct( $action, $rules ) {
+  function __construct( $form ) {
     $this->is_retry();
-    $this->action = $action;
-    $this->rules = $rules;
+    $this->action = $form['action'];
+    $this->rules = $form['rules'];
     $this->create_nonce_field();
     $this->add_actions();
   }
