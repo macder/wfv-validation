@@ -105,7 +105,9 @@ class Form_Validation {
   }
 
   /**
-   *
+   * Callback for POST action
+   * Executes function(s) hooked into validate_form action
+   * Passes this class as parameter
    *
    * @since 0.1.0
    * @since 0.2.0 POST logic moved to Form_Validation_Post
