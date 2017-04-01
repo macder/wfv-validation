@@ -26,9 +26,9 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
  * Specific to the form defined in $name
  *
  * @since 0.3.0
+ * @since 0.4.0 reduced to single array parameter
  *
- * @param string $name Unique form name
- * @param array $rules Validation rules
+ * @param array $form Form configuration (rules, action)
  * @return Form_Validation
  */
 function wfv_create( $form ) {
