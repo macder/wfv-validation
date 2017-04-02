@@ -26,6 +26,7 @@ class Form_Validation {
    * @var array $rules Form validation rules.
    */
   public $rules;
+  public $rules = array();
 
   /**
    * User input from failed validation
@@ -58,10 +59,22 @@ class Form_Validation {
    */
   function __construct( $form ) {
     $this->is_retry();
-    $this->action = $form['action'];
-    $this->rules = $form['rules'];
+    $this->set_config( $form );
     $this->create_nonce_field();
     $this->add_actions();
+
+  /**
+   * Assign $form config to properties
+   *
+   *
+   * @since 0.4.0
+   * @param array $form Form configuration
+   * @access private
+   */
+  private function set_config( $form ) {
+    foreach( $form as $property => $value ) {
+      $this->$property = $value;
+    }
   }
 
   /**
