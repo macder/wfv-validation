@@ -14,7 +14,7 @@ class Form_Validation {
    *
    * @since 0.1.0
    * @access public
-   * @var array $action
+   * @var string $action
    */
   public $action;
 
@@ -25,7 +25,16 @@ class Form_Validation {
    * @access public
    * @var array $rules Form validation rules.
    */
-  public $rules;
+  public $rules = array();
+
+  /**
+   * Error message overrides
+   *
+   * @since 0.4.0
+   * @access public
+   * @var array $messages The field/rule paired messages.
+   */
+  public $messages = array();
 
   /**
    * User input from failed validation
@@ -34,7 +43,7 @@ class Form_Validation {
    * @access public
    * @var array $input Form validation rules.
    */
-  public $input;
+  public $input = array();
 
   /**
    * Result from wp_nonce_field()
@@ -58,10 +67,23 @@ class Form_Validation {
    */
   function __construct( $form ) {
     $this->is_retry();
-    $this->action = $form['action'];
-    $this->rules = $form['rules'];
+    $this->set_config( $form );
     $this->create_nonce_field();
     $this->add_actions();
+  }
+
+  /**
+   * Assign $form config to properties
+   *
+   *
+   * @since 0.4.0
+   * @param array $form Form configuration
+   * @access private
+   */
+  private function set_config( $form ) {
+    foreach( $form as $property => $value ) {
+      $this->$property = $value;
+    }
   }
 
   /**
