@@ -34,7 +34,7 @@ Once a release is packaged, install will be the usual WordPress way
 ## Getting Started
 
 
-### Configure the validation rules
+### Configure the validation rules:
 
 ```php
 <?php
@@ -51,7 +51,7 @@ $my_form = array(
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
 
-### Set custom error messages
+### Set custom error messages:
 
 ```php
 <?php
@@ -76,13 +76,13 @@ $my_form = array(
 );
 ```
 
-### Pass your configuration into the validator
+### Create a new validation instance for the form:
 
 ```php
 <?php
 $my_form = wfv_create( $my_form );
 ```
-This will create a new validator instance and return your config as an object.
+This will create a new validation instance and return your config as an object.
 
 
 ### Create callback function to execute when validation is successful:
@@ -117,7 +117,7 @@ The unique identifier for the form is the action value.
 ```
 It connects the form to the configuration defined in `$my_form`
 
-If validation fails, the `input` property on the form config object will be an array of the sanitized key/value pairs the user submitted
+If validation fails, the `input` property on the form config object will be an array of sanitized key/value pairs the user submitted
 
 Use it to re-populate the form
 
