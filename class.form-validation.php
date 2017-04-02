@@ -14,7 +14,7 @@ class Form_Validation {
    *
    * @since 0.1.0
    * @access public
-   * @var array $action
+   * @var string $action
    */
   public $action;
 
