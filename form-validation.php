@@ -26,12 +26,12 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
  *
  * @since 0.3.0
  * @since 0.4.0 reduced to single array parameter
+ * @since 0.5.0 $form parameter creates reference
  *
  * @param array $form Form configuration (rules, action)
- * @return Form_Validation
  */
-function wfv_create( $form ) {
-  return new Form_Validation( $form );
+function wfv_create( &$form ) {
+  $form = new Form_Validation( $form );
 }
 
 add_action( FORM_VALIDATION__ACTION_POST, 'validate', 10, 1 );
