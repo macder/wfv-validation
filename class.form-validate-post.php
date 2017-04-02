@@ -34,14 +34,14 @@ class Form_Validate_Post {
    * __construct
    *
    * @since 0.2.0
-   * @param Object $validation The validation properties
+   * @param Object $form The validation properties
    *
    */
-  function __construct( $validation ) {
-    $this->validate_nonce( $validation->action );
+  function __construct( $form ) {
+    $this->validate_nonce( $form->action );
     $this->sanitize_post();
-    $this->create_valitron( $validation->rules );
-    $this->validate( $validation );
+    $this->create_valitron( $form );
+    $this->validate( $form );
   }
 
   /**
@@ -84,11 +84,11 @@ class Form_Validate_Post {
    * @since 0.2.0
    * @access private
    */
-  private function validate( $validation ) {
+  private function validate( $form ) {
     $v = $this->valitron;
 
     if ( $v->validate() ) {
-      do_action( $validation->action, $this->input );
+      do_action( $form->action, $this->input );
     } else {
       $this->validate_fail();
     }
