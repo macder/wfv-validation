@@ -105,31 +105,42 @@ class Form_Validate_Post {
   }
 
   /**
-   * Create an instance of Valitron\Validator, assign to $valitron property
+   * Create an instance of Valitron\Validator with our rules / messages
+   * Assign to $valitron property
    *
    *
    * @since 0.2.0
-   * @since 0.5.0
    * @param array $form Form configuration array
    */
   public function create_valitron( $form ) {
     $this->valitron = new Valitron\Validator( $this->input );
+    $rules_to_map = $this->custom_message_rules( $form );
+    $this->valitron->mapFieldsRules( $rules_to_map );
+  }
 
+  /**
+   * Check for custom error messages in $form config
+   * Add rules with custom messages individually to Valitron
+   *
+   *
+   * @since 0.5.0
+   *
+   * @param array $form Form configuration array
+   * @return array Form rules that didn't have custom messages
+   */
+   private function custom_message_rules( $form ) {
     foreach( $form->rules as $field => $rules ) {
-
       // check if this field has any custom error msgs
       if ( array_key_exists( $field, $form->messages ) ) {
         foreach ( $form->messages[ $field ] as $rule => $message ) {
-
           // add the rule with custom error message
           $this->valitron->rule( $rule, $field )->message( $message );
-
           // remove the rule from $form config or it will get mapped again later
           $key = array_search( $rule, $rules );
           unset( $form->rules[ $field ][ $key ] );
         }
       }
     }
-    $this->valitron->mapFieldsRules( $form->rules );
+    return $form->rules;
   }
 }
