@@ -70,6 +70,7 @@ class Form_Validation {
     $this->set_config( $form );
     $this->create_nonce_field();
     $this->add_actions();
+  }
 
   /**
    * Assign $form config to properties
