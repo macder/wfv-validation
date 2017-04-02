@@ -29,6 +29,15 @@ class Form_Validation {
   public $rules = array();
 
   /**
+   * Error message overrides
+   *
+   * @since 0.4.0
+   * @access public
+   * @var array $messages The field/rule paired messages.
+   */
+  public $messages = array();
+
+  /**
    * User input from failed validation
    *
    * @since 0.2.1
