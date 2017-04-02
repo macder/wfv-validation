@@ -70,10 +70,7 @@ class Form_Validate_Post {
    */
   private function sanitize_post() {
     foreach ( $_POST as $key => $value ) {
-      $key = sanitize_key( $key );
-      $value = sanitize_text_field( $value );
-      $this->input[ $key ] = $value;
-      // $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
+      $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
     }
   }
 
