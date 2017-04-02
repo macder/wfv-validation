@@ -17,6 +17,11 @@ In a nutshell, it's an interface for [Valitron](https://github.com/vlucas/valitr
 
 Boom
 
+## TODO:
+- Expose an api for the front end to support singe configuration.
+- Support for custom validation rules.
+- Store validation result in session or cookie to eliminate ugly url query.
+- Standardize storage for default error messages.
 
 ## Install
 
