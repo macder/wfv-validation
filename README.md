@@ -115,11 +115,11 @@ The unique identifier for the form is the action value.
 ```html
 <input type="hidden" name="action" value="<?= $my_form->action ?>">
 ```
-It connects the form to the validation defined earlier
+It connects the form to the configuration defined in `$my_form`
 
-If validation fails, the `input` property on the validation object will be an array of the sanitized key/value pairs the user submitted
+If validation fails, the `input` property on the form config object will be an array of the sanitized key/value pairs the user submitted
 
-This is useful to re-populate the form and not frustrate the users
+Use it to re-populate the form
 
 eg:
 ```html
