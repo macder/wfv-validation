@@ -34,23 +34,55 @@ Once a release is packaged, install will be the usual WordPress way
 ## Getting Started
 
 
-### Configure the form and get a validation object
-
+### Configure the validation rules
 
 ```php
 <?php
 $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
-    'name'  => ['required'],
-    'email' => ['email', 'required'],
-    'org'   => ['required']
+    'name'      => ['required'],
+    'email'     => ['email', 'required'],
+    'website'   => ['required', 'url'],
+    'msg'       => ['required']
   )
 );
+```
 
+For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
+
+### Set custom error messages
+
+```php
+<?php
+$my_form = array(
+  'action'  => 'contact_form', // unique identifier
+  'rules'   => array(
+    'name'      => ['required'],
+    'email'     => ['email', 'required'],
+    'website'   => ['url'],
+    'msg'       => ['required']
+  ),
+
+  // override an error msg
+  'messages' => [
+    'email' => array(
+      'required' => 'Your email is required so we can reply back'
+    ),
+    'website' => array(
+      'url' => 'The website url is invalid'
+    )
+  ]  
+);
+```
+
+### Pass your configuration into the validator
+
+```php
+<?php
 $my_form = wfv_create( $my_form );
 ```
-For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
+This will create a new validator instance and return your config as an object.
 
 
 ### Create callback function to execute when validation is successful:
@@ -65,12 +97,12 @@ function my_form_valid( $input ) {
 add_action( $my_form->action, 'my_form_valid' );
 ```
 
-
 ### Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
   <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
+  <input id="website" name="website" type="text">
   <textarea id="msg"></textarea>
 
   <input type="hidden" name="action" value="<?= $my_form->action ?>">
@@ -78,6 +110,7 @@ add_action( $my_form->action, 'my_form_valid' );
   <input type="submit" value="Submit">
 </form>
 ```
+
 The unique identifier for the form is the action value.
 ```html
 <input type="hidden" name="action" value="<?= $my_form->action ?>">
