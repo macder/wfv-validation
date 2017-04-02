@@ -25,7 +25,6 @@ class Form_Validation {
    * @access public
    * @var array $rules Form validation rules.
    */
-  public $rules;
   public $rules = array();
 
   /**
@@ -44,7 +43,7 @@ class Form_Validation {
    * @access public
    * @var array $input Form validation rules.
    */
-  public $input;
+  public $input = array();
 
   /**
    * Result from wp_nonce_field()
