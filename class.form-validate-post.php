@@ -34,14 +34,14 @@ class Form_Validate_Post {
    * __construct
    *
    * @since 0.2.0
-   * @param Object $validation The validation properties
+   * @param Object $form The validation properties
    *
    */
-  function __construct( $validation ) {
-    $this->validate_nonce( $validation->action );
+  function __construct( $form ) {
+    $this->validate_nonce( $form->action );
     $this->sanitize_post();
-    $this->create_valitron( $validation->rules );
-    $this->validate( $validation );
+    $this->create_valitron( $form );
+    $this->validate( $form );
   }
 
   /**
@@ -70,7 +70,7 @@ class Form_Validate_Post {
    */
   private function sanitize_post() {
     foreach ( $_POST as $key => $value ) {
-      $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
+      $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
     }
   }
 
@@ -81,11 +81,11 @@ class Form_Validate_Post {
    * @since 0.2.0
    * @access private
    */
-  private function validate( $validation ) {
+  private function validate( $form ) {
     $v = $this->valitron;
 
     if ( $v->validate() ) {
-      do_action( $validation->action, $this->input );
+      do_action( $form->action, $this->input );
     } else {
       $this->validate_fail();
     }
@@ -105,16 +105,42 @@ class Form_Validate_Post {
   }
 
   /**
-   * Create an instance of Valitron\Validator, assign to $valitron property
-   * Map $rules property Valitron
+   * Create an instance of Valitron\Validator with our rules / messages
+   * Assign to $valitron property
    *
    *
    * @since 0.2.0
-   * @param array $rules Validation rules
-   * @access private
+   * @param array $form Form configuration array
    */
-  private function create_valitron( $rules ) {
+  public function create_valitron( $form ) {
     $this->valitron = new Valitron\Validator( $this->input );
-    $this->valitron->mapFieldsRules( $rules );
+    $rules_to_map = $this->custom_message_rules( $form );
+    $this->valitron->mapFieldsRules( $rules_to_map );
+  }
+
+  /**
+   * Check for custom error messages in $form config
+   * Add rules with custom messages individually to Valitron
+   *
+   *
+   * @since 0.5.0
+   *
+   * @param array $form Form configuration array
+   * @return array Form rules that didn't have custom messages
+   */
+   private function custom_message_rules( $form ) {
+    foreach( $form->rules as $field => $rules ) {
+      // check if this field has any custom error msgs
+      if ( array_key_exists( $field, $form->messages ) ) {
+        foreach ( $form->messages[ $field ] as $rule => $message ) {
+          // add the rule with custom error message
+          $this->valitron->rule( $rule, $field )->message( $message );
+          // remove the rule from $form config or it will get mapped again later
+          $key = array_search( $rule, $rules );
+          unset( $form->rules[ $field ][ $key ] );
+        }
+      }
+    }
+    return $form->rules;
   }
 }
