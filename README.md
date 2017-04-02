@@ -1,4 +1,5 @@
-# wp-form-validation
+# WPFV
+## WordPress Form validation
 
 ** WORK IN PROGRESS **
 
