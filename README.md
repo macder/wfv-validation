@@ -80,9 +80,11 @@ $my_form = array(
 
 ```php
 <?php
-$my_form = wfv_create( $my_form );
+wfv_create( $my_form );
+
+print_r( $my_form );
 ```
-This will create a new validation instance and return your config as an object.
+This will create a new validation instance and assign the form config as an object by reference to `$my_form`
 
 
 ### Create callback function to execute when validation is successful:
