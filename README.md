@@ -1,4 +1,5 @@
-# wp-form-validation
+# WPFV
+## WordPress Form validation
 
 ** WORK IN PROGRESS **
 
@@ -16,41 +17,80 @@ In a nutshell, it's an interface for [Valitron](https://github.com/vlucas/valitr
 
 Boom
 
+## TODO:
+- Expose an api for the front end to support singe configuration.
+- Support for custom validation rules.
+- Store validation result in session or cookie to eliminate ugly url query.
+- Standardize storage for default error messages.
 
 ## Install
 
-Currently there is no release available
+Currently there is no release available.
 
-Under active development - Not recommended for usage yet
+Under active development - Not recommended for usage yet. Major changes are introduced frequently.
 
-If you can't wait, install as development
+If you can't wait, install as development.
 
 `$ git clone` inside `./wp-content/plugins`
 
 `$ composer install`
 
-Once a release is packaged, install will be the usual WordPress way
+Once a release is packaged, install will be the usual WordPress way.
 
 ## Getting Started
 
 
-### Configure the form and get a validation object
-
+### Configure the validation rules:
 
 ```php
 <?php
 $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
-    'name'  => ['required'],
-    'email' => ['email', 'required'],
-    'org'   => ['required']
+    'name'      => ['required'],
+    'email'     => ['email', 'required'],
+    'website'   => ['required', 'url'],
+    'msg'       => ['required']
   )
 );
-
-$my_form = wfv_create( $my_form );
 ```
-For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc
+
+For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc.
+
+### Set custom error messages:
+
+```php
+<?php
+$my_form = array(
+  'action'  => 'contact_form', // unique identifier
+  'rules'   => array(
+    'name'      => ['required'],
+    'email'     => ['email', 'required'],
+    'website'   => ['url'],
+    'msg'       => ['required']
+  ),
+
+  // override an error msg
+  'messages' => [
+    'email' => array(
+      'required' => 'Your email is required so we can reply back'
+    ),
+    'website' => array(
+      'url' => 'The website url is invalid'
+    )
+  ]  
+);
+```
+
+### Create a new validation instance for the form:
+
+```php
+<?php
+wfv_create( $my_form );
+
+print_r( $my_form );
+```
+This will create a new validation instance and assign by reference the form config as an object.
 
 
 ### Create callback function to execute when validation is successful:
@@ -65,12 +105,12 @@ function my_form_valid( $input ) {
 add_action( $my_form->action, 'my_form_valid' );
 ```
 
-
 ### Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
   <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
+  <input id="website" name="website" type="text">
   <textarea id="msg"></textarea>
 
   <input type="hidden" name="action" value="<?= $my_form->action ?>">
@@ -78,22 +118,23 @@ add_action( $my_form->action, 'my_form_valid' );
   <input type="submit" value="Submit">
 </form>
 ```
+
 The unique identifier for the form is the action value.
 ```html
 <input type="hidden" name="action" value="<?= $my_form->action ?>">
 ```
-It connects the form to the validation defined earlier
+It connects the form to the configuration defined in `$my_form`.
 
-If validation fails, the `input` property on the validation object will be an array of the sanitized key/value pairs the user submitted
+If validation fails, the `input` property on the form config object will be an array of sanitized key/value pairs the user submitted.
 
-This is useful to re-populate the form and not frustrate the users
+Use it to re-populate the form.
 
 eg:
 ```html
 <input id="name" name="name" type="text" value="<?= $my_form->input['name']; ?>">
 ```
 
-You can create unlimited forms as long as each has a unique `action` value
+You can create unlimited forms as long as each has a unique `action` value.
 
 
 ## Development
