@@ -98,15 +98,15 @@ class Form_Validation {
   }
 
   /**
-   * Check if this is a retry
-   * If form validation failed, there will be get vars
-   * Assign them to property so theme can re-populate fields
+   * If validation failed, there are get vars
+   * Sanitize and assign $_GET to $input property
    *
    * @since 0.2.1
+   * @since 0.5.1 Renamed from is_retry
    * @access private
    */
-  private function is_retry() {
-    if ($_GET){
+  private function set_inputs() {
+    if ( $_GET && $_GET['action'] === $this->action ) {
       foreach ( $_GET as $key => $value ) {
         $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
       }
