@@ -46,10 +46,6 @@ class WFV_Validate {
     // print_r($this);
   }
 
-  public function test() {
-    echo 'test';
-  }
-
   /**
    * Verify the nonce
    * Prevents CSFR exploits
