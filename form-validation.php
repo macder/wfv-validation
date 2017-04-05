@@ -30,7 +30,7 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-form.php' );
  *
  * @param array $form Form configuration (rules, action)
  */
-function wpfv_create( &$form ) {
+function wfv_create( &$form ) {
   $form = new WFV_Form( $form );
 }
 
