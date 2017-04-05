@@ -57,8 +57,6 @@ class Form_Validation {
 
   /**
    * Class constructor
-   * check if action parameter matches sane $_POST action value
-   * init only if true
    *
    * @since 0.1.0
    * @since 0.4.0 Reduced to single parameter
@@ -66,29 +64,28 @@ class Form_Validation {
    *
    */
   function __construct( $form ) {
-    $this->is_retry();
-    $this->set_config( $form );
-    $this->create_nonce_field();
-    $this->add_actions();
+    $this->set_properties( $form );
   }
 
   /**
    * Assign $form config to properties
    *
-   *
    * @since 0.4.0
+   * @since 0.5.1 Renamed from set_config
    * @param array $form Form configuration
    * @access private
    */
-  private function set_config( $form ) {
+  private function set_properties( $form ) {
     foreach( $form as $property => $value ) {
       $this->$property = $value;
     }
+    $this->create_nonce_field();
+    $this->set_inputs();
   }
 
   /**
    * Create a wp_nonce_field
-   * Assign it to public $nonce_field property
+   * Assign to $nonce_field property
    *
    * @since 0.3.0
    * @access private
@@ -100,15 +97,15 @@ class Form_Validation {
   }
 
   /**
-   * Check if this is a retry
-   * If form validation failed, there will be get vars
-   * Assign them to property so theme can re-populate fields
+   * If validation failed, there are get vars
+   * Sanitize and assign $_GET to $input property
    *
    * @since 0.2.1
+   * @since 0.5.1 Renamed from is_retry
    * @access private
    */
-  private function is_retry() {
-    if ($_GET){
+  private function set_inputs() {
+    if ( $_GET && $_GET['action'] === $this->action ) {
       foreach ( $_GET as $key => $value ) {
         $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
       }
@@ -118,10 +115,10 @@ class Form_Validation {
   /**
    * Creates unique action hooks for the form POST
    *
-   * @since 0.1.0
-   * @access private
+   * @since 0.1.0 Private
+   * @since 0.5.1 Public
    */
-  private function add_actions() {
+  public function add_actions() {
     add_action( 'admin_post_nopriv_'. $this->action, array( $this, 'validate' ) );
     add_action( 'admin_post_'. $this->action, array( $this, 'validate' ) );
   }
@@ -133,7 +130,6 @@ class Form_Validation {
    *
    * @since 0.1.0
    * @since 0.2.0 POST logic moved to Form_Validation_Post
-   * @access public
    */
   public function validate() {
     do_action( FORM_VALIDATION__ACTION_POST, $this );
