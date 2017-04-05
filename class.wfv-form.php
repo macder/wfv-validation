@@ -36,6 +36,7 @@ class WFV_Form extends WFV_Validate {
       $this->$property = $value;
     }
     $this->create_nonce_field();
+    $this->catch_post();
   }
 
   /**
