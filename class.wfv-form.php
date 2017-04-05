@@ -64,7 +64,7 @@ class WFV_Form extends WFV_Validate {
   public function catch_post() {
     if ( $_POST && $_POST['action'] === $this->action ) {
       foreach ( $_POST as $key => $value ) {
-        $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
+        $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
       }
     }
   }
