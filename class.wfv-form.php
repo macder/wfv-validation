@@ -21,7 +21,6 @@ class WFV_Form extends WFV_Validate {
    */
   function __construct( $form ) {
     $this->set_properties( $form );
-    // $this->action = 'test';
   }
 
   /**
@@ -37,7 +36,6 @@ class WFV_Form extends WFV_Validate {
       $this->$property = $value;
     }
     $this->create_nonce_field();
-    $this->lorem = 'test';
   }
 
   /**
