@@ -11,24 +11,51 @@
  */
 // class Form_Validate_Post {
 class WFV_Validate {
-  /**
-   * Sanitized post data
-   *
-   * @since 0.2.0
-   * @access protected
-   * @var array Sanitized $_POST
-   */
-  protected $input = array();
-
 
   /**
-   * Instance of Valitron\Validator
+   * Form identifier
    *
-   * @since 0.2.0
+   * @since 0.1.0
    * @access public
-   * @var class $valitron Valitron\Validator.
+   * @var string $action
    */
-  public $valitron;
+  public $action;
+
+  /**
+   * Validation rules
+   *
+   * @since 0.1.0
+   * @access public
+   * @var array $rules Form validation rules.
+   */
+  public $rules = array();
+
+  /**
+   * Error message overrides
+   *
+   * @since 0.4.0
+   * @access public
+   * @var array $messages The field/rule paired messages.
+   */
+  public $messages = array();
+
+  /**
+   * User input from failed validation
+   *
+   * @since 0.2.1
+   * @access public
+   * @var array $input Form validation rules.
+   */
+  public $input = array();
+
+  /**
+   * Result from wp_nonce_field()
+   *
+   * @since 0.3.0
+   * @access public
+   * @var string $nonce_field WP rendered nonce field.
+   */
+  public $nonce_field;
 
 
   /**
@@ -39,6 +66,11 @@ class WFV_Validate {
    *
    */
   function __construct( /*$form*/ ) {
+
+    // $this->lorem = 'w0w';
+
+    // print_r($this);
+    // $this->create_valitron( /*$form*/ );
     /*$this->validate_nonce( $form->action );
     $this->sanitize_post();
     $this->create_valitron( $form );
@@ -55,7 +87,7 @@ class WFV_Validate {
    * @param string $action
    * @access private
    */
-  private function validate_nonce( $action ) {
+  protected function validate_nonce( $action ) {
     $nonce = $_REQUEST[$action.'_token'];
     if ( ! wp_verify_nonce( $nonce, $action ) ) {
       die( 'invalid token' );
@@ -83,14 +115,16 @@ class WFV_Validate {
    * @since 0.2.0
    * @access private
    */
-  private function validate( $form ) {
-    $v = $this->valitron;
+  public function validate( /*$form*/ ) {
+    echo $this->action;
+    // $this->validate_nonce( /*$action*/ );
+    // $v = $this->valitron;
 
-    if ( $v->validate() ) {
-      do_action( $form->action, $this->input );
-    } else {
-      $this->validate_fail();
-    }
+    // if ( $v->validate() ) {
+    //   do_action( $form->action, $this->input );
+    // } else {
+    //   $this->validate_fail();
+    // }
   }
 
 

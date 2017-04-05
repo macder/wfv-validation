@@ -12,52 +12,6 @@
 class WFV_Form extends WFV_Validate {
 
   /**
-   * Form identifier
-   *
-   * @since 0.1.0
-   * @access public
-   * @var string $action
-   */
-  public $action;
-
-  /**
-   * Validation rules
-   *
-   * @since 0.1.0
-   * @access public
-   * @var array $rules Form validation rules.
-   */
-  public $rules = array();
-
-  /**
-   * Error message overrides
-   *
-   * @since 0.4.0
-   * @access public
-   * @var array $messages The field/rule paired messages.
-   */
-  public $messages = array();
-
-  /**
-   * User input from failed validation
-   *
-   * @since 0.2.1
-   * @access public
-   * @var array $input Form validation rules.
-   */
-  public $input = array();
-
-  /**
-   * Result from wp_nonce_field()
-   *
-   * @since 0.3.0
-   * @access public
-   * @var string $nonce_field WP rendered nonce field.
-   */
-  public $nonce_field;
-
-
-  /**
    * Class constructor
    *
    * @since 0.1.0
@@ -67,6 +21,7 @@ class WFV_Form extends WFV_Validate {
    */
   function __construct( $form ) {
     $this->set_properties( $form );
+    // $this->action = 'test';
   }
 
   /**
@@ -82,6 +37,7 @@ class WFV_Form extends WFV_Validate {
       $this->$property = $value;
     }
     $this->create_nonce_field();
+    $this->lorem = 'test';
   }
 
   /**
