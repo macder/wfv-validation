@@ -64,7 +64,9 @@ class WFV_Validate {
    * @param Object $form The validation properties
    *
    */
-  function __construct( /*$form*/ ) {
+  function __construct() {
+
+  }
 
     // $this->lorem = 'w0w';
 
