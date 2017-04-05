@@ -1,5 +1,5 @@
-# WPFV
-## WordPress Form validation
+# WFV
+## WordPress Form Validation
 
 ** WORK IN PROGRESS **
 
@@ -20,7 +20,6 @@ Boom
 ## TODO:
 - Expose an api for the front end to support singe configuration.
 - Support for custom validation rules.
-- Store validation result in session or cookie to eliminate ugly url query.
 - Standardize storage for default error messages.
 
 ## Install
@@ -82,17 +81,6 @@ $my_form = array(
 );
 ```
 
-### Create a new validation instance for the form:
-
-```php
-<?php
-wfv_create( $my_form );
-
-print_r( $my_form );
-```
-This will create a new validation instance and assign by reference the form config as an object.
-
-
 ### Create callback function to execute when validation is successful:
 
 ```php
@@ -102,12 +90,37 @@ function my_form_valid( $input ) {
   echo $input['name'];
   echo $input['email'];
 }
-add_action( $my_form->action, 'my_form_valid' );
+add_action( $my_form['action'], 'my_form_valid' );
 ```
+
+### Create a new instance for the form:
+
+
+```php
+<?php
+
+wfv_create( $my_form );
+
+// $my_form is now an instance of `WFV_Form`
+
+print_r( $my_form );
+```
+
+
+> ### `wfv_create( array() $form )`
+
+>*Create new instance of `WFV_Form`*
+
+>Set instance properties from arguments in `array() $form`.
+
+>Invoke functions attached to action hook defined in `$form->action`
+
+>Assign by reference this instance to the `array() $form` parameter
+
 
 ### Create a form somewhere in your theme:
 ```html
-<form name="contact_form" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" method="post">
+<form name="contact_form" action="" method="post">
   <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
   <input id="website" name="website" type="text">
