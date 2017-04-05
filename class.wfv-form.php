@@ -58,12 +58,12 @@ class WFV_Form extends WFV_Validate {
    * @since 0.2.1
    * @since 0.6.0 Renamed from is_retry
    * @access private
+   *
    */
   public function catch_post() {
     if ( $_POST && $_POST['action'] === $this->action ) {
-      foreach ( $_POST as $key => $value ) {
-        $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
-      }
+      $this->sanitize_post();
+      $this->trigger_post_action();
     }
   }
 
