@@ -17,8 +17,8 @@ define( 'FORM_VALIDATION__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'FORM_VALIDATION__ACTION_POST', 'validate_form' );
 
 require_once( FORM_VALIDATION__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validation.php' );
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
+require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-form.php' );
 
 /**
  * Instantiate and return a new Form_Validation
@@ -32,7 +32,12 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
  */
 function wpfv_create( &$form ) {
   $form = new WFV_Form($form);
-  $form->set_inputs();
+  $form->catch_post();
+
+  if( $form->input ) {
+    $form->validate();
+  }
+  //$form->test();
   // $form->add_actions();
 }
 
