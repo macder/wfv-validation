@@ -115,10 +115,10 @@ class Form_Validation {
   /**
    * Creates unique action hooks for the form POST
    *
-   * @since 0.1.0
-   * @access private
+   * @since 0.1.0 Private
+   * @since 0.5.1 Public
    */
-  private function add_actions() {
+  public function add_actions() {
     add_action( 'admin_post_nopriv_'. $this->action, array( $this, 'validate' ) );
     add_action( 'admin_post_'. $this->action, array( $this, 'validate' ) );
   }
@@ -130,7 +130,6 @@ class Form_Validation {
    *
    * @since 0.1.0
    * @since 0.2.0 POST logic moved to Form_Validation_Post
-   * @access public
    */
   public function validate() {
     do_action( FORM_VALIDATION__ACTION_POST, $this );
