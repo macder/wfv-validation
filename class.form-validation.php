@@ -80,7 +80,6 @@ class Form_Validation {
       $this->$property = $value;
     }
     $this->create_nonce_field();
-    $this->set_inputs();
   }
 
   /**
@@ -104,9 +103,9 @@ class Form_Validation {
    * @since 0.5.1 Renamed from is_retry
    * @access private
    */
-  private function set_inputs() {
-    if ( $_GET && $_GET['action'] === $this->action ) {
-      foreach ( $_GET as $key => $value ) {
+  public function set_inputs() {
+    if ( $_POST && $_POST['action'] === $this->action ) {
+      foreach ( $_POST as $key => $value ) {
         $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
       }
     }
