@@ -87,9 +87,9 @@ class WFV_Validate {
    * @param string $action
    * @access private
    */
-  protected function validate_nonce( $action ) {
-    $nonce = $_REQUEST[$action.'_token'];
-    if ( ! wp_verify_nonce( $nonce, $action ) ) {
+  protected function validate_nonce() {
+    $nonce = $_REQUEST[ $this->action.'_token' ];
+    if ( ! wp_verify_nonce( $nonce, $this->action ) ) {
       die( 'invalid token' );
     }
   }
@@ -113,11 +113,11 @@ class WFV_Validate {
    *
    *
    * @since 0.2.0
-   * @access private
+   * @since 0.6.0 Public access
    */
-  public function validate( /*$form*/ ) {
-    echo $this->action;
-    // $this->validate_nonce( /*$action*/ );
+  public function validate() {
+    // echo $this->action;
+    $this->validate_nonce();
     // $v = $this->valitron;
 
     // if ( $v->validate() ) {
