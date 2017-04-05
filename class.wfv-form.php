@@ -98,14 +98,14 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * If validation failed, there are get vars
-   * Sanitize and assign $_GET to $input property
+   * If $_POST, check if action attr matches $action property
+   * Sanitize and assign $_POST to $input property
    *
    * @since 0.2.1
    * @since 0.5.1 Renamed from is_retry
    * @access private
    */
-  public function set_inputs() {
+  public function catch_post() {
     if ( $_POST && $_POST['action'] === $this->action ) {
       foreach ( $_POST as $key => $value ) {
         $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
