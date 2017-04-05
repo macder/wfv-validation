@@ -31,17 +31,10 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-form.php' );
  * @param array $form Form configuration (rules, action)
  */
 function wpfv_create( &$form ) {
-  $form = new WFV_Form($form);
-  $form->catch_post();
-
-  if( $form->input ) {
-    $form->validate();
-  }
-  //$form->test();
-  // $form->add_actions();
+  $form = new WFV_Form( $form );
 }
 
-/* add_action( FORM_VALIDATION__ACTION_POST, 'validate', 10, 1 );
+add_action( FORM_VALIDATION__ACTION_POST, 'validate' );
 function validate( $form ) {
-  new Form_Validate_Post( $form );
-}*/
+  $form->validate();
+}
