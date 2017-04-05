@@ -1,12 +1,12 @@
 <?php defined( 'ABSPATH' ) or die();
 
 /**
- * Form_Validation validate a form
- *
- * Validates a form against an array of rules using Valitron
+ * WFV_Form
+ * Configures a unique form
+ * Captures $_POST data if action value matches config
  *
  * @since 0.1.0
- * @since 0.5.2 Renamed from Form_Validation
+ * @since 0.6.0 Renamed from Form_Validation
  */
 // class Form_Validation {
 class WFV_Form extends WFV_Validate {
