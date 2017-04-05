@@ -68,18 +68,6 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Creates unique action hooks for the form POST
-   *
-   * @since 0.1.0 Private
-   * @since 0.5.1 Public
-   */
-  /*public function add_actions() {
-    add_action( 'admin_post_nopriv_'. $this->action, array( $this, 'validate' ) );
-    add_action( 'admin_post_'. $this->action, array( $this, 'validate' ) );
-  }*/
-
-  /**
-   * Callback for POST action
    * Executes function(s) hooked into validate_form action
    * Passes this class as parameter
    *
