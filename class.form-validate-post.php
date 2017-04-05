@@ -7,9 +7,10 @@
  * If form validates, an action is triggered
  *
  * @since 0.2.0
+ * @since 0.6.0 renamed from Form_Validate_Post
  */
-class Form_Validate_Post {
-
+// class Form_Validate_Post {
+class WFV_Validate {
   /**
    * Sanitized post data
    *
@@ -37,11 +38,16 @@ class Form_Validate_Post {
    * @param Object $form The validation properties
    *
    */
-  function __construct( $form ) {
-    $this->validate_nonce( $form->action );
+  function __construct( /*$form*/ ) {
+    /*$this->validate_nonce( $form->action );
     $this->sanitize_post();
     $this->create_valitron( $form );
-    $this->validate( $form );
+    $this->validate( $form );*/
+    // print_r($this);
+  }
+
+  public function test() {
+    echo 'test';
   }
 
   /**
