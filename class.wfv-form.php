@@ -102,7 +102,7 @@ class WFV_Form extends WFV_Validate {
    * Sanitize and assign $_POST to $input property
    *
    * @since 0.2.1
-   * @since 0.5.1 Renamed from is_retry
+   * @since 0.6.0 Renamed from is_retry
    * @access private
    */
   public function catch_post() {
