@@ -33,9 +33,12 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
 function wpfv_create( &$form ) {
   $form = new Form_Validation($form);
   $form->add_actions();
+  // $form->add_actions();
 }
 
 add_action( FORM_VALIDATION__ACTION_POST, 'validate', 10, 1 );
+/*add_action( FORM_VALIDATION__ACTION_POST, 'validate', 10, 1 );
 function validate( $form ) {
   new Form_Validate_Post( $form );
 }
+}*/
