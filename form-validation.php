@@ -31,7 +31,7 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
  * @param array $form Form configuration (rules, action)
  */
 function wpfv_create( &$form ) {
-  $form = new Form_Validation($form);
+  $form = new WFV_Form($form);
   $form->set_inputs();
   // $form->add_actions();
 }
