@@ -75,7 +75,7 @@ class Form_Validation {
    * @param array $form Form configuration
    * @access private
    */
-  public function set_properties( $form ) {
+  private function set_properties( $form ) {
     foreach( $form as $property => $value ) {
       $this->$property = $value;
     }
