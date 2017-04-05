@@ -6,8 +6,10 @@
  * Validates a form against an array of rules using Valitron
  *
  * @since 0.1.0
+ * @since 0.5.2 Renamed from Form_Validation
  */
-class Form_Validation {
+// class Form_Validation {
+class WFV_Form {
 
   /**
    * Form identifier
@@ -80,7 +82,6 @@ class Form_Validation {
       $this->$property = $value;
     }
     $this->create_nonce_field();
-    $this->set_inputs();
   }
 
   /**
@@ -104,9 +105,9 @@ class Form_Validation {
    * @since 0.5.1 Renamed from is_retry
    * @access private
    */
-  private function set_inputs() {
-    if ( $_GET && $_GET['action'] === $this->action ) {
-      foreach ( $_GET as $key => $value ) {
+  public function set_inputs() {
+    if ( $_POST && $_POST['action'] === $this->action ) {
+      foreach ( $_POST as $key => $value ) {
         $this->input[sanitize_key( $key )] = sanitize_text_field( $value );
       }
     }
@@ -118,10 +119,10 @@ class Form_Validation {
    * @since 0.1.0 Private
    * @since 0.5.1 Public
    */
-  public function add_actions() {
+  /*public function add_actions() {
     add_action( 'admin_post_nopriv_'. $this->action, array( $this, 'validate' ) );
     add_action( 'admin_post_'. $this->action, array( $this, 'validate' ) );
-  }
+  }*/
 
   /**
    * Callback for POST action
@@ -131,7 +132,7 @@ class Form_Validation {
    * @since 0.1.0
    * @since 0.2.0 POST logic moved to Form_Validation_Post
    */
-  public function validate() {
+  /*public function validate() {
     do_action( FORM_VALIDATION__ACTION_POST, $this );
-  }
+  }*/
 }
