@@ -9,7 +9,6 @@
  * @since 0.2.0
  * @since 0.6.0 renamed from Form_Validate_Post
  */
-// class Form_Validate_Post {
 class WFV_Validate {
 
   /**
