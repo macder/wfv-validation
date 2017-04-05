@@ -57,8 +57,6 @@ class Form_Validation {
 
   /**
    * Class constructor
-   * check if action parameter matches sane $_POST action value
-   * init only if true
    *
    * @since 0.1.0
    * @since 0.4.0 Reduced to single parameter
@@ -82,11 +80,12 @@ class Form_Validation {
       $this->$property = $value;
     }
     $this->create_nonce_field();
+    $this->set_inputs();
   }
 
   /**
    * Create a wp_nonce_field
-   * Assign it to public $nonce_field property
+   * Assign to $nonce_field property
    *
    * @since 0.3.0
    * @access private
