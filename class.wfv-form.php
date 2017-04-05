@@ -9,7 +9,7 @@
  * @since 0.5.2 Renamed from Form_Validation
  */
 // class Form_Validation {
-class WFV_Form {
+class WFV_Form extends WFV_Validate {
 
   /**
    * Form identifier
