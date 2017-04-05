@@ -66,24 +66,22 @@ class Form_Validation {
    *
    */
   function __construct( $form ) {
-    $this->is_retry();
-    $this->set_config( $form );
-    $this->create_nonce_field();
-    $this->add_actions();
+    $this->set_properties( $form );
   }
 
   /**
    * Assign $form config to properties
    *
-   *
    * @since 0.4.0
+   * @since 0.5.1 Renamed from set_config
    * @param array $form Form configuration
    * @access private
    */
-  private function set_config( $form ) {
+  public function set_properties( $form ) {
     foreach( $form as $property => $value ) {
       $this->$property = $value;
     }
+    $this->create_nonce_field();
   }
 
   /**
