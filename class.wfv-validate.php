@@ -78,6 +78,34 @@ class WFV_Validate {
   }
 
   /**
+   * Return property value
+   *
+   * @since 0.6.1
+   * @param string $property Property key name
+   *
+   * @return mixed Property value
+   */
+  public function get( $property ) {
+    return $this->$property;
+  }
+
+  /**
+   * Return field value from $input property
+   *
+   * @since 0.6.1
+   * @param string $field Name of field
+   *
+   * @return string Field value
+   */
+  public function get_input( $field ) {
+    return $this->input[ $field ];
+  }
+
+  public function get_error( $field ) {
+    return $this->errors[$field];
+  }
+
+  /**
    * Do the validation
    *
    * @since 0.2.0
