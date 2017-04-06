@@ -123,21 +123,6 @@ class WFV_Validate {
   }
 
   /**
-   * Verify the nonce
-   * Prevents CSFR exploits
-   *
-   * @since 0.2.2
-   * @param string $action
-   * @access private
-   */
-  protected function validate_nonce() {
-    $nonce = $_REQUEST[ $this->action.'_token' ];
-    if ( ! wp_verify_nonce( $nonce, $this->action ) ) {
-      die( 'invalid token' );
-    }
-  }
-
-  /**
    * Sanitize input and keys in $_POST
    * Assign the sanitized data to $sane_post property
    *
@@ -149,7 +134,6 @@ class WFV_Validate {
       $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
     }
   }
-
 
   /**
    * Create an instance of Valitron\Validator with our rules / messages
@@ -163,6 +147,21 @@ class WFV_Validate {
     $rules_to_map = $this->custom_message_rules($valitron);
     $valitron->mapFieldsRules( $rules_to_map );
     return $valitron;
+  }
+
+  /**
+   * Verify the nonce
+   * Prevents CSFR exploits
+   *
+   * @since 0.2.2
+   * @param string $action
+   * @access private
+   */
+  protected function validate_nonce() {
+    $nonce = $_REQUEST[ $this->action.'_token' ];
+    if ( ! wp_verify_nonce( $nonce, $this->action ) ) {
+      die( 'invalid token' );
+    }
   }
 
   /**
