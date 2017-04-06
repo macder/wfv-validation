@@ -5,17 +5,22 @@
 
 Release date: TBD
 
-Provides your theme with an easy way to perform backend form input validation
+Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.   
+*i.e. write your own markup for a form and define the constraints*
 
-MVC framework like [Laravel](https://laravel.com/) or [CodeIgniter](https://codeigniter.com/) provide an intuitive and simple class to validate forms. [WordPress](https://wordpress.org/) falls short, leaving much to be desired. Aside from some general [sanitation methods](https://codex.wordpress.org/Data_Validation), validation for custom forms can be a pain.
+Working with custom forms in WordPress can be a pain. There is no rich validation API aside from some general [sanitation methods](https://codex.wordpress.org/Data_Validation) and most form building plugins have large footprints that generate rendered markup configured through the admin dashboard.
 
-We want to be able to create and array of rules, attach it to a form, and pass it off to a validator, just as we would with most MVC's. Nobody has time to deal with all the details that come with data validation and feedback.
 
-wp-form-validation solves this shortfall by introducing a form validation class.
+Without using a plugin, the [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29) to capture `POST` or `GET` involves creating an action hook that a `REQUEST` to `/wp-admin/admin-post.php` will trigger. This method is not elegant because it sends the user to `/wp-admin/admin-post.php`. If we need to send them back (i.e they missed a field), another `HTTP Request` needs to be made to redirect them back to the form. At this point the `$_POST` with their input is gone, which would have been useful to repopulate the form. In order to persist the users input you need to either create a url query and append it to the redirect and access it from `$_GET`, or store it in a session or cookie.
 
-In a nutshell, it's an interface for [Valitron](https://github.com/vlucas/valitron), but all you need to do is instantiate the `Form_Validation` class, pass in the rules and an identifier for the form.
+A common solution `POST` to the same url the form is on is to capture the `$_POST` and run logic on it in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern.
 
-Boom
+WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
+
+It does not introduce anything into the admin dashboard. The idea is to define a form and its constraints in a themes `functions.php` or plugin. The markup and behavior of the form is left for the developer.
+
+In a nutshell, you define the rules and error messages for each field in an array and send it to a validator. The validator will assign by reference an instance of itself to form definition it receives.
+
 
 ## TODO:
 - Expose an api for the front end to support singe configuration.
@@ -39,7 +44,7 @@ Once a release is packaged, install will be the usual WordPress way.
 ## Getting Started
 
 
-### Configure the validation rules:
+### 1) Configure validation rules:
 
 ```php
 <?php
@@ -56,7 +61,7 @@ $my_form = array(
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc.
 
-### Set custom error messages:
+### 2) Custom error messages:
 
 ```php
 <?php
@@ -81,7 +86,7 @@ $my_form = array(
 );
 ```
 
-### Create callback function to execute when validation is successful:
+### 3) Callback for successful validation:
 
 ```php
 <?php
@@ -93,32 +98,17 @@ function my_form_valid( $input ) {
 add_action( $my_form['action'], 'my_form_valid' );
 ```
 
-### Create a new instance for the form:
+### 4) Create the validation instance:
 
 
 ```php
 <?php
-
-wfv_create( $my_form );
-
-// $my_form is now an instance of `WFV_Form`
+wfv_create( $my_form ); // $my_form is now an instance of `WFV_Form`
 
 print_r( $my_form );
 ```
 
-
-> ### `wfv_create( array() $form )`
-
->*Create new instance of `WFV_Form`*
-
->Set instance properties from arguments in `array() $form`.
-
->Invoke functions attached to action hook defined in `$form->action`
-
->Assign by reference this instance to the `array() $form` parameter
-
-
-### Create a form somewhere in your theme:
+### 5) Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="" method="post">
   <input id="name" name="name" type="text">
