@@ -3,22 +3,22 @@
 Plugin Name: Form Validation
 Plugin URI:  https://github.com/macder/wp-form-validation
 Description: See README.md
-Version:     0.5
+Version:     0.6
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
 License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
-define( 'FORM_VALIDATION_VERSION', '0.5' );
+define( 'FORM_VALIDATION_VERSION', '0.6' );
 define( 'FORM_VALIDATION__MINIMUM_WP_VERSION', '4.7' ); // not tested with other versions
 define( 'FORM_VALIDATION__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 define( 'FORM_VALIDATION__ACTION_POST', 'validate_form' );
 
 require_once( FORM_VALIDATION__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validation.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
+require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-validate.php' );
+require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-form.php' );
 
 /**
  * Instantiate and return a new Form_Validation
@@ -30,12 +30,11 @@ require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.form-validate-post.php' );
  *
  * @param array $form Form configuration (rules, action)
  */
-function wpfv_create( &$form ) {
-  $form = new Form_Validation($form);
-  $form->add_actions();
+function wfv_create( &$form ) {
+  $form = new WFV_Form( $form );
 }
 
-add_action( FORM_VALIDATION__ACTION_POST, 'validate', 10, 1 );
+add_action( FORM_VALIDATION__ACTION_POST, 'validate' );
 function validate( $form ) {
-  new Form_Validate_Post( $form );
+  $form->validate();
 }
