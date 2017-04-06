@@ -13,13 +13,13 @@ Working with custom forms in WordPress can be a pain. There is no rich validatio
 
 Without using a plugin, the [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29) to capture `POST` or `GET` involves creating an action hook that a `REQUEST` to `/wp-admin/admin-post.php` will trigger. This method is not elegant because it sends the user to `/wp-admin/admin-post.php`. If we need to send them back (i.e they missed a field), another `HTTP Request` needs to be made to redirect them back to the form. At this point the `$_POST` with their input is gone, which would have been useful to repopulate the form. In order to persist the users input you need to either create a url query and append it to the redirect and access it from `$_GET`, or store it in a session or cookie.
 
-A common solution `POST` to the same url the form is on is to capture the `$_POST` and run logic on it in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern.
+A common solution to `POST` to the same url the form is on is to capture the `$_POST` and run logic on it in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern.
 
 WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
 
 It does not introduce anything into the admin dashboard. The idea is to define a form and its constraints in a themes `functions.php` or plugin. The markup and behavior of the form is left for the developer.
 
-In a nutshell, you define the rules and error messages for each field in an array and send it to a validator. The validator will assign by reference an instance of itself to form definition it receives.
+In a nutshell, you define the rules and error messages for each field in an array and send it to a validator. The validator will assign by reference an instance of itself to the form definition it receives.
 
 
 ## TODO:
