@@ -15,46 +15,46 @@ class WFV_Validate {
    * Form identifier
    *
    * @since 0.1.0
-   * @access public
+   * @access protected
    * @var string $action
    */
-  public $action;
+  protected $action;
 
   /**
    * Validation rules
    *
    * @since 0.1.0
-   * @access public
+   * @access protected
    * @var array $rules Form validation rules.
    */
-  public $rules = array();
+  protected $rules = array();
 
   /**
    * Error message overrides
    *
    * @since 0.4.0
-   * @access public
+   * @access protected
    * @var array $messages The field/rule paired messages.
    */
-  public $messages = array();
+  protected $messages = array();
 
   /**
    * User input from failed validation
    *
    * @since 0.2.1
-   * @access public
+   * @access protected
    * @var array $input Form validation rules.
    */
-  public $input = array();
+  protected $input = array();
 
   /**
    * Result from wp_nonce_field()
    *
    * @since 0.3.0
-   * @access public
+   * @access protected
    * @var string $nonce_field WP rendered nonce field.
    */
-  public $nonce_field;
+  protected $nonce_field;
 
 
 
