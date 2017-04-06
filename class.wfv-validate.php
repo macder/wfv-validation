@@ -70,7 +70,6 @@ class WFV_Validate {
    * __construct
    *
    * @since 0.2.0
-   * @param Object $form The validation properties
    *
    */
   function __construct() {
