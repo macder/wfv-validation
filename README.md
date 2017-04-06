@@ -21,6 +21,8 @@ It does not introduce anything into the admin dashboard. The idea is to define a
 
 In a nutshell, you define the rules and error messages for each field in an array and send it to a validator. The validator will assign by reference an instance of itself to the form definition it receives.
 
+WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
+
 
 ## TODO:
 - Expose an api for the front end to support singe configuration.
