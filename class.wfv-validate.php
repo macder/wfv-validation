@@ -56,6 +56,14 @@ class WFV_Validate {
    */
   protected $nonce_field;
 
+  /**
+   * Error message bag
+   *
+   * @since 0.6.1
+   * @access protected
+   * @var array Error messages for fields.
+   */
+  protected $errors;
 
 
   /**
