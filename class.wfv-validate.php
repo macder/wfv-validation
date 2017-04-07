@@ -105,7 +105,7 @@ class WFV_Validate {
    *
    * @since 0.6.1
    * @param string $field Name of field
-   * @param bool (optional) $bag true return error array
+   * @param bool (optional) $bag true return array error bag for field
    *
    * @return mixed
    */
