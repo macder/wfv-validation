@@ -188,32 +188,4 @@ class WFV_Validate {
       die( 'invalid token' );
     }
   }
-
-  /**
-   * Check for custom error messages in $form config
-   * Add rules with custom messages individually to Valitron
-   *
-   * @since 0.5.0
-   *
-   * @param array $form Form configuration array
-   * @return array Form rules that didn't have custom messages
-   */
-   private function custom_message_rules($valitron) {
-    $rule_set = $this->rules;
-    $msg_set = $this->messages;
-
-    foreach( $rule_set as $field => $rules ) {
-      // check if this field has any custom error msgs
-      if ( array_key_exists( $field, $msg_set ) ) {
-        foreach ( $msg_set[ $field ] as $rule => $message ) {
-          // add the rule with custom error message
-          $valitron->rule( $rule, $field )->message( $message );
-          // remove the rule from $lorem config or it will get mapped again later
-          $key = array_search( $rule, $rules );
-          unset( $rule_set[ $field ][ $key ] );
-        }
-      }
-    }
-    return $rule_set;
-  }
 }
