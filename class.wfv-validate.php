@@ -15,58 +15,108 @@ class WFV_Validate {
    * Form identifier
    *
    * @since 0.1.0
-   * @access public
+   * @access protected
    * @var string $action
    */
-  public $action;
+  protected $action;
 
   /**
    * Validation rules
    *
    * @since 0.1.0
-   * @access public
+   * @access protected
    * @var array $rules Form validation rules.
    */
-  public $rules = array();
+  protected $rules = array();
 
   /**
    * Error message overrides
    *
    * @since 0.4.0
-   * @access public
+   * @access protected
    * @var array $messages The field/rule paired messages.
    */
-  public $messages = array();
+  protected $messages = array();
 
   /**
    * User input from failed validation
    *
    * @since 0.2.1
-   * @access public
+   * @access protected
    * @var array $input Form validation rules.
    */
-  public $input = array();
+  protected $input = array();
 
   /**
    * Result from wp_nonce_field()
    *
    * @since 0.3.0
-   * @access public
+   * @access protected
    * @var string $nonce_field WP rendered nonce field.
    */
-  public $nonce_field;
+  protected $nonce_field;
 
+  /**
+   * Error message bag
+   *
+   * @since 0.6.1
+   * @access protected
+   * @var array Error messages for fields.
+   */
+  protected $errors;
 
 
   /**
    * __construct
    *
    * @since 0.2.0
-   * @param Object $form The validation properties
    *
    */
   function __construct() {
 
+  }
+
+  /**
+   * Return property value
+   *
+   * @since 0.6.1
+   * @param string $property Property key name
+   *
+   * @return mixed Property value
+   */
+  public function get( $property ) {
+    return $this->$property;
+  }
+
+  /**
+   * Return field value from $input property
+   *
+   * @since 0.6.1
+   * @param string $field Name of field
+   *
+   * @return string Field value
+   */
+  public function get_input( $field ) {
+    return $this->input[ $field ];
+  }
+
+  /**
+   * Return fields $error property
+   * By default returns all errors
+   * If $field_name is supplied a string, only error for the field
+   * $bag is array of messages, false returns first error as string
+   *
+   * @since 0.6.1
+   * @param string (optional) $field_name Only errors for $field_name
+   * @param bool (optional) $bag true return array error bag for field
+   *
+   * @return mixed String if $field is string and $bag = false, array otherwise
+   */
+  public function get_error( $field_name = null, $bag = false ) {
+    if( $field_name ) {
+      return ( true == $bag ) ? $this->errors[ $field_name ] : $this->errors[ $field_name ][0];
+    }
+    return $this->errors;
   }
 
   /**
@@ -87,21 +137,6 @@ class WFV_Validate {
   }
 
   /**
-   * Verify the nonce
-   * Prevents CSFR exploits
-   *
-   * @since 0.2.2
-   * @param string $action
-   * @access private
-   */
-  protected function validate_nonce() {
-    $nonce = $_REQUEST[ $this->action.'_token' ];
-    if ( ! wp_verify_nonce( $nonce, $this->action ) ) {
-      die( 'invalid token' );
-    }
-  }
-
-  /**
    * Sanitize input and keys in $_POST
    * Assign the sanitized data to $sane_post property
    *
@@ -114,7 +149,6 @@ class WFV_Validate {
     }
   }
 
-
   /**
    * Create an instance of Valitron\Validator with our rules / messages
    * Assign to $valitron property
@@ -123,37 +157,35 @@ class WFV_Validate {
    * @param array $form Form configuration array
    */
   public function create_valitron() {
+
     $valitron = new Valitron\Validator( $this->input );
-    $rules_to_map = $this->custom_message_rules($valitron);
-    $valitron->mapFieldsRules( $rules_to_map );
+
+    foreach( $this->rules as $field => $rules ) {
+      foreach( $rules as $rule ){
+        if( $this->messages[$field][$rule] ){
+          $message = $this->messages[$field][$rule];
+          $valitron->rule( $rule, $field )->message( $message );
+        }
+        else {
+          $valitron->rule( $rule, $field );
+        }
+      }
+    }
     return $valitron;
   }
 
   /**
-   * Check for custom error messages in $form config
-   * Add rules with custom messages individually to Valitron
+   * Verify the nonce
+   * Prevents CSFR exploits
    *
-   * @since 0.5.0
-   *
-   * @param array $form Form configuration array
-   * @return array Form rules that didn't have custom messages
+   * @since 0.2.2
+   * @param string $action
+   * @access private
    */
-   private function custom_message_rules($valitron) {
-    $rule_set = $this->rules;
-    $msg_set = $this->messages;
-
-    foreach( $rule_set as $field => $rules ) {
-      // check if this field has any custom error msgs
-      if ( array_key_exists( $field, $msg_set ) ) {
-        foreach ( $msg_set[ $field ] as $rule => $message ) {
-          // add the rule with custom error message
-          $valitron->rule( $rule, $field )->message( $message );
-          // remove the rule from $lorem config or it will get mapped again later
-          $key = array_search( $rule, $rules );
-          unset( $rule_set[ $field ][ $key ] );
-        }
-      }
+  protected function validate_nonce() {
+    $nonce = $_REQUEST[ $this->action.'_token' ];
+    if ( ! wp_verify_nonce( $nonce, $this->action ) ) {
+      die( 'invalid token' );
     }
-    return $rule_set;
   }
 }
