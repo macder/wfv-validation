@@ -98,13 +98,19 @@ function my_form_valid( $input ) {
 add_action( $my_form['action'], 'my_form_valid' );
 ```
 ### Create the validation instance:
+Use the `wfv_create( array($form ) )` function to create a validation instance for the form.    
+The instance will get assigned by reference to the parameter variable.
 
+Example:
 ```php
 <?php
 wfv_create( $my_form ); // $my_form is now an instance of `WFV_Form`
 
+echo $my_form->get('action');  // prints contact_form
+
 print_r( $my_form );
 ```
+
 ### Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="" method="post">
