@@ -100,8 +100,17 @@ class WFV_Validate {
     return $this->input[ $field ];
   }
 
-  public function get_error( $field ) {
-    return $this->errors[$field];
+  /**
+   * Return fields $error property
+   *
+   * @since 0.6.1
+   * @param string $field Name of field
+   * @param bool (optional) $bag true return error array
+   *
+   * @return mixed
+   */
+  public function get_error( $field, $bag = false ) {
+    return ( true == $bag ) ? $this->errors[ $field ] : $this->errors[ $field ][0];
   }
 
   /**
