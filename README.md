@@ -43,10 +43,10 @@ If you can't wait, install as development.
 
 Once a release is packaged, install will be the usual WordPress way.
 
-## Getting Started
+## Usage
 
 
-### 1) Configure validation rules:
+### Configure validation rules:
 
 ```php
 <?php
@@ -63,7 +63,7 @@ $my_form = array(
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc.
 
-### 2) Custom error messages:
+### Custom error messages:
 
 ```php
 <?php
@@ -87,9 +87,7 @@ $my_form = array(
   ]  
 );
 ```
-
-### 3) Callback for successful validation:
-
+### Callback for successful validation:
 ```php
 <?php
 function my_form_valid( $input ) {
@@ -99,18 +97,21 @@ function my_form_valid( $input ) {
 }
 add_action( $my_form['action'], 'my_form_valid' );
 ```
+### Create the validation instance:
+Use the `wfv_create( array($form ) )` function to create a validation instance for the form.    
+The instance will get assigned by reference to the parameter variable.
 
-### 4) Create the validation instance:
-
-
+Example:
 ```php
 <?php
 wfv_create( $my_form ); // $my_form is now an instance of `WFV_Form`
 
+echo $my_form->get('action');  // prints contact_form
+
 print_r( $my_form );
 ```
 
-### 5) Create a form somewhere in your theme:
+### Create a form somewhere in your theme:
 ```html
 <form name="contact_form" action="" method="post">
   <input id="name" name="name" type="text">
@@ -123,24 +124,41 @@ print_r( $my_form );
   <input type="submit" value="Submit">
 </form>
 ```
-
 The unique identifier for the form is the action value.
 ```html
 <input type="hidden" name="action" value="<?= $my_form->action ?>">
 ```
 It connects the form to the configuration defined in `$my_form`.
+### Retrieving error messages:
 
-If validation fails, the `input` property on the form config object will be an array of sanitized key/value pairs the user submitted.
+Use the `get_error( $field_name )` method to retrieve error messages.
 
-Use it to re-populate the form.
-
-eg:
-```html
-<input id="name" name="name" type="text" value="<?= $my_form->input['name']; ?>">
+Example:
+```php
+<?php echo $my_form->get_error('email'); ?> // output first error message
 ```
+This will echo the first error message, as defined in the rules    
+eg. if the rules for the field are defined as:
+* `['required', 'email']`    
+
+`'required'` would be the first error if both validations fail
+
+You can retrieve the message bag by passing `true` a second parameter   
+`get_error( $field_name, $bag = true )`
+
+Example:
+```php
+<?php
+
+$email_errors = $my_form->get_error( 'email', $bag = true );
+
+print_r( $email_errors ); ?>
+```
+This will get an array of errors for a `$field`
+
+### Note:
 
 You can create unlimited forms as long as each has a unique `action` value.
-
 
 ## Development
 
