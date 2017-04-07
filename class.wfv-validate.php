@@ -102,15 +102,21 @@ class WFV_Validate {
 
   /**
    * Return fields $error property
+   * By default returns all errors
+   * If $field_name is supplied a string, only error for the field
+   * $bag is array of messages, false returns first error as string
    *
    * @since 0.6.1
-   * @param string $field Name of field
+   * @param string (optional) $field_name Only errors for $field_name
    * @param bool (optional) $bag true return array error bag for field
    *
-   * @return mixed
+   * @return mixed String if $field is string and $bag = false, array otherwise
    */
-  public function get_error( $field, $bag = false ) {
-    return ( true == $bag ) ? $this->errors[ $field ] : $this->errors[ $field ][0];
+  public function get_error( $field_name = null, $bag = false ) {
+    if( $field_name ) {
+      return ( true == $bag ) ? $this->errors[ $field_name ] : $this->errors[ $field_name ][0];
+    }
+    return $this->errors;
   }
 
   /**
