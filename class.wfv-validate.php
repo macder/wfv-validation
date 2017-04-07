@@ -157,9 +157,20 @@ class WFV_Validate {
    * @param array $form Form configuration array
    */
   public function create_valitron() {
+
     $valitron = new Valitron\Validator( $this->input );
-    $rules_to_map = $this->custom_message_rules($valitron);
-    $valitron->mapFieldsRules( $rules_to_map );
+
+    foreach( $this->rules as $field => $rules ) {
+      foreach( $rules as $rule ){
+        if( $this->messages[$field][$rule] ){
+          $message = $this->messages[$field][$rule];
+          $valitron->rule( $rule, $field )->message( $message );
+        }
+        else {
+          $valitron->rule( $rule, $field );
+        }
+      }
+    }
     return $valitron;
   }
 
