@@ -63,6 +63,7 @@ class WFV_Rules {
    *
    * @since 0.7.0
    * @param array $rules Validation rules
+   * @access private
    */
   private function set( $rules ) {
     foreach($rules as $field => $rule){
