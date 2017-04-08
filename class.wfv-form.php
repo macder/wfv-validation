@@ -59,9 +59,8 @@ class WFV_Form extends WFV_Validate {
    * @since 0.2.1
    * @since 0.6.0 Renamed from is_retry
    * @access private
-   *
    */
-  public function catch_post() {
+  private function catch_post() {
     if ( $_POST && $_POST['action'] === $this->action ) {
       $this->sanitize_post();
       $this->trigger_post_action();
