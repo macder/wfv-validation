@@ -215,13 +215,6 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-
-### `get( string $property )`
-```php
-<?php
-echo $my_form->get('action'); // contact_form
-```
-
 ## Retrieving error messages:
 ### `get_error( string $field_name = null, bool $bag = false )`
 
