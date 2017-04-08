@@ -151,7 +151,7 @@ add_action( $my_form['action'], 'my_form_valid' );
 ```
 
 ## Create the validation instance:
-### `wfv_create( array $form )`
+## `wfv_create( array $form )`
 
 Creates and assigns by reference the validation instance.
 
@@ -162,13 +162,31 @@ wfv_create( $my_form );
 ```
 You can now access methods available to `WFV_Form`
 
-#### `get( string $property )`
+## Create a form somewhere in your theme:
+
 ```php
-<?php
-echo $my_form->get('action'); // contact_form
+<form name="contact_form" method="post">
+  <input id="name" name="name" type="text">
+  <input id="email" name="email" type="text">
+  <input id="website" name="website" type="text">
+  <textarea id="msg"></textarea>
+
+  <input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">
+  <?php echo $my_form->get('nonce_field'); ?>
+  <input type="submit" value="Submit">
+</form>
 ```
 
-#### `input( string $field = null )`
+The form must have these two tags:
+
+Hidden action field with the unique value for this form:
+`<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
+
+The nonce field:
+`<?php echo $my_form->get('nonce_field'); ?>`
+
+## Retrieve user input:
+## `input( string $field = null )`
 Convenience method to access `WFV_Input` instance
 ```php
 <?php // useful to repopulate form
@@ -196,28 +214,12 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Create a form somewhere in your theme:
 
+### `get( string $property )`
 ```php
-<form name="contact_form" method="post">
-  <input id="name" name="name" type="text">
-  <input id="email" name="email" type="text">
-  <input id="website" name="website" type="text">
-  <textarea id="msg"></textarea>
-
-  <input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">
-  <?php echo $my_form->get('nonce_field'); ?>
-  <input type="submit" value="Submit">
-</form>
+<?php
+echo $my_form->get('action'); // contact_form
 ```
-
-The form must have these two tags:
-
-Hidden action field with the unique value for this form:
-`<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
-
-The nonce field:
-`<?php echo $my_form->get('nonce_field'); ?>`
 
 ## Retrieving error messages:
 ### `get_error( string $field_name = null, bool $bag = false )`
