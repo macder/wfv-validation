@@ -3,20 +3,22 @@
 Plugin Name: WFV - Form Validation
 Plugin URI:  https://github.com/macder/wp-form-validation
 Description: See README.md
-Version:     0.6.1
+Version:     0.7.0
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
 License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
-define( 'FORM_VALIDATION_VERSION', '0.6.1' );
+define( 'FORM_VALIDATION_VERSION', '0.7.0' );
 define( 'FORM_VALIDATION__MINIMUM_WP_VERSION', '4.7' ); // not tested with other versions
 define( 'FORM_VALIDATION__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 define( 'FORM_VALIDATION__ACTION_POST', 'validate_form' );
 
 require_once( FORM_VALIDATION__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
+require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-rules.php' );
+require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-messages.php' );
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-validate.php' );
 require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-form.php' );
 
