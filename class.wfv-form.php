@@ -55,8 +55,8 @@ class WFV_Form extends WFV_Validate {
    *
    * @return string Field value
    */
-  public function get_input( $field ) {
-    return $this->input[ $field ];
+  public function input( $field ) {
+    return $this->input->get( $field );
   }
 
   /**
