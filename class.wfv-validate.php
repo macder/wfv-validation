@@ -87,7 +87,8 @@ class WFV_Validate {
     if ( $v->validate() ) {
       do_action( $this->action, $this );
     } else {
-      $this->errors = $v->errors();
+      $errors = $v->errors();
+      $this->errors = new WFV_Errors( $errors );
     }
   }
 
