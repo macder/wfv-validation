@@ -73,6 +73,7 @@ class WFV_Form extends WFV_Validate {
    *
    * @since 0.1.0
    * @since 0.2.0 POST logic moved to Form_Validation_Post
+   * @access private
    */
   private function trigger_post_action() {
     do_action( FORM_VALIDATION__ACTION_POST, $this );
