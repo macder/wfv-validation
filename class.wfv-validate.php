@@ -157,8 +157,7 @@ class WFV_Validate {
    * @since 0.2.0
    * @param array $form Form configuration array
    */
-  public function create_valitron() {
-
+  protected function create_valitron() {
     $valitron = new Valitron\Validator( $this->input );
 
     foreach( $this->rules as $field => $rules ) {
