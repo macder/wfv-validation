@@ -142,6 +142,7 @@ class WFV_Validate {
    *
    * @since 0.2.0
    * @since 0.6.0 Public access
+   * @access protected
    */
   protected function sanitize_post() {
     foreach ( $_POST as $key => $value ) {
@@ -155,6 +156,7 @@ class WFV_Validate {
    *
    * @since 0.2.0
    * @param array $form Form configuration array
+   * @access protected
    */
   protected function create_valitron() {
     $valitron = new Valitron\Validator( $this->input );
@@ -168,7 +170,7 @@ class WFV_Validate {
    *
    * @since 0.2.2
    * @param string $action
-   * @access private
+   * @access protected
    */
   protected function validate_nonce() {
     $nonce = $_REQUEST[ $this->action.'_token' ];
