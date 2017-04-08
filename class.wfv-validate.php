@@ -144,7 +144,7 @@ class WFV_Validate {
    * @since 0.2.0
    * @since 0.6.0 Public access
    */
-  public function sanitize_post() {
+  protected function sanitize_post() {
     foreach ( $_POST as $key => $value ) {
       $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
     }
