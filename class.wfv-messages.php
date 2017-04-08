@@ -37,6 +37,7 @@ class WFV_Messages {
    *
    * @since 0.7.0
    * @param array $messages
+   * @access protected
    */
   protected function set( $messages ) {
     foreach($messages as $field => $message){
