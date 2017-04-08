@@ -48,7 +48,7 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Return field value from $input property
+   * Convienience method to access input property
    *
    * @since 0.6.1
    * @param string $field Name of field
