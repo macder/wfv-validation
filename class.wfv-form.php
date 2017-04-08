@@ -78,11 +78,6 @@ class WFV_Form extends WFV_Validate {
     return $this->errors;
   }
 
-
-  /*public function rule( $field ) {
-    return $this->rules->get( $field );
-  }*/
-
   /**
    * Assign $form config to properties
    *
