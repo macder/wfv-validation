@@ -111,7 +111,7 @@ class WFV_Validate {
    * @param string (optional) $field_name Only errors for $field_name
    * @param bool (optional) $bag true return array error bag for field
    *
-   * @return mixed String if $field is string and $bag = false, array otherwise
+   * @return string|array String if $field is string and $bag = false, array otherwise
    */
   public function get_error( $field_name = null, $bag = false ) {
     if( $field_name ) {
