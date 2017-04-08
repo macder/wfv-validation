@@ -171,13 +171,29 @@ echo $my_form->get('action'); // contact_form
 #### `input( string $field = null )`
 Convenience method to access `WFV_Input` instance
 ```php
-<?php
-
-// useful to repopulate form
+<?php // useful to repopulate form
 echo $my_form->input('email'); // foo@bar.com
+```
 
-// the input() method is a shortcut to:
-$my_form->get('input')->get('email');
+Assign input instance to a $var
+```php
+<?php
+$input = $my_form->input();
+echo $input->get('email'); // foo@bar.com
+```
+
+The above are shorthands for:
+```php
+<?php
+echo $my_form->get('input')->get('email'); // foo@bar.com
+
+```
+
+Get input as an array:
+```php
+<?php
+$input = $my_form->input()->get_array();
+echo $input['email']; // foo@bar.com
 ```
 
 ## Create a form somewhere in your theme:
