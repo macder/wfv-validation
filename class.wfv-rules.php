@@ -29,17 +29,17 @@ class WFV_Rules {
 
     foreach( $this as $field => $rules ) {
       //loop this field rules
-      foreach( $rules as $rule ){
+      foreach( $rules as $rule ) {
 
         // test if rule is custom
-        if( $this->is_custom( $rule )) {
+        if( $this->is_custom( $rule ) ) {
           // do something...
         }
 
         // check if this field/rule has a custom error message
-        if( $messages->has($field, $rule) ) {
+        if( $messages->has( $field, $rule ) ) {
           $message = $messages->$field;
-          $valitron->rule( $rule, $field )->message( $message[$rule] );
+          $valitron->rule( $rule, $field )->message( $message[ $rule ] );
         } else { // use defaults
           $valitron->rule( $rule, $field );
         }
@@ -67,7 +67,7 @@ class WFV_Rules {
    * @access private
    */
   private function set( $rules ) {
-    foreach($rules as $field => $rule){
+    foreach( $rules as $field => $rule ) {
       $this->$field = $rule;
     }
   }

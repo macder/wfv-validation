@@ -27,7 +27,7 @@ class WFV_Messages {
    * @return bool
    */
   public function has($field, $rule) {
-    if( property_exists($this, $field) && array_key_exists($rule, $this->$field)) {
+    if( property_exists( $this, $field ) && array_key_exists( $rule, $this->$field ) ) {
       return true;
     }
   }
@@ -40,7 +40,7 @@ class WFV_Messages {
    * @access protected
    */
   protected function set( $messages ) {
-    foreach($messages as $field => $message){
+    foreach( $messages as $field => $message ) {
       $this->$field = $message;
     }
   }
