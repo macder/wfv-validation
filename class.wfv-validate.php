@@ -36,7 +36,7 @@ class WFV_Validate {
    * @access protected
    * @var array $messages The field/rule paired messages.
    */
-  protected $messages = array();
+  protected $messages;
 
   /**
    * User input from failed validation
