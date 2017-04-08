@@ -162,13 +162,13 @@ wfv_create( $my_form );
 ```
 You can now access `WFV_Form` methods
 
-`get( string $property )`
+#### `get( string $property )`
 ```php
 <?php
 echo $my_form->get('action'); // contact_form
 ```
 
-`get_input( $field )`
+#### `get_input( $field )`
 ```php
 <?php
 
@@ -200,9 +200,9 @@ The nonce field:
 `<?php echo $my_form->get('nonce_field'); ?>`
 
 ## Retrieving error messages:
-`get_error( string $field_name = null, bool $bag = false )`
+### `get_error( string $field_name = null, bool $bag = false )`
 
-Get all errors:
+**Get all errors:**
 ```php
 <?php
 
@@ -210,7 +210,7 @@ Get all errors:
 $errors = $my_form->get_error();
 ```
 
-Get field errors:
+**Get field errors:**
 ```php
 <?php
 
@@ -218,7 +218,7 @@ Get field errors:
 $email_errors = $my_form->get_error( 'email', $bag = true );
 ```
 
-Get field's first error message
+**Get field's first error message:**
 ```php
 <?php
 
