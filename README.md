@@ -1,28 +1,35 @@
 # WFV
-## WordPress Form Validation
+### WordPress Form Validation
 
 ** WORK IN PROGRESS **
 
-Release date: TBD
-
-**Status**:
-`API is near standardized; major changes are less frequent.`
+Release date: Soon
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
-*i.e. write your own markup for a form and define the constraints*
 
-Working with custom forms in WordPress can be a pain. There is no rich validation API aside from some general [sanitation methods](https://codex.wordpress.org/Data_Validation) and most form building plugins have large footprints that generate rendered markup configured through the admin dashboard.
+### The Problem:
+Working with custom forms in WordPress presents several challenges:
 
+The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29)  is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
 
-Without using a plugin, the [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29) to capture `POST` or `GET` involves creating an action hook that a `REQUEST` to `/wp-admin/admin-post.php` will trigger. This method is not elegant because it sends the user to `/wp-admin/admin-post.php`. If we need to send them back (i.e they missed a field), another `HTTP Request` needs to be made to redirect them back to the form. At this point the `$_POST` with their input is gone, which would have been useful to repopulate the form. In order to persist the users input you need to either create a url query and append it to the redirect and access it from `$_GET`, or store it in a session or cookie.
+This means when the form is submitted, the user is sent to `http://yoursite.com/wp-admin/admin-post.php`.
 
-A common solution to `POST` to the same url the form is on is to capture the `$_POST` and run logic on it in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern.
+Why is this a problem?
 
+For starters, the user is no longer on your form, and to send them back (i.e they missed a required field) we need make a  `HTTP Request` and redirect them back. At this point the `$_POST` with their input is gone, which would have been useful to repopulate the form. In order to persist the users input you need to either append a url query to the redirect to make it available in `$_GET`,  or store it in a session or cookie.
+
+Neither is elegant, and both are clunky.
+
+Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern.
+
+This gets messy and confusing fast.
+
+Most form building plugins have large footprints that generate rendered markup configured through the admin dashboard. Although it sounds much easier to point and click, and drag and drop; until something breaks or it can't meet some specific requirement. Enter hacks...
+
+### The Solution:
 WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
 
-It does not introduce anything into the admin dashboard. The idea is to define a form and its constraints in a themes `functions.php` or plugin. The markup and behavior of the form is left for the developer.
-
-In a nutshell, you define the rules and error messages for each field in an array and send it to a validator. The validator will assign by reference an instance of itself to the form definition it receives.
+Markup a form in a template and define its constraints in `functions.php` or a plugin.
 
 WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
 
@@ -32,8 +39,9 @@ Just a library to handle form input validation with WordPress.
 ...nothing more, nothing less
 
 * 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
+* Create custom rules
 * Default and custom error messages
-* Posts to self url. No redirects, GET vars, sessions, or cookies
+* Self POST. No redirects, GET vars, sessions, or cookies
 * None intrusive and lightweight
 * Stays away from your admin dashboard
 * No rendered markup
@@ -41,14 +49,13 @@ Just a library to handle form input validation with WordPress.
 
 ## TODO:
 - Expose an api for the front end to support singe configuration.
-- Support for custom validation rules.
 - Standardize storage for default error messages.
 
-## Install
+# Install
 
 Currently there is no release available.
 
-Under active development - Not recommended for usage yet. Major changes are introduced frequently.
+Under active development
 
 If you can't wait, install as development.
 
@@ -58,10 +65,10 @@ If you can't wait, install as development.
 
 Once a release is packaged, install will be the usual WordPress way.
 
-## Usage
+# Usage
 
 
-### Configure validation rules:
+## Configure validation rules:
 
 ```php
 <?php
@@ -69,16 +76,44 @@ $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
     'name'      => ['required'],
-    'email'     => ['email', 'required'],
-    'website'   => ['required', 'url'],
-    'msg'       => ['required']
+    'email'     => ['required', 'email'],
   )
 );
 ```
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc.
 
-### Custom error messages:
+## Custom validation rules:
+
+Prepend `custom:` to rule, name of rule is the callback.
+```php
+<?php
+$my_form = array(
+  'action'  => 'contact_form', // unique identifier
+  'rules'   => array(
+    'name'      => ['required'],
+    'email'     => ['required', 'email'],
+    'phone'     => ['required', 'custom:phone']
+  )
+);
+```
+Create the callback:
+```php
+<?php
+/**
+ * Callback for phone custom rule
+ * 'custom:phone'
+ *
+ * @param string $value
+ * @return bool
+ */
+function wfv__phone( $value ) {
+  // phone field will validate only if the input is 'hi'
+  return ( 'hi' === $value ) ? true : false;
+}
+```
+
+## Custom error messages:
 
 ```php
 <?php
@@ -86,7 +121,7 @@ $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
     'name'      => ['required'],
-    'email'     => ['email', 'required'],
+    'email'     => ['required', 'email'],
     'website'   => ['url'],
     'msg'       => ['required']
   ),
@@ -103,7 +138,7 @@ $my_form = array(
 );
 ```
 
-### Callback for successful validation:
+## Callback for successful validation:
 
 ```php
 <?php
@@ -115,10 +150,10 @@ function my_form_valid( $form ) {
 add_action( $my_form['action'], 'my_form_valid' );
 ```
 
-### Create the validation instance:
-`wfv_create( array $form )`
+## Create the validation instance:
+### `wfv_create( array $form )`
 
-Creates a validation instance and assigns self by reference to the array parameter.
+Creates and assigns by reference the validation instance.
 
 ```php
 <?php
@@ -127,13 +162,13 @@ wfv_create( $my_form );
 ```
 You can now access `WFV_Form` methods
 
-`get( string $property )`
+#### `get( string $property )`
 ```php
 <?php
 echo $my_form->get('action'); // contact_form
 ```
 
-`get_input( $field )`
+#### `get_input( $field )`
 ```php
 <?php
 
@@ -141,8 +176,7 @@ echo $my_form->get('action'); // contact_form
 echo $my_form->get_input('email'); // foo@bar.com
 ```
 
-
-### Create a form somewhere in your theme:
+## Create a form somewhere in your theme:
 
 ```php
 <form name="contact_form" method="post">
@@ -159,16 +193,16 @@ echo $my_form->get_input('email'); // foo@bar.com
 
 The form must have these two tags:
 
-Hidden action field with the unique value for this form:   
+Hidden action field with the unique value for this form:
 `<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
 
-The nonce field:   
+The nonce field:
 `<?php echo $my_form->get('nonce_field'); ?>`
 
-### Retrieving error messages:
-`get_error( string $field_name = null, bool $bag = false )`
+## Retrieving error messages:
+### `get_error( string $field_name = null, bool $bag = false )`
 
-Get all errors:
+**Get all errors:**
 ```php
 <?php
 
@@ -176,7 +210,7 @@ Get all errors:
 $errors = $my_form->get_error();
 ```
 
-Get field errors:
+**Get field errors:**
 ```php
 <?php
 
@@ -184,14 +218,14 @@ Get field errors:
 $email_errors = $my_form->get_error( 'email', $bag = true );
 ```
 
-Get field's first error message
+**Get field's first error message:**
 ```php
 <?php
 
 // returns first error message string for field
 echo $my_form->get_error( 'email' ); // Your email is required so we can reply back
 ```
-First error message is the first rule declared.   
+First error message is the first rule declared.
 eg. `'required'` is the first error when rules are declared as:
 `['required', 'email']` and both validations fail.
 
