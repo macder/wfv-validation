@@ -88,10 +88,14 @@ class WFV_Form extends WFV_Validate {
    */
   private function set( $form ) {
     $this->action = $form['action'];
-    $this->rules = new WFV_rules( $form['rules'] );
+    $this->rules = new WFV_Rules( $form['rules'] );
     $this->messages = new WFV_Messages( $form['messages'] );
     $this->create_nonce_field();
-    $this->catch_post();
+    $this->input = new WFV_Input( $this->action );
+
+    if( $this->input->is_loaded() ) {
+      $this->trigger_post_action();
+    }
   }
 
   /**
