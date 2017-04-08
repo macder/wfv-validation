@@ -122,7 +122,7 @@ class WFV_Form extends WFV_Validate {
    */
   private function catch_post() {
     if ( $_POST && $_POST['action'] === $this->action ) {
-      $this->sanitize_post();
+      $this->input = $this->sanitize_post();
       $this->trigger_post_action();
     }
   }
