@@ -102,12 +102,12 @@ class WFV_Validate {
    *
    * @return array Sanitized $_POST
    */
-  protected function sanitize_post() {
+  /*protected function sanitize_post() {
     foreach ( $_POST as $key => $value ) {
       $sane[ sanitize_key( $key ) ] = sanitize_text_field( $value );
     }
     return $sane;
-  }
+  }*/
 
   /**
    * Create an instance of Valitron\Validator with our rules / messages
@@ -118,7 +118,10 @@ class WFV_Validate {
    * @access protected
    */
   protected function create_valitron() {
-    $valitron = new Valitron\Validator( $this->input );
+
+    // $this->input->get();
+    $input = $this->input->get_array();
+    $valitron = new Valitron\Validator( $input );
     $this->rules->push( $valitron, $this->messages );
     return $valitron;
   }
