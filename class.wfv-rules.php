@@ -58,8 +58,8 @@ class WFV_Rules {
   private function add( $rule, $valitron ) {
     $valitron::addRule( $rule, function($field, $value, array $params, array $fields ) use ( $rule ) {
       $rule = explode( ':', $rule );
-      $callback = 'wfv_'. $rule[1];
       return $callback( $value );
+      $callback = 'wfv__'. $rule[1];
     });
   }
 
