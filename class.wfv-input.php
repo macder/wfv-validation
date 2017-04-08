@@ -44,12 +44,7 @@ class WFV_Input {
    * @return string|object Property value
    */
   public function get( $property = false ) {
-    if( $property ) {
-      return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
-    }
-    else {
-      return ( $this->is_loaded() ) ? $this : null;
-    }
+    return ( $property ) ? $this->$property : $this;
   }
 
   /**
