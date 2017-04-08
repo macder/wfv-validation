@@ -39,11 +39,11 @@ class WFV_Rules {
    */
   public function push( &$valitron, $messages = null ) {
 
+    // loop the field
     foreach( $this as $field => $rules ) {
-      //loop this field rules
-      foreach( $rules as $rule ) {
 
-        // test if rule is custom
+      // loop this field rules - a field can have many rules
+      foreach( $rules as $rule ) {
         if( $this->is_custom( $rule ) ) {
           $this->add( $rule, $valitron );
         }
