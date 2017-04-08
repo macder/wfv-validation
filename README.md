@@ -151,7 +151,7 @@ add_action( $my_form['action'], 'my_form_valid' );
 ```
 
 ## Create the validation instance:
-## `wfv_create( array $form )`
+### `wfv_create( array $form )`
 
 Creates and assigns by reference the validation instance.
 
@@ -186,7 +186,8 @@ The nonce field:
 `<?php echo $my_form->get('nonce_field'); ?>`
 
 ## Retrieve user input:
-## `input( string $field = null )`
+### `input( string $field = null )`
+
 Convenience method to access `WFV_Input` instance
 ```php
 <?php // useful to repopulate form
