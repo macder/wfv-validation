@@ -131,7 +131,7 @@ class WFV_Validate {
     $v = $this->create_valitron();
 
     if ( $v->validate() ) {
-      do_action( $this->action, $this->input );
+      do_action( $this->action, $this );
     } else {
       $this->errors = $v->errors();
     }
