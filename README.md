@@ -51,7 +51,7 @@ Just a library to handle form input validation with WordPress.
 - Expose an api for the front end to support singe configuration.
 - Standardize storage for default error messages.
 
-## Install
+# Install
 
 Currently there is no release available.
 
@@ -65,10 +65,10 @@ If you can't wait, install as development.
 
 Once a release is packaged, install will be the usual WordPress way.
 
-## Usage
+# Usage
 
 
-### Configure validation rules:
+## Configure validation rules:
 
 ```php
 <?php
@@ -83,7 +83,7 @@ $my_form = array(
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc.
 
-### Custom validation rules:
+## Custom validation rules:
 
 Prepend `custom:` to rule, name of rule is the callback.
 ```php
@@ -113,7 +113,7 @@ function wfv__phone( $value ) {
 }
 ```
 
-### Custom error messages:
+## Custom error messages:
 
 ```php
 <?php
@@ -138,7 +138,7 @@ $my_form = array(
 );
 ```
 
-### Callback for successful validation:
+## Callback for successful validation:
 
 ```php
 <?php
@@ -150,8 +150,8 @@ function my_form_valid( $form ) {
 add_action( $my_form['action'], 'my_form_valid' );
 ```
 
-### Create the validation instance:
-`wfv_create( array $form )`
+## Create the validation instance:
+### `wfv_create( array $form )`
 
 Creates and assigns by reference the validation instance.
 
@@ -176,7 +176,7 @@ echo $my_form->get('action'); // contact_form
 echo $my_form->get_input('email'); // foo@bar.com
 ```
 
-### Create a form somewhere in your theme:
+## Create a form somewhere in your theme:
 
 ```php
 <form name="contact_form" method="post">
@@ -199,7 +199,7 @@ Hidden action field with the unique value for this form:
 The nonce field:
 `<?php echo $my_form->get('nonce_field'); ?>`
 
-### Retrieving error messages:
+## Retrieving error messages:
 `get_error( string $field_name = null, bool $bag = false )`
 
 Get all errors:
