@@ -113,21 +113,6 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * If $_POST, check if action attr matches $action property
-   * Sanitize and assign $_POST to $input property
-   *
-   * @since 0.2.1
-   * @since 0.6.0 Renamed from is_retry
-   * @access private
-   */
-  private function catch_post() {
-    if ( $_POST && $_POST['action'] === $this->action ) {
-      $this->input = $this->sanitize_post();
-      $this->trigger_post_action();
-    }
-  }
-
-  /**
    * Executes function(s) hooked into validate_form action
    * Passes this class as parameter
    *
