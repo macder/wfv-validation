@@ -36,10 +36,9 @@ class WFV_Rules {
           // do something...
         }
 
-        if( property_exists($messages, $field) && array_key_exists($rule, $messages->$field)) {
+        if( $messages->has($field, $rule) ) {
           $message = $messages->$field;
           $valitron->rule( $rule, $field )->message( $message[$rule] );
-
         } else { // use defaults
           $valitron->rule( $rule, $field );
         }
