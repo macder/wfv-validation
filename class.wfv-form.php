@@ -20,7 +20,7 @@ class WFV_Form extends WFV_Validate {
    *
    */
   function __construct( $form ) {
-    $this->set_properties( $form );
+    $this->set( $form );
   }
 
   /**
@@ -79,7 +79,7 @@ class WFV_Form extends WFV_Validate {
    * @param array $form Form configuration
    * @access private
    */
-  private function set_properties( $form ) {
+  private function set( $form ) {
     $this->action = $form['action'];
     $this->rules = new WFV_rules( $form['rules'] );
     $this->messages = new WFV_Messages( $form['messages'] );
