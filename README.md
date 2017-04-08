@@ -55,7 +55,7 @@ Just a library to handle form input validation with WordPress.
 
 Currently there is no release available.
 
-Under active development - Not recommended for usage yet. Major changes are introduced frequently.
+Under active development
 
 If you can't wait, install as development.
 
@@ -112,9 +112,6 @@ function wfv__phone( $value ) {
   return ( 'hi' === $value ) ? true : false;
 }
 ```
-Callback name: prepend `wfv__` to the name of the custom rule.
-`'phone' => [custom:phone']`
-`function wfv__phone( $value )`
 
 ### Custom error messages:
 
