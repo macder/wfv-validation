@@ -25,7 +25,7 @@ class WFV_Validate {
    *
    * @since 0.1.0
    * @access protected
-   * @var array $rules Form validation rules.
+   * @var class $rules Instance of WFV_Rules.
    */
   protected $rules;
 
@@ -34,7 +34,7 @@ class WFV_Validate {
    *
    * @since 0.4.0
    * @access protected
-   * @var array $messages The field/rule paired messages.
+   * @var class $messages Instance of WFV_Messages.
    */
   protected $messages;
 
@@ -43,7 +43,7 @@ class WFV_Validate {
    *
    * @since 0.2.1
    * @access protected
-   * @var array $input Form validation rules.
+   * @var class $input Instance of WFV_Input.
    */
   protected $input;
 
