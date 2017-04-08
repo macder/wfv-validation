@@ -17,8 +17,6 @@ class WFV_Input {
   function __construct( $action ) {
     if( $this->is_submit( $action ) ) {
       $this->set( $this->sanitize() );
-      //$sane_input = $this->sanitize();
-      //$this->set( $sane_input );
     }
   }
 
