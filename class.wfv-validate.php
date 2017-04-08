@@ -82,10 +82,11 @@ class WFV_Validate {
    * @since 0.6.1
    * @param string $property Property key name
    *
-   * @return mixed Property value
+   * @return string|array Property value
    */
   public function get( $property ) {
-    return $this->$property;
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
+
   }
 
   /**
