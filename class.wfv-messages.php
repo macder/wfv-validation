@@ -17,6 +17,10 @@ class WFV_Messages {
     $this->set( $messages );
   }
 
+  public function get( $property ) {
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
+  }
+
   /**
    * Check if field/rule has custom message
    *
