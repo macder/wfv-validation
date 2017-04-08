@@ -93,23 +93,6 @@ class WFV_Validate {
   }
 
   /**
-   * Sanitize input and keys in $_POST
-   * Assign the sanitized data to $sane_post property
-   *
-   * @since 0.2.0
-   * @since 0.7.2 Returns result, does not set $input property
-   * @access protected
-   *
-   * @return array Sanitized $_POST
-   */
-  /*protected function sanitize_post() {
-    foreach ( $_POST as $key => $value ) {
-      $sane[ sanitize_key( $key ) ] = sanitize_text_field( $value );
-    }
-    return $sane;
-  }*/
-
-  /**
    * Create an instance of Valitron\Validator with our rules / messages
    * Assign to $valitron property
    *
@@ -118,8 +101,6 @@ class WFV_Validate {
    * @access protected
    */
   protected function create_valitron() {
-
-    // $this->input->get();
     $input = $this->input->get_array();
     $valitron = new Valitron\Validator( $input );
     $this->rules->push( $valitron, $this->messages );
