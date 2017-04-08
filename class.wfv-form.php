@@ -36,6 +36,18 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
+   * Convienience method to access rules property
+   *
+   * @since 0.7.2
+   * @param string (optional) $field The field name
+   *
+   * @return
+   */
+  public function rules( $field = null ) {
+    return ( $field ) ? $this->rules->get( $field ) : $this->rules;
+  }
+
+  /**
    * Return field value from $input property
    *
    * @since 0.6.1
