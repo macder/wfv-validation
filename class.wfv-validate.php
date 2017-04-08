@@ -27,7 +27,7 @@ class WFV_Validate {
    * @access protected
    * @var array $rules Form validation rules.
    */
-  protected $rules = array();
+  protected $rules;
 
   /**
    * Error message overrides
@@ -36,7 +36,7 @@ class WFV_Validate {
    * @access protected
    * @var array $messages The field/rule paired messages.
    */
-  protected $messages = array();
+  protected $messages;
 
   /**
    * User input from failed validation
@@ -65,7 +65,6 @@ class WFV_Validate {
    */
   protected $errors;
 
-
   /**
    * __construct
    *
@@ -82,10 +81,11 @@ class WFV_Validate {
    * @since 0.6.1
    * @param string $property Property key name
    *
-   * @return mixed Property value
+   * @return string|array Property value
    */
   public function get( $property ) {
-    return $this->$property;
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
+
   }
 
   /**
@@ -110,7 +110,7 @@ class WFV_Validate {
    * @param string (optional) $field_name Only errors for $field_name
    * @param bool (optional) $bag true return array error bag for field
    *
-   * @return mixed String if $field is string and $bag = false, array otherwise
+   * @return string|array String if $field is string and $bag = false, array otherwise
    */
   public function get_error( $field_name = null, $bag = false ) {
     if( $field_name ) {
@@ -130,7 +130,7 @@ class WFV_Validate {
     $v = $this->create_valitron();
 
     if ( $v->validate() ) {
-      do_action( $this->action, $this->input );
+      do_action( $this->action, $this );
     } else {
       $this->errors = $v->errors();
     }
@@ -142,8 +142,9 @@ class WFV_Validate {
    *
    * @since 0.2.0
    * @since 0.6.0 Public access
+   * @access protected
    */
-  public function sanitize_post() {
+  protected function sanitize_post() {
     foreach ( $_POST as $key => $value ) {
       $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
     }
@@ -155,22 +156,11 @@ class WFV_Validate {
    *
    * @since 0.2.0
    * @param array $form Form configuration array
+   * @access protected
    */
-  public function create_valitron() {
-
+  protected function create_valitron() {
     $valitron = new Valitron\Validator( $this->input );
-
-    foreach( $this->rules as $field => $rules ) {
-      foreach( $rules as $rule ){
-        if( $this->messages[$field][$rule] ){
-          $message = $this->messages[$field][$rule];
-          $valitron->rule( $rule, $field )->message( $message );
-        }
-        else {
-          $valitron->rule( $rule, $field );
-        }
-      }
-    }
+    $this->rules->push( $valitron, $this->messages );
     return $valitron;
   }
 
@@ -180,7 +170,7 @@ class WFV_Validate {
    *
    * @since 0.2.2
    * @param string $action
-   * @access private
+   * @access protected
    */
   protected function validate_nonce() {
     $nonce = $_REQUEST[ $this->action.'_token' ];
