@@ -69,14 +69,45 @@ $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
     'name'      => ['required'],
-    'email'     => ['email', 'required'],
-    'website'   => ['required', 'url'],
-    'msg'       => ['required']
+    'email'     => ['required', 'email'],
   )
 );
 ```
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc.
+
+### Custom validation rules:
+
+Prepend `custom:` to rule, name of rule is the callback.
+```php
+<?php
+$my_form = array(
+  'action'  => 'contact_form', // unique identifier
+  'rules'   => array(
+    'name'      => ['required'],
+    'email'     => ['required', 'email'],
+    'phone'     => ['required', 'custom:phone']
+  )
+);
+```
+Create the callback:
+```php
+<?php
+/**
+ * Callback for phone custom rule
+ * 'custom:phone'
+ *
+ * @param string $value
+ * @return bool
+ */
+function wfv__phone( $value ) {
+  // phone field will validate only if the input is 'hi'
+  return ( 'hi' === $value ) ? true : false;
+}
+```
+Callback name: prepend `wfv__` to the name of the custom rule.   
+`'phone' => [custom:phone']`    
+`function wfv__phone( $value )`
 
 ### Custom error messages:
 
@@ -86,7 +117,7 @@ $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
     'name'      => ['required'],
-    'email'     => ['email', 'required'],
+    'email'     => ['required', 'email'],
     'website'   => ['url'],
     'msg'       => ['required']
   ),
@@ -118,7 +149,7 @@ add_action( $my_form['action'], 'my_form_valid' );
 ### Create the validation instance:
 `wfv_create( array $form )`
 
-Creates a validation instance and assigns self by reference to the array parameter.
+Creates and assigns by reference the validation instance.
 
 ```php
 <?php
@@ -140,7 +171,6 @@ echo $my_form->get('action'); // contact_form
 // useful to repopulate form
 echo $my_form->get_input('email'); // foo@bar.com
 ```
-
 
 ### Create a form somewhere in your theme:
 
