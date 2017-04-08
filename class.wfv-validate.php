@@ -45,7 +45,7 @@ class WFV_Validate {
    * @access protected
    * @var array $input Form validation rules.
    */
-  protected $input = array();
+  protected $input;
 
   /**
    * Result from wp_nonce_field()
