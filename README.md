@@ -160,21 +160,7 @@ Creates and assigns by reference the validation instance.
 // $my_form becomes an instance of WFV_Form
 wfv_create( $my_form );
 ```
-You can now access `WFV_Form` methods
-
-#### `get( string $property )`
-```php
-<?php
-echo $my_form->get('action'); // contact_form
-```
-
-#### `get_input( $field )`
-```php
-<?php
-
-// useful to repopulate form
-echo $my_form->get_input('email'); // foo@bar.com
-```
+You can now access methods available to `WFV_Form`
 
 ## Create a form somewhere in your theme:
 
@@ -198,6 +184,36 @@ Hidden action field with the unique value for this form:
 
 The nonce field:
 `<?php echo $my_form->get('nonce_field'); ?>`
+
+## Retrieve user input:
+### `input( string $field = null )`
+
+Convenience method to access `WFV_Input` instance
+```php
+<?php // useful to repopulate form
+echo $my_form->input('email'); // foo@bar.com
+```
+
+Assign input instance to a $var
+```php
+<?php
+$input = $my_form->input();
+echo $input->get('email'); // foo@bar.com
+```
+
+The above are shorthands for:
+```php
+<?php
+echo $my_form->get('input')->get('email'); // foo@bar.com
+
+```
+
+Get input as an array:
+```php
+<?php
+$input = $my_form->input()->get_array();
+echo $input['email']; // foo@bar.com
+```
 
 ## Retrieving error messages:
 ### `get_error( string $field_name = null, bool $bag = false )`

@@ -4,7 +4,6 @@
  * Performs the input validation
  *
  * Uses Valitron to validate form
- * If form validates, an action is triggered
  *
  * @since 0.2.0
  * @since 0.6.0 renamed from Form_Validate_Post
@@ -25,7 +24,7 @@ class WFV_Validate {
    *
    * @since 0.1.0
    * @access protected
-   * @var array $rules Form validation rules.
+   * @var class $rules Instance of WFV_Rules.
    */
   protected $rules;
 
@@ -34,7 +33,7 @@ class WFV_Validate {
    *
    * @since 0.4.0
    * @access protected
-   * @var array $messages The field/rule paired messages.
+   * @var class $messages Instance of WFV_Messages.
    */
   protected $messages;
 
@@ -43,9 +42,9 @@ class WFV_Validate {
    *
    * @since 0.2.1
    * @access protected
-   * @var array $input Form validation rules.
+   * @var class $input Instance of WFV_Input.
    */
-  protected $input = array();
+  protected $input;
 
   /**
    * Result from wp_nonce_field()
@@ -76,50 +75,6 @@ class WFV_Validate {
   }
 
   /**
-   * Return property value
-   *
-   * @since 0.6.1
-   * @param string $property Property key name
-   *
-   * @return string|array Property value
-   */
-  public function get( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
-
-  }
-
-  /**
-   * Return field value from $input property
-   *
-   * @since 0.6.1
-   * @param string $field Name of field
-   *
-   * @return string Field value
-   */
-  public function get_input( $field ) {
-    return $this->input[ $field ];
-  }
-
-  /**
-   * Return fields $error property
-   * By default returns all errors
-   * If $field_name is supplied a string, only error for the field
-   * $bag is array of messages, false returns first error as string
-   *
-   * @since 0.6.1
-   * @param string (optional) $field_name Only errors for $field_name
-   * @param bool (optional) $bag true return array error bag for field
-   *
-   * @return string|array String if $field is string and $bag = false, array otherwise
-   */
-  public function get_error( $field_name = null, $bag = false ) {
-    if( $field_name ) {
-      return ( true == $bag ) ? $this->errors[ $field_name ] : $this->errors[ $field_name ][0];
-    }
-    return $this->errors;
-  }
-
-  /**
    * Do the validation
    *
    * @since 0.2.0
@@ -137,20 +92,6 @@ class WFV_Validate {
   }
 
   /**
-   * Sanitize input and keys in $_POST
-   * Assign the sanitized data to $sane_post property
-   *
-   * @since 0.2.0
-   * @since 0.6.0 Public access
-   * @access protected
-   */
-  protected function sanitize_post() {
-    foreach ( $_POST as $key => $value ) {
-      $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
-    }
-  }
-
-  /**
    * Create an instance of Valitron\Validator with our rules / messages
    * Assign to $valitron property
    *
@@ -159,7 +100,8 @@ class WFV_Validate {
    * @access protected
    */
   protected function create_valitron() {
-    $valitron = new Valitron\Validator( $this->input );
+    $input = $this->input->get_array();
+    $valitron = new Valitron\Validator( $input );
     $this->rules->push( $valitron, $this->messages );
     return $valitron;
   }
