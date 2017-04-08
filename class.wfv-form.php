@@ -32,6 +32,7 @@ class WFV_Form extends WFV_Validate {
    * @access private
    */
   private function set_properties( $form ) {
+    $this->rules = new WFV_rules( $form['rules'] );
     $this->create_nonce_field();
     $this->catch_post();
   }
