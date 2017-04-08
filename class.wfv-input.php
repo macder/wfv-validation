@@ -36,14 +36,21 @@ class WFV_Input {
 
   /**
    * Return property value
+   * By default returns this instance
+   * If $property string passed, returns value for that property
    *
    * @since 0.7.2
-   * @param string $property Property key name
+   * @param string (optional) $property Property key name
    *
    * @return string|array Property value
    */
-  public function get( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
+  public function get( $property = false ) {
+    if( $property ) {
+      return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
+    }
+    else {
+      return ( $this->is_loaded() ) ? $this : null;
+    }
   }
 
   /**
