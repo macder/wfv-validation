@@ -21,6 +21,10 @@ class WFV_Form extends WFV_Validate {
    */
   function __construct( $form ) {
     $this->set( $form );
+
+    if( $this->input->is_loaded() ) {
+      $this->trigger_post_action();
+    }
   }
 
   /**
@@ -92,10 +96,6 @@ class WFV_Form extends WFV_Validate {
     $this->messages = new WFV_Messages( $form['messages'] );
     $this->create_nonce_field();
     $this->input = new WFV_Input( $this->action );
-
-    if( $this->input->is_loaded() ) {
-      $this->trigger_post_action();
-    }
   }
 
   /**
