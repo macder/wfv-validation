@@ -5,7 +5,10 @@
 
 Release date: TBD
 
-Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.   
+**Status**:
+`API is near standardized; major changes are less frequent.`
+
+Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 *i.e. write your own markup for a form and define the constraints*
 
 Working with custom forms in WordPress can be a pain. There is no rich validation API aside from some general [sanitation methods](https://codex.wordpress.org/Data_Validation) and most form building plugins have large footprints that generate rendered markup configured through the admin dashboard.
@@ -23,6 +26,18 @@ In a nutshell, you define the rules and error messages for each field in an arra
 
 WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
 
+## Features:
+Just a library to handle form input validation with WordPress.
+
+...nothing more, nothing less
+
+* 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
+* Default and custom error messages
+* Posts to self url. No redirects, GET vars, sessions, or cookies
+* None intrusive and lightweight
+* Stays away from your admin dashboard
+* No rendered markup
+* Developer freedom
 
 ## TODO:
 - Expose an api for the front end to support singe configuration.
@@ -84,77 +99,93 @@ $my_form = array(
     'website' => array(
       'url' => 'The website url is invalid'
     )
-  ]  
+  ]
 );
 ```
+
 ### Callback for successful validation:
+
 ```php
 <?php
-function my_form_valid( $input ) {
+function my_form_valid( $form ) {
   // form validated, do something...
-  echo $input['name'];
-  echo $input['email'];
+  echo $form->get_input('name');
+  echo $form->get_input('email');
 }
 add_action( $my_form['action'], 'my_form_valid' );
 ```
-### Create the validation instance:
-Use the `wfv_create( array($form ) )` function to create a validation instance for the form.    
-The instance will get assigned by reference to the parameter variable.
 
-Example:
+### Create the validation instance:
+`wfv_create( array $form )`
+
+Creates a validation instance for the form assign self by reference to the array parameter.
+
+```php
+<?php // $my_form becomes an instance of WFV_Form
+wfv_create( $my_form );
+```
+You can now access `WFV_Form` methods
+
+`get( string $property )`
 ```php
 <?php
-wfv_create( $my_form ); // $my_form is now an instance of `WFV_Form`
-
-echo $my_form->get('action');  // prints contact_form
-
-print_r( $my_form );
+echo $my_form->get('action'); // contact_form
 ```
 
+`get_input( $field )`
+```php
+<?php // useful to repopulate form
+echo $my_form->get_input('email'); // foo@bar.com
+```
+
+
 ### Create a form somewhere in your theme:
-```html
-<form name="contact_form" action="" method="post">
+
+```php
+<form name="contact_form" method="post">
   <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
   <input id="website" name="website" type="text">
   <textarea id="msg"></textarea>
 
-  <input type="hidden" name="action" value="<?= $my_form->action ?>">
-  <?= $my_form->nonce_field ?>
+  <input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">
+  <?php echo $my_form->get('nonce_field'); ?>
   <input type="submit" value="Submit">
 </form>
 ```
-The unique identifier for the form is the action value.
-```html
-<input type="hidden" name="action" value="<?= $my_form->action ?>">
-```
-It connects the form to the configuration defined in `$my_form`.
+
+The form must have these two tags:
+
+Hidden action field with the unique value for this form:   
+`<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
+
+The nonce field:   
+`<?php echo $my_form->get('nonce_field'); ?>`
+
 ### Retrieving error messages:
+`get_error( string $field_name = null, bool $bag = false )`
 
-Use the `get_error( $field_name )` method to retrieve error messages.
-
-Example:
+Get all errors:
 ```php
-<?php echo $my_form->get_error('email'); ?> // output first error message
+<?php // returns array with all errors
+$errors = $my_form->get_error();
 ```
-This will echo the first error message, as defined in the rules    
-eg. if the rules for the field are defined as:
-* `['required', 'email']`    
 
-`'required'` would be the first error if both validations fail
-
-You can retrieve the message bag by passing `true` a second parameter   
-`get_error( $field_name, $bag = true )`
-
-Example:
+Get field errors:
 ```php
-<?php
-
+<?php // returns error array for a field
 $email_errors = $my_form->get_error( 'email', $bag = true );
-
-print_r( $email_errors ); ?>
 ```
-This will get an array of errors for a `$field`
+
+Get field's first error message
+```php
+<?php // returns first error message string for field
+echo $my_form->get_error( 'email' ); // Your email is required so we can reply back
+```
+First error message is the first rule declared.   
+eg. `'required'` is the first error when rules are declared as:
+`['required', 'email']` and both validations fail.
+
 
 ### Note:
 
