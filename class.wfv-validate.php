@@ -65,7 +65,6 @@ class WFV_Validate {
    */
   protected $errors;
 
-
   /**
    * __construct
    *
