@@ -16,8 +16,9 @@ class WFV_Input {
    */
   function __construct( $action ) {
     if( $this->is_submit( $action ) ) {
-      $sane_input = $this->sanitize_post();
-      $this->set( $sane_input );
+      $this->set( $this->sanitize() );
+      //$sane_input = $this->sanitize();
+      //$this->set( $sane_input );
     }
   }
 
@@ -74,7 +75,7 @@ class WFV_Input {
    *
    * @return array Sanitized keys and values from $_POST
    */
-  protected function sanitize_post() {
+  protected function sanitize() {
     foreach ( $_POST as $key => $value ) {
       $sane[ sanitize_key( $key ) ] = sanitize_text_field( $value );
     }
