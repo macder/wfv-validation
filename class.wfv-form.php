@@ -32,9 +32,6 @@ class WFV_Form extends WFV_Validate {
    * @access private
    */
   private function set_properties( $form ) {
-    foreach( $form as $property => $value ) {
-      $this->$property = $value;
-    }
     $this->create_nonce_field();
     $this->catch_post();
   }
