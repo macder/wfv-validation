@@ -77,7 +77,7 @@ class WFV_Form extends WFV_Validate {
    */
   public function get_error( $field_name = null, $bag = false ) {
     if( $field_name ) {
-      return ( true == $bag ) ? $this->errors[ $field_name ] : $this->errors[ $field_name ][0];
+      return ( true == $bag ) ? $this->errors->get( $field_name ) : $this->errors->get( $field_name )[0];
     }
     return $this->errors;
   }
