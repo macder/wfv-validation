@@ -144,8 +144,8 @@ $my_form = array(
 <?php
 function my_form_valid( $form ) {
   // form validated, do something...
-  echo $form->get_input('name');
-  echo $form->get_input('email');
+  echo $form->input('name');
+  echo $form->input('email');
 }
 add_action( $my_form['action'], 'my_form_valid' );
 ```
