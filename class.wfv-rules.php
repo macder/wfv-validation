@@ -26,6 +26,7 @@ class WFV_Rules {
    * @param object (optional) $messages Instance of WFV_Messages
    */
   public function push( &$valitron, $messages = null ) {
+
     foreach( $this as $field => $rules ) {
       //loop this field rules
       foreach( $rules as $rule ){
