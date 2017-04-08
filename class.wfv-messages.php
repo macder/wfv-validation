@@ -18,6 +18,21 @@ class WFV_Messages {
   }
 
   /**
+   * Check if field/rule has custom message
+   *
+   * @since 0.7.0
+   * @param string $field
+   * @param string $rule
+   *
+   * @return bool
+   */
+  public function has($field, $rule) {
+    if( property_exists($this, $field) && array_key_exists($rule, $this->$field)) {
+      return true;
+    }
+  }
+
+  /**
    * Sets the messages as properties on this class
    *
    * @since 0.7.0
