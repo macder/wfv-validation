@@ -42,7 +42,7 @@ class WFV_Input {
    * @since 0.7.2
    * @param string (optional) $property Property key name
    *
-   * @return string|array Property value
+   * @return string|object Property value
    */
   public function get( $property = false ) {
     if( $property ) {
@@ -59,7 +59,7 @@ class WFV_Input {
    * @since 0.7.2
    * @param string $property Property key name
    *
-   * @return array This instance as an array
+   * @return array|null This instance as an array
    */
   public function get_array() {
     return ( $this->is_loaded() ) ? get_object_vars( $this ) : null;
