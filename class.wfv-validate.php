@@ -4,7 +4,6 @@
  * Performs the input validation
  *
  * Uses Valitron to validate form
- * If form validates, an action is triggered
  *
  * @since 0.2.0
  * @since 0.6.0 renamed from Form_Validate_Post
