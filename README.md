@@ -118,10 +118,11 @@ add_action( $my_form['action'], 'my_form_valid' );
 ### Create the validation instance:
 `wfv_create( array $form )`
 
-Creates a validation instance for the form assign self by reference to the array parameter.
+Creates a validation instance and assigns self by reference to the array parameter.
 
 ```php
-<?php // $my_form becomes an instance of WFV_Form
+<?php
+// $my_form becomes an instance of WFV_Form
 wfv_create( $my_form );
 ```
 You can now access `WFV_Form` methods
@@ -134,7 +135,9 @@ echo $my_form->get('action'); // contact_form
 
 `get_input( $field )`
 ```php
-<?php // useful to repopulate form
+<?php
+
+// useful to repopulate form
 echo $my_form->get_input('email'); // foo@bar.com
 ```
 
@@ -167,19 +170,25 @@ The nonce field:
 
 Get all errors:
 ```php
-<?php // returns array with all errors
+<?php
+
+// returns array with all errors
 $errors = $my_form->get_error();
 ```
 
 Get field errors:
 ```php
-<?php // returns error array for a field
+<?php
+
+// returns error array for a field
 $email_errors = $my_form->get_error( 'email', $bag = true );
 ```
 
 Get field's first error message
 ```php
-<?php // returns first error message string for field
+<?php
+
+// returns first error message string for field
 echo $my_form->get_error( 'email' ); // Your email is required so we can reply back
 ```
 First error message is the first rule declared.   
