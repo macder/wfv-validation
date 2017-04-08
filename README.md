@@ -160,7 +160,7 @@ Creates and assigns by reference the validation instance.
 // $my_form becomes an instance of WFV_Form
 wfv_create( $my_form );
 ```
-You can now access `WFV_Form` methods
+You can now access methods available to `WFV_Form`
 
 #### `get( string $property )`
 ```php
@@ -168,12 +168,16 @@ You can now access `WFV_Form` methods
 echo $my_form->get('action'); // contact_form
 ```
 
-#### `get_input( $field )`
+#### `input( string $field = null )`
+Convenience method to access `WFV_Input` instance
 ```php
 <?php
 
 // useful to repopulate form
-echo $my_form->get_input('email'); // foo@bar.com
+echo $my_form->input('email'); // foo@bar.com
+
+// the input() method is a shortcut to:
+$my_form->get('input')->get('email');
 ```
 
 ## Create a form somewhere in your theme:
