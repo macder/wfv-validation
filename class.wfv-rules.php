@@ -33,7 +33,7 @@ class WFV_Rules {
 
         // test if rule is custom
         if( $this->is_custom( $rule ) ) {
-          // do something...
+          $this->add( $rule, $valitron );
         }
 
         // check if this field/rule has a custom error message
@@ -48,6 +48,22 @@ class WFV_Rules {
   }
 
   /**
+   * Add a custom rule
+   * Trigger callback for the rule
+   *
+   * @since 0.7.1
+   * @param string $rule
+   * @param object $valitron Instance of Valitron\Validator
+   */
+  private function add( $rule, $valitron ) {
+    $valitron::addRule( $rule, function($field, $value, array $params, array $fields ) use ( $rule ) {
+      $rule = explode( ':', $rule );
+      $callback = 'wfv_'. $rule[1];
+      return $callback( $value );
+    });
+  }
+
+  /**
    * Check if rule is custom
    *
    * @since 0.7.0
@@ -55,7 +71,7 @@ class WFV_Rules {
    *
    * @return string|bool
    */
-  public function is_custom( $rule ) {
+  private function is_custom( $rule ) {
     return ( false !== strpos( $rule, 'custom:' ) ) ? $rule : false;
   }
 
