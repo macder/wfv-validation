@@ -27,7 +27,7 @@ class WFV_Validate {
    * @access protected
    * @var array $rules Form validation rules.
    */
-  protected $rules = array();
+  protected $rules;
 
   /**
    * Error message overrides
