@@ -159,18 +159,7 @@ class WFV_Validate {
    */
   protected function create_valitron() {
     $valitron = new Valitron\Validator( $this->input );
-
-    foreach( $this->rules as $field => $rules ) {
-      foreach( $rules as $rule ){
-        if( $this->messages[$field][$rule] ){
-          $message = $this->messages[$field][$rule];
-          $valitron->rule( $rule, $field )->message( $message );
-        }
-        else {
-          $valitron->rule( $rule, $field );
-        }
-      }
-    }
+    $this->rules->push( $valitron, $this->messages );
     return $valitron;
   }
 
