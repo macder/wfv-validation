@@ -36,6 +36,7 @@ class WFV_Rules {
           // do something...
         }
 
+        // check if this field/rule has a custom error message
         if( $messages->has($field, $rule) ) {
           $message = $messages->$field;
           $valitron->rule( $rule, $field )->message( $message[$rule] );
