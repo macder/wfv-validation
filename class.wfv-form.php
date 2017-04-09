@@ -84,6 +84,7 @@ class WFV_Form extends WFV_Validate {
     $this->messages = new WFV_Messages( $form['messages'] );
     $this->create_nonce_field();
     $this->input = new WFV_Input( $this->action );
+    $this->errors = new WFV_Errors( );
   }
 
   /**

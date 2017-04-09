@@ -100,7 +100,7 @@ class WFV_Validate {
       do_action( $this->action, $this );
     } else {
       $errors = $v->errors();
-      $this->errors = new WFV_Errors( $errors );
+      $this->errors->set( $errors );
     }
   }
 
