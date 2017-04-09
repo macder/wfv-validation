@@ -28,18 +28,6 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Return property value
-   *
-   * @since 0.6.1
-   * @param string $property Property key name
-   *
-   * @return string|array Property value
-   */
-  public function get( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
-  }
-
-  /**
    * Convienience method to access rules property
    *
    * @since 0.7.2
@@ -64,22 +52,20 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Return fields $error property
-   * By default returns all errors
-   * If $field_name is supplied a string, only error for the field
-   * $bag is array of messages, false returns first error as string
+   * Convienience method to access errors property
    *
    * @since 0.6.1
-   * @param string (optional) $field_name Only errors for $field_name
-   * @param bool (optional) $bag true return array error bag for field
+   * @param string $field Name of field
    *
-   * @return string|array String if $field is string and $bag = false, array otherwise
+   * @return string Field value
    */
-  public function get_error( $field_name = null, $bag = false ) {
-    if( $field_name ) {
-      return ( true == $bag ) ? $this->errors[ $field_name ] : $this->errors[ $field_name ][0];
+  public function error( $field = null ) {
+    if( $field ) {
+      $errors = $this->get( 'errors' );
+      $error = $errors->$field;
+      return $error[0];
     }
-    return $this->errors;
+    return $this->get('errors');
   }
 
   /**
@@ -96,6 +82,7 @@ class WFV_Form extends WFV_Validate {
     $this->messages = new WFV_Messages( $form['messages'] );
     $this->create_nonce_field();
     $this->input = new WFV_Input( $this->action );
+    $this->errors = new WFV_Errors( );
   }
 
   /**
