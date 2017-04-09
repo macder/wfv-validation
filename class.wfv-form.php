@@ -8,7 +8,6 @@
  * @since 0.1.0
  * @since 0.6.0 Renamed from Form_Validation
  */
-// class Form_Validation {
 class WFV_Form extends WFV_Validate {
 
   /**
