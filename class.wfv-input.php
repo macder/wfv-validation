@@ -1,13 +1,26 @@
 <?php defined( 'ABSPATH' ) or die();
 
 /**
- *
+ * Container for user input
  *
  *
  * @since 0.7.2
  */
 class WFV_Input {
 
+  /**
+   * Property pointer
+   * When accesing this instance using convienience method,
+   *  the pointer is the name of property interacted with.
+   * eg. $input = $my_form->input('email'), 'email' is the pointer.
+   * This enables method chaining via a convienience method
+   * eg. $match = $my_form->input('email')->has('foo@bar.com')
+   *
+   * @since 0.7.4
+   * @access private
+   * @var string $pointer
+   */
+  private $pointer;
 
   /**
    * _construct
