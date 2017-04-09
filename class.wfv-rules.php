@@ -27,7 +27,7 @@ class WFV_Rules {
    * @return string|array Property value
    */
   public function get( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : $this;
   }
 
   /**
@@ -66,6 +66,7 @@ class WFV_Rules {
    * @since 0.7.1
    * @param string $rule
    * @param object $valitron Instance of Valitron\Validator
+   * @access private
    */
   private function add( $rule, $valitron ) {
     $valitron::addRule( $rule, function($field, $value, array $params, array $fields ) use ( $rule ) {
@@ -81,6 +82,7 @@ class WFV_Rules {
    *
    * @since 0.7.0
    * @param string $rule
+   * @access private
    *
    * @return string|bool
    */

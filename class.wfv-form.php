@@ -8,7 +8,6 @@
  * @since 0.1.0
  * @since 0.6.0 Renamed from Form_Validation
  */
-// class Form_Validation {
 class WFV_Form extends WFV_Validate {
 
   /**
@@ -36,19 +35,23 @@ class WFV_Form extends WFV_Validate {
    * @return
    */
   public function rules( $field = null ) {
-    return ( $field ) ? $this->rules->get( $field ) : $this->rules;
+    return ( $field ) ? $this->rules->get( $field ) : $this->get('rules');
   }
 
   /**
    * Convienience method to access input property
    *
    * @since 0.6.1
-   * @param string $field Name of field
+   * @since 0.7.4 Sets field pointer on WFV_Input instance
+   * @param string (optional) $field Name of field
    *
-   * @return string Field value
+   * @return class|string Instance of WFV_Input or field value
    */
   public function input( $field = null ) {
-    return $this->input->get( $field );
+    if( $field ) {
+      $this->input->put('pointer', $field);
+    }
+    return $this->input;
   }
 
   /**
@@ -80,9 +83,9 @@ class WFV_Form extends WFV_Validate {
     $this->action = $form['action'];
     $this->rules = new WFV_Rules( $form['rules'] );
     $this->messages = new WFV_Messages( $form['messages'] );
-    $this->create_nonce_field();
     $this->input = new WFV_Input( $this->action );
-    $this->errors = new WFV_Errors( );
+    $this->errors = new WFV_Errors();
+    $this->create_nonce_field();
   }
 
   /**
@@ -107,6 +110,6 @@ class WFV_Form extends WFV_Validate {
    * @access private
    */
   private function trigger_post_action() {
-    do_action( FORM_VALIDATION__ACTION_POST, $this );
+    do_action( WFV_VALIDATE__ACTION_POST, $this );
   }
 }

@@ -3,29 +3,29 @@
 Plugin Name: WFV - Form Validation
 Plugin URI:  https://github.com/macder/wp-form-validation
 Description: See README.md
-Version:     0.7.3
+Version:     0.7.4
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
 License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
-define( 'FORM_VALIDATION_VERSION', '0.7.3' );
-define( 'FORM_VALIDATION__MINIMUM_WP_VERSION', '4.7' ); // not tested with other versions
-define( 'FORM_VALIDATION__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WFV_VALIDATE_VERSION', '0.7.4' );
+define( 'WFV_VALIDATE__MINIMUM_WP_VERSION', '4.7' ); // not tested with other versions
+define( 'WFV_VALIDATE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-define( 'FORM_VALIDATION__ACTION_POST', 'validate_form' );
+define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
-require_once( FORM_VALIDATION__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-errors.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-input.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-rules.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-messages.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-validate.php' );
-require_once( FORM_VALIDATION__PLUGIN_DIR . 'class.wfv-form.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-errors.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-input.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-rules.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-messages.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-validate.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-form.php' );
 
 /**
- * Instantiate and return a new Form_Validation
+ * Instantiate and return a new WFV_VALIDATE
  * Specific to the form defined in $name
  *
  * @since 0.3.0
@@ -38,7 +38,7 @@ function wfv_create( &$form ) {
   $form = new WFV_Form( $form );
 }
 
-add_action( FORM_VALIDATION__ACTION_POST, 'validate' );
+add_action( WFV_VALIDATE__ACTION_POST, 'validate' );
 function validate( $form ) {
   $form->validate();
 }
