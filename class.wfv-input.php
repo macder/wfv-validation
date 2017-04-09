@@ -105,11 +105,12 @@ class WFV_Input {
   }
 
   /**
-   *
+   * Put value to property on this instance
    *
    * @since 0.7.4
+   * @param string $property Property name
+   * @param string $value Value to set property
    *
-   * @return
    */
   public function put( $property, $value ) {
     $this->$property = $value;
@@ -168,8 +169,7 @@ class WFV_Input {
    *
    * @since 0.7.2
    * @param array $input The sane POST array
-   *
-   * @return bool
+   * @access private
    */
   private function set( $input ) {
     foreach( $input as $field => $value ) {
