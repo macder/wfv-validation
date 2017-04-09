@@ -239,11 +239,17 @@ Get field errors:
 ```php
 <?php // get the error bag for a field
 
-$email_errors = $my_form->error()->get('email');
+$errors = $my_form->error();
+$email_errors = $errors->get('email');
 
 foreach( $email_errors as $error ) {
   echo $error;
 }
+```
+
+```php
+<?php // Or chain in single line:
+$email_errors = $my_form->error()->get('email');
 ```
 
 
