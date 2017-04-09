@@ -34,6 +34,18 @@ class WFV_Input {
   }
 
   /**
+   *
+   *
+   * @since 0.7.4
+   *
+   * @return
+   */
+  public function __toString() {
+    $property = $this->pointer;
+    return ( $this->$property ) ? $this->$property : '';
+  }
+
+  /**
    * Check if there is input data
    * Will return true after form submission
    *
