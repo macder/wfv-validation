@@ -22,7 +22,6 @@ class WFV_Errors {
    *
    * @since 0.7.3
    * @param array $errors Validation rules
-   * @access private
    */
   public function set( $errors ) {
     foreach( $errors as $field => $error ) {
