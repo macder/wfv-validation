@@ -8,7 +8,6 @@
  * @since 0.1.0
  * @since 0.6.0 Renamed from Form_Validation
  */
-// class Form_Validation {
 class WFV_Form extends WFV_Validate {
 
   /**
@@ -43,12 +42,16 @@ class WFV_Form extends WFV_Validate {
    * Convienience method to access input property
    *
    * @since 0.6.1
-   * @param string $field Name of field
+   * @since 0.7.4 Sets field pointer on WFV_Input instance
+   * @param string (optional) $field Name of field
    *
-   * @return string Field value
+   * @return class|string Instance of WFV_Input or field value
    */
   public function input( $field = null ) {
-    return $this->input->get( $field );
+    if( $field ) {
+      $this->input->put('pointer', $field);
+    }
+    return $this->input;
   }
 
   /**

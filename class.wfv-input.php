@@ -1,13 +1,26 @@
 <?php defined( 'ABSPATH' ) or die();
 
 /**
- *
+ * Container for user input
  *
  *
  * @since 0.7.2
  */
 class WFV_Input {
 
+  /**
+   * Property pointer
+   * When accesing this instance using convienience method,
+   *  the pointer is the name of property interacted with.
+   * eg. $input = $my_form->input('email'), 'email' is the pointer.
+   * This enables method chaining from the convienience method context.
+   * eg. $match = $my_form->input('email')->has('foo@bar.com')
+   *
+   * @since 0.7.4
+   * @access private
+   * @var string $pointer
+   */
+  private $pointer;
 
   /**
    * _construct
@@ -18,6 +31,19 @@ class WFV_Input {
     if( $this->is_submit( $action ) ) {
       $this->set( $this->sanitize() );
     }
+  }
+
+  /**
+   *
+   *
+   * @since 0.7.4
+   *
+   * @return
+   */
+  function __toString() {
+    $property = ( $this->is_loaded() ) ? $this->pointer : null;
+    return ( property_exists( $this, $property ) ) ? $this->$property : '';
+
   }
 
   /**
@@ -43,7 +69,7 @@ class WFV_Input {
    *
    * @return string|object Property value
    */
-  public function get( $property = false ) {
+  public function get( $property = null ) {
     return ( $property ) ? $this->$property : $this;
   }
 
@@ -53,10 +79,42 @@ class WFV_Input {
    * @since 0.7.2
    * @param string $property Property key name
    *
-   * @return array|null This instance as an array
+   * @return array This instance as an array
    */
   public function get_array() {
-    return ( $this->is_loaded() ) ? get_object_vars( $this ) : null;
+    return ( $this->is_loaded() ) ? get_object_vars( $this ) : array();
+  }
+
+  /**
+   * Check if $this has $value
+   *
+   * @since 0.7.4
+   * @param string $needle String to search
+   *
+   * @return bool
+   */
+  public function has( $needle ) {
+    // edge case for checkboxes - array input
+    foreach( $this as $field => $value ) {
+      if( true === is_array( $value ) ) {
+        return ( in_array( $needle, $value ) ) ? true : false;
+      }
+    }
+    // default - string input
+    $haystack = $this->get_array();
+    return ( true === in_array( $needle, $haystack ) ) ? true : false;
+  }
+
+  /**
+   * Put value to property on this instance
+   *
+   * @since 0.7.4
+   * @param string $property Property name
+   * @param string $value Value to set property
+   *
+   */
+  public function put( $property, $value ) {
+    $this->$property = $value;
   }
 
   /**
@@ -69,10 +127,30 @@ class WFV_Input {
    * @return array Sanitized keys and values from $_POST
    */
   protected function sanitize() {
+    // TODO: maybe array_map() this?
     foreach ( $_POST as $key => $value ) {
-      $sane[ sanitize_key( $key ) ] = sanitize_text_field( $value );
+      $sane_key = sanitize_key( $key );
+      // edge case for checkboxes - array input
+      if( true === is_array( $value ) ) {
+        foreach( $value as $input ) {
+          $sane[ $sane_key ][] = sanitize_text_field( $input );
+        }
+      } else { // default - string input
+        $sane[ $sane_key ] = sanitize_text_field( $value );
+      }
     }
     return $sane;
+  }
+
+  /**
+   * Check if $pointer property is set.
+   *
+   * @since 0.7.4
+   *
+   * @return bool
+   */
+  private function has_pointer() {
+    return ( $this->pointer ) ? true : false;
   }
 
   /**
@@ -92,8 +170,7 @@ class WFV_Input {
    *
    * @since 0.7.2
    * @param array $input The sane POST array
-   *
-   * @return bool
+   * @access private
    */
   private function set( $input ) {
     foreach( $input as $field => $value ) {
