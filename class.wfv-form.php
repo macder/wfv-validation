@@ -43,12 +43,16 @@ class WFV_Form extends WFV_Validate {
    * Convienience method to access input property
    *
    * @since 0.6.1
-   * @param string $field Name of field
+   * @since 0.7.4 Sets field pointer on WFV_Input instance
+   * @param string (optional) $field Name of field
    *
-   * @return string Field value
+   * @return class|string Instance of WFV_Input or field value
    */
   public function input( $field = null ) {
-    return ( $field ) ? $this->input->get( $field ) : $this->get('input');
+    if( $field ) {
+      $this->input->put('pointer', $field);
+    }
+    return $this->input;
   }
 
   /**
