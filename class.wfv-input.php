@@ -71,14 +71,14 @@ class WFV_Input {
   protected function sanitize() {
     // TODO: maybe array_map() this?
     foreach ( $_POST as $key => $value ) {
+      $sane_key = sanitize_key( $key );
       // edge case for checkboxes - array input
       if( true === is_array( $value ) ) {
-        $sane_key = sanitize_key( $key );
         foreach( $value as $input ) {
           $sane[ $sane_key ][] = sanitize_text_field( $input );
         }
       } else { // default - string input
-        $sane[ sanitize_key( $key ) ] = sanitize_text_field( $value );
+        $sane[ $sane_key ] = sanitize_text_field( $value );
       }
     }
     return $sane;
