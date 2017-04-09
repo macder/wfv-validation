@@ -42,7 +42,7 @@ class WFV_Input {
    */
   public function __toString() {
     $property = $this->pointer;
-    return ( $this->$property ) ? $this->$property : '';
+    return ( $this->pointer ) ? $this->$property : '';
   }
 
   /**
