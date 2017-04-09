@@ -53,10 +53,10 @@ class WFV_Input {
    * @since 0.7.2
    * @param string $property Property key name
    *
-   * @return array|null This instance as an array
+   * @return array This instance as an array
    */
   public function get_array() {
-    return ( $this->is_loaded() ) ? get_object_vars( $this ) : null;
+    return ( $this->is_loaded() ) ? get_object_vars( $this ) : array();
   }
 
   /**
