@@ -28,18 +28,6 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Return property value
-   *
-   * @since 0.6.1
-   * @param string $property Property key name
-   *
-   * @return string|array Property value
-   */
-  public function get( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
-  }
-
-  /**
    * Convienience method to access rules property
    *
    * @since 0.7.2
