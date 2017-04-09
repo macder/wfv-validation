@@ -40,7 +40,7 @@ class WFV_Input {
    *
    * @return
    */
-  public function __toString() {
+  function __toString() {
     $property = $this->pointer;
     return ( property_exists( $this, $property ) ) ? $this->$property : '';
   }
