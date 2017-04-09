@@ -141,6 +141,17 @@ class WFV_Input {
   }
 
   /**
+   * Check if $pointer property is set.
+   *
+   * @since 0.7.4
+   *
+   * @return bool
+   */
+  private function has_pointer() {
+    return ( $this->pointer ) ? true : false;
+  }
+
+  /**
    * Check if there was a $_POST for this form
    *
    * @since 0.7.2
