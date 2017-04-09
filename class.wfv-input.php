@@ -43,7 +43,7 @@ class WFV_Input {
    *
    * @return string|object Property value
    */
-  public function get( $property = false ) {
+  public function get( $property = null ) {
     return ( $property ) ? $this->$property : $this;
   }
 
