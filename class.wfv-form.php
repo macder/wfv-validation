@@ -36,7 +36,7 @@ class WFV_Form extends WFV_Validate {
    * @return
    */
   public function rules( $field = null ) {
-    return ( $field ) ? $this->rules->get( $field ) : $this->rules;
+    return ( $field ) ? $this->rules->get( $field ) : $this->get('rules');
   }
 
   /**
