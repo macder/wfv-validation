@@ -14,11 +14,13 @@ class WFV_Messages {
    * @param array $messages
    */
   function __construct( $messages ) {
-    $this->set( $messages );
+    if( $messages ) {
+      $this->set( $messages );
+    }
   }
 
   public function get( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : $this;
   }
 
   /**

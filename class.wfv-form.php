@@ -36,7 +36,7 @@ class WFV_Form extends WFV_Validate {
    * @return
    */
   public function rules( $field = null ) {
-    return ( $field ) ? $this->rules->get( $field ) : $this->rules;
+    return ( $field ) ? $this->rules->get( $field ) : $this->get('rules');
   }
 
   /**
@@ -80,9 +80,9 @@ class WFV_Form extends WFV_Validate {
     $this->action = $form['action'];
     $this->rules = new WFV_Rules( $form['rules'] );
     $this->messages = new WFV_Messages( $form['messages'] );
-    $this->create_nonce_field();
     $this->input = new WFV_Input( $this->action );
-    $this->errors = new WFV_Errors( );
+    $this->errors = new WFV_Errors();
+    $this->create_nonce_field();
   }
 
   /**
@@ -107,6 +107,6 @@ class WFV_Form extends WFV_Validate {
    * @access private
    */
   private function trigger_post_action() {
-    do_action( FORM_VALIDATION__ACTION_POST, $this );
+    do_action( WFV_VALIDATE__ACTION_POST, $this );
   }
 }
