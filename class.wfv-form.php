@@ -52,6 +52,20 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
+   * Convienience method to access error property
+   *
+   * @since 0.6.1
+   * @param string $field Name of field
+   *
+   * @return string Field value
+   */
+  public function error( $field ) {
+    $errors = $this->get( 'errors' );
+    $error = $errors->$field;
+    return $error[0];
+  }
+
+  /**
    * Return fields $error property
    * By default returns all errors
    * If $field_name is supplied a string, only error for the field
