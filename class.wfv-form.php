@@ -48,8 +48,9 @@ class WFV_Form extends WFV_Validate {
    * @return class|string Instance of WFV_Input or field value
    */
   public function input( $field = null ) {
+    $this->reset_pointer('input');
     if( $field ) {
-      $this->input->put('pointer', $field);
+      $this->set_pointer('input', $field);
     }
     return $this->input;
   }
