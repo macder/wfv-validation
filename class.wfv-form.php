@@ -111,6 +111,17 @@ class WFV_Form extends WFV_Validate {
     $this->$property_instance->forget('pointer');
   }
 
+  /**
+   *
+   *
+   * @since 0.7.5
+   * @access private
+   */
+  private function set_pointer( $property_instance, $pointer ) {
+    $this->$property_instance->put('pointer', $pointer);
+  }
+
+  /**
    * Executes function(s) hooked into validate_form action
    * Passes this class as parameter
    *
