@@ -13,7 +13,7 @@ class WFV_Input {
    * When accesing this instance using convienience method,
    *  the pointer is the name of property interacted with.
    * eg. $input = $my_form->input('email'), 'email' is the pointer.
-   * This enables method chaining via a convienience method
+   * This enables method chaining from the convienience method context.
    * eg. $match = $my_form->input('email')->has('foo@bar.com')
    *
    * @since 0.7.4
