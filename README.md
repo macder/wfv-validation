@@ -100,15 +100,8 @@ $my_form = array(
 Create the callback:
 ```php
 <?php
-/**
- * Callback for phone custom rule
- * 'custom:phone'
- *
- * @param string $value
- * @return bool
- */
+// phone field will validate only if the input is 'hi'
 function wfv__phone( $value ) {
-  // phone field will validate only if the input is 'hi'
   return ( 'hi' === $value ) ? true : false;
 }
 ```
@@ -144,8 +137,8 @@ $my_form = array(
 <?php
 function my_form_valid( $form ) {
   // form validated, do something...
-  echo $form->get_input('name');
-  echo $form->get_input('email');
+  echo $form->input('name');
+  echo $form->input('email');
 }
 add_action( $my_form['action'], 'my_form_valid' );
 ```
@@ -180,9 +173,12 @@ You can now access methods available to `WFV_Form`
 The form must have these two tags:
 
 Hidden action field with the unique value for this form:
+
+
 `<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
 
 The nonce field:
+
 `<?php echo $my_form->get('nonce_field'); ?>`
 
 ## Retrieve user input:
@@ -216,34 +212,39 @@ echo $input['email']; // foo@bar.com
 ```
 
 ## Retrieving error messages:
-### `get_error( string $field_name = null, bool $bag = false )`
+### `error( string $field = null )`
+Convenience method to access `WFV_Errors` instance
 
-**Get all errors:**
+
+Get first error message on field:
 ```php
-<?php
-
-// returns array with all errors
-$errors = $my_form->get_error();
+<?php // get the first error message on the field
+echo $my_form->error('email'); // Your email is required so we can reply back
 ```
 
-**Get field errors:**
-```php
-<?php
-
-// returns error array for a field
-$email_errors = $my_form->get_error( 'email', $bag = true );
-```
-
-**Get field's first error message:**
-```php
-<?php
-
-// returns first error message string for field
-echo $my_form->get_error( 'email' ); // Your email is required so we can reply back
-```
 First error message is the first rule declared.
+
+
 eg. `'required'` is the first error when rules are declared as:
 `['required', 'email']` and both validations fail.
+
+
+Get all errors:
+```php
+<?php // get a decorated instance of `WFV_Errors`
+$errors = $my_form->error();
+```
+
+Get field errors:
+```php
+<?php // get the error bag for a field
+
+$email_errors = $my_form->error()->get('email');
+
+foreach( $email_errors as $error ) {
+  echo $error;
+}
+```
 
 
 ### Note:

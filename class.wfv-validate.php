@@ -75,6 +75,18 @@ class WFV_Validate {
   }
 
   /**
+   * Return property value
+   *
+   * @since 0.6.1
+   * @param string $property Property key name
+   *
+   * @return string|array Property value
+   */
+  public function get( $property ) {
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : $this;
+  }
+
+  /**
    * Do the validation
    *
    * @since 0.2.0
@@ -87,7 +99,8 @@ class WFV_Validate {
     if ( $v->validate() ) {
       do_action( $this->action, $this );
     } else {
-      $this->errors = $v->errors();
+      $errors = $v->errors();
+      $this->errors->set( $errors );
     }
   }
 
