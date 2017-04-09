@@ -41,8 +41,9 @@ class WFV_Input {
    * @return
    */
   function __toString() {
-    $property = $this->pointer;
+    $property = ( $this->is_loaded() ) ? $this->pointer : null;
     return ( property_exists( $this, $property ) ) ? $this->$property : '';
+
   }
 
   /**
