@@ -59,27 +59,6 @@ class WFV_Form extends WFV_Validate {
    *
    * @return string Field value
    */
-  public function error( $field ) {
-    $errors = $this->get( 'errors' );
-    $error = $errors->$field;
-    return $error[0];
-  }
-
-  /**
-   * Return fields $error property
-   * By default returns all errors
-   * If $field_name is supplied a string, only error for the field
-   * $bag is array of messages, false returns first error as string
-   *
-   * @since 0.6.1
-   * @param string (optional) $field_name Only errors for $field_name
-   * @param bool (optional) $bag true return array error bag for field
-   *
-   * @return string|array String if $field is string and $bag = false, array otherwise
-   */
-  public function get_error( $field_name = null, $bag = false ) {
-    if( $field_name ) {
-      return ( true == $bag ) ? $this->errors->get( $field_name ) : $this->errors->get( $field_name )[0];
   public function error( $field = null ) {
     if( $field ) {
       $errors = $this->get( 'errors' );
