@@ -117,6 +117,11 @@ class WFV_Input {
     $this->$property = $value;
   }
 
+  /**
+   *
+   *
+   * @since 0.7.5
+   */
   public function forget( $property ) {
     $this->$property = null;
   }
