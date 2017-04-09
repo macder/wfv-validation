@@ -3,14 +3,14 @@
 Plugin Name: WFV - Form Validation
 Plugin URI:  https://github.com/macder/wp-form-validation
 Description: See README.md
-Version:     0.7.3
+Version:     0.7.4
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
 License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
-define( 'WFV_VALIDATE_VERSION', '0.7.3' );
+define( 'WFV_VALIDATE_VERSION', '0.7.4' );
 define( 'WFV_VALIDATE__MINIMUM_WP_VERSION', '4.7' ); // not tested with other versions
 define( 'WFV_VALIDATE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
