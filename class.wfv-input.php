@@ -60,6 +60,26 @@ class WFV_Input {
   }
 
   /**
+   * Check if $this has $value
+   *
+   * @since 0.7.4
+   * @param string $needle String to search
+   *
+   * @return bool
+   */
+  public function has( $needle ) {
+    // edge case for checkboxes - array input
+    foreach( $this as $field => $value ) {
+      if( true === is_array( $value ) ) {
+        return ( in_array( $needle, $value ) ) ? true : false;
+      }
+    }
+    // default - string input
+    $haystack = $this->get_array();
+    return ( true === in_array( $needle, $haystack ) ) ? true : false;
+  }
+
+  /**
    * Sanitize $_POST array
    *
    * @since 0.2.0
