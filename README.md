@@ -219,7 +219,7 @@ Convenience method to access `WFV_Errors` instance
 Get first error message on field:
 ```php
 <?php // get the first error message on the field
-echo $contact_form->error('email'); // Your email is required so we can reply back
+echo $my_form->error('email'); // Your email is required so we can reply back
 ```
 
 First error message is the first rule declared.
