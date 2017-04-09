@@ -93,16 +93,21 @@ class WFV_Input {
    *
    * @return bool
    */
-  public function has( $needle ) {
-    // edge case for checkboxes - array input
+  public function has( $needle, $haystack = null ) {
+    $haystack = ( true === $this->has_pointer() ) ? $this->pointer : $haystack;
+
+    if( $haystack ) {
+      return ( $this->contains( $needle, $this->$haystack ) ) ? true : false;
+    }
+
+    // no haystack, search entire input, return true on first match
     foreach( $this as $field => $value ) {
-      if( true === is_array( $value ) ) {
-        return ( in_array( $needle, $value ) ) ? true : false;
+      if( $this->contains( $needle, $value ) ) {
+        return true;
       }
     }
-    // default - string input
-    $haystack = $this->get_array();
-    return ( true === in_array( $needle, $haystack ) ) ? true : false;
+    // no match, return false
+    return false;
   }
 
   /**
