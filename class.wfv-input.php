@@ -95,11 +95,9 @@ class WFV_Input {
    */
   public function has( $needle, $haystack = null ) {
     $haystack = ( true === $this->has_pointer() ) ? $this->pointer : $haystack;
-
     if( $haystack ) {
       return ( $this->contains( $needle, $this->$haystack ) ) ? true : false;
     }
-
     // no haystack, search entire input, return true on first match
     foreach( $this as $field => $value ) {
       if( $this->contains( $needle, $value ) ) {
