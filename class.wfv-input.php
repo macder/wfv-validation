@@ -162,8 +162,8 @@ class WFV_Input {
    * @since 0.7.5
    */
   private function contains( $needle, $property ) {
-    if ( is_array( $property ) ) {
-      return ( in_array( $needle, $property ) ) ? true : false;
+    if ( true === is_array( $property ) ) {
+      return ( true === in_array( $needle, $property ) ) ? true : false;
     }
     return ( $needle === $property ) ? true : false;
   }
