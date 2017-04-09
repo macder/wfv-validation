@@ -100,7 +100,7 @@ $my_form = array(
 Create the callback:
 ```php
 <?php
-// phone field will validate only if the input is 'hi'
+// phone field will validate only if the input is 'hi' ...how cruel
 function wfv__phone( $value ) {
   return ( 'hi' === $value ) ? true : false;
 }
@@ -211,7 +211,7 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Retrieving error messages:
+## Retrieve error messages:
 ### `error( string $field = null )`
 Convenience method to access `WFV_Errors` instance
 
@@ -225,8 +225,7 @@ echo $my_form->error('email'); // Your email is required so we can reply back
 First error message is the first rule declared.
 
 
-eg. `'required'` is the first error when rules are declared as:
-`['required', 'email']` and both validations fail.
+eg. `required` is the first error if rules are declared: `['required', 'email']` and both validations fail.
 
 
 Get all errors:
