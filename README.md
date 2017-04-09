@@ -100,15 +100,8 @@ $my_form = array(
 Create the callback:
 ```php
 <?php
-/**
- * Callback for phone custom rule
- * 'custom:phone'
- *
- * @param string $value
- * @return bool
- */
+// phone field will validate only if the input is 'hi'
 function wfv__phone( $value ) {
-  // phone field will validate only if the input is 'hi'
   return ( 'hi' === $value ) ? true : false;
 }
 ```
@@ -180,9 +173,12 @@ You can now access methods available to `WFV_Form`
 The form must have these two tags:
 
 Hidden action field with the unique value for this form:
+
+
 `<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
 
 The nonce field:
+
 `<?php echo $my_form->get('nonce_field'); ?>`
 
 ## Retrieve user input:
