@@ -99,7 +99,7 @@ class WFV_Input {
       return ( $this->contains( $needle, $this->$haystack ) ) ? true : false;
     }
     // no haystack, search entire input, return true on first match
-    foreach( $this as $field => $value ) {
+    foreach( $this as $value ) {
       if( $this->contains( $needle, $value ) ) {
         return true;
       }
