@@ -52,7 +52,7 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Convienience method to access error property
+   * Convienience method to access errors property
    *
    * @since 0.6.1
    * @param string $field Name of field
@@ -80,8 +80,13 @@ class WFV_Form extends WFV_Validate {
   public function get_error( $field_name = null, $bag = false ) {
     if( $field_name ) {
       return ( true == $bag ) ? $this->errors->get( $field_name ) : $this->errors->get( $field_name )[0];
+  public function error( $field = null ) {
+    if( $field ) {
+      $errors = $this->get( 'errors' );
+      $error = $errors->$field;
+      return $error[0];
     }
-    return $this->errors;
+    return $this->get('errors');
   }
 
   /**
