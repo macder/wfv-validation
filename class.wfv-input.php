@@ -105,6 +105,17 @@ class WFV_Input {
   }
 
   /**
+   *
+   *
+   * @since 0.7.4
+   *
+   * @return
+   */
+  public function put( $property, $value ) {
+    $this->$property = $value;
+  }
+
+  /**
    * Sanitize $_POST array
    *
    * @since 0.2.0
