@@ -18,7 +18,7 @@ class WFV_Messages {
   }
 
   public function get( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? $this->$property : null;
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : $this;
   }
 
   /**
