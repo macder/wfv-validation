@@ -117,6 +117,10 @@ class WFV_Input {
     $this->$property = $value;
   }
 
+  public function forget( $property ) {
+    $this->$property = null;
+  }
+
   /**
    * Sanitize $_POST array
    *
