@@ -236,6 +236,8 @@ $my_form->get('input')->has('foo@bar.com');  // true
 
 **Access using `input()` shorthand from `WFV_Form` instance.**
 
+It is recommended to access `has()` using the `input()` convenience method from the instance of `WFV_Form`. Your code will be more declarative and self documenting.
+
 Check if a field has specific string:
 ```php
 <?php
