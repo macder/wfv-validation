@@ -5,6 +5,12 @@
 
 Release date: Soon
 
+# Table of Contents
+1. [Introduction](#introduction)
+2. [Features](#features)
+
+## Introduction
+
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 
 ### The Problem:
@@ -33,7 +39,7 @@ Markup a form in a template and define its constraints in `functions.php` or a p
 
 WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
 
-## Features:
+## Features
 Just a library to handle form input validation with WordPress.
 
 ...nothing more, nothing less
