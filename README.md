@@ -190,10 +190,10 @@ Convenience method to access `WFV_Input` instance
 echo $my_form->input('email'); // foo@bar.com
 ```
 
-Assign input instance to a $var
+Assign input instance to a variable:
 ```php
 <?php
-$input = $my_form->input();
+$input = $my_form->input(); // $input is now an instance of WFV_Input
 echo $input->get('email'); // foo@bar.com
 ```
 
