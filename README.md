@@ -11,6 +11,10 @@ Release date: Soon
 3. [TODO](#todo)
 4. [Install](#install)
 5. [Usage](#usage)
+    1. [Configure validation rules](#configure-validation-rules)
+    2. [Custom validation rules](#custom-validation-rules)
+    3. [Custom error messages](#custom-error-messages)
+    4. [Callback for successful validation](#callback-for-successful-validation)
 
 ## Introduction
 
