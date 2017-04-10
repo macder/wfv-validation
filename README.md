@@ -274,7 +274,7 @@ foreach( $email_errors as $error ) {
 ```
 
 ```php
-<?php // Or chain in single line:
+<?php // Or chain...
 $email_errors = $my_form->error()->get('email');
 ```
 
