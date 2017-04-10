@@ -86,23 +86,27 @@ class WFV_Input {
   }
 
   /**
-   * Check if $this has $value
+   * Check if field or input has $string
    *
    * @since 0.7.4
-   * @param string $needle String to search
+   * @param string $needle Search string
+   * @param string (optional) $property Name of field
    *
    * @return bool
    */
-  public function has( $needle ) {
-    // edge case for checkboxes - array input
-    foreach( $this as $field => $value ) {
-      if( true === is_array( $value ) ) {
-        return ( in_array( $needle, $value ) ) ? true : false;
+  public function has( $needle, $property = null ) {
+    $property = ( true === $this->has_pointer() ) ? $this->pointer : $property;
+    if( $property ) {
+      return ( $this->contains( $needle, $this->$property ) ) ? true : false;
+    }
+    // no haystack, search entire input, return true on first match
+    foreach( $this as $value ) {
+      if( $this->contains( $needle, $value ) ) {
+        return true;
       }
     }
-    // default - string input
-    $haystack = $this->get_array();
-    return ( true === in_array( $needle, $haystack ) ) ? true : false;
+    // no match, return false
+    return false;
   }
 
   /**
@@ -115,6 +119,16 @@ class WFV_Input {
    */
   public function put( $property, $value ) {
     $this->$property = $value;
+  }
+
+  /**
+   * Remove a property value
+   *
+   * @since 0.7.5
+   * @param string $property Property name
+   */
+  public function forget( $property ) {
+    $this->$property = null;
   }
 
   /**
@@ -140,6 +154,22 @@ class WFV_Input {
       }
     }
     return $sane;
+  }
+
+  /**
+   * Check if property value contains some string
+   *
+   * @since 0.7.5
+   * @param string $needle
+   * @param string $property Property name
+   *
+   * @return bool
+   */
+  private function contains( $needle, $property ) {
+    if ( true === is_array( $property ) ) {
+      return ( true === in_array( $needle, $property ) ) ? true : false;
+    }
+    return ( $needle === $property ) ? true : false;
   }
 
   /**
