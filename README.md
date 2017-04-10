@@ -186,7 +186,7 @@ The nonce field:
 
 Convenience method to access `WFV_Input` instance
 ```php
-<?php // useful to repopulate form
+<?php // useful to repopulate field(s)
 echo $my_form->input('email'); // foo@bar.com
 ```
 
