@@ -212,19 +212,19 @@ echo $input['email']; // foo@bar.com
 ```
 
 ## Check if input has some specific value:
-### `has( string $needle, string|array $haystack = null )`
+### `has( string $needle, string $property = null )`
 Tests if input has $needle string.
 
 Can be accessed using `input()` shorthand from `WFV_Form`.
 
-Check if a field has a specific string:
+Check if a field has specific string:
 ```php
 <?php
 $my_form->input('email')->has('foo@bar.com');  // true
 $my_form->input('email')->has('bar@foo.com');  // false
 ```
 
-Check if entire input contains a specific string:
+Check entire input for a specific string:
 ```php
 <?php // will evaluate true if any field has 'foo@bar.com'
 $my_form->input()->has('foo@bar.com');  // true
