@@ -39,7 +39,7 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Convienience method to access input property
+   * Convenience method to access input property
    *
    * @since 0.6.1
    * @since 0.7.4 Sets field pointer on WFV_Input instance
@@ -57,11 +57,13 @@ class WFV_Form extends WFV_Validate {
 
   /**
    * Convienience method to access errors property
+   * Default returns decorated instance of WFV_Errors
+   * If $field supplied, returns fields first error
    *
    * @since 0.6.1
-   * @param string $field Name of field
+   * @param string (optional) $field Name of field
    *
-   * @return string Field value
+   * @return class|string WFV_Errors instance or first error string
    */
   public function error( $field = null ) {
     if( $field ) {

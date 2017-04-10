@@ -227,7 +227,7 @@ echo $input['email']; // foo@bar.com
 /**
  * Check if field or input has $string
  *
- * @param string $needle String to search
+ * @param string $needle Search string
  * @param string (optional) $property Name of field
  * @return bool
  */
