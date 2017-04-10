@@ -60,7 +60,7 @@ Just a library to handle form input validation with WordPress.
 * Create custom rules
 * Default and custom error messages
 * Self POST. No redirects, GET vars, sessions, or cookies
-* Declarative OOP core and API
+* Declarative API
 * None intrusive and lightweight
 * Stays away from your admin dashboard
 * No rendered markup
