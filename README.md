@@ -257,7 +257,20 @@ $my_form->input()->has('foo@bar.com');  // true
 
 ## Retrieve error messages:
 ### `error( string $field = null )`
-Convenience method to access `WFV_Errors` instance
+
+```php
+<?php
+/**
+ * Convienience method to access errors property
+ * Default returns decorated instance of WFV_Errors
+ * If $field supplied, returns fields first error
+ *
+ * @since 0.6.1
+ * @param string (optional) $field Name of field
+ *
+ * @return class|string WFV_Errors instance or first error string
+ */
+```
 
 
 Get first error message on field:
