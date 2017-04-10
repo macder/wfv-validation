@@ -8,6 +8,9 @@ Release date: Soon
 # Table of Contents
 1. [Introduction](#introduction)
 2. [Features](#features)
+3. [TODO](#todo)
+4. [Install](#install)
+5. [Usage](#usage)
 
 ## Introduction
 
