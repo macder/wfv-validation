@@ -211,6 +211,27 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
+## Check if input has some specific value:
+### `has( string $needle, string|array $haystack = null )`
+Tests if input has $needle string.
+
+Can be accessed using `input()` shorthand from `WFV_Form`.
+
+Check if a field has a specific string:
+```php
+<?php
+$my_form->input('email')->has('foo@bar.com');  // true
+$my_form->input('email')->has('bar@foo.com');  // false
+```
+
+Check if entire input contains a specific string:
+```php
+<?php // will evaluate true if any field has 'foo@bar.com'
+$my_form->input()->has('foo@bar.com');  // true
+```
+
+**Warning:** If no field name is supplied, `has()` will return `TRUE` on the first match. It is only useful to do this if looking for a unique value that could be in any field. Specifying a field name is more reliable.
+
 ## Retrieve error messages:
 ### `error( string $field = null )`
 Convenience method to access `WFV_Errors` instance
