@@ -184,6 +184,16 @@ The nonce field:
 ## Retrieve user input:
 ### `input( string $field = null )`
 
+```php
+<?php
+/**
+ * Convenience method to access input property
+ *
+ * @param string (optional) $field Name of field
+ * @return class|string Instance of WFV_Input or field value
+ */
+```
+
 Convenience method to access `WFV_Input` instance
 ```php
 <?php // useful to repopulate field(s)
@@ -219,10 +229,8 @@ echo $input['email']; // foo@bar.com
 /**
  * Check if field or input has $string
  *
- * @since 0.7.4
  * @param string $needle String to search
  * @param string (optional) $property Name of field
- *
  * @return bool
  */
 ```
@@ -265,7 +273,6 @@ $my_form->input()->has('foo@bar.com');  // true
  * Default returns decorated instance of WFV_Errors
  * If $field supplied, returns fields first error
  *
- * @since 0.6.1
  * @param string (optional) $field Name of field
  *
  * @return class|string WFV_Errors instance or first error string
