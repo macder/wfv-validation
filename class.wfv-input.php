@@ -86,11 +86,11 @@ class WFV_Input {
   }
 
   /**
-   * Check if $this has $value
+   * Check if field or input has $string
    *
    * @since 0.7.4
    * @param string $needle String to search
-   * @param string|array (optional) Haystack to search in
+   * @param string (optional) $property Name of field
    *
    * @return bool
    */
