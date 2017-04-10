@@ -5,6 +5,24 @@
 
 Release date: Soon
 
+# Table of Contents
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [TODO](#todo)
+4. [Install](#install)
+5. [Usage](#usage)
+    1. [Set validation rules](#configure-validation-rules)
+    2. [Create custom validation rules](#custom-validation-rules)
+    3. [Custom error messages](#custom-error-messages)
+    4. [Callback for successful validation](#callback-for-successful-validation)
+    5. [The validation instance](#create-the-validation-instance)
+    6. [Markup a form](#create-a-form-somewhere-in-your-theme)
+    7. [Retrieve user input](#retrieve-user-input)
+    8. [Check if input has some specific value](#check-if-input-has-some-specific-value)
+    9. [Retrieve error messages](#retrieve-error-messages)
+
+## Introduction
+
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 
 ### The Problem:
@@ -33,7 +51,7 @@ Markup a form in a template and define its constraints in `functions.php` or a p
 
 WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
 
-## Features:
+## Features
 Just a library to handle form input validation with WordPress.
 
 ...nothing more, nothing less
@@ -42,6 +60,7 @@ Just a library to handle form input validation with WordPress.
 * Create custom rules
 * Default and custom error messages
 * Self POST. No redirects, GET vars, sessions, or cookies
+* Declarative API
 * None intrusive and lightweight
 * Stays away from your admin dashboard
 * No rendered markup
