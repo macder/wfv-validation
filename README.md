@@ -213,9 +213,28 @@ echo $input['email']; // foo@bar.com
 
 ## Check if input has some specific value:
 ### `has( string $needle, string $property = null )`
-Tests if input has $needle string.
 
-Can be accessed using `input()` shorthand from `WFV_Form`.
+```php
+<?php
+/**
+ * Check if field or input has $string
+ *
+ * @since 0.7.4
+ * @param string $needle String to search
+ * @param string (optional) $property Name of field
+ *
+ * @return bool
+ */
+```
+
+```php
+<?php
+$my_form->get('input')->has('foo@bar.com', 'email');  // true
+$my_form->get('input')->has('bar@foo.com', 'email');  // false
+$my_form->get('input')->has('foo@bar.com');  // true
+```
+
+**Access using `input()` shorthand from instance of `WFV_Form`.**
 
 Check if a field has specific string:
 ```php
@@ -232,11 +251,7 @@ $my_form->input()->has('foo@bar.com');  // true
 
 **Warning:** If no field name is supplied, `has()` will return `TRUE` on the first match. It is only useful to do this if looking for a unique value that could be in any field. Specifying a field name is more reliable.
 
-Access directly without `input()` shorthand:
-```php
-<?php // access 'has' method directly
-$my_form->get('input')->has('foo@bar.com', 'email');  // true
-```
+
 
 ## Retrieve error messages:
 ### `error( string $field = null )`
