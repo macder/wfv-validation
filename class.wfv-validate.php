@@ -4,7 +4,6 @@
  * Performs the input validation
  *
  * Uses Valitron to validate form
- * If form validates, an action is triggered
  *
  * @since 0.2.0
  * @since 0.6.0 renamed from Form_Validate_Post
@@ -24,28 +23,31 @@ class WFV_Validate {
    * Validation rules
    *
    * @since 0.1.0
+   * @since 0.7.0 WFV_Rules instance
    * @access protected
-   * @var array $rules Form validation rules.
+   * @var class $rules Instance of WFV_Rules.
    */
-  protected $rules = array();
+  protected $rules;
 
   /**
    * Error message overrides
    *
    * @since 0.4.0
+   * @since 0.7.0 WFV_Messages instance
    * @access protected
-   * @var array $messages The field/rule paired messages.
+   * @var class $messages Instance of WFV_Messages.
    */
-  protected $messages = array();
+  protected $messages;
 
   /**
    * User input from failed validation
    *
    * @since 0.2.1
+   * @since 0.7.2 WFV_Input instance
    * @access protected
-   * @var array $input Form validation rules.
+   * @var class $input Instance of WFV_Input.
    */
-  protected $input = array();
+  protected $input;
 
   /**
    * Result from wp_nonce_field()
@@ -60,11 +62,11 @@ class WFV_Validate {
    * Error message bag
    *
    * @since 0.6.1
+   * @since 0.7.3 WFV_Errors instance
    * @access protected
-   * @var array Error messages for fields.
+   * @var class $errors Instance of WFV_Errors.
    */
   protected $errors;
-
 
   /**
    * __construct
@@ -82,41 +84,10 @@ class WFV_Validate {
    * @since 0.6.1
    * @param string $property Property key name
    *
-   * @return mixed Property value
+   * @return string|array Property value
    */
   public function get( $property ) {
-    return $this->$property;
-  }
-
-  /**
-   * Return field value from $input property
-   *
-   * @since 0.6.1
-   * @param string $field Name of field
-   *
-   * @return string Field value
-   */
-  public function get_input( $field ) {
-    return $this->input[ $field ];
-  }
-
-  /**
-   * Return fields $error property
-   * By default returns all errors
-   * If $field_name is supplied a string, only error for the field
-   * $bag is array of messages, false returns first error as string
-   *
-   * @since 0.6.1
-   * @param string (optional) $field_name Only errors for $field_name
-   * @param bool (optional) $bag true return array error bag for field
-   *
-   * @return mixed String if $field is string and $bag = false, array otherwise
-   */
-  public function get_error( $field_name = null, $bag = false ) {
-    if( $field_name ) {
-      return ( true == $bag ) ? $this->errors[ $field_name ] : $this->errors[ $field_name ][0];
-    }
-    return $this->errors;
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : $this;
   }
 
   /**
@@ -130,22 +101,10 @@ class WFV_Validate {
     $v = $this->create_valitron();
 
     if ( $v->validate() ) {
-      do_action( $this->action, $this->input );
+      do_action( $this->action, $this );
     } else {
-      $this->errors = $v->errors();
-    }
-  }
-
-  /**
-   * Sanitize input and keys in $_POST
-   * Assign the sanitized data to $sane_post property
-   *
-   * @since 0.2.0
-   * @since 0.6.0 Public access
-   */
-  public function sanitize_post() {
-    foreach ( $_POST as $key => $value ) {
-      $this->input[ sanitize_key( $key ) ] = sanitize_text_field( $value );
+      $errors = $v->errors();
+      $this->errors->set( $errors );
     }
   }
 
@@ -155,22 +114,12 @@ class WFV_Validate {
    *
    * @since 0.2.0
    * @param array $form Form configuration array
+   * @access protected
    */
-  public function create_valitron() {
-
-    $valitron = new Valitron\Validator( $this->input );
-
-    foreach( $this->rules as $field => $rules ) {
-      foreach( $rules as $rule ){
-        if( $this->messages[$field][$rule] ){
-          $message = $this->messages[$field][$rule];
-          $valitron->rule( $rule, $field )->message( $message );
-        }
-        else {
-          $valitron->rule( $rule, $field );
-        }
-      }
-    }
+  protected function create_valitron() {
+    $input = $this->input->get_array();
+    $valitron = new Valitron\Validator( $input );
+    $this->rules->push( $valitron, $this->messages );
     return $valitron;
   }
 
@@ -180,7 +129,7 @@ class WFV_Validate {
    *
    * @since 0.2.2
    * @param string $action
-   * @access private
+   * @access protected
    */
   protected function validate_nonce() {
     $nonce = $_REQUEST[ $this->action.'_token' ];

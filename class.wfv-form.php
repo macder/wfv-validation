@@ -8,7 +8,6 @@
  * @since 0.1.0
  * @since 0.6.0 Renamed from Form_Validation
  */
-// class Form_Validation {
 class WFV_Form extends WFV_Validate {
 
   /**
@@ -20,7 +19,59 @@ class WFV_Form extends WFV_Validate {
    *
    */
   function __construct( $form ) {
-    $this->set_properties( $form );
+    $this->set( $form );
+
+    if( $this->input->is_loaded() ) {
+      $this->trigger_post_action();
+    }
+  }
+
+  /**
+   * Convienience method to access rules property
+   *
+   * @since 0.7.2
+   * @param string (optional) $field The field name
+   *
+   * @return
+   */
+  public function rules( $field = null ) {
+    return ( $field ) ? $this->rules->get( $field ) : $this->get('rules');
+  }
+
+  /**
+   * Convenience method to access input property
+   *
+   * @since 0.6.1
+   * @since 0.7.4 Sets field pointer on WFV_Input instance
+   * @param string (optional) $field Name of field
+   *
+   * @return class|string Instance of WFV_Input or field value
+   */
+  public function input( $field = null ) {
+    $this->reset_pointer('input');
+    if( $field ) {
+      $this->set_pointer('input', $field);
+    }
+    return $this->input;
+  }
+
+  /**
+   * Convienience method to access errors property
+   * Default returns decorated instance of WFV_Errors
+   * If $field supplied, returns fields first error
+   *
+   * @since 0.6.1
+   * @param string (optional) $field Name of field
+   *
+   * @return class|string WFV_Errors instance or first error string
+   */
+  public function error( $field = null ) {
+    if( $field ) {
+      $errors = $this->get( 'errors' );
+      $error = $errors->$field;
+      return $error[0];
+    }
+    return $this->get('errors');
   }
 
   /**
@@ -31,12 +82,13 @@ class WFV_Form extends WFV_Validate {
    * @param array $form Form configuration
    * @access private
    */
-  private function set_properties( $form ) {
-    foreach( $form as $property => $value ) {
-      $this->$property = $value;
-    }
+  private function set( $form ) {
+    $this->action = $form['action'];
+    $this->rules = new WFV_Rules( $form['rules'] );
+    $this->messages = new WFV_Messages( $form['messages'] );
+    $this->input = new WFV_Input( $this->action );
+    $this->errors = new WFV_Errors();
     $this->create_nonce_field();
-    $this->catch_post();
   }
 
   /**
@@ -53,19 +105,23 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * If $_POST, check if action attr matches $action property
-   * Sanitize and assign $_POST to $input property
    *
-   * @since 0.2.1
-   * @since 0.6.0 Renamed from is_retry
+   *
+   * @since 0.7.5
    * @access private
-   *
    */
-  public function catch_post() {
-    if ( $_POST && $_POST['action'] === $this->action ) {
-      $this->sanitize_post();
-      $this->trigger_post_action();
-    }
+  private function reset_pointer( $property_instance ) {
+    $this->$property_instance->forget('pointer');
+  }
+
+  /**
+   *
+   *
+   * @since 0.7.5
+   * @access private
+   */
+  private function set_pointer( $property_instance, $pointer ) {
+    $this->$property_instance->put('pointer', $pointer);
   }
 
   /**
@@ -74,8 +130,9 @@ class WFV_Form extends WFV_Validate {
    *
    * @since 0.1.0
    * @since 0.2.0 POST logic moved to Form_Validation_Post
+   * @access private
    */
   private function trigger_post_action() {
-    do_action( FORM_VALIDATION__ACTION_POST, $this );
+    do_action( WFV_VALIDATE__ACTION_POST, $this );
   }
 }
