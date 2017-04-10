@@ -184,16 +184,24 @@ The nonce field:
 ## Retrieve user input:
 ### `input( string $field = null )`
 
-Convenience method to access `WFV_Input` instance
 ```php
-<?php // useful to repopulate form
+<?php
+/**
+ * Convenience method to access input property
+ *
+ * @param string (optional) $field Name of field
+ * @return class|string Instance of WFV_Input or field value
+ */
+```
+```php
+<?php // useful to repopulate field(s)
 echo $my_form->input('email'); // foo@bar.com
 ```
 
-Assign input instance to a $var
+Assign input instance to a variable:
 ```php
 <?php
-$input = $my_form->input();
+$input = $my_form->input(); // $input is now an instance of WFV_Input
 echo $input->get('email'); // foo@bar.com
 ```
 
@@ -211,9 +219,63 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
+## Check if input has some specific value:
+### `has( string $needle, string $property = null )`
+
+```php
+<?php
+/**
+ * Check if field or input has $string
+ *
+ * @param string $needle Search string
+ * @param string (optional) $property Name of field
+ * @return bool
+ */
+```
+
+```php
+<?php
+$my_form->get('input')->has('foo@bar.com', 'email');  // true
+$my_form->get('input')->has('bar@foo.com', 'email');  // false
+$my_form->get('input')->has('foo@bar.com');  // true
+```
+
+**Access using `input()` shorthand from `WFV_Form` instance.**
+
+It is recommended to access `has()` using the `input()` convenience method from the instance of `WFV_Form`. Your code will be more declarative and self documenting.
+
+Check if a field has specific string:
+```php
+<?php
+$my_form->input('email')->has('foo@bar.com');  // true
+$my_form->input('email')->has('bar@foo.com');  // false
+```
+
+Check entire input for a specific string:
+```php
+<?php // will evaluate true if any field has 'foo@bar.com'
+$my_form->input()->has('foo@bar.com');  // true
+```
+
+**Warning:** If no field name is supplied, `has()` will return `TRUE` on the first match. It is only useful to do this if looking for a unique value that could be in any field. Specifying a field name is more reliable.
+
+
+
 ## Retrieve error messages:
 ### `error( string $field = null )`
-Convenience method to access `WFV_Errors` instance
+
+```php
+<?php
+/**
+ * Convienience method to access errors property
+ * Default returns decorated instance of WFV_Errors
+ * If $field supplied, returns fields first error
+ *
+ * @param string (optional) $field Name of field
+ *
+ * @return class|string WFV_Errors instance or first error string
+ */
+```
 
 
 Get first error message on field:
@@ -247,7 +309,7 @@ foreach( $email_errors as $error ) {
 ```
 
 ```php
-<?php // Or chain in single line:
+<?php // Or chain...
 $email_errors = $my_form->error()->get('email');
 ```
 

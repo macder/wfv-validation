@@ -86,18 +86,18 @@ class WFV_Input {
   }
 
   /**
-   * Check if $this has $value
+   * Check if field or input has $string
    *
    * @since 0.7.4
-   * @param string $needle String to search
-   * @param string|array (optional) Haystack to search in
+   * @param string $needle Search string
+   * @param string (optional) $property Name of field
    *
    * @return bool
    */
-  public function has( $needle, $haystack = null ) {
-    $haystack = ( true === $this->has_pointer() ) ? $this->pointer : $haystack;
-    if( $haystack ) {
-      return ( $this->contains( $needle, $this->$haystack ) ) ? true : false;
+  public function has( $needle, $property = null ) {
+    $property = ( true === $this->has_pointer() ) ? $this->pointer : $property;
+    if( $property ) {
+      return ( $this->contains( $needle, $this->$property ) ) ? true : false;
     }
     // no haystack, search entire input, return true on first match
     foreach( $this as $value ) {
