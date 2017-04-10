@@ -193,8 +193,6 @@ The nonce field:
  * @return class|string Instance of WFV_Input or field value
  */
 ```
-
-Convenience method to access `WFV_Input` instance
 ```php
 <?php // useful to repopulate field(s)
 echo $my_form->input('email'); // foo@bar.com
