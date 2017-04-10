@@ -234,7 +234,7 @@ $my_form->get('input')->has('bar@foo.com', 'email');  // false
 $my_form->get('input')->has('foo@bar.com');  // true
 ```
 
-**Access using `input()` shorthand from instance of `WFV_Form`.**
+**Access using `input()` shorthand from `WFV_Form` instance.**
 
 Check if a field has specific string:
 ```php
