@@ -39,7 +39,7 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Convienience method to access input property
+   * Convenience method to access input property
    *
    * @since 0.6.1
    * @since 0.7.4 Sets field pointer on WFV_Input instance
@@ -48,19 +48,22 @@ class WFV_Form extends WFV_Validate {
    * @return class|string Instance of WFV_Input or field value
    */
   public function input( $field = null ) {
+    $this->reset_pointer('input');
     if( $field ) {
-      $this->input->put('pointer', $field);
+      $this->set_pointer('input', $field);
     }
     return $this->input;
   }
 
   /**
    * Convienience method to access errors property
+   * Default returns decorated instance of WFV_Errors
+   * If $field supplied, returns fields first error
    *
    * @since 0.6.1
-   * @param string $field Name of field
+   * @param string (optional) $field Name of field
    *
-   * @return string Field value
+   * @return class|string WFV_Errors instance or first error string
    */
   public function error( $field = null ) {
     if( $field ) {
@@ -99,6 +102,26 @@ class WFV_Form extends WFV_Validate {
     $nonce_action = $this->action;
     $nonce_name = $this->action . '_token';
     $this->nonce_field = wp_nonce_field( $nonce_action, $nonce_name, false, false );
+  }
+
+  /**
+   *
+   *
+   * @since 0.7.5
+   * @access private
+   */
+  private function reset_pointer( $property_instance ) {
+    $this->$property_instance->forget('pointer');
+  }
+
+  /**
+   *
+   *
+   * @since 0.7.5
+   * @access private
+   */
+  private function set_pointer( $property_instance, $pointer ) {
+    $this->$property_instance->put('pointer', $pointer);
   }
 
   /**
