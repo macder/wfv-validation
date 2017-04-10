@@ -94,10 +94,10 @@ class WFV_Input {
    *
    * @return bool
    */
-  public function has( $needle, $haystack = null ) {
-    $haystack = ( true === $this->has_pointer() ) ? $this->pointer : $haystack;
-    if( $haystack ) {
-      return ( $this->contains( $needle, $this->$haystack ) ) ? true : false;
+  public function has( $needle, $property = null ) {
+    $property = ( true === $this->has_pointer() ) ? $this->pointer : $property;
+    if( $property ) {
+      return ( $this->contains( $needle, $this->$property ) ) ? true : false;
     }
     // no haystack, search entire input, return true on first match
     foreach( $this as $value ) {
