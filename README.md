@@ -15,6 +15,11 @@ Release date: Soon
     2. [Custom validation rules](#custom-validation-rules)
     3. [Custom error messages](#custom-error-messages)
     4. [Callback for successful validation](#callback-for-successful-validation)
+    5. [Create the validation instance](#create-the-validation-instance)
+    6. [Create a form somewhere in your theme](#create-a-form-somewhere-in-your-theme)
+    7. [Retrieve user input](#retrieve-user-input)
+    8. [Check if input has some specific value](#check-if-input-has-some-specific-value)
+    9. [Retrieve error messages](#retrieve-error-messages)
 
 ## Introduction
 
