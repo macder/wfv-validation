@@ -90,6 +90,7 @@ class WFV_Input {
    *
    * @since 0.7.4
    * @param string $needle String to search
+   * @param string|array (optional) Haystack to search in
    *
    * @return bool
    */
@@ -121,9 +122,10 @@ class WFV_Input {
   }
 
   /**
-   *
+   * Remove a property value
    *
    * @since 0.7.5
+   * @param string $property Property name
    */
   public function forget( $property ) {
     $this->$property = null;
@@ -155,9 +157,13 @@ class WFV_Input {
   }
 
   /**
-   *
+   * Check if property value contains some string
    *
    * @since 0.7.5
+   * @param string $needle
+   * @param string $property Property name
+   *
+   * @return bool
    */
   private function contains( $needle, $property ) {
     if ( true === is_array( $property ) ) {
