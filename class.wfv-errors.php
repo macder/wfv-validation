@@ -18,6 +18,18 @@ class WFV_Errors {
   }
 
   /**
+   * Check if a field has an error
+   *
+   * @since 0.7.7
+   * @param string $field Name of the field
+   *
+   * @return bool
+   */
+  public function has( $field ) {
+    return ( true === property_exists( $this, $field ) ) ? true : false;
+  }
+
+  /**
    *
    *
    * @since 0.7.3
