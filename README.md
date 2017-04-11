@@ -140,7 +140,7 @@ $my_form = array(
 );
 ```
 
-For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc.
+For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) doc.
 
 ## Custom validation rules:
 
