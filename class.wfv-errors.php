@@ -9,6 +9,20 @@
 class WFV_Errors {
 
   /**
+   * Property pointer
+   * When accesing this instance using convienience method,
+   *  the pointer is the name of property interacted with.
+   * eg. $errors = $my_form->error('email'), 'email' is the pointer.
+   * This enables method chaining from the convienience method context.
+   * eg. $match = $my_form->error('email')->has()
+   *
+   * @since 0.7.4
+   * @access private
+   * @var string $pointer
+   */
+  private $pointer;
+
+  /**
    * _construct
    *
    * @param
