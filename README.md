@@ -123,6 +123,7 @@ Theme template:
   <input type="submit" value="Submit">
 </form>
 ```
+<br>
 ---
 
 ## Configure validation rules:
