@@ -21,6 +21,47 @@ Release date: Soon
     8. [Check if input has some specific value](#check-if-input-has-some-specific-value)
     9. [Retrieve error messages](#retrieve-error-messages)
 
+## Basic example
+
+`functions.php` or in some plugin:
+```php
+<?php
+
+// declare the rules
+$my_form = array(
+  'action'  => 'contact_form', // unique identifier
+  'rules'   => array(
+    'email'      => ['required', 'email']
+  )
+);
+
+// hook for validation pass
+function my_form_valid( $form ) {
+  echo 'my_form user input validated. Do something...'
+}
+add_action( $my_form['action'], 'my_form_valid' );
+
+// activate the form
+wfv_create( $my_form );
+
+```
+Theme template:
+```php
+<form name="contact_form" method="post">
+
+  <input id="email" name="email" type="text">
+
+  <input type="hidden" name="action" value="contact_form">
+
+  <?= $my_form->get('nonce_field'); ?>
+
+  <input type="submit" value="Submit">
+</form>
+```
+<br>
+
+---
+
 ## Introduction
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
@@ -85,47 +126,6 @@ If you can't wait, install as development.
 Once a release is packaged, install will be the usual WordPress way.
 
 # Usage
-
-## Basic example
-
-`functions.php` or in some plugin:
-```php
-<?php
-
-// declare the rules
-$my_form = array(
-  'action'  => 'contact_form', // unique identifier
-  'rules'   => array(
-    'email'      => ['required', 'email']
-  )
-);
-
-// hook for validation pass
-function my_form_valid( $form ) {
-  echo 'my_form user input validated. Do something...'
-}
-add_action( $my_form['action'], 'my_form_valid' );
-
-// activate the form
-wfv_create( $my_form );
-
-```
-Theme template:
-```php
-<form name="contact_form" method="post">
-
-  <input id="email" name="email" type="text">
-
-  <input type="hidden" name="action" value="contact_form">
-
-  <?= $my_form->get('nonce_field'); ?>
-
-  <input type="submit" value="Submit">
-</form>
-```
-<br>
-
----
 
 ## Configure validation rules:
 
