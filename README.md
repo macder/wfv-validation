@@ -116,7 +116,7 @@ Theme template:
 
   <input id="email" name="email" type="text">
 
-  <input type="hidden" name="action" value="<?= $my_form->get('action'); ?>">
+  <input type="hidden" name="action" value="contact_form">
 
   <?= $my_form->get('nonce_field'); ?>
 
@@ -124,6 +124,7 @@ Theme template:
 </form>
 ```
 <br>
+
 ---
 
 ## Configure validation rules:
