@@ -117,8 +117,8 @@ echo $my_form->input('email') // foo@bar.com
 <!-- somewhere in a theme file -->
 
 <form name="contact_form" method="post">
-  <input id="email" name="email" type="text" value="<?= $contact_form->input('email') ?>">
-  <?= $contact_form->error('email'); ?>
+  <input id="email" name="email" type="text" value="<?= $my_form->input('email') ?>">
+  <?= $my_form->error('email'); ?>
 
   <input type="hidden" name="action" value="<?= $my_form->get('action'); ?>">
   <?= $my_form->get('nonce_field'); ?>
