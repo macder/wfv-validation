@@ -37,9 +37,6 @@ class WFV_Form extends WFV_Validate {
    * @return class|string WFV_Errors instance or first error string
    */
   public function error( $field = null ) {
-
-    // echo $contact_form->get('errors')->has('email');
-
     if( $field ) {
       $errors = $this->get( 'errors' );
       $error = $errors->$field;
