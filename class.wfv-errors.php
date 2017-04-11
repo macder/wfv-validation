@@ -56,7 +56,7 @@ class WFV_Errors {
   }
 
   /**
-   *
+   * Decorate this class with errors
    *
    * @since 0.7.3
    * @param array $errors Validation rules
