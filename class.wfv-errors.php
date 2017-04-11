@@ -32,6 +32,18 @@ class WFV_Errors {
   }
 
   /**
+   * Return property value
+   *
+   * @since 0.7.2
+   * @param string $property Property key name
+   *
+   * @return string|array Property value
+   */
+  public function get( $property ) {
+    return ( true === property_exists( $this, $property ) ) ? $this->$property : $this;
+  }
+
+  /**
    * Check if a field has an error
    *
    * @since 0.7.7
@@ -55,15 +67,4 @@ class WFV_Errors {
     }
   }
 
-  /**
-   * Return property value
-   *
-   * @since 0.7.2
-   * @param string $property Property key name
-   *
-   * @return string|array Property value
-   */
-  public function get( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? $this->$property : $this;
-  }
 }
