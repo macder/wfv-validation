@@ -6,20 +6,61 @@
 Release date: Soon
 
 # Table of Contents
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [TODO](#todo)
-4. [Install](#install)
-5. [Usage](#usage)
-    1. [Set validation rules](#configure-validation-rules)
-    2. [Create custom validation rules](#custom-validation-rules)
-    3. [Custom error messages](#custom-error-messages)
-    4. [Callback for successful validation](#callback-for-successful-validation)
-    5. [The validation instance](#create-the-validation-instance)
-    6. [Markup a form](#create-a-form-somewhere-in-your-theme)
-    7. [Retrieve user input](#retrieve-user-input)
-    8. [Check if input has some specific value](#check-if-input-has-some-specific-value)
-    9. [Retrieve error messages](#retrieve-error-messages)
+1. [Basic Example](#basic-example)
+2. [Introduction](#introduction)
+3. [Features](#features)
+4. [TODO](#todo)
+5. [Install](#install)
+6. [Usage](#usage)
+    1. [Rules](#configure-validation-rules)
+    2. [Custom Rules](#custom-validation-rules)
+    3. [Error Messages](#custom-error-messages)
+    4. [Validation Action](#callback-for-successful-validation)
+    5. [Validation Instance](#create-the-validation-instance)
+    6. [Markup a Form](#create-a-form-somewhere-in-your-theme)
+    7. [Retrieve User Input](#retrieve-user-input)
+    8. [Retrieve Errors](#retrieve-error-messages)
+
+## Basic example
+
+`functions.php` or in some plugin:
+```php
+<?php
+
+// declare the rules
+$my_form = array(
+  'action'  => 'contact_form', // unique identifier
+  'rules'   => array(
+    'email'      => ['required', 'email']
+  )
+);
+
+// hook for validation pass
+function my_form_valid( $form ) {
+  echo 'my_form user input validated. Do something...'
+}
+add_action( $my_form['action'], 'my_form_valid' );
+
+// activate the form
+wfv_create( $my_form );
+
+```
+Theme template:
+```php
+<form name="contact_form" method="post">
+
+  <input id="email" name="email" type="text">
+
+  <input type="hidden" name="action" value="contact_form">
+
+  <?= $my_form->get('nonce_field'); ?>
+
+  <input type="submit" value="Submit">
+</form>
+```
+<br>
+
+---
 
 ## Introduction
 
@@ -86,7 +127,6 @@ Once a release is packaged, install will be the usual WordPress way.
 
 # Usage
 
-
 ## Configure validation rules:
 
 ```php
@@ -100,7 +140,7 @@ $my_form = array(
 );
 ```
 
-For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron) doc.
+For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) doc.
 
 ## Custom validation rules:
 
