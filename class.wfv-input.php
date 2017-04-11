@@ -47,19 +47,6 @@ class WFV_Input {
   }
 
   /**
-   * Check if there is input data
-   * Will return true after form submission
-   *
-   * @since 0.7.2
-   * @param string $action The forms action value
-   *
-   * @return bool
-   */
-  public function is_loaded() {
-    return ( property_exists( $this, 'action' ) ) ? true : false;
-  }
-
-  /**
    * Return property value
    * By default returns this instance
    * If $property string passed, returns value for that property
@@ -71,6 +58,16 @@ class WFV_Input {
    */
   public function get( $property = null ) {
     return ( $property ) ? $this->$property : $this;
+  }
+
+  /**
+   * Remove a property value
+   *
+   * @since 0.7.5
+   * @param string $property Property name
+   */
+  public function forget( $property ) {
+    $this->$property = null;
   }
 
   /**
@@ -110,6 +107,20 @@ class WFV_Input {
   }
 
   /**
+   * Check if there is input data
+   * Will return true after form submission
+   *
+   * @since 0.7.2
+   * @param string $action The forms action value
+   *
+   * @return bool
+   */
+  public function is_loaded() {
+    return ( property_exists( $this, 'action' ) ) ? true : false;
+  }
+
+
+  /**
    * Put value to property on this instance
    *
    * @since 0.7.4
@@ -119,16 +130,6 @@ class WFV_Input {
    */
   public function put( $property, $value ) {
     $this->$property = $value;
-  }
-
-  /**
-   * Remove a property value
-   *
-   * @since 0.7.5
-   * @param string $property Property name
-   */
-  public function forget( $property ) {
-    $this->$property = null;
   }
 
   /**
