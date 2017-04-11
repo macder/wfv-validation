@@ -27,15 +27,25 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Convienience method to access rules property
+   * Convienience method to access errors property
+   * Default returns decorated instance of WFV_Errors
+   * If $field supplied, returns fields first error
    *
-   * @since 0.7.2
-   * @param string (optional) $field The field name
+   * @since 0.6.1
+   * @param string (optional) $field Name of field
    *
-   * @return
+   * @return class|string WFV_Errors instance or first error string
    */
-  public function rules( $field = null ) {
-    return ( $field ) ? $this->rules->get( $field ) : $this->get('rules');
+  public function error( $field = null ) {
+
+    // echo $contact_form->get('errors')->has('email');
+
+    if( $field ) {
+      $errors = $this->get( 'errors' );
+      $error = $errors->$field;
+      return $error[0];
+    }
+    return $this->get('errors');
   }
 
   /**
@@ -56,39 +66,15 @@ class WFV_Form extends WFV_Validate {
   }
 
   /**
-   * Convienience method to access errors property
-   * Default returns decorated instance of WFV_Errors
-   * If $field supplied, returns fields first error
+   * Convienience method to access rules property
    *
-   * @since 0.6.1
-   * @param string (optional) $field Name of field
+   * @since 0.7.2
+   * @param string (optional) $field The field name
    *
-   * @return class|string WFV_Errors instance or first error string
+   * @return
    */
-  public function error( $field = null ) {
-    if( $field ) {
-      $errors = $this->get( 'errors' );
-      $error = $errors->$field;
-      return $error[0];
-    }
-    return $this->get('errors');
-  }
-
-  /**
-   * Assign $form config to properties
-   *
-   * @since 0.4.0
-   * @since 0.5.1 Renamed from set_config
-   * @param array $form Form configuration
-   * @access private
-   */
-  private function set( $form ) {
-    $this->action = $form['action'];
-    $this->rules = new WFV_Rules( $form['rules'] );
-    $this->messages = new WFV_Messages( $form['messages'] );
-    $this->input = new WFV_Input( $this->action );
-    $this->errors = new WFV_Errors();
-    $this->create_nonce_field();
+  public function rules( $field = null ) {
+    return ( $field ) ? $this->rules->get( $field ) : $this->get('rules');
   }
 
   /**
@@ -112,6 +98,23 @@ class WFV_Form extends WFV_Validate {
    */
   private function reset_pointer( $property_instance ) {
     $this->$property_instance->forget('pointer');
+  }
+
+  /**
+   * Assign $form config to properties
+   *
+   * @since 0.4.0
+   * @since 0.5.1 Renamed from set_config
+   * @param array $form Form configuration
+   * @access private
+   */
+  private function set( $form ) {
+    $this->action = $form['action'];
+    $this->rules = new WFV_Rules( $form['rules'] );
+    $this->messages = new WFV_Messages( $form['messages'] );
+    $this->input = new WFV_Input( $this->action );
+    $this->errors = new WFV_Errors();
+    $this->create_nonce_field();
   }
 
   /**
