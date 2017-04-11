@@ -88,9 +88,9 @@ Once a release is packaged, install will be the usual WordPress way.
 
 ## Basic example
 
-
+`functions.php` or in some plugin:
 ```php
-<?php // functions.php or a plugin
+<?php
 
 // declare the rules
 $my_form = array(
@@ -101,21 +101,17 @@ $my_form = array(
 );
 
 // hook for validation pass
-add_action( $my_form['action'], 'my_form_valid' );
 function my_form_valid( $form ) {
-  // form validated, do something...
-  echo $form->input('name');
+  echo 'my_form user input validated. Do something...'
 }
+add_action( $my_form['action'], 'my_form_valid' );
 
-wfv_create( $my_form ); // $my_form becomes an instance of WFV_Form
+// activate the form
+wfv_create( $my_form );
 
-// print_r( $my_form );
-echo $my_form->input('email') // foo@bar.com
 ```
-
+Theme template:
 ```php
-<!-- somewhere in a theme file -->
-
 <form name="contact_form" method="post">
 
   <input id="email" name="email" type="text">
@@ -127,7 +123,7 @@ echo $my_form->input('email') // foo@bar.com
   <input type="submit" value="Submit">
 </form>
 ```
-
+---
 
 ## Configure validation rules:
 
