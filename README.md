@@ -86,6 +86,47 @@ Once a release is packaged, install will be the usual WordPress way.
 
 # Usage
 
+## Basic example
+
+
+```php
+<?php // functions.php or a plugin
+
+// declare the rules
+$my_form = array(
+  'action'  => 'contact_form', // unique identifier
+  'rules'   => array(
+    'email'      => ['required', 'email']
+  )
+);
+
+// hook for validation pass
+add_action( $my_form['action'], 'my_form_valid' );
+function my_form_valid( $form ) {
+  // form validated, do something...
+  echo $form->input('name');
+}
+
+wfv_create( $my_form ); // $my_form becomes an instance of WFV_Form
+
+// print_r( $my_form );
+echo $my_form->input('email') // foo@bar.com
+```
+
+```php
+<!-- somewhere in a theme file -->
+
+<form name="contact_form" method="post">
+  <input id="email" name="email" type="text" value="<?= $contact_form->input('email') ?>">
+  <?= $contact_form->error('email'); ?>
+
+  <input type="hidden" name="action" value="<?= $my_form->get('action'); ?>">
+  <?= $my_form->get('nonce_field'); ?>
+
+  <input type="submit" value="Submit">
+</form>
+```
+
 
 ## Configure validation rules:
 
