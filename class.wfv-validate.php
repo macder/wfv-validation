@@ -20,24 +20,14 @@ class WFV_Validate {
   protected $action;
 
   /**
-   * Validation rules
+   * Error message bag
    *
-   * @since 0.1.0
-   * @since 0.7.0 WFV_Rules instance
+   * @since 0.6.1
+   * @since 0.7.3 WFV_Errors instance
    * @access protected
-   * @var class $rules Instance of WFV_Rules.
+   * @var class $errors Instance of WFV_Errors.
    */
-  protected $rules;
-
-  /**
-   * Error message overrides
-   *
-   * @since 0.4.0
-   * @since 0.7.0 WFV_Messages instance
-   * @access protected
-   * @var class $messages Instance of WFV_Messages.
-   */
-  protected $messages;
+  protected $errors;
 
   /**
    * User input from failed validation
@@ -50,6 +40,16 @@ class WFV_Validate {
   protected $input;
 
   /**
+   * Error message overrides
+   *
+   * @since 0.4.0
+   * @since 0.7.0 WFV_Messages instance
+   * @access protected
+   * @var class $messages Instance of WFV_Messages.
+   */
+  protected $messages;
+
+  /**
    * Result from wp_nonce_field()
    *
    * @since 0.3.0
@@ -59,14 +59,14 @@ class WFV_Validate {
   protected $nonce_field;
 
   /**
-   * Error message bag
+   * Validation rules
    *
-   * @since 0.6.1
-   * @since 0.7.3 WFV_Errors instance
+   * @since 0.1.0
+   * @since 0.7.0 WFV_Rules instance
    * @access protected
-   * @var class $errors Instance of WFV_Errors.
+   * @var class $rules Instance of WFV_Rules.
    */
-  protected $errors;
+  protected $rules;
 
   /**
    * __construct
