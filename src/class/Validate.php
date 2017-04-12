@@ -88,6 +88,6 @@ class Validate extends Form implements Validation {
    * @access protected
    */
   protected function create() {
-
+    // void in abyss...
   }
 }
