@@ -21,4 +21,16 @@ class Rules implements Validation {
   function __construct() {
 
   }
+  /**
+   * Check if rule is custom
+   *
+   * @since 0.7.0
+   * @param string $rule
+   * @access private
+   *
+   * @return string|bool
+   */
+  private function is_custom( $rule ) {
+    return ( false !== strpos( $rule, 'custom:' ) ) ? $rule : false;
+  }
 }
