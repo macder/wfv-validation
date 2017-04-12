@@ -50,7 +50,6 @@ class Validate extends Form implements Validation {
    *
    */
   function __construct( $action, Rules $rules, Input $input = null ) {
-
     $properties = array(
       'action' => $action,
       'rules' => $rules,
