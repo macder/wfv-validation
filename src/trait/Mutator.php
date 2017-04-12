@@ -23,8 +23,8 @@ trait Mutator {
    * Set a property and value
    *
    * @since 0.8.0
-   * @param string $property
-   * @param string $value
+   * @param string $property Property name to assign $value
+   * @param string $value The value being assiged to property
    */
   public function put( $property, $value ){
     $this->$property = $value;
