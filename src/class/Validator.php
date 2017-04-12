@@ -7,8 +7,8 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-class Validate extends Form implements Validation {
-// class Validator extends Form implements Validation {
+class Validator extends Form implements Validation {
+
   /**
    * Error message bag
    *
