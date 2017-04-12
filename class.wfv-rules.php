@@ -37,7 +37,7 @@ class WFV_Rules {
    * @param object $valitron Instance of Valitron\Validator
    * @param object (optional) $messages Instance of WFV_Messages
    */
-  public function push( &$valitron, $messages = null ) {
+  public function load( &$valitron, $messages = null ) {
 
     // loop the field
     foreach( $this as $field => $rules ) {
