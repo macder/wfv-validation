@@ -7,8 +7,9 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-class Validate {
+class Validate implements Validation {
 
+  use Accessor;
   use Mutator;
 
   /**
