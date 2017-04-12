@@ -18,7 +18,7 @@ trait Accessor {
    * @return
    */
   public function get( $property ){
-    return $this->$property;
+    return ( $this->has( $property ) ) ? $this->$property : null;
   }
 
   /**
