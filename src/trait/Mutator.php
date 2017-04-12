@@ -42,5 +42,4 @@ trait Mutator {
       $this->$property = $value;
     }
   }
-
 }
