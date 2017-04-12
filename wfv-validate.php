@@ -17,6 +17,15 @@ define( 'WFV_VALIDATE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
 require_once( WFV_VALIDATE__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
+
+/*
+ * New structure
+ */
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Accessor.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Mutator.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validate.php' );
+// END
+
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-errors.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-input.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-rules.php' );
