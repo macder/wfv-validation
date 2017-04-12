@@ -70,11 +70,24 @@ class Validate extends Form implements Validation {
   }
 
   /**
+   * Do the validation
    *
-   * @param
-   * @since 0.8.0
-   *
+   * @since 0.2.0
+   * @since 0.6.0 Public access
    */
+  public function validate() {
+    $v = $this->create();
   }
 
+  /**
+   * Create an instance of Valitron\Validator with our rules / messages
+   * Assign to $valitron property
+   *
+   * @since 0.2.0
+   * @param array $form Form configuration array
+   * @access protected
+   */
+  protected function create() {
+
+  }
 }
