@@ -10,6 +10,16 @@ defined( 'ABSPATH' ) or die();
 trait Mutator {
 
   /**
+   * Remove a property value
+   *
+   * @since 0.8.0
+   * @param string $property
+   */
+  public function forget( $property ) {
+    $this->$property = null;
+  }
+
+  /**
    * Set a property and value
    *
    * @since 0.8.0
