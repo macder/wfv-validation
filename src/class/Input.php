@@ -19,6 +19,29 @@ class Input implements Validation {
    *
    */
   function __construct() {
+  /**
+   * Sanitize $_POST array
+   *
+   * @since 0.2.0
+   * @since 0.7.2 Returns result, does not set $input property
+   * @access protected
+   *
+   * @return array Sanitized keys and values from $_POST
+   */
+  protected function sanitize() {
+    // TODO: Simplify this; break into several simple pure functions
 
+    foreach ( $_POST as $key => $value ) {
+      $sane_key = sanitize_key( $key );
+      // edge case for checkboxes - array input
+      if( true === is_array( $value ) ) {
+        foreach( $value as $input ) {
+          $sane[ $sane_key ][] = sanitize_text_field( $input );
+        }
+      } else { // default - string input
+        $sane[ $sane_key ] = sanitize_text_field( $value );
+      }
+    }
+    return $sane;
   }
 }
