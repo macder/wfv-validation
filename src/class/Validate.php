@@ -65,7 +65,7 @@ class Validate implements Validation {
    * @access protected
    * @var class $rules Instance of WFV_Rules.
    */
-  // protected $rules;
+  protected $rules;
 
   use Accessor;
   use Mutator;
@@ -80,6 +80,7 @@ class Validate implements Validation {
   function __construct( $action, Rules $rules, Input $input = null ) {
     $this->action = $action;
     $this->rules = $rules;
+    $this->input = $input;
   }
 
   /**
