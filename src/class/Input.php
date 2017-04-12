@@ -18,7 +18,12 @@ class Input implements Validation {
    * @since 0.8.0
    *
    */
-  function __construct() {
+  function __construct( $action ) {
+    if( $this->is_submit( $action ) ) {
+      $this->set( $this->sanitize() );
+    }
+  }
+
   /**
    * Check if there was a $_POST for this form
    *
