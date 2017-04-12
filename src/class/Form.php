@@ -69,11 +69,11 @@ class Form {
    * @since 0.8.0
    *
    */
-  public function tokens() {
+  public function get_token_fields() {
     // TODO - Move markup into a view
-    $action = $this->action;
-    $name = $this->action . '_token';
-    echo $nonce_field = wp_nonce_field( $action, $name, false, false );
-    echo $action_field = '<input type="hidden" name="action" value="'. $action .'">';
+    $token_name = $this->action . '_token';
+
+    echo $nonce_field = wp_nonce_field( $this->action, $token_name, false, false );
+    echo $action_field = '<input type="hidden" name="action" value="'. $this->action .'">';
   }
 }
