@@ -29,4 +29,18 @@ trait Mutator {
   public function put( $property, $value ){
     $this->$property = $value;
   }
+
+  /**
+   * Set associative array as properties
+   * property / value pairs
+   *
+   * @since 0.8.0
+   * @param array $properties
+   */
+  public function set( $properties ) {
+    foreach( $properties as $property => $value ) {
+      $this->$property = $value;
+    }
+  }
+
 }
