@@ -27,7 +27,7 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Mutator.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Form.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Input.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Rules.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validate.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validator.php' );
 // END
 
 // legacy
@@ -53,7 +53,7 @@ function wfv_create( &$validation ) {
   $rules = new WFV\Rules();
   $rules->set( $validation['rules'] );
   $input = new WFV\Input( $action );
-  $validation = new WFV\Validate( $action, $rules, $input );
+  $validation = new WFV\Validator( $action, $rules, $input );
 
   // action or like this?
   $validation->validate();
