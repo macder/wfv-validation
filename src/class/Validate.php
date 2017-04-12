@@ -50,9 +50,14 @@ class Validate extends Form implements Validation {
    *
    */
   function __construct( $action, Rules $rules, Input $input = null ) {
-    $this->action = $action;
-    $this->rules = $rules;
-    $this->input = $input;
+
+    $properties = array(
+      'action' => $action,
+      'rules' => $rules,
+      'input' => $input,
+      'token' => wp_create_nonce( $action ),
+    );
+    $this->set( $properties );
   }
 
   /**
