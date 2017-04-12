@@ -10,5 +10,5 @@ interface Validation {
   public function get( $property );
   public function has( $property );
   public function put( $property, $value );
-  public function set( $properties );
+  public function set( $array );
 }
