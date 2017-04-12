@@ -37,8 +37,8 @@ trait Mutator {
    * @since 0.8.0
    * @param array $properties
    */
-  public function set( $properties ) {
-    foreach( $properties as $property => $value ) {
+  public function set( $array ) {
+    foreach( $array as $property => $value ) {
       $this->$property = $value;
     }
   }
