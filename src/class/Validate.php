@@ -89,7 +89,18 @@ class Validate implements Validation {
    * @since 0.8.0
    *
    */
-  public function rules() {
-
+  public function input( $field = null ) {
+    return ( $field ) ? $this->input->get( $field ) : null;
   }
+
+  /**
+   *
+   * @param
+   * @since 0.8.0
+   *
+   */
+  public function rules( $field = null ) {
+    return $this->rules->get( $field );
+  }
+
 }
