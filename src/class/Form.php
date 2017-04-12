@@ -47,10 +47,13 @@ class Form {
   }
 
   /**
+   * Convienience method into $this->input.
+   * Makes access more declarative.
+   * $this->input is an instance of WFV\Input.
    *
-   * @param
+   * @param string (optional) $field The $field value.
    * @since 0.8.0
-   *
+   * @return class|string WFV\Input or $field string value.
    */
   public function input( $field = null ) {
     return ( $field ) ? $this->input->$field : $this->input;
