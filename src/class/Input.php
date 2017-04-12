@@ -20,6 +20,18 @@ class Input implements Validation {
    */
   function __construct() {
   /**
+   * Check if there was a $_POST for this form
+   *
+   * @since 0.7.2
+   * @param string $action The forms action value
+   *
+   * @return bool
+   */
+  private function is_submit( $action ) {
+    return ( $_POST && $_POST['action'] === $action ) ? true : false;
+  }
+
+  /**
    * Sanitize $_POST array
    *
    * @since 0.2.0
