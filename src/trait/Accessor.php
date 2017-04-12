@@ -10,15 +10,15 @@ defined( 'ABSPATH' ) or die();
 trait Accessor {
 
   /**
-   * Get property value
+   * __get magic method
    *
    * @since 0.8.0
    * @param string $property
    *
    * @return
    */
-  public function get( $property ){
-    return ( $this->has( $property ) ) ? $this->$property : null;
+  public function __get( $property ) {
+    return ( true === $this->has( $property ) ) ? $this->$property : null;
   }
 
   /**
