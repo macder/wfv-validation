@@ -54,9 +54,15 @@ function wfv_create( &$validation ) {
   $rules->set( $validation['rules'] );
   $input = new WFV\Input( $action );
   $validation = new WFV\Validate( $action, $rules, $input );
-}
 
-add_action( WFV_VALIDATE__ACTION_POST, 'validate' );
-function validate( $form ) {
-  $form->validate();
+  // action or like this?
+  $validation->validate();
+
 }
+// I think this is more efficient? ...
+// Reworking nonce, that will verify if we need to do it this way....
+/*add_action( WFV_VALIDATE__ACTION_POST, 'validate' );
+function validate( $form ) {
+  // print_r($form);
+  $form->validate();
+}*/
