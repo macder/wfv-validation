@@ -7,17 +7,8 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-class Validate implements Validation {
-
-  /**
-   * Form identifier
-   *
-   * @since 0.1.0
-   * @access protected
-   * @var string $action
-   */
-  protected $action;
-
+class Validate extends Form implements Validation {
+// class Validator extends Form implements Validation {
   /**
    * Error message bag
    *
@@ -29,16 +20,6 @@ class Validate implements Validation {
   protected $errors;
 
   /**
-   * User input from failed validation
-   *
-   * @since 0.2.1
-   * @since 0.7.2 WFV_Input instance
-   * @access protected
-   * @var class $input Instance of WFV_Input.
-   */
-  protected $input;
-
-  /**
    * Error message overrides
    *
    * @since 0.4.0
@@ -47,15 +28,6 @@ class Validate implements Validation {
    * @var class $messages Instance of WFV_Messages.
    */
   protected $messages;
-
-  /**
-   * Result from wp_nonce_field()
-   *
-   * @since 0.3.0
-   * @access protected
-   * @var string $nonce_field WP rendered nonce field.
-   */
-  protected $nonce_field;
 
   /**
    * Validation rules
