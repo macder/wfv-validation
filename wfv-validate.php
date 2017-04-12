@@ -21,6 +21,7 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/V
 /*
  * New structure
  */
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/interface/Validation.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Accessor.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Mutator.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validate.php' );
