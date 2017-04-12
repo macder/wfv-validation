@@ -65,8 +65,8 @@ class Validate extends Form implements Validation {
    * @since 0.8.0
    *
    */
-  public function input( $field = null ) {
-    return ( $field ) ? $this->input->get( $field ) : null;
+  public function rules( $field = null ) {
+    return $this->rules->get( $field );
   }
 
   /**
@@ -75,8 +75,6 @@ class Validate extends Form implements Validation {
    * @since 0.8.0
    *
    */
-  public function rules( $field = null ) {
-    return $this->rules->get( $field );
   }
 
 }
