@@ -1,5 +1,6 @@
 <?php
 namespace WFV;
+defined( 'ABSPATH' ) or die();
 
 /**
  *
