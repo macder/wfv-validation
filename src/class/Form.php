@@ -55,4 +55,22 @@ class Form {
   public function input( $field = null ) {
     return ( $field ) ? $this->input->$field : $this->input;
   }
+
+  /**
+   * TEMP - upcoming re-work
+   *
+   * Returns markup for required hidden fields
+   * Makes theme file cleaner
+   *
+   * @param
+   * @since 0.8.0
+   *
+   */
+  public function tokens() {
+    // TODO - Move markup into a view
+    $action = $this->action;
+    $name = $this->action . '_token';
+    echo $nonce_field = wp_nonce_field( $action, $name, false, false );
+    echo $action_field = '<input type="hidden" name="action" value="'. $action .'">';
+  }
 }
