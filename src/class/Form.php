@@ -33,7 +33,7 @@ class Form {
    *
    * @since 0.8.0
    * @access protected
-   * @var string $token Token from wp_nonce()
+   * @var string $token Token value from wp_nonce()
    */
   protected $token;
 
