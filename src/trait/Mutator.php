@@ -32,10 +32,9 @@ trait Mutator {
 
   /**
    * Set associative array as properties
-   * property / value pairs
    *
    * @since 0.8.0
-   * @param array $properties
+   * @param array $properties The property / value pairs
    */
   public function set( $array ) {
     foreach( $array as $property => $value ) {
