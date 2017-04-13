@@ -92,6 +92,20 @@ class Validator extends Form implements Validation {
   }
 
   /**
+   * Verify the nonce
+   * Prevents CSFR exploits
+   *
+   * @since 0.2.2
+   * @since 0.8.0 no params
+   * @access protected
+   */
+  protected function check_nonce() {
+    if ( ! wp_verify_nonce( $nonce, $this->action ) ) {
+      die( 'invalid token' );
+    }
+  }
+
+  /**
    *
    *
    * @since 0.8.0
