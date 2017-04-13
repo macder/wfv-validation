@@ -76,7 +76,15 @@ class Validator extends Form implements Validation {
    * @since 0.6.0 Public access
    */
   public function validate() {
-    $v = $this->create();
+    if( $this->has_request_action() ) {
+      $input_action = $this->input->action;
+
+      if( $this->is_legal( $input_action ) ) {
+        echo 'legal!';
+      } else {
+        echo 'how did u get here?';
+      }
+    }
   }
 
   /**
