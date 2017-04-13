@@ -201,11 +201,11 @@ add_action( $my_form['action'], 'my_form_valid' );
 ## Create the validation instance:
 ### `wfv_create( array $form )`
 
-Creates and assigns by reference the validation instance.
+Creates and assigns by reference an instance of `WFV\Validation`.
 
 ```php
 <?php
-// $my_form becomes an instance of WFV_Form
+// $my_form becomes an instance of WFV\Validation
 wfv_create( $my_form );
 ```
 You can now access methods available to `WFV_Form`
