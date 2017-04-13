@@ -33,15 +33,14 @@ Intended for developers who want to build forms in a theme using custom markup a
 $my_form = array(
   'action'  => 'contact_form',
   'rules'   => array(
-    'name'       => ['required'],
+    'first_name' => ['required'],
     'email'      => ['required', 'email']
   )
 );
 
 // hook for validation pass
 function my_form_valid( $form ) {
-  echo 'my_form valid, do something...'
-  echo $form->input('email'); // foo@bar.com
+  // form validated, do something...
 }
 add_action( $my_form['action'], 'my_form_valid' );
 
@@ -51,11 +50,11 @@ wfv_create( $my_form );
 ```
 Theme template:
 ```php
-<form name="contact_form" method="post">
-  <input id="name" name="name" type="text">
-  <input id="email" name="email" type="text">
+<form method="post">
+  <input name="first_name" type="text">
+  <input name="email" type="text">
   <?php $my_form->get_token_fields(); ?>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Send">
 </form>
 ```
 <br>
@@ -63,26 +62,28 @@ Theme template:
 ---
 
 
-## Problem:
+## Problem
 Working with custom forms in WordPress presents several challenges:
 
-The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29)  is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
+WordPress does not have an elegant way to validate user input. It does not offer much beyond some general [sanitation methods](https://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data).
+
+And,
+
+The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29) to work with `$_POST` is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
 
 This means when the form is submitted, the user is sent to `http://yoursite.com/wp-admin/admin-post.php`.
 
 Why is this a problem?
 
-For starters, the user is no longer on your form, and to send them back (i.e they missed a required field) we need make a  `HTTP Request` and redirect them back. At this point the `$_POST` with their input is gone, which would have been useful to repopulate the form. In order to persist the users input you need to either append a url query to the redirect to make it available in `$_GET`,  or store it in a session or cookie.
+The user is no longer on the form. To send them back (i.e a required field was missed), we need to do a HTTP redirect. At this point the `$_POST` with the input is gone... which would have been useful to repopulate the form. In order to persist the users input, it needs to be stored in `GET`, a session, or a cookie.
 
 Neither is elegant, and both are clunky.
 
-Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern.
-
-This gets messy and confusing fast.
+Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern. It gets messy and confusing fast.
 
 Most form building plugins have large footprints that generate rendered markup configured through the admin dashboard. Although it sounds much easier to point and click, and drag and drop; until something breaks or it can't meet some specific requirement. Enter hacks...
 
-## Solution:
+## Solution
 WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
 
 Markup a form in a template and define its constraints in `functions.php` or a plugin.
@@ -90,7 +91,7 @@ Markup a form in a template and define its constraints in `functions.php` or a p
 WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
 
 ## Features
-Just a library to handle form input validation with WordPress.
+Just an API for input validation with WordPress.
 
 ...nothing more, nothing less
 
@@ -104,7 +105,7 @@ Just a library to handle form input validation with WordPress.
 * No rendered markup
 * Developer freedom
 
-## TODO:
+## TODO
 - Expose an api for the front end to support singe configuration.
 - Standardize storage for default error messages.
 
@@ -124,22 +125,22 @@ Once a release is packaged, install will be the usual WordPress way.
 
 # Usage
 
-## Configure validation rules:
+## Configure validation rules
 
 ```php
 <?php
 $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
-    'name'      => ['required'],
-    'email'     => ['required', 'email'],
+    'first_name' => ['required'],
+    'email'      => ['required', 'email'],
   )
 );
 ```
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) doc.
 
-## Custom validation rules:
+## Custom validation rules
 
 Prepend `custom:` to rule, name of rule is the callback.
 ```php
@@ -147,9 +148,7 @@ Prepend `custom:` to rule, name of rule is the callback.
 $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
-    'name'      => ['required'],
-    'email'     => ['required', 'email'],
-    'phone'     => ['required', 'custom:phone']
+    'phone'      => ['required', 'custom:phone'],
   )
 );
 ```
@@ -162,63 +161,75 @@ function wfv__phone( $value ) {
 }
 ```
 
-## Custom error messages:
+## Custom error messages
 
 ```php
 <?php
 $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
-    'name'      => ['required'],
-    'email'     => ['required', 'email'],
-    'website'   => ['url'],
-    'msg'       => ['required']
+    'email'     => ['required', 'email']
   ),
 
   // override an error msg
   'messages' => [
     'email' => array(
-      'required' => 'Your email is required so we can reply back'
-    ),
-    'website' => array(
-      'url' => 'The website url is invalid'
+      'required' => 'No email, no reply... get it?'
     )
   ]
 );
 ```
 
-## Callback for successful validation:
+## Callback for successful validation
+
+When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered.
+
+Hook into it, do some logic in the callback:
 
 ```php
 <?php
-function my_form_valid( $form ) {
+
+add_action( 'contact_form', 'contact_form_valid' );
+function contact_form_valid( $form ) {
   // form validated, do something...
   echo $form->input->name;
   echo $form->input->email;
 }
-add_action( $my_form['action'], 'my_form_valid' );
+// that was better than using conditionals...
 ```
 
-## Create the validation instance:
+## Create the validation instance
 ### `wfv_create( array $form )`
 
-Creates and assigns by reference an instance of `WFV\Validator`.
+Create and assign by reference the instance of `WFV\Validator` as described by the `array()` parameter.
 
 ```php
 <?php
 // $my_form becomes an instance of WFV\Validator
 wfv_create( $my_form );
 ```
-You can now access methods available to `WFV\Validator`
 
-## Create a form somewhere in your theme:
+`$my_form` can now access properties and methods available to `WFV\Validator`
 
 ```php
+<?php
+$my_form->input;     // Instance of WFV\Input
+$my_form->errors;    // Instance of WFV\Errors
+$my_form->rules;     // Instance of WFV\Rules
+$my_form->messages;  // Instance of WFV\Messages
+```
+**Get and Set:**   
+All instances that are properties on `WFV\Validator` have getters and setters from the `Accessor` and `Mutator` traits.
+
+Examine [`./src/trait/Accessor.php`](https://github.com/macder/wp-form-validation/blob/master/src/trait/Accessor.php) and [`./src/trait/Mutator.php`](https://github.com/macder/wp-form-validation/blob/master/src/trait/Mutator.php) for available methods to get and set properties.
+
+## Create a form somewhere in your theme
+
+```html
 <form name="contact_form" method="post">
   <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
-  <input id="website" name="website" type="text">
-  <textarea id="msg"></textarea>
+  <textarea id="msg" name="msg"></textarea>
 
   <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
@@ -230,7 +241,7 @@ The form must have the required token tag:
 ```
 This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
-## Retrieve user input:
+## Retrieve user input
 ### `input( string $field = null )`
 
 ```php
@@ -245,27 +256,30 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
  */
 ```
 ```php
-<?php // useful to repopulate field(s)
+<?php // output the value the user entered into the email field
+
 echo $my_form->input('email'); // foo@bar.com
-//or
+// or
 echo $my_form->input->email; // foo@bar.com
 ```
 
-Assign input instance to a variable:
+Assign `WFV\Input` instance to a variable:
 ```php
-<?php
-$input = $my_form->input(); // $input is now an instance of WFV\Input
+<?php // assign WFV\Input to $input and output the email value
+
+$input = $my_form->input();
 echo $input->email; // foo@bar.com
 ```
 
 Get input as an array:
 ```php
-<?php
+<?php // get the properties of WFV\Input as an associative array
+
 $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Retrieve error messages:
+## Retrieve error messages
 ### `error( string $field = null )`
 
 ```php
@@ -316,9 +330,7 @@ $email_errors = $my_form->error()->email;
 ```
 
 
-### Note:
-
-You can create unlimited forms as long as each has a unique `action` value.
+> **Note:** You can create unlimited forms as long as each has a unique `action` value.
 
 ## Development
 
