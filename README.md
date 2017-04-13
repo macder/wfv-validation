@@ -34,15 +34,17 @@ class Validator extends Form implements Validation {
 
 // declare the rules
 $my_form = array(
-  'action'  => 'contact_form', // unique identifier
+  'action'  => 'contact_form',
   'rules'   => array(
+    'name'       => ['required'],
     'email'      => ['required', 'email']
   )
 );
 
 // hook for validation pass
 function my_form_valid( $form ) {
-  echo 'my_form user input validated. Do something...'
+  echo 'my_form valid, do something...'
+  echo $form->input('email'); // foo@bar.com
 }
 add_action( $my_form['action'], 'my_form_valid' );
 
@@ -53,13 +55,9 @@ wfv_create( $my_form );
 Theme template:
 ```php
 <form name="contact_form" method="post">
-
+  <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
-
-  <input type="hidden" name="action" value="contact_form">
-
-  <?= $my_form->get('nonce_field'); ?>
-
+  <?php $contact_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
 </form>
 ```
