@@ -38,16 +38,13 @@ class WFV_Rules {
    * @param object (optional) $messages Instance of WFV_Messages
    */
   public function load( &$valitron, $messages = null ) {
-
     // loop the field
     foreach( $this as $field => $rules ) {
-
       // loop this field rules - a field can have many rules
       foreach( $rules as $rule ) {
         if( $this->is_custom( $rule ) ) {
           $this->add( $rule, $valitron );
         }
-
         // check if this field/rule has a custom error message
         if( $messages->has( $field, $rule ) ) {
           $message = $messages->$field;

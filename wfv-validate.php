@@ -52,27 +52,15 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-form.php' );
  */
 function wfv_create( &$validation ) {
   // TODO: make a factory for this...
-
   $action = $validation['action'];
   $rules = new WFV\Rules();
   $rules->set( $validation['rules'] );
   $input = new WFV\Input( $action );
   $messages = new WFV\Messages( $validation['messages'] );
-
   $errors = new WFV\Errors();
-
   $validation = new WFV\Validator( $action, $rules, $input, $messages, $errors );
-
   // action or like this?
   if ( $validation->is_safe() ) {
     $validation->validate();
   }
-  // $Errors = 'WFV\Errors';
 }
-// I think this is more efficient? ...
-// Reworking nonce, that will verify if we need to do it this way....
-/*add_action( WFV_VALIDATE__ACTION_POST, 'validate' );
-function validate( $form ) {
-  // print_r($form);
-  $form->validate();
-}*/
