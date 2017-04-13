@@ -3,14 +3,16 @@
 
 #### *The declarative input validation API you never had in WordPress*
 
+Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 
 # Table of Contents
 1. [Basic Example](#basic-example)
-2. [Introduction](#introduction)
-3. [Features](#features)
-4. [TODO](#todo)
-5. [Install](#install)
-6. [Usage](#usage)
+2. [Problem](#problem)
+3. [Solution](#solution)
+4. [Features](#features)
+5. [TODO](#todo)
+6. [Install](#install)
+7. [Usage](#usage)
     1. [Rules](#configure-validation-rules)
     2. [Custom Rules](#custom-validation-rules)
     3. [Error Messages](#custom-error-messages)
@@ -59,11 +61,8 @@ Theme template:
 
 ---
 
-## Introduction
 
-Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
-
-### The Problem:
+## Problem:
 Working with custom forms in WordPress presents several challenges:
 
 The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29)  is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
@@ -82,7 +81,7 @@ This gets messy and confusing fast.
 
 Most form building plugins have large footprints that generate rendered markup configured through the admin dashboard. Although it sounds much easier to point and click, and drag and drop; until something breaks or it can't meet some specific requirement. Enter hacks...
 
-### The Solution:
+## Solution:
 WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
 
 Markup a form in a template and define its constraints in `functions.php` or a plugin.
