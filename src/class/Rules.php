@@ -40,15 +40,13 @@ class Rules implements Validation {
           $this->add( $rule, $valitron );
         }
 
-        $valitron->rule( $rule, $field );
-
         // check if this field/rule has a custom error message
-        /*if( $messages->has( $field, $rule ) ) {
+        if( $messages->exist( $field, $rule ) ) {
           $message = $messages->$field;
           $valitron->rule( $rule, $field )->message( $message[ $rule ] );
         } else { // use defaults
           $valitron->rule( $rule, $field );
-        }*/
+        }
       }
     }
   }
