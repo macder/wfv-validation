@@ -1,7 +1,7 @@
 # WFV
 ### WordPress Form Validation
 
-#### Declarative WP input validation library
+##### Declarative WP input validation library
 
 ```php
 <?php
