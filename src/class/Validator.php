@@ -69,7 +69,7 @@ class Validator extends Form implements Validation {
    * @since 0.6.1
    * @param string (optional) $field Name of field
    *
-   * @return class|string WFV\Errors instance or first error string.
+   * @return class|string Instance of WFV\Errors or first error string.
    */
   public function error( $field = null ) {
     if( $field ) {
