@@ -182,14 +182,20 @@ $my_form = array(
 
 ## Callback for successful validation
 
+When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered.
+
+Hook into it, do some logic in the callback:
+
 ```php
 <?php
-function my_form_valid( $form ) {
+
+add_action( 'contact_form', 'contact_form_valid' );
+function contact_form_valid( $form ) {
   // form validated, do something...
   echo $form->input->name;
   echo $form->input->email;
 }
-add_action( $my_form['action'], 'my_form_valid' );
+// that was better than using conditionals...
 ```
 
 ## Create the validation instance
