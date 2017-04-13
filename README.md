@@ -1,9 +1,7 @@
 # WFV
 ### WordPress Form Validation
 
-** WORK IN PROGRESS **
-
-Release date: Soon
+#### Declarative WP input validation library
 
 ```php
 <?php
