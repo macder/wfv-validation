@@ -21,11 +21,16 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/V
 /*
  * New structure
  */
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/interface/Validation.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Accessor.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Mutator.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validate.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Form.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Input.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Rules.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validator.php' );
 // END
 
+// legacy
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-errors.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-input.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-rules.php' );
@@ -43,11 +48,23 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-form.php' );
  *
  * @param array $form Form configuration (rules, action)
  */
-function wfv_create( &$form ) {
-  $form = new WFV_Form( $form );
-}
+function wfv_create( &$validation ) {
+  $action = $validation['action'];
+  $rules = new WFV\Rules();
+  $rules->set( $validation['rules'] );
+  $input = new WFV\Input( $action );
+  $validation = new WFV\Validator( $action, $rules, $input );
 
-add_action( WFV_VALIDATE__ACTION_POST, 'validate' );
-function validate( $form ) {
-  $form->validate();
+  // action or like this?
+  if ( $validation->is_safe() ) {
+    $validation->validate();
+  }
+
 }
+// I think this is more efficient? ...
+// Reworking nonce, that will verify if we need to do it this way....
+/*add_action( WFV_VALIDATE__ACTION_POST, 'validate' );
+function validate( $form ) {
+  // print_r($form);
+  $form->validate();
+}*/
