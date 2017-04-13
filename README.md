@@ -256,22 +256,25 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
  */
 ```
 ```php
-<?php // useful to repopulate field(s)
+<?php // output the value the user entered into the email field
+
 echo $my_form->input('email'); // foo@bar.com
-//or
+// or
 echo $my_form->input->email; // foo@bar.com
 ```
 
-Assign input instance to a variable:
+Assign `WFV\Input` instance to a variable:
 ```php
-<?php
-$input = $my_form->input(); // $input is now an instance of WFV\Input
+<?php // assign WFV\Input to $input and output the email value
+
+$input = $my_form->input();
 echo $input->email; // foo@bar.com
 ```
 
 Get input as an array:
 ```php
-<?php
+<?php // get the properties of WFV\Input as an associative array
+
 $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
