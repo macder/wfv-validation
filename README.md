@@ -1,9 +1,10 @@
 # WFV
 ## WordPress Form Validation
 
-#### *The declarative input validation API you never had in WordPress*
+#### *Declarative input validation API for WordPress*
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
+
 
 # Table of Contents
 1. [Basic Example](#basic-example)
@@ -192,8 +193,8 @@ $my_form = array(
 <?php
 function my_form_valid( $form ) {
   // form validated, do something...
-  echo $form->input('name');
-  echo $form->input('email');
+  echo $form->input->name;
+  echo $form->input->email;
 }
 add_action( $my_form['action'], 'my_form_valid' );
 ```
@@ -223,17 +224,11 @@ You can now access methods available to `WFV\Validator`
   <input type="submit" value="Submit">
 </form>
 ```
-
-The form must have these two tags:
-
-Hidden action field with the unique value for this form:
-
-
-`<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
-
-The nonce field:
-
-`<?php echo $my_form->get('nonce_field'); ?>`
+The form must have the required token tag:
+```php
+<?php $my_form->get_token_fields(); ?>
+```
+This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
 ## Retrieve user input:
 ### `input( string $field = null )`
@@ -241,29 +236,26 @@ The nonce field:
 ```php
 <?php
 /**
- * Convenience method to access input property
+ * Convienience method into $this->input.
+ * Makes access more declarative.
+ * $this->input is an instance of WFV\Input.
  *
- * @param string (optional) $field Name of field
- * @return class|string Instance of WFV_Input or field value
+ * @param string (optional) $field Property to retrieve value from.
+ * @return class|string WFV\Input or $field string value.
  */
 ```
 ```php
 <?php // useful to repopulate field(s)
 echo $my_form->input('email'); // foo@bar.com
+//or
+echo $my_form->input->email; // foo@bar.com
 ```
 
 Assign input instance to a variable:
 ```php
 <?php
-$input = $my_form->input(); // $input is now an instance of WFV_Input
-echo $input->get('email'); // foo@bar.com
-```
-
-The above are shorthands for:
-```php
-<?php
-echo $my_form->get('input')->get('email'); // foo@bar.com
-
+$input = $my_form->input(); // $input is now an instance of WFV\Input
+echo $input->email; // foo@bar.com
 ```
 
 Get input as an array:
@@ -273,64 +265,21 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Check if input has some specific value:
-### `has( string $needle, string $property = null )`
-
-```php
-<?php
-/**
- * Check if field or input has $string
- *
- * @param string $needle Search string
- * @param string (optional) $property Name of field
- * @return bool
- */
-```
-
-```php
-<?php
-$my_form->get('input')->has('foo@bar.com', 'email');  // true
-$my_form->get('input')->has('bar@foo.com', 'email');  // false
-$my_form->get('input')->has('foo@bar.com');  // true
-```
-
-**Access using `input()` shorthand from `WFV_Form` instance.**
-
-It is recommended to access `has()` using the `input()` convenience method from the instance of `WFV_Form`. Your code will be more declarative and self documenting.
-
-Check if a field has specific string:
-```php
-<?php
-$my_form->input('email')->has('foo@bar.com');  // true
-$my_form->input('email')->has('bar@foo.com');  // false
-```
-
-Check entire input for a specific string:
-```php
-<?php // will evaluate true if any field has 'foo@bar.com'
-$my_form->input()->has('foo@bar.com');  // true
-```
-
-**Warning:** If no field name is supplied, `has()` will return `TRUE` on the first match. It is only useful to do this if looking for a unique value that could be in any field. Specifying a field name is more reliable.
-
-
-
 ## Retrieve error messages:
 ### `error( string $field = null )`
 
 ```php
 <?php
 /**
- * Convienience method to access errors property
- * Default returns decorated instance of WFV_Errors
- * If $field supplied, returns fields first error
+ * Convienience method to access errors property.
+ * Default returns WFV\Errors instance.
+ * If $field supplied, returns fields first error.
  *
  * @param string (optional) $field Name of field
  *
- * @return class|string WFV_Errors instance or first error string
+ * @return class|string Instance of WFV\Errors or first error string.
  */
 ```
-
 
 Get first error message on field:
 ```php
@@ -340,13 +289,12 @@ echo $my_form->error('email'); // Your email is required so we can reply back
 
 First error message is the first rule declared.
 
-
 eg. `required` is the first error if rules are declared: `['required', 'email']` and both validations fail.
 
 
 Get all errors:
 ```php
-<?php // get a decorated instance of `WFV_Errors`
+<?php // get the instance of `WFV\Errors`
 $errors = $my_form->error();
 ```
 
@@ -355,7 +303,7 @@ Get field errors:
 <?php // get the error bag for a field
 
 $errors = $my_form->error();
-$email_errors = $errors->get('email');
+$email_errors = $errors->email;
 
 foreach( $email_errors as $error ) {
   echo $error;
@@ -364,7 +312,7 @@ foreach( $email_errors as $error ) {
 
 ```php
 <?php // Or chain...
-$email_errors = $my_form->error()->get('email');
+$email_errors = $my_form->error()->email;
 ```
 
 
