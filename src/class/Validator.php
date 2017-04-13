@@ -60,11 +60,12 @@ class Validator extends Form implements Validation {
   }
 
   /**
-   *
+   * Check if input action is for this instance.
+   * Dies if nonce invalid.
    *
    * @since 0.8.0
    *
-   * @return bool
+   * @return bool True if $this->action is input action passes nonce test.
    */
   public function is_safe( ) {
     if( $this->has_request_action() ) {
