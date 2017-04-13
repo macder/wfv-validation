@@ -49,15 +49,35 @@ class Validator extends Form implements Validation {
    * @param array $form
    *
    */
-  function __construct( $action, Rules $rules, Input $input = null, Messages $messages = null ) {
+  function __construct( $action, Rules $rules, Input $input = null, Messages $messages = null, Errors $errors ) {
     $properties = array(
       'action' => $action,
       'rules' => $rules,
       'messages' => $messages,
       'input' => $input,
+      'errors' => $errors,
       'token' => wp_create_nonce( $action ),
     );
     $this->set( $properties );
+  }
+
+  /**
+   * Convienience method to access errors property.
+   * Default returns WFV\Errors instance.
+   * If $field supplied, returns fields first error.
+   *
+   * @since 0.6.1
+   * @param string (optional) $field Name of field
+   *
+   * @return class|string WFV\Errors instance or first error string.
+   */
+  public function error( $field = null ) {
+    if( $field ) {
+      $errors = $this->errors;
+      $error = $errors->$field;
+      return $error[0];
+    }
+    return $this->errors;
   }
 
   /**
@@ -97,8 +117,8 @@ class Validator extends Form implements Validation {
     if ( $v->validate() ) {
       do_action( $this->action, $this );
     } else {
-      // errors = $v->errors();
-      // $this->errors->set( $errors );
+      $errors = $v->errors();
+      $this->errors->set( $errors );
     }
   }
 

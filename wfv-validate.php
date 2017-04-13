@@ -61,7 +61,7 @@ function wfv_create( &$validation ) {
 
   $errors = new WFV\Errors();
 
-  $validation = new WFV\Validator( $action, $rules, $input, $messages );
+  $validation = new WFV\Validator( $action, $rules, $input, $messages, $errors );
 
   // action or like this?
   if ( $validation->is_safe() ) {
