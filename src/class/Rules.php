@@ -54,6 +54,24 @@ class Rules implements Validation {
   }
 
   /**
+   * Add custom rule to Valitron\Validator
+   * Trigger callback function for this custom rule
+   *
+   * @since 0.7.1
+   * @param string $rule
+   * @param object $valitron Instance of Valitron\Validator
+   * @access private
+   */
+  private function add( $rule, $valitron ) {
+    $valitron::addRule( $rule, function($field, $value, array $params, array $fields ) use ( $rule ) {
+      $rule = explode( ':', $rule );
+      $callback = 'wfv__'. $rule[1];
+      // TODO: throw exception if no callback, or warning?
+      return ( function_exists( $callback ) ) ? $callback( $value ) : false;
+    });
+  }
+
+  /**
    * Check if rule is custom
    *
    * @since 0.7.0
