@@ -53,7 +53,7 @@ Theme template:
 <form name="contact_form" method="post">
   <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
-  <?php $contact_form->get_token_fields(); ?>
+  <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
 </form>
 ```
@@ -219,8 +219,7 @@ You can now access methods available to `WFV_Form`
   <input id="website" name="website" type="text">
   <textarea id="msg"></textarea>
 
-  <input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">
-  <?php echo $my_form->get('nonce_field'); ?>
+  <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
 </form>
 ```
