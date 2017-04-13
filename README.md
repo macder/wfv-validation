@@ -201,14 +201,14 @@ add_action( $my_form['action'], 'my_form_valid' );
 ## Create the validation instance:
 ### `wfv_create( array $form )`
 
-Creates and assigns by reference an instance of `WFV\Validation`.
+Creates and assigns by reference an instance of `WFV\Validator`.
 
 ```php
 <?php
-// $my_form becomes an instance of WFV\Validation
+// $my_form becomes an instance of WFV\Validator
 wfv_create( $my_form );
 ```
-You can now access methods available to `WFV_Form`
+You can now access methods available to `WFV\Validator`
 
 ## Create a form somewhere in your theme:
 
