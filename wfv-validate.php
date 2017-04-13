@@ -17,10 +17,6 @@ define( 'WFV_VALIDATE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
 require_once( WFV_VALIDATE__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
-
-/*
- * New structure
- */
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/interface/Validation.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Accessor.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Mutator.php' );
@@ -30,15 +26,6 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Input.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Messages.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Rules.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validator.php' );
-// END
-
-// legacy
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-errors.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-input.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-rules.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-messages.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-validate.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-form.php' );
 
 /**
  * Instantiate and return a new WFV_VALIDATE
