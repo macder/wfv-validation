@@ -5,6 +5,13 @@
 
 Release date: Soon
 
+```php
+<?php
+class Validator extends Form implements Validation {
+  ...
+}
+```
+
 # Table of Contents
 1. [Basic Example](#basic-example)
 2. [Introduction](#introduction)
