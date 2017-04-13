@@ -108,6 +108,7 @@ class Validator extends Form implements Validation {
    * @access protected
    */
   protected function check_nonce() {
+    $nonce = $_REQUEST[ $this->action.'_token' ];
     if ( ! wp_verify_nonce( $nonce, $this->action ) ) {
       die( 'invalid token' );
     }
