@@ -92,18 +92,14 @@ class Validator extends Form implements Validation {
    * @since 0.6.0 Public access
    */
   public function validate() {
-  }
+    $v = $this->create();
 
-  /**
-   * Create an instance of Valitron\Validator with our rules / messages
-   * Assign to $valitron property
-   *
-   * @since 0.2.0
-   * @param array $form Form configuration array
-   * @access protected
-   */
-  protected function create() {
-    // void in abyss...
+    if ( $v->validate() ) {
+      do_action( $this->action, $this );
+    } else {
+      // errors = $v->errors();
+      // $this->errors->set( $errors );
+    }
   }
 
   /**
@@ -122,7 +118,27 @@ class Validator extends Form implements Validation {
   }
 
   /**
+   * Create an instance of Valitron\Validator with our rules / messages
+   * Assign to $valitron property
    *
+   * @since 0.2.0
+   * @param array $form Form configuration array
+   * @access protected
+   */
+  private function create() {
+    $input = $this->input->get_array();
+
+    $valitron = new \Valitron\Validator( $input );
+    // print_r($valitron);
+
+    $this->rules->load( $valitron );
+    return $valitron;
+
+    // void in abyss...
+  }
+
+  /**
+   * Check if $this->input has action property
    *
    * @since 0.8.0
    * @access private
