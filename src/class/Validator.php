@@ -90,4 +90,16 @@ class Validator extends Form implements Validation {
   protected function create() {
     // void in abyss...
   }
+
+  /**
+   *
+   *
+   * @since 0.8.0
+   * @access private
+   *
+   * @return bool
+   */
+  private function has_request_action() {
+    return ( $this->input->has('action') ) ? true : false;
+  }
 }
