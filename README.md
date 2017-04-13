@@ -65,19 +65,21 @@ Theme template:
 ## Problem:
 Working with custom forms in WordPress presents several challenges:
 
-The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29)  is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
+WordPress does not have an elegant way to validate user input. It does not offer much beyond some general [sanitation methods](https://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data).
+
+And,
+
+The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29) to work with `$_POST` is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
 
 This means when the form is submitted, the user is sent to `http://yoursite.com/wp-admin/admin-post.php`.
 
 Why is this a problem?
 
-For starters, the user is no longer on your form, and to send them back (i.e they missed a required field) we need make a  `HTTP Request` and redirect them back. At this point the `$_POST` with their input is gone, which would have been useful to repopulate the form. In order to persist the users input you need to either append a url query to the redirect to make it available in `$_GET`,  or store it in a session or cookie.
+The user is no longer on the form. To send them back (i.e a required field was missed), we need to do a HTTP redirect. At this point the `$_POST` with the input is gone... which would have been useful to repopulate the form. In order to persist the users input, it needs to be stored in `GET`, a session, or a cookie.
 
 Neither is elegant, and both are clunky.
 
-Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern.
-
-This gets messy and confusing fast.
+Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern. It gets messy and confusing fast.
 
 Most form building plugins have large footprints that generate rendered markup configured through the admin dashboard. Although it sounds much easier to point and click, and drag and drop; until something breaks or it can't meet some specific requirement. Enter hacks...
 
@@ -89,7 +91,7 @@ Markup a form in a template and define its constraints in `functions.php` or a p
 WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
 
 ## Features
-Just a library to handle form input validation with WordPress.
+Just an API for input validation with WordPress.
 
 ...nothing more, nothing less
 
