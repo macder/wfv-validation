@@ -1,17 +1,19 @@
 # WFV
-### WordPress Form Validation
+## WordPress Form Validation
 
-** WORK IN PROGRESS **
+#### *Declarative input validation API for WordPress*
 
-Release date: Soon
+Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
+
 
 # Table of Contents
 1. [Basic Example](#basic-example)
-2. [Introduction](#introduction)
-3. [Features](#features)
-4. [TODO](#todo)
-5. [Install](#install)
-6. [Usage](#usage)
+2. [Problem](#problem)
+3. [Solution](#solution)
+4. [Features](#features)
+5. [TODO](#todo)
+6. [Install](#install)
+7. [Usage](#usage)
     1. [Rules](#configure-validation-rules)
     2. [Custom Rules](#custom-validation-rules)
     3. [Error Messages](#custom-error-messages)
@@ -29,15 +31,17 @@ Release date: Soon
 
 // declare the rules
 $my_form = array(
-  'action'  => 'contact_form', // unique identifier
+  'action'  => 'contact_form',
   'rules'   => array(
+    'name'       => ['required'],
     'email'      => ['required', 'email']
   )
 );
 
 // hook for validation pass
 function my_form_valid( $form ) {
-  echo 'my_form user input validated. Do something...'
+  echo 'my_form valid, do something...'
+  echo $form->input('email'); // foo@bar.com
 }
 add_action( $my_form['action'], 'my_form_valid' );
 
@@ -48,13 +52,9 @@ wfv_create( $my_form );
 Theme template:
 ```php
 <form name="contact_form" method="post">
-
+  <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
-
-  <input type="hidden" name="action" value="contact_form">
-
-  <?= $my_form->get('nonce_field'); ?>
-
+  <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
 </form>
 ```
@@ -62,11 +62,8 @@ Theme template:
 
 ---
 
-## Introduction
 
-Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
-
-### The Problem:
+## Problem:
 Working with custom forms in WordPress presents several challenges:
 
 The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29)  is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
@@ -85,7 +82,7 @@ This gets messy and confusing fast.
 
 Most form building plugins have large footprints that generate rendered markup configured through the admin dashboard. Although it sounds much easier to point and click, and drag and drop; until something breaks or it can't meet some specific requirement. Enter hacks...
 
-### The Solution:
+## Solution:
 WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
 
 Markup a form in a template and define its constraints in `functions.php` or a plugin.
@@ -196,8 +193,8 @@ $my_form = array(
 <?php
 function my_form_valid( $form ) {
   // form validated, do something...
-  echo $form->input('name');
-  echo $form->input('email');
+  echo $form->input->name;
+  echo $form->input->email;
 }
 add_action( $my_form['action'], 'my_form_valid' );
 ```
@@ -205,14 +202,14 @@ add_action( $my_form['action'], 'my_form_valid' );
 ## Create the validation instance:
 ### `wfv_create( array $form )`
 
-Creates and assigns by reference the validation instance.
+Creates and assigns by reference an instance of `WFV\Validator`.
 
 ```php
 <?php
-// $my_form becomes an instance of WFV_Form
+// $my_form becomes an instance of WFV\Validator
 wfv_create( $my_form );
 ```
-You can now access methods available to `WFV_Form`
+You can now access methods available to `WFV\Validator`
 
 ## Create a form somewhere in your theme:
 
@@ -223,22 +220,15 @@ You can now access methods available to `WFV_Form`
   <input id="website" name="website" type="text">
   <textarea id="msg"></textarea>
 
-  <input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">
-  <?php echo $my_form->get('nonce_field'); ?>
+  <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
 </form>
 ```
-
-The form must have these two tags:
-
-Hidden action field with the unique value for this form:
-
-
-`<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
-
-The nonce field:
-
-`<?php echo $my_form->get('nonce_field'); ?>`
+The form must have the required token tag:
+```php
+<?php $my_form->get_token_fields(); ?>
+```
+This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
 ## Retrieve user input:
 ### `input( string $field = null )`
@@ -246,29 +236,26 @@ The nonce field:
 ```php
 <?php
 /**
- * Convenience method to access input property
+ * Convienience method into $this->input.
+ * Makes access more declarative.
+ * $this->input is an instance of WFV\Input.
  *
- * @param string (optional) $field Name of field
- * @return class|string Instance of WFV_Input or field value
+ * @param string (optional) $field Property to retrieve value from.
+ * @return class|string WFV\Input or $field string value.
  */
 ```
 ```php
 <?php // useful to repopulate field(s)
 echo $my_form->input('email'); // foo@bar.com
+//or
+echo $my_form->input->email; // foo@bar.com
 ```
 
 Assign input instance to a variable:
 ```php
 <?php
-$input = $my_form->input(); // $input is now an instance of WFV_Input
-echo $input->get('email'); // foo@bar.com
-```
-
-The above are shorthands for:
-```php
-<?php
-echo $my_form->get('input')->get('email'); // foo@bar.com
-
+$input = $my_form->input(); // $input is now an instance of WFV\Input
+echo $input->email; // foo@bar.com
 ```
 
 Get input as an array:
@@ -278,64 +265,21 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Check if input has some specific value:
-### `has( string $needle, string $property = null )`
-
-```php
-<?php
-/**
- * Check if field or input has $string
- *
- * @param string $needle Search string
- * @param string (optional) $property Name of field
- * @return bool
- */
-```
-
-```php
-<?php
-$my_form->get('input')->has('foo@bar.com', 'email');  // true
-$my_form->get('input')->has('bar@foo.com', 'email');  // false
-$my_form->get('input')->has('foo@bar.com');  // true
-```
-
-**Access using `input()` shorthand from `WFV_Form` instance.**
-
-It is recommended to access `has()` using the `input()` convenience method from the instance of `WFV_Form`. Your code will be more declarative and self documenting.
-
-Check if a field has specific string:
-```php
-<?php
-$my_form->input('email')->has('foo@bar.com');  // true
-$my_form->input('email')->has('bar@foo.com');  // false
-```
-
-Check entire input for a specific string:
-```php
-<?php // will evaluate true if any field has 'foo@bar.com'
-$my_form->input()->has('foo@bar.com');  // true
-```
-
-**Warning:** If no field name is supplied, `has()` will return `TRUE` on the first match. It is only useful to do this if looking for a unique value that could be in any field. Specifying a field name is more reliable.
-
-
-
 ## Retrieve error messages:
 ### `error( string $field = null )`
 
 ```php
 <?php
 /**
- * Convienience method to access errors property
- * Default returns decorated instance of WFV_Errors
- * If $field supplied, returns fields first error
+ * Convienience method to access errors property.
+ * Default returns WFV\Errors instance.
+ * If $field supplied, returns fields first error.
  *
  * @param string (optional) $field Name of field
  *
- * @return class|string WFV_Errors instance or first error string
+ * @return class|string Instance of WFV\Errors or first error string.
  */
 ```
-
 
 Get first error message on field:
 ```php
@@ -345,13 +289,12 @@ echo $my_form->error('email'); // Your email is required so we can reply back
 
 First error message is the first rule declared.
 
-
 eg. `required` is the first error if rules are declared: `['required', 'email']` and both validations fail.
 
 
 Get all errors:
 ```php
-<?php // get a decorated instance of `WFV_Errors`
+<?php // get the instance of `WFV\Errors`
 $errors = $my_form->error();
 ```
 
@@ -360,7 +303,7 @@ Get field errors:
 <?php // get the error bag for a field
 
 $errors = $my_form->error();
-$email_errors = $errors->get('email');
+$email_errors = $errors->email;
 
 foreach( $email_errors as $error ) {
   echo $error;
@@ -369,7 +312,7 @@ foreach( $email_errors as $error ) {
 
 ```php
 <?php // Or chain...
-$email_errors = $my_form->error()->get('email');
+$email_errors = $my_form->error()->email;
 ```
 
 
