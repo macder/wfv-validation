@@ -132,8 +132,8 @@ Once a release is packaged, install will be the usual WordPress way.
 $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
-    'name'      => ['required'],
-    'email'     => ['required', 'email'],
+    'first_name' => ['required'],
+    'email'      => ['required', 'email'],
   )
 );
 ```
@@ -148,9 +148,7 @@ Prepend `custom:` to rule, name of rule is the callback.
 $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
-    'name'      => ['required'],
-    'email'     => ['required', 'email'],
-    'phone'     => ['required', 'custom:phone']
+    'phone'      => ['required', 'custom:phone'],
   )
 );
 ```
@@ -170,15 +168,13 @@ function wfv__phone( $value ) {
 $my_form = array(
   'action'  => 'contact_form', // unique identifier
   'rules'   => array(
-    'name'      => ['required'],
-    'email'     => ['required', 'email'],
-    'msg'       => ['required']
+    'email'     => ['required', 'email']
   ),
 
   // override an error msg
   'messages' => [
     'email' => array(
-      'required' => 'Your email is required so we can reply back'
+      'required' => 'No email, no reply... get it?'
     )
   ]
 );
