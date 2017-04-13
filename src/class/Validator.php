@@ -77,9 +77,9 @@ class Validator extends Form implements Validation {
    */
   public function validate() {
     if( $this->has_request_action() ) {
-      $input_action = $this->input->action;
+      $request_action = $this->input->action;
 
-      if( $this->is_legal( $input_action ) ) {
+      if( $this->is_legal( $request_action ) ) {
         echo 'legal!';
       } else {
         echo 'how did u get here?';
