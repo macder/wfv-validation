@@ -13,7 +13,7 @@ class Validator extends Form implements Validation {
    * Error message bag
    *
    * @since 0.6.1
-   * @since 0.7.3 WFV_Errors instance
+   * @since 0.7.3 WFV\Errors instance
    * @access protected
    * @var class $errors Instance of WFV_Errors.
    */
@@ -23,7 +23,7 @@ class Validator extends Form implements Validation {
    * Error message overrides
    *
    * @since 0.4.0
-   * @since 0.7.0 WFV_Messages instance
+   * @since 0.7.0 WFV\Messages instance
    * @access protected
    * @var class $messages Instance of WFV_Messages.
    */
@@ -33,7 +33,7 @@ class Validator extends Form implements Validation {
    * Validation rules
    *
    * @since 0.1.0
-   * @since 0.7.0 WFV_Rules instance
+   * @since 0.7.0 WFV\Rules instance
    * @access protected
    * @var class $rules Instance of WFV_Rules.
    */
