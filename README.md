@@ -62,7 +62,7 @@ Theme template:
 ---
 
 
-## Problem:
+## Problem
 Working with custom forms in WordPress presents several challenges:
 
 WordPress does not have an elegant way to validate user input. It does not offer much beyond some general [sanitation methods](https://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data).
@@ -83,7 +83,7 @@ Far too common the solution to `SELF_POST` the form is to capture the `$_POST` a
 
 Most form building plugins have large footprints that generate rendered markup configured through the admin dashboard. Although it sounds much easier to point and click, and drag and drop; until something breaks or it can't meet some specific requirement. Enter hacks...
 
-## Solution:
+## Solution
 WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
 
 Markup a form in a template and define its constraints in `functions.php` or a plugin.
@@ -105,7 +105,7 @@ Just an API for input validation with WordPress.
 * No rendered markup
 * Developer freedom
 
-## TODO:
+## TODO
 - Expose an api for the front end to support singe configuration.
 - Standardize storage for default error messages.
 
@@ -125,7 +125,7 @@ Once a release is packaged, install will be the usual WordPress way.
 
 # Usage
 
-## Configure validation rules:
+## Configure validation rules
 
 ```php
 <?php
@@ -140,7 +140,7 @@ $my_form = array(
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) doc.
 
-## Custom validation rules:
+## Custom validation rules
 
 Prepend `custom:` to rule, name of rule is the callback.
 ```php
@@ -163,7 +163,7 @@ function wfv__phone( $value ) {
 }
 ```
 
-## Custom error messages:
+## Custom error messages
 
 ```php
 <?php
@@ -172,7 +172,6 @@ $my_form = array(
   'rules'   => array(
     'name'      => ['required'],
     'email'     => ['required', 'email'],
-    'website'   => ['url'],
     'msg'       => ['required']
   ),
 
@@ -180,15 +179,12 @@ $my_form = array(
   'messages' => [
     'email' => array(
       'required' => 'Your email is required so we can reply back'
-    ),
-    'website' => array(
-      'url' => 'The website url is invalid'
     )
   ]
 );
 ```
 
-## Callback for successful validation:
+## Callback for successful validation
 
 ```php
 <?php
@@ -200,7 +196,7 @@ function my_form_valid( $form ) {
 add_action( $my_form['action'], 'my_form_valid' );
 ```
 
-## Create the validation instance:
+## Create the validation instance
 ### `wfv_create( array $form )`
 
 Creates and assigns by reference an instance of `WFV\Validator`.
@@ -212,14 +208,13 @@ wfv_create( $my_form );
 ```
 You can now access methods available to `WFV\Validator`
 
-## Create a form somewhere in your theme:
+## Create a form somewhere in your theme
 
-```php
+```html
 <form name="contact_form" method="post">
   <input id="name" name="name" type="text">
   <input id="email" name="email" type="text">
-  <input id="website" name="website" type="text">
-  <textarea id="msg"></textarea>
+  <textarea id="msg" name="msg"></textarea>
 
   <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
@@ -231,7 +226,7 @@ The form must have the required token tag:
 ```
 This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
-## Retrieve user input:
+## Retrieve user input
 ### `input( string $field = null )`
 
 ```php
@@ -266,7 +261,7 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Retrieve error messages:
+## Retrieve error messages
 ### `error( string $field = null )`
 
 ```php
@@ -317,9 +312,9 @@ $email_errors = $my_form->error()->email;
 ```
 
 
-### Note:
+> **Note:**
 
-You can create unlimited forms as long as each has a unique `action` value.
+> You can create unlimited forms as long as each has a unique `action` value.
 
 ## Development
 
