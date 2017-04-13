@@ -201,14 +201,27 @@ function contact_form_valid( $form ) {
 ## Create the validation instance
 ### `wfv_create( array $form )`
 
-Creates and assigns by reference an instance of `WFV\Validator`.
+Create and assign by reference the instance of `WFV\Validator` as described by the `array()` parameter.
 
 ```php
 <?php
 // $my_form becomes an instance of WFV\Validator
 wfv_create( $my_form );
 ```
-You can now access methods available to `WFV\Validator`
+
+`$my_form` can now access properties and methods available to `WFV\Validator`
+
+```php
+<?php
+$my_form->input;     // Instance of WFV\Input
+$my_form->errors;    // Instance of WFV\Errors
+$my_form->rules;     // Instance of WFV\Rules
+$my_form->messages;  // Instance of WFV\Messages
+```
+**Get and Set:**   
+All instances that are properties on `WFV\Validator` have getters and setters from the `Accessor` and `Mutator` traits.
+
+Examine [`./src/trait/Accessor.php`](https://github.com/macder/wp-form-validation/blob/master/src/trait/Accessor.php) and [`./src/trait/Mutator.php`](https://github.com/macder/wp-form-validation/blob/master/src/trait/Mutator.php) for available methods to get and set properties.
 
 ## Create a form somewhere in your theme
 
