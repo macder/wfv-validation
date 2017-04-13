@@ -1,9 +1,14 @@
 # WFV
 ## WordPress Form Validation
 
-#### *The declarative input validation API you never had in WordPress*
+#### *Declarative input validation API for WordPress*
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
+
+```php
+<?php
+class Validator extends Form implements Validation { ... }
+```
 
 # Table of Contents
 1. [Basic Example](#basic-example)
