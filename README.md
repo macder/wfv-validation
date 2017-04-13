@@ -228,17 +228,11 @@ You can now access methods available to `WFV\Validator`
   <input type="submit" value="Submit">
 </form>
 ```
-
-The form must have these two tags:
-
-Hidden action field with the unique value for this form:
-
-
-`<input type="hidden" name="action" value="<?php echo $my_form->get('action'); ?>">`
-
-The nonce field:
-
-`<?php echo $my_form->get('nonce_field'); ?>`
+The form must have the required token tag:
+```php
+<?php $my_form->get_token_fields(); ?>
+```
+This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
 ## Retrieve user input:
 ### `input( string $field = null )`
