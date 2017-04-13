@@ -51,7 +51,7 @@ class Form {
    * Makes access more declarative.
    * $this->input is an instance of WFV\Input.
    *
-   * @param string (optional) $field The $field value.
+   * @param string (optional) $field Property to retrieve value from.
    * @since 0.8.0
    * @return class|string WFV\Input or $field string value.
    */
