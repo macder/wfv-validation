@@ -91,12 +91,6 @@ class Validator extends Form implements Validation {
    * @since 0.6.0 Public access
    */
   public function validate() {
-    if( $this->has_request_action() ) {
-      $request_action = $this->input->action;
-      if( $this->is_legal( $request_action ) ) {
-        $this->check_nonce();
-      }
-    }
   }
 
   /**
