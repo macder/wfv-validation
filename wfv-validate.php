@@ -56,7 +56,9 @@ function wfv_create( &$validation ) {
   $validation = new WFV\Validator( $action, $rules, $input );
 
   // action or like this?
-  $validation->validate();
+  if ( $validation->is_safe() ) {
+    $validation->validate();
+  }
 
 }
 // I think this is more efficient? ...
