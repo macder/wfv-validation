@@ -245,7 +245,6 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
  * $this->input is an instance of WFV\Input.
  *
  * @param string (optional) $field Property to retrieve value from.
- * @since 0.8.0
  * @return class|string WFV\Input or $field string value.
  */
 ```
@@ -270,64 +269,21 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Check if input has some specific value:
-### `has( string $needle, string $property = null )`
-
-```php
-<?php
-/**
- * Check if field or input has $string
- *
- * @param string $needle Search string
- * @param string (optional) $property Name of field
- * @return bool
- */
-```
-
-```php
-<?php
-$my_form->get('input')->has('foo@bar.com', 'email');  // true
-$my_form->get('input')->has('bar@foo.com', 'email');  // false
-$my_form->get('input')->has('foo@bar.com');  // true
-```
-
-**Access using `input()` shorthand from `WFV_Form` instance.**
-
-It is recommended to access `has()` using the `input()` convenience method from the instance of `WFV_Form`. Your code will be more declarative and self documenting.
-
-Check if a field has specific string:
-```php
-<?php
-$my_form->input('email')->has('foo@bar.com');  // true
-$my_form->input('email')->has('bar@foo.com');  // false
-```
-
-Check entire input for a specific string:
-```php
-<?php // will evaluate true if any field has 'foo@bar.com'
-$my_form->input()->has('foo@bar.com');  // true
-```
-
-**Warning:** If no field name is supplied, `has()` will return `TRUE` on the first match. It is only useful to do this if looking for a unique value that could be in any field. Specifying a field name is more reliable.
-
-
-
 ## Retrieve error messages:
 ### `error( string $field = null )`
 
 ```php
 <?php
 /**
- * Convienience method to access errors property
- * Default returns decorated instance of WFV_Errors
- * If $field supplied, returns fields first error
+ * Convienience method to access errors property.
+ * Default returns WFV\Errors instance.
+ * If $field supplied, returns fields first error.
  *
  * @param string (optional) $field Name of field
  *
- * @return class|string WFV_Errors instance or first error string
+ * @return class|string Instance of WFV\Errors or first error string.
  */
 ```
-
 
 Get first error message on field:
 ```php
@@ -337,13 +293,12 @@ echo $my_form->error('email'); // Your email is required so we can reply back
 
 First error message is the first rule declared.
 
-
 eg. `required` is the first error if rules are declared: `['required', 'email']` and both validations fail.
 
 
 Get all errors:
 ```php
-<?php // get a decorated instance of `WFV_Errors`
+<?php // get the instance of `WFV\Errors`
 $errors = $my_form->error();
 ```
 
@@ -352,7 +307,7 @@ Get field errors:
 <?php // get the error bag for a field
 
 $errors = $my_form->error();
-$email_errors = $errors->get('email');
+$email_errors = $errors->email;
 
 foreach( $email_errors as $error ) {
   echo $error;
@@ -361,7 +316,7 @@ foreach( $email_errors as $error ) {
 
 ```php
 <?php // Or chain...
-$email_errors = $my_form->error()->get('email');
+$email_errors = $my_form->error()->email;
 ```
 
 
