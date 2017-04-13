@@ -40,8 +40,7 @@ $my_form = array(
 
 // hook for validation pass
 function my_form_valid( $form ) {
-  echo 'my_form valid, do something...'
-  echo $form->input('email'); // foo@bar.com
+  // form validated, do something...'
 }
 add_action( $my_form['action'], 'my_form_valid' );
 
