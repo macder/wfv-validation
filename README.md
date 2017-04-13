@@ -1,14 +1,8 @@
 # WFV
-### WordPress Form Validation
+## WordPress Form Validation
 
-##### Declarative WP input validation library
+##### * The declarative input validation you never had in WordPress *
 
-```php
-<?php
-class Validator extends Form implements Validation {
-  ...
-}
-```
 
 # Table of Contents
 1. [Basic Example](#basic-example)
