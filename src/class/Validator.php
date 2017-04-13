@@ -68,11 +68,8 @@ class Validator extends Form implements Validation {
    */
   public function is_safe( ) {
     if( $this->has_request_action() ) {
-      $request_action = $this->input->action;
-      if( $this->is_legal( $request_action ) ) {
-        $this->check_nonce();
-        $safe = true;
-      }
+      $safe = ( $this->is_legal( $this->input->action ) ) ? true : false;
+      $this->check_nonce();
     }
     return ( $safe ) ? true : false;
   }
