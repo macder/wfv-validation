@@ -1,7 +1,7 @@
 # WFV
 ## WordPress Form Validation
 
-##### *The declarative input validation API you never had in WordPress*
+#### *The declarative input validation API you never had in WordPress*
 
 
 # Table of Contents
