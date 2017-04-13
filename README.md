@@ -5,10 +5,6 @@
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 
-```php
-<?php
-class Validator extends Form implements Validation { ... }
-```
 
 # Table of Contents
 1. [Basic Example](#basic-example)
@@ -197,8 +193,8 @@ $my_form = array(
 <?php
 function my_form_valid( $form ) {
   // form validated, do something...
-  echo $form->input('name');
-  echo $form->input('email');
+  echo $form->input->name;
+  echo $form->input->email;
 }
 add_action( $my_form['action'], 'my_form_valid' );
 ```
