@@ -65,7 +65,7 @@ class Validator extends Form implements Validation {
    *
    * @since 0.8.0
    *
-   * @return bool True if $this->action is input action passes nonce test.
+   * @return bool True if $this->action is $input->action and nonce is valid.
    */
   public function is_safe( ) {
     if( $this->has_request_action() ) {
