@@ -33,7 +33,7 @@ Intended for developers who want to build forms in a theme using custom markup a
 $my_form = array(
   'action'  => 'contact_form',
   'rules'   => array(
-    'name'       => ['required'],
+    'first_name' => ['required'],
     'email'      => ['required', 'email']
   )
 );
@@ -50,11 +50,11 @@ wfv_create( $my_form );
 ```
 Theme template:
 ```php
-<form name="contact_form" method="post">
-  <input id="name" name="name" type="text">
-  <input id="email" name="email" type="text">
+<form method="post">
+  <input name="first_name" type="text">
+  <input name="email" type="text">
   <?php $my_form->get_token_fields(); ?>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Send">
 </form>
 ```
 <br>
