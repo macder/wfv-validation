@@ -24,6 +24,7 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/V
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/interface/Validation.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Accessor.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Mutator.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Errors.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Form.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Input.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Messages.php' );
@@ -50,18 +51,23 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . 'class.wfv-form.php' );
  * @param array $form Form configuration (rules, action)
  */
 function wfv_create( &$validation ) {
+  // TODO: make a factory for this...
+
   $action = $validation['action'];
   $rules = new WFV\Rules();
   $rules->set( $validation['rules'] );
   $input = new WFV\Input( $action );
   $messages = new WFV\Messages( $validation['messages'] );
+
+  $errors = new WFV\Errors();
+
   $validation = new WFV\Validator( $action, $rules, $input, $messages );
 
   // action or like this?
   if ( $validation->is_safe() ) {
     $validation->validate();
   }
-
+  // $Errors = 'WFV\Errors';
 }
 // I think this is more efficient? ...
 // Reworking nonce, that will verify if we need to do it this way....
