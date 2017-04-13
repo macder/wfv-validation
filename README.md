@@ -40,7 +40,7 @@ $my_form = array(
 
 // hook for validation pass
 function my_form_valid( $form ) {
-  // form validated, do something...'
+  // form validated, do something...
 }
 add_action( $my_form['action'], 'my_form_valid' );
 
