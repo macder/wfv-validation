@@ -31,7 +31,9 @@ trait Mutator {
   }
 
   /**
-   * Set associative array as properties
+   * Associative array to instance properties.
+   * Creates new property for each array key, and assigns its value.
+   * array( $Key => $value ) becomes $value = $this->$key
    *
    * @since 0.8.0
    * @param array $properties The property / value pairs
