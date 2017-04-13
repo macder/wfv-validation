@@ -240,21 +240,27 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 ```php
 <?php
 /**
- * Convenience method to access input property
+ * Convienience method into $this->input.
+ * Makes access more declarative.
+ * $this->input is an instance of WFV\Input.
  *
- * @param string (optional) $field Name of field
- * @return class|string Instance of WFV_Input or field value
+ * @param string (optional) $field The $field value.
+ * @since 0.8.0
+ * @return class|string WFV\Input or $field string value.
  */
 ```
 ```php
 <?php // useful to repopulate field(s)
 echo $my_form->input('email'); // foo@bar.com
+
+//or
+echo $my_form->input->email; // foo@bar.com
 ```
 
 Assign input instance to a variable:
 ```php
 <?php
-$input = $my_form->input(); // $input is now an instance of WFV_Input
+$input = $my_form->input(); // $input is now an instance of WFV\Input
 echo $input->get('email'); // foo@bar.com
 ```
 
