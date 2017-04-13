@@ -330,9 +330,7 @@ $email_errors = $my_form->error()->email;
 ```
 
 
-> **Note:**
-
-> You can create unlimited forms as long as each has a unique `action` value.
+> **Note:** You can create unlimited forms as long as each has a unique `action` value.
 
 ## Development
 
