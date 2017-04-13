@@ -11,10 +11,9 @@ trait Mutator {
 
   /**
    * Null a property value.
-   * Property is not removed, its value becomes null.
    *
    * @since 0.8.0
-   * @param string $property Name of property to null
+   * @param string $property Property name.
    */
   public function forget( $property ) {
     $this->$property = null;
