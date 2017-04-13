@@ -26,6 +26,7 @@ require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Accessor.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Mutator.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Form.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Input.php' );
+require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Messages.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Rules.php' );
 require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validator.php' );
 // END
@@ -53,7 +54,8 @@ function wfv_create( &$validation ) {
   $rules = new WFV\Rules();
   $rules->set( $validation['rules'] );
   $input = new WFV\Input( $action );
-  $validation = new WFV\Validator( $action, $rules, $input );
+  $messages = new WFV\Messages( $validation['messages'] );
+  $validation = new WFV\Validator( $action, $rules, $input, $messages );
 
   // action or like this?
   if ( $validation->is_safe() ) {

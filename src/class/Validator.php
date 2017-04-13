@@ -49,10 +49,11 @@ class Validator extends Form implements Validation {
    * @param array $form
    *
    */
-  function __construct( $action, Rules $rules, Input $input = null ) {
+  function __construct( $action, Rules $rules, Input $input = null, Messages $messages = null ) {
     $properties = array(
       'action' => $action,
       'rules' => $rules,
+      'messages' => $messages,
       'input' => $input,
       'token' => wp_create_nonce( $action ),
     );
@@ -93,7 +94,6 @@ class Validator extends Form implements Validation {
    */
   public function validate() {
     $v = $this->create();
-
     if ( $v->validate() ) {
       do_action( $this->action, $this );
     } else {
@@ -127,13 +127,9 @@ class Validator extends Form implements Validation {
    */
   private function create() {
     $input = $this->input->get_array();
-
     $valitron = new \Valitron\Validator( $input );
-    // print_r($valitron);
-
-    $this->rules->load( $valitron );
+    $this->rules->load( $valitron, $this->messages );
     return $valitron;
-
     // void in abyss...
   }
 
