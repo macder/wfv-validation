@@ -41,9 +41,9 @@ function wfv_create( &$form ) {
  * Only if $_POST['action'] matches param instance action
  *
  * @since 0.8.2
- * @param class $form WFV\Validator
  *
- * @return class WFV\Validator
+ * @param WFV\Validator $form
+ * @return WFV\Validator
  */
 function wfv_validate( $form ) {
   return ( $form->is_safe() ) ? $form->validate() : $form;

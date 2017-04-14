@@ -13,8 +13,8 @@ trait AccessorTrait {
    * __get magic method
    *
    * @since 0.8.0
-   * @param string $property
    *
+   * @param string $property
    * @return
    */
   public function __get( $property ) {
@@ -37,8 +37,8 @@ trait AccessorTrait {
    * Check if property exists
    *
    * @since 0.8.0
-   * @param string $property
    *
+   * @param string $property
    * @return bool
    */
   public function has( $property ) {

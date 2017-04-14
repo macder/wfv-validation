@@ -60,8 +60,8 @@ class Input implements ValidationInterface {
    * Check if there was a $_POST for this action
    *
    * @since 0.7.2
-   * @param string $action The forms action value
    *
+   * @param string $action The forms action value
    * @return bool
    */
   private function is_submit( $action ) {
