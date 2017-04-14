@@ -237,10 +237,10 @@ $my_form->rules;     // Instance of WFV\Rules
 $my_form->messages;  // Instance of WFV\Messages
 ```
 **Get and Set:**
-All property instances on `WFV\Validator` use getters and setters from `AccessorTrait` and `MutatorTrait`.
 
-Examine [`./src/AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`./src/MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
+Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
 
+All property instances on `WFV\Validator` use these traits.
 
 ## Retrieve user input
 ### `WFV\Input`
