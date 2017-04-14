@@ -279,55 +279,47 @@ $input = $my_form->input()->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Retrieve error messages
-### `error( string $field = null )`
+## Working with error messages
+### `WFV\Errors`
 
 ```php
-<?php
-/**
- * Convienience method to access errors property.
- * Default returns WFV\Errors instance.
- * If $field supplied, returns fields first error.
- *
- * @param string (optional) $field Name of field
- *
- * @return class|string Instance of WFV\Errors or first error string.
- */
+<?php // errors property is an instance of WFV\Errors
+
+$errors = $my_form->errors;
 ```
 
-Get first error message on field:
+Check if field has an error:
 ```php
-<?php // get the first error message on the field
-echo $my_form->error('email'); // Your email is required so we can reply back
-```
+<?php // does the email field have an error?
 
-First error message is the first rule declared.
-
-eg. `required` is the first error if rules are declared: `['required', 'email']` and both validations fail.
-
-
-Get all errors:
-```php
-<?php // get the instance of `WFV\Errors`
-$errors = $my_form->error();
+$my_form->errors->has('email'); // true or false
 ```
 
 Get field errors:
 ```php
 <?php // get the error bag for a field
 
-$errors = $my_form->error();
-$email_errors = $errors->email;
+$email_errors = $my_form->errors->email;
 
 foreach( $email_errors as $error ) {
   echo $error;
 }
 ```
 
+
+### `error( string $field )`
+Convienience method to get first error on field.
+
 ```php
-<?php // Or chain...
-$email_errors = $my_form->error()->email;
+<?php // get the first email error message
+
+echo $my_form->error('email'); // Email is required
 ```
+> Note:
+>
+>First error message is the first rule declared
+>
+>`required` is the first error if rules are declared: `['required', 'email']` and both validations fail.
 
 
 > **Note:** You can create unlimited forms as long as each has a unique `action` value.
