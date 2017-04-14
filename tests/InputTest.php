@@ -55,6 +55,8 @@ class InputTest extends \PHPUnit_Framework_TestCase {
     $action = 'phpunit_manipulated';
     $result = new Input( $action );
 
-    $this->assertFalse( ( property_exists( $result, 'name' ) ) );
+    foreach( self::EXPECTED_RESULT as $key => $expected ) {
+      $this->assertFalse( ( property_exists( $result, $key ) ) );
+    }
   }
 }
