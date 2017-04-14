@@ -37,19 +37,14 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    *
    * @param array $post The raw $_POST
    * @param array $expected_result
-   *
-   * @dataProvider provider_test_post
    */
-  public function test_post_gets_sanitized_to_instance( $post, $expected_result ) {
+  public function test_post_gets_sanitized_to_instance() {
     $result = new Input('phpunit');
     $expected = self::EXPECTED_RESULT;
 
     foreach( $result as $key => $value ) {
       $this->assertEquals( $expected[$key], $result->$key );
     }
-
-    $result = get_object_vars( $result );
-    $this->assertEquals( $expected_result, $result );
   }
 
   /**
