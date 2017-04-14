@@ -39,6 +39,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    * @param array $expected_result
    */
   public function test_post_gets_sanitized_to_instance() {
+    $_POST = self::HTTP_POST;
     $result = new Input('phpunit');
     $expected = self::EXPECTED_RESULT;
 
