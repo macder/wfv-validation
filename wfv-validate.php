@@ -38,10 +38,10 @@ function wfv_create( &$form ) {
 
 /**
  * Do the validation
- * Only a $_POST['action'] matches the instance $action
+ * Only if $_POST['action'] matches param instance action
  *
  * @since 0.8.2
- * @param class WFV\Validator
+ * @param class $form WFV\Validator
  *
  * @return class WFV\Validator
  */
