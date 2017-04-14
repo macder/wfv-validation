@@ -15,7 +15,6 @@ trait AccessorTrait {
    * @since 0.8.0
    *
    * @param string $property
-   *
    * @return
    */
   public function __get( $property ) {
@@ -40,7 +39,6 @@ trait AccessorTrait {
    * @since 0.8.0
    *
    * @param string $property
-   *
    * @return bool
    */
   public function has( $property ) {
