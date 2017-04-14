@@ -61,7 +61,7 @@ class Input implements ValidationInterface {
    *
    * @return array Sanitized values, numeric array
    */
-  private function sanitize_array( $array ) {
+  protected function sanitize_array( $array ) {
     foreach( $array as $input ) {
       $sane_array[] = sanitize_text_field( $input );
     }
