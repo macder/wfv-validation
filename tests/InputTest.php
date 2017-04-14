@@ -26,12 +26,6 @@ class InputTest extends \PHPUnit_Framework_TestCase {
       )
   );
 
-  public function provider_test_post() {
-    $_POST = self::HTTP_POST;
-    $expected_result = self::EXPECTED_RESULT;
-    return array( array( $_POST, $expected_result ) );
-  }
-
   /**
    * Make sure properties are sanitized key/values from $_POST
    *
@@ -58,5 +52,11 @@ class InputTest extends \PHPUnit_Framework_TestCase {
     foreach( self::EXPECTED_RESULT as $key => $expected ) {
       $this->assertFalse( ( property_exists( $result, $key ) ) );
     }
+  }
+
+  public function provider_test_post() {
+    $_POST = self::HTTP_POST;
+    $expected_result = self::EXPECTED_RESULT;
+    return array( array( $_POST, $expected_result ) );
   }
 }
