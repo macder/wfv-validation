@@ -41,6 +41,7 @@ function wfv_create( &$form ) {
  * Only if $_POST['action'] matches param instance action
  *
  * @since 0.8.2
+ *
  * @param class $form WFV\Validator
  *
  * @return class WFV\Validator
