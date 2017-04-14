@@ -28,6 +28,7 @@ class Messages implements ValidationInterface {
    * Check if a fields rule has custom message
    *
    * @since 0.7.0
+   *
    * @param string $field
    * @param string $rule
    *
