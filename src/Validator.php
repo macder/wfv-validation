@@ -46,7 +46,12 @@ class Validator extends Form implements ValidationInterface {
    * __construct
    *
    * @since 0.8.0
-   * @param
+   *
+   * @param string
+   * @param WFV\Rules $rules
+   * @param WFV\Input $input
+   * @param WFV\Messages $messages
+   * @param WFV\Errors $errors
    *
    */
   function __construct( $action, Rules $rules, Input $input, Messages $messages, Errors $errors ) {
