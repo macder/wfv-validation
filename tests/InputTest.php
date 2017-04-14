@@ -35,8 +35,6 @@ class InputTest extends \PHPUnit_Framework_TestCase {
   /**
    * Make sure properties are sanitized key/values from $_POST
    *
-   * @param array $post The raw $_POST
-   * @param array $expected_result
    */
   public function test_post_gets_sanitized_to_instance() {
     $_POST = self::HTTP_POST;
