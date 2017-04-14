@@ -49,7 +49,7 @@ class Validator extends Form implements ValidationInterface {
    * @param
    *
    */
-  function __construct( $action, Rules $rules, Input $input = null, Messages $messages, Errors $errors ) {
+  function __construct( $action, Rules $rules, Input $input, Messages $messages, Errors $errors ) {
     $properties = array(
       'action' => $action,
       'rules' => $rules,
