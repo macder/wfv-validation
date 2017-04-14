@@ -15,6 +15,7 @@ class Validator extends Form implements ValidationInterface {
    * @since 0.6.1
    * @since 0.7.3 WFV\Errors instance
    * @access protected
+   *
    * @var class $errors Instance of WFV_Errors.
    */
   protected $errors;
@@ -25,6 +26,7 @@ class Validator extends Form implements ValidationInterface {
    * @since 0.4.0
    * @since 0.7.0 WFV\Messages instance
    * @access protected
+   *
    * @var class $messages Instance of WFV_Messages.
    */
   protected $messages;
@@ -72,6 +74,7 @@ class Validator extends Form implements ValidationInterface {
    * If $field supplied, returns fields first error.
    *
    * @since 0.6.1
+   *
    * @param string (optional) $field Name of field
    *
    * @return class|string Instance of WFV\Errors or first error string.
@@ -103,7 +106,8 @@ class Validator extends Form implements ValidationInterface {
 
   /**
    *
-   * @param
+   * @param string (optional) $field
+   *
    * @since 0.8.0
    *
    */
@@ -147,8 +151,9 @@ class Validator extends Form implements ValidationInterface {
    * Assign to $valitron property
    *
    * @since 0.2.0
-   * @param array $form Form configuration array
    * @access protected
+   *
+   * @param array $form Form configuration array
    */
   private function create() {
     $input = $this->input->get_array();
@@ -176,8 +181,9 @@ class Validator extends Form implements ValidationInterface {
    * Very unlikely to get false, unless sneaky things happening...
    *
    * @since 0.8.0
-   * @param string $action String to compare against $this->action.
    * @access private
+   *
+   * @param string $action String to compare against $this->action.
    *
    * @return bool
    */
