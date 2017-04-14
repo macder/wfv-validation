@@ -3,7 +3,7 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 /**
- * General class accessor methods
+ * Generic property getters
  *
  * @since 0.8.0
  */
@@ -13,8 +13,8 @@ trait AccessorTrait {
    * __get magic method
    *
    * @since 0.8.0
-   * @param string $property
    *
+   * @param string $property
    * @return
    */
   public function __get( $property ) {
@@ -23,7 +23,6 @@ trait AccessorTrait {
 
   /**
    * Get array of instance properties
-   *
    *
    * @since 0.7.2
    *
@@ -37,8 +36,8 @@ trait AccessorTrait {
    * Check if property exists
    *
    * @since 0.8.0
-   * @param string $property
    *
+   * @param string $property
    * @return bool
    */
   public function has( $property ) {
