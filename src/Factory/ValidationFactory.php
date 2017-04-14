@@ -16,7 +16,7 @@ use WFV\Validator;
 class ValidationFactory {
 
   /**
-   *
+   * Build an instance of WFV\Validator as described by $form
    *
    * @since 0.8.2
    * @param array $form
