@@ -7,10 +7,10 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-class Input implements Validation {
+class Input implements ValidationInterface {
 
-  use Accessor;
-  use Mutator;
+  use AccessorTrait;
+  use MutatorTrait;
 
   /**
    * __construct
