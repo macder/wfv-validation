@@ -57,7 +57,7 @@ class Input implements ValidationInterface {
   }
 
   /**
-   * Check if there was a $_POST for this form
+   * Check if there was a $_POST for this action
    *
    * @since 0.7.2
    * @param string $action The forms action value
