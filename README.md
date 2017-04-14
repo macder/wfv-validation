@@ -154,8 +154,8 @@ $my_form = array(
 ```
 Create the callback:
 ```php
-<?php
-// phone field will validate only if the input is 'hi' ...how cruel
+<?php // phone field will validate only if the input is 'hi' ...how cruel
+
 function wfv__phone( $value ) {
   return ( 'hi' === $value ) ? true : false;
 }
