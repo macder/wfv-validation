@@ -242,44 +242,31 @@ The form must have the required token tag:
 This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
 ## Retrieve user input
-### `input( string $field = null )`
+### `WFV\Input`
 
 ```php
-<?php
-/**
- * Convienience method into $this->input.
- * Makes access more declarative.
- * $this->input is an instance of WFV\Input.
- *
- * @param string (optional) $field Property to retrieve value from.
- * @return class|string WFV\Input or $field string value.
- */
+<?php // input property is an instance of WFV\Input
+
+$input = $my_form->input;
 ```
+
+Get the input from a field:
 ```php
 <?php // output the value the user entered into the email field
 
-echo $my_form->input('email'); // foo@bar.com
-// or
 echo $my_form->input->email; // foo@bar.com
-```
 
-Assign `WFV\Input` instance to a variable:
-```php
-<?php // assign WFV\Input to $input and output the email value
-
-$input = $my_form->input();
-echo $input->email; // foo@bar.com
 ```
 
 Get input as an array:
 ```php
-<?php // get the properties of WFV\Input as an associative array
+<?php // get users input as an associative array
 
-$input = $my_form->input()->get_array();
+$input = $my_form->input->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Working with error messages
+## Working with errors
 ### `WFV\Errors`
 
 ```php
