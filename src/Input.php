@@ -42,12 +42,12 @@ class Input implements ValidationInterface {
   }
 
   /**
-   * Sanitize the values of a simple array
+   * Sanitize the values of an index array
    *
    * @since 0.8.3
    * @access private
    *
-   * @return array Sanitized values, numeric array
+   * @return array Index array or sanitized values
    */
   protected function sanitize_array( $array ) {
     foreach( $array as $input ) {
