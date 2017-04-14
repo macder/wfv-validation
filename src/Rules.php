@@ -23,6 +23,18 @@ class Rules implements ValidationInterface {
   }
 
   /**
+   * Check if rule is custom
+   *
+   * @since 0.7.0
+   *
+   * @param string $rule
+   * @return bool
+   */
+  public function is_custom( $rule ) {
+    return ( false !== strpos( $rule, 'custom:' ) ) ? true: false;
+  }
+
+  /**
    * Push rules onto an instance of Valitron
    *
    * @since 0.7.0
@@ -69,18 +81,5 @@ class Rules implements ValidationInterface {
       // TODO: throw exception if no callback, or warning?
       return ( function_exists( $callback ) ) ? $callback( $value ) : false;
     });
-  }
-
-  /**
-   * Check if rule is custom
-   *
-   * @since 0.7.0
-   * @access private
-   *
-   * @param string $rule
-   * @return bool
-   */
-  private function is_custom( $rule ) {
-    return ( false !== strpos( $rule, 'custom:' ) ) ? true: false;
   }
 }
