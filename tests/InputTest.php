@@ -18,8 +18,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
       'name' => 'hi'
     );
 
-    $input = new Input('phpunit');
-    $result = get_object_vars( $input );
+    $result = get_object_vars( new Input('phpunit') );
     $this->assertEquals($expected_result, $result);
   }
 }
