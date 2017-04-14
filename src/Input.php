@@ -25,18 +25,6 @@ class Input implements ValidationInterface {
   }
 
   /**
-   * Check if there was a $_POST for this form
-   *
-   * @since 0.7.2
-   * @param string $action The forms action value
-   *
-   * @return bool
-   */
-  private function is_submit( $action ) {
-    return ( $_POST && $_POST['action'] === $action ) ? true : false;
-  }
-
-  /**
    * Sanitize $_POST array
    *
    * @since 0.2.0
@@ -66,5 +54,17 @@ class Input implements ValidationInterface {
       $sane_array[] = sanitize_text_field( $input );
     }
     return $sane_array;
+  }
+
+  /**
+   * Check if there was a $_POST for this form
+   *
+   * @since 0.7.2
+   * @param string $action The forms action value
+   *
+   * @return bool
+   */
+  private function is_submit( $action ) {
+    return ( $_POST && $_POST['action'] === $action ) ? true : false;
   }
 }
