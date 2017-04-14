@@ -218,10 +218,10 @@ $my_form->errors;    // Instance of WFV\Errors
 $my_form->rules;     // Instance of WFV\Rules
 $my_form->messages;  // Instance of WFV\Messages
 ```
-**Get and Set:**   
-All instances that are properties on `WFV\Validator` have getters and setters from the `Accessor` and `Mutator` traits.
+**Get and Set:**
+All property instances on `WFV\Validator` use getters and setters from `AccessorTrait` and `MutatorTrait`.
 
-Examine [`./src/trait/Accessor.php`](https://github.com/macder/wp-form-validation/blob/master/src/trait/Accessor.php) and [`./src/trait/Mutator.php`](https://github.com/macder/wp-form-validation/blob/master/src/trait/Mutator.php) for available methods to get and set properties.
+Examine [`./src/AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`./src/MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
 
 ## Create a form somewhere in your theme
 
