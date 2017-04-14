@@ -34,8 +34,8 @@ class Input implements ValidationInterface {
    * @return array Sanitized keys and values from $_POST
    */
   protected function sanitize() {
-    foreach ( $_POST as $key => $value ) {
-      $sane[ sanitize_key( $key ) ] = ( true === is_array( $value ) ) ? $this->sanitize_array( $value ) : sanitize_text_field( $value );
+    foreach ( $_POST as $field => $value ) {
+      $sane[ sanitize_key( $field ) ] = ( true === is_array( $value ) ) ? $this->sanitize_array( $value ) : sanitize_text_field( $value );
     }
     return $sane;
   }
