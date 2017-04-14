@@ -78,7 +78,6 @@ class Rules implements ValidationInterface {
    * @access private
    *
    * @param string $rule
-   *
    * @return bool
    */
   private function is_custom( $rule ) {
