@@ -49,7 +49,7 @@ wfv_create( $my_form );
 
 ```
 Theme template:
-```php
+```html
 <form method="post">
   <input name="first_name" type="text">
   <input name="email" type="text">
