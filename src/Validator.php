@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-class Validator extends Form implements Validation {
+class Validator extends Form implements ValidationInterface {
 
   /**
    * Error message bag
@@ -39,8 +39,8 @@ class Validator extends Form implements Validation {
    */
   protected $rules;
 
-  use Accessor;
-  use Mutator;
+  use AccessorTrait;
+  use MutatorTrait;
 
   /**
    * __construct

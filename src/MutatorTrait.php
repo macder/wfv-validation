@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-trait Mutator {
+trait MutatorTrait {
 
   /**
    * Null a property value.
