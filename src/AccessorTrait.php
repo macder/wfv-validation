@@ -24,7 +24,6 @@ trait AccessorTrait {
   /**
    * Get array of instance properties
    *
-   *
    * @since 0.7.2
    *
    * @return array Associative array, key/value pairs of instance props.
