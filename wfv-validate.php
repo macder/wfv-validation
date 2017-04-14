@@ -43,7 +43,6 @@ function wfv_create( &$form ) {
  * @since 0.8.2
  *
  * @param WFV\Validator $form
- *
  * @return WFV\Validator
  */
 function wfv_validate( $form ) {
