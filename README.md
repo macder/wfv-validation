@@ -304,9 +304,9 @@ Convienience method to get first error on field.
 echo $my_form->error('email'); // Email is required
 ```
 
-First error message is the first rule declared
+First error message is the first declared rule.
 
-For example: `required` is the first error if rules are declared: `['required', 'email']` and both validations fail.
+For example: `required` is the first error if rules are declared as `['required', 'email']` and both validations fail.
 
 
 > **Note:** You can create unlimited forms as long as each has a unique `action` value.
