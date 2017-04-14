@@ -62,7 +62,6 @@ class Input implements ValidationInterface {
    * @since 0.7.2
    *
    * @param string $action The forms action value
-   *
    * @return bool
    */
   private function is_submit( $action ) {
