@@ -9,7 +9,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
   const HTTP_POST = array(
     'action' => 'phpunit',
     'name' => '<h1>Foo Bar</h1>',
-    'skills' =>
+    '<% skills %>' =>
       array(
         'js <script>console.log("oh no!");</script>',
         'php <?php echo "oh no!"; ?>',
