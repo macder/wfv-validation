@@ -22,8 +22,8 @@ require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 use WFV\Factory\ValidationFactory;
 
 /**
- * Instantiate WFV\Validator and assign it by reference
- *   as described by $form.
+ * Build instance of WFV\Validator using factory
+ * Assign by reference the instance, as described by $form.
  *
  * @since 0.3.0
  * @since 0.5.0 $form parameter creates reference
