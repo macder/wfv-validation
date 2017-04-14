@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-interface Validation {
+interface ValidationInterface {
   public function __get( $property );
   public function has( $property );
   public function put( $property, $value );

@@ -1,53 +1,50 @@
-<?php defined( 'ABSPATH' ) or die();
+<?php
+// namespace WFV;
+defined( 'ABSPATH' ) or die();
 /*
 Plugin Name: WFV - Form Validation
 Plugin URI:  https://github.com/macder/wp-form-validation
 Description: See README.md
-Version:     0.8.0
+Version:     0.8.2
 Author:      Maciej Derulski
 Author URI:  https://derulski.com
 License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
 
-define( 'WFV_VALIDATE_VERSION', '0.8.0' );
+define( 'WFV_VALIDATE_VERSION', '0.8.2' );
 define( 'WFV_VALIDATE__MINIMUM_WP_VERSION', '4.7' ); // not tested with other versions
 define( 'WFV_VALIDATE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-
 define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
-require_once( WFV_VALIDATE__PLUGIN_DIR . '/vendor/vlucas/valitron/src/Valitron/Validator.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/interface/Validation.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Accessor.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/trait/Mutator.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Errors.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Form.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Input.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Messages.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Rules.php' );
-require_once( WFV_VALIDATE__PLUGIN_DIR . 'src/class/Validator.php' );
+require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
+
+use WFV\Factory\ValidationFactory;
 
 /**
- * Instantiate and return a new WFV_VALIDATE
- * Specific to the form defined in $name
+ * Build instance of WFV\Validator using factory
+ * Assign by reference the instance, as described by $form.
  *
  * @since 0.3.0
- * @since 0.4.0 reduced to single array parameter
  * @since 0.5.0 $form parameter creates reference
+ * @since 0.8.2 uses factory to create object
  *
- * @param array $form Form configuration (rules, action)
+ * @param array $form Form configuration
  */
-function wfv_create( &$validation ) {
-  // TODO: make a factory for this...
-  $action = $validation['action'];
-  $rules = new WFV\Rules();
-  $rules->set( $validation['rules'] );
-  $input = new WFV\Input( $action );
-  $messages = new WFV\Messages( $validation['messages'] );
-  $errors = new WFV\Errors();
-  $validation = new WFV\Validator( $action, $rules, $input, $messages, $errors );
-  // action or like this?
-  if ( $validation->is_safe() ) {
-    $validation->validate();
-  }
+function wfv_create( &$form ) {
+  ValidationFactory::create( $form );
+  wfv_validate( $form );
+}
+
+/**
+ * Do the validation
+ * Only if $_POST['action'] matches param instance action
+ *
+ * @since 0.8.2
+ * @param class $form WFV\Validator
+ *
+ * @return class WFV\Validator
+ */
+function wfv_validate( $form ) {
+  return ( $form->is_safe() ) ? $form->validate() : $form;
 }
