@@ -13,7 +13,6 @@ class Form {
    *
    * @since 0.1.0
    * @access protected
-   *
    * @var string $action
    */
   protected $action;
@@ -24,7 +23,6 @@ class Form {
    * @since 0.2.1
    * @since 0.7.2 WFV_Input instance
    * @access protected
-   *
    * @var class $input Instance of WFV\Input.
    */
   protected $input;
@@ -35,7 +33,6 @@ class Form {
    *
    * @since 0.8.0
    * @access protected
-   *
    * @var string $token Token value from wp_nonce()
    */
   protected $token;
@@ -57,7 +54,6 @@ class Form {
    * @since 0.8.0
    *
    * @param string (optional) $field Property to retrieve value from.
-   *
    * @return class|string WFV\Input or $field string value.
    */
   public function input( $field = null ) {
