@@ -47,7 +47,7 @@ class Input implements ValidationInterface {
    * @since 0.8.3
    * @access private
    *
-   * @return array Index array or sanitized values
+   * @return array Index array of sanitized values
    */
   protected function sanitize_array( $array ) {
     foreach( $array as $input ) {
