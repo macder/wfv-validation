@@ -1,13 +1,12 @@
 <?php
-define( 'ABSPATH', 'w0w0w0w' );
 
-use PHPUnit\Framework\TestCase;
+namespace WFV;
 
 use WFV\Input;
 
-class InputTest extends TestCase {
+class InputTest extends \PHPUnit_Framework_TestCase {
 
-  public function testSanitizeReturnsSafeString() {
+  public function testSanitizeReturnsSafeStrings() {
 
     $_POST = array(
       'action' => 'phpunit',
@@ -20,7 +19,7 @@ class InputTest extends TestCase {
     );
 
     $input = new Input('phpunit');
-
-    //$this->assertTrue($input);
+    $result = get_object_vars( $input );
+    $this->assertEquals($expected_result, $result);
   }
 }
