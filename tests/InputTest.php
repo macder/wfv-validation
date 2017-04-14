@@ -19,6 +19,6 @@ class InputTest extends \PHPUnit_Framework_TestCase {
     );
 
     $result = get_object_vars( new Input('phpunit') );
-    $this->assertEquals($expected_result, $result);
+    $this->assertEquals( $expected_result, $result );
   }
 }
