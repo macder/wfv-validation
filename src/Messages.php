@@ -31,7 +31,6 @@ class Messages implements ValidationInterface {
    *
    * @param string $field
    * @param string $rule
-   *
    * @return bool
    */
   public function exist( $field, $rule ) {
