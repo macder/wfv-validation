@@ -3,7 +3,7 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 /**
- * General class mutator methods
+ * Generic property setters
  *
  * @since 0.8.0
  */

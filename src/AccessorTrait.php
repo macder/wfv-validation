@@ -3,7 +3,7 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 /**
- * General class accessor methods
+ * Generic property getters
  *
  * @since 0.8.0
  */
