@@ -6,7 +6,7 @@ use WFV\Input;
 
 class InputTest extends \PHPUnit_Framework_TestCase {
 
-  public function testSanitizeReturnsSafeStrings() {
+  public function test_Sanitize_Returns_Safe_Post() {
 
     $_POST = array(
       'action' => 'phpunit',
