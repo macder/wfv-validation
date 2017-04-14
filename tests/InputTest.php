@@ -42,9 +42,10 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    */
   public function test_post_gets_sanitized_to_instance( $post, $expected_result ) {
     $result = new Input('phpunit');
-    $this->assertEquals( self::EXPECTED_RESULT['action'], $result->action );
-    $this->assertEquals( self::EXPECTED_RESULT['name'], $result->name );
-    $this->assertEquals( self::EXPECTED_RESULT['skills'][0], $result->skills[0] );
+
+    foreach( $result as $key => $value ) {
+      $this->assertEquals( self::EXPECTED_RESULT[$key], $result->$key );
+    }
 
     $result = get_object_vars( $result );
     $this->assertEquals( $expected_result, $result );
