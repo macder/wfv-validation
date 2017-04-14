@@ -198,6 +198,24 @@ function contact_form_valid( $form ) {
 // that was better than using conditionals...
 ```
 
+## Create a form somewhere in your theme
+
+```html
+<form name="contact_form" method="post">
+  <input id="name" name="name" type="text">
+  <input id="email" name="email" type="text">
+  <textarea id="msg" name="msg"></textarea>
+
+  <?php $my_form->get_token_fields(); ?>
+  <input type="submit" value="Submit">
+</form>
+```
+The form must have the required token tag:
+```php
+<?php $my_form->get_token_fields(); ?>
+```
+This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
+
 ## Create the validation instance
 ### `wfv_create( array $form )`
 
@@ -223,23 +241,6 @@ All property instances on `WFV\Validator` use getters and setters from `Accessor
 
 Examine [`./src/AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`./src/MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
 
-## Create a form somewhere in your theme
-
-```html
-<form name="contact_form" method="post">
-  <input id="name" name="name" type="text">
-  <input id="email" name="email" type="text">
-  <textarea id="msg" name="msg"></textarea>
-
-  <?php $my_form->get_token_fields(); ?>
-  <input type="submit" value="Submit">
-</form>
-```
-The form must have the required token tag:
-```php
-<?php $my_form->get_token_fields(); ?>
-```
-This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
 ## Retrieve user input
 ### `WFV\Input`
