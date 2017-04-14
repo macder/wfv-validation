@@ -15,7 +15,6 @@ class Validator extends Form implements ValidationInterface {
    * @since 0.6.1
    * @since 0.7.3 WFV\Errors instance
    * @access protected
-   *
    * @var class $errors Instance of WFV_Errors.
    */
   protected $errors;
@@ -26,7 +25,6 @@ class Validator extends Form implements ValidationInterface {
    * @since 0.4.0
    * @since 0.7.0 WFV\Messages instance
    * @access protected
-   *
    * @var class $messages Instance of WFV_Messages.
    */
   protected $messages;
@@ -76,7 +74,6 @@ class Validator extends Form implements ValidationInterface {
    * @since 0.6.1
    *
    * @param string (optional) $field Name of field
-   *
    * @return class|string Instance of WFV\Errors or first error string.
    */
   public function error( $field = null ) {
@@ -106,10 +103,10 @@ class Validator extends Form implements ValidationInterface {
 
   /**
    *
-   * @param string (optional) $field
    *
    * @since 0.8.0
    *
+   * @param string (optional) $field
    */
   public function rules( $field = null ) {
     return $this->rules->get( $field );
@@ -184,7 +181,6 @@ class Validator extends Form implements ValidationInterface {
    * @access private
    *
    * @param string $action String to compare against $this->action.
-   *
    * @return bool
    */
   private function is_legal( $action ) {
