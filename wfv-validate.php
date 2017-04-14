@@ -42,9 +42,9 @@ function wfv_create( &$form ) {
  *
  * @since 0.8.2
  *
- * @param class $form WFV\Validator
+ * @param WFV\Validator $form
  *
- * @return class WFV\Validator
+ * @return WFV\Validator
  */
 function wfv_validate( $form ) {
   return ( $form->is_safe() ) ? $form->validate() : $form;
