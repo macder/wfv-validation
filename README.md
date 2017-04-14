@@ -39,17 +39,17 @@ $my_form = array(
 );
 
 // hook for validation pass
+add_action( $my_form['action'], 'my_form_valid' );
 function my_form_valid( $form ) {
   // form validated, do something...
 }
-add_action( $my_form['action'], 'my_form_valid' );
 
 // activate the form
 wfv_create( $my_form );
 
 ```
 Theme template:
-```php
+```html
 <form method="post">
   <input name="first_name" type="text">
   <input name="email" type="text">
