@@ -19,8 +19,8 @@ class ValidationFactory {
    * Build an instance of WFV\Validator as described by $form
    *
    * @since 0.8.2
-   * @param array $form
    *
+   * @param array $form
    */
   public static function create( &$form ){
     $rules = new Rules();
