@@ -46,19 +46,25 @@ class Input implements ValidationInterface {
    * @return array Sanitized keys and values from $_POST
    */
   protected function sanitize() {
-    // TODO: Simplify this; break into several simple pure functions
-
     foreach ( $_POST as $key => $value ) {
       $sane_key = sanitize_key( $key );
-      // edge case for checkboxes - array input
-      if( true === is_array( $value ) ) {
-        foreach( $value as $input ) {
-          $sane[ $sane_key ][] = sanitize_text_field( $input );
-        }
-      } else { // default - string input
-        $sane[ $sane_key ] = sanitize_text_field( $value );
-      }
+      $sane[ $sane_key ] = ( true === is_array( $value ) ) ? $this->sanitize_array( $value ) : sanitize_text_field( $value );
     }
     return $sane;
+  }
+
+  /**
+   * Sanitize the values of a simple array
+   *
+   * @since 0.8.3
+   * @access private
+   *
+   * @return array Sanitized values, numeric array
+   */
+  private function sanitize_array( $array ) {
+    foreach( $array as $input ) {
+      $sane_array[] = sanitize_text_field( $input );
+    }
+    return $sane_array;
   }
 }
