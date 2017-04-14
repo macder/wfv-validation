@@ -18,10 +18,10 @@ Intended for developers who want to build forms in a theme using custom markup a
     2. [Custom Rules](#custom-validation-rules)
     3. [Error Messages](#custom-error-messages)
     4. [Validation Action](#callback-for-successful-validation)
-    5. [Validation Instance](#create-the-validation-instance)
-    6. [Markup a Form](#create-a-form-somewhere-in-your-theme)
+    5. [Markup a Form](#create-a-form-somewhere-in-your-theme)
+    6. [Validation Instance](#create-the-validation-instance)
     7. [Retrieve User Input](#retrieve-user-input)
-    8. [Retrieve Errors](#retrieve-error-messages)
+    8. [Working with Errors](#working-with-errors)
 
 ## Basic example
 
