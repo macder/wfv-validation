@@ -102,7 +102,7 @@ Just an API for input validation with WordPress.
 * Create custom rules
 * Default and custom error messages
 * Sanitized input return
-* Repopulate fields, including checkboxes, radio, and multi-selects
+* Repopulate fields, including [checkbox/radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hook for validation success
 * Self POST - no redirects, no GET vars, no sessions, no cookies
 * Declarative object oriented API
