@@ -75,4 +75,21 @@ class Form {
     echo $nonce_field = wp_nonce_field( $this->action, $token_name, false, false );
     echo $action_field = '<input type="hidden" name="action" value="'. $this->action .'">';
   }
+
+  /**
+   * Repopulates checkboxes
+   * Adds a 'checked' attribute
+   *
+   * @since 0.8.4
+   *
+   * @param string $field
+   * @param string $has_value
+   */
+  public function make_checked( $field, $has_value ) {
+    if( $this->input->has( $field ) ) {
+      foreach( $this->input->$field as $value ) {
+        echo ( $has_value === $value ) ? 'checked' : '';
+      }
+    }
+  }
 }
