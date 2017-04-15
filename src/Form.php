@@ -47,7 +47,7 @@ class Form {
   }
 
   /**
-   * Convienience method to repopulate checkbox or radio.
+   * Convenience method to repopulate checkbox or radio.
    * Returns 'checked' string if field has value in POST.
    *
    * @since 0.8.5
@@ -66,7 +66,7 @@ class Form {
   }
 
   /**
-   * Convienience method into $this->input.
+   * Convenience method into $this->input.
    * Makes access more declarative.
    * $this->input is an instance of WFV\Input.
    *
