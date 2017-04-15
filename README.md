@@ -293,11 +293,19 @@ echo $my_form->checked_if('colors', 'green'); // checked
 
 ```
 
-Repopulate checkboxes:
+**Repopulate:**
+
+Checkbox:
 ```php
 <input name="colors[]" type="checkbox" value="green" <?php echo $my_form->checked_if('colors', 'green'); ?>>
 <input name="colors[]" type="checkbox" value="blue" <?php echo $my_form->checked_if('colors', 'blue'); ?>>
 <input name="colors[]" type="checkbox" value="red" <?php echo $my_form->checked_if('colors', 'red'); ?>>
+```
+
+Radio:
+```php
+<input name="agree" type="radio" value="yes" <?php echo $my_form->checked_if('agree', 'yes'); ?>>
+<input name="agree" type="radio" value="no" <?php echo $my_form->checked_if('agree', 'no'); ?>>
 ```
 
 ## Working with errors
