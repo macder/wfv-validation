@@ -18,10 +18,10 @@ Intended for developers who want to build forms in a theme using custom markup a
     2. [Custom Rules](#custom-validation-rules)
     3. [Error Messages](#custom-error-messages)
     4. [Validation Action](#callback-for-successful-validation)
-    5. [Validation Instance](#create-the-validation-instance)
-    6. [Markup a Form](#create-a-form-somewhere-in-your-theme)
+    5. [Markup a Form](#create-a-form-somewhere-in-your-theme)
+    6. [Validation Instance](#create-the-validation-instance)
     7. [Retrieve User Input](#retrieve-user-input)
-    8. [Retrieve Errors](#retrieve-error-messages)
+    8. [Working with Errors](#working-with-errors)
 
 ## Basic example
 
@@ -154,8 +154,8 @@ $my_form = array(
 ```
 Create the callback:
 ```php
-<?php
-// phone field will validate only if the input is 'hi' ...how cruel
+<?php // phone field will validate only if the input is 'hi' ...how cruel
+
 function wfv__phone( $value ) {
   return ( 'hi' === $value ) ? true : false;
 }
@@ -198,31 +198,6 @@ function contact_form_valid( $form ) {
 // that was better than using conditionals...
 ```
 
-## Create the validation instance
-### `wfv_create( array $form )`
-
-Create and assign by reference the instance of `WFV\Validator` as described by the `array()` parameter.
-
-```php
-<?php
-// $my_form becomes an instance of WFV\Validator
-wfv_create( $my_form );
-```
-
-`$my_form` can now access properties and methods available to `WFV\Validator`
-
-```php
-<?php
-$my_form->input;     // Instance of WFV\Input
-$my_form->errors;    // Instance of WFV\Errors
-$my_form->rules;     // Instance of WFV\Rules
-$my_form->messages;  // Instance of WFV\Messages
-```
-**Get and Set:**
-All property instances on `WFV\Validator` use getters and setters from `AccessorTrait` and `MutatorTrait`.
-
-Examine [`./src/AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`./src/MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
-
 ## Create a form somewhere in your theme
 
 ```html
@@ -241,93 +216,98 @@ The form must have the required token tag:
 ```
 This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
-## Retrieve user input
-### `input( string $field = null )`
+## Create the validation instance
+### `wfv_create( array $form )`
+
+Create and assign by reference the instance of `WFV\Validator` as described by the `array $form` parameter.
 
 ```php
 <?php
-/**
- * Convienience method into $this->input.
- * Makes access more declarative.
- * $this->input is an instance of WFV\Input.
- *
- * @param string (optional) $field Property to retrieve value from.
- * @return class|string WFV\Input or $field string value.
- */
+// $my_form becomes an instance of WFV\Validator
+wfv_create( $my_form );
 ```
+
+`$my_form` can now access properties and methods available to `WFV\Validator`
+
+```php
+<?php
+$my_form->input;     // Instance of WFV\Input
+$my_form->errors;    // Instance of WFV\Errors
+$my_form->rules;     // Instance of WFV\Rules
+$my_form->messages;  // Instance of WFV\Messages
+```
+**Get and Set:**
+
+All property instances on `WFV\Validator` share a accessor and mutator.
+
+Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
+
+
+## Retrieve user input
+### `WFV\Input`
+
+```php
+<?php // input property is an instance of WFV\Input
+
+$input = $my_form->input;
+```
+
+Get the input from a field:
 ```php
 <?php // output the value the user entered into the email field
 
-echo $my_form->input('email'); // foo@bar.com
-// or
 echo $my_form->input->email; // foo@bar.com
-```
 
-Assign `WFV\Input` instance to a variable:
-```php
-<?php // assign WFV\Input to $input and output the email value
-
-$input = $my_form->input();
-echo $input->email; // foo@bar.com
 ```
 
 Get input as an array:
 ```php
-<?php // get the properties of WFV\Input as an associative array
+<?php // get users input as an associative array
 
-$input = $my_form->input()->get_array();
+$input = $my_form->input->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Retrieve error messages
-### `error( string $field = null )`
+## Working with errors
+### `WFV\Errors`
 
 ```php
-<?php
-/**
- * Convienience method to access errors property.
- * Default returns WFV\Errors instance.
- * If $field supplied, returns fields first error.
- *
- * @param string (optional) $field Name of field
- *
- * @return class|string Instance of WFV\Errors or first error string.
- */
+<?php // errors property is an instance of WFV\Errors
+
+$errors = $my_form->errors;
 ```
 
-Get first error message on field:
+Check if field has an error:
 ```php
-<?php // get the first error message on the field
-echo $my_form->error('email'); // Your email is required so we can reply back
-```
+<?php // does the email field have an error?
 
-First error message is the first rule declared.
-
-eg. `required` is the first error if rules are declared: `['required', 'email']` and both validations fail.
-
-
-Get all errors:
-```php
-<?php // get the instance of `WFV\Errors`
-$errors = $my_form->error();
+$my_form->errors->has('email'); // true or false
 ```
 
 Get field errors:
 ```php
 <?php // get the error bag for a field
 
-$errors = $my_form->error();
-$email_errors = $errors->email;
+$email_errors = $my_form->errors->email;
 
 foreach( $email_errors as $error ) {
   echo $error;
 }
 ```
 
+
+### `error( string $field )`
+Convienience method to get first error on field.
+
 ```php
-<?php // Or chain...
-$email_errors = $my_form->error()->email;
+<?php // get the first email error message
+
+echo $my_form->error('email'); // Email is required
 ```
+
+First error message is the first declared rule.
+
+For example: `required` is the first error if rules are declared as `['required', 'email']` and both validations fail.
 
 
 > **Note:** You can create unlimited forms as long as each has a unique `action` value.
