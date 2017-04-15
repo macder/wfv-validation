@@ -67,9 +67,7 @@ class Form {
   }
 
   /**
-   * Convenience method into $this->input.
-   * Makes access more declarative.
-   * $this->input is an instance of WFV\Input.
+   * Convenience method into $this->input
    *
    * @since 0.8.0
    *
