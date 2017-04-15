@@ -21,7 +21,8 @@ Intended for developers who want to build forms in a theme using custom markup a
     5. [Markup a Form](#create-a-form-somewhere-in-your-theme)
     6. [Validation Instance](#create-the-validation-instance)
     7. [Retrieve User Input](#retrieve-user-input)
-    8. [Working with Errors](#working-with-errors)
+    8. [Checkboxes and Radio](#checkboxes-and-radio)
+    9. [Working with Errors](#working-with-errors)
 
 ## Basic example
 
@@ -75,9 +76,9 @@ This means when the form is submitted, the user is sent to `http://yoursite.com/
 
 Why is this a problem?
 
-The user is no longer on the form. To send them back (i.e a required field was missed), we need to do a HTTP redirect. At this point the `$_POST` with the input is gone... which would have been useful to repopulate the form. In order to persist the users input, it needs to be stored in `GET`, a session, or a cookie.
+The user is no longer on the form. To send them back (i.e missed required field), we need to redirect. Now the `$_POST` with the input is gone... that would have been useful to repopulate the form. In order to persist that input, it needs to be stored in `GET`, or in the browser as a session or cookie.
 
-Neither is elegant, and both are clunky.
+Neither is elegant, both are clunky.
 
 Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern. It gets messy and confusing fast.
 
@@ -98,16 +99,18 @@ Just an API for input validation with WordPress.
 * 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
 * Create custom rules
 * Default and custom error messages
-* Self POST. No redirects, GET vars, sessions, or cookies
-* Declarative API
+* Sanitized input return
+* Repopulate fields, including checkboxes, radio, and multi-selects
+* Action hook for validation success
+* Self POST - no redirects, no GET vars, no sessions, no cookies
+* Declarative object oriented API
 * None intrusive and lightweight
 * Stays away from your admin dashboard
 * No rendered markup
 * Developer freedom
 
 ## TODO
-- Expose an api for the front end to support singe configuration.
-- Standardize storage for default error messages.
+- API endpoint for front end - support single configuration.
 
 # Install
 
@@ -268,6 +271,45 @@ $input = $my_form->input->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
+## Checkboxes and Radio
+### `checked_if( string $field, string $needle )`
+Return string `'checked'` when `$field` has input `$needle`.
+
+```php
+<?php
+/**
+ * Convenience method to repopulate checkbox or radio.
+ * Returns 'checked' string if field has value in POST.
+ *
+ * @param string $field Field name.
+ * @param string $needle Value to compare against.
+ * @return string|null
+ */
+```
+
+Available to the `WFV\Validator` instance:
+```php
+<?php // will echo 'checked' if user checked 'green' checkbox
+
+echo $my_form->checked_if('color', 'green'); // checked
+
+```
+
+**Repopulate:**
+
+Checkbox:
+```php
+<input name="color[]" type="checkbox" value="green" <?= $my_form->checked_if('color', 'green'); ?>>
+<input name="color[]" type="checkbox" value="blue" <?= $my_form->checked_if('color', 'blue'); ?>>
+<input name="color[]" type="checkbox" value="red" <?= $my_form->checked_if('color', 'red'); ?>>
+```
+
+Radio:
+```php
+<input name="agree" type="radio" value="yes" <?= $my_form->checked_if('agree', 'yes'); ?>>
+<input name="agree" type="radio" value="no" <?= $my_form->checked_if('agree', 'no'); ?>>
+```
+
 ## Working with errors
 ### `WFV\Errors`
 
@@ -309,8 +351,6 @@ First error message is the first declared rule.
 
 For example: `required` is the first error if rules are declared as `['required', 'email']` and both validations fail.
 
-
-> **Note:** You can create unlimited forms as long as each has a unique `action` value.
 
 ## Development
 

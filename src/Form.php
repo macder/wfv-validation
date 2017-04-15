@@ -37,17 +37,28 @@ class Form {
    */
   protected $token;
 
+
   /**
-   * __construct
+   * Convenience method to repopulate checkbox or radio.
+   * Returns 'checked' string if field has value in POST.
    *
-   * @since 0.8.0
+   * @since 0.8.5
    *
+   * @param string $field Field name.
+   * @param string $needle Value to compare against.
+   * @return string 'checked' or ''
    */
-  function __construct() {
+  public function checked_if( $field, $needle ) {
+    if( $this->input->has( $field ) ) {
+      if ( is_array( $this->input->$field ) ) { // hmmmm....
+        return ( in_array( $needle, $this->input->$field ) ) ? 'checked' : null;
+      }
+      return ( $this->input->$field === $needle ) ? 'checked' : null;
+    }
   }
 
   /**
-   * Convienience method into $this->input.
+   * Convenience method into $this->input.
    * Makes access more declarative.
    * $this->input is an instance of WFV\Input.
    *
