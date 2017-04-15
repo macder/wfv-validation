@@ -273,8 +273,8 @@ echo $input['email']; // foo@bar.com
 ```
 
 ## Checkboxes and Radio
-### `checked_if( string $field, string $needle )`
-Return string `'checked'` when `$field` has input `$needle`.
+### `checked_if( string $field, string $value )`
+Return string `'checked'` when `$field` has input `$value`.
 
 ```php
 <?php
@@ -283,7 +283,7 @@ Return string `'checked'` when `$field` has input `$needle`.
  * Returns 'checked' string if field has value in POST.
  *
  * @param string $field Field name.
- * @param string $needle Value to compare against.
+ * @param string $value Value to compare against.
  * @return string|null
  */
 ```
@@ -312,8 +312,8 @@ Radio:
 ```
 
 ## Select and multi-select
-### `selected_if( string $field, string $needle )`
-Return string `'selected'` when `$field` has input `$needle`.
+### `selected_if( string $field, string $value )`
+Return string `'selected'` when `$field` has input `$value`.
 
 ```php
 <?php
@@ -322,7 +322,7 @@ Return string `'selected'` when `$field` has input `$needle`.
  * Returns 'selected' string if field has value in POST.
  *
  * @param string $field Field name.
- * @param string $needle Value to compare against.
+ * @param string $value Value to compare against.
  * @return string|null
  */
  ```
