@@ -51,9 +51,9 @@ class Form {
   public function checked_if( $field, $needle ) {
     if( $this->input->has( $field ) ) {
       if ( is_array( $this->input->$field ) ) { // hmmmm....
-        return ( in_array( $needle, $this->input->$field ) ) ? 'checked' : '';
+        return ( in_array( $needle, $this->input->$field ) ) ? 'checked' : null;
       }
-      return ( $this->input->$field === $needle ) ? 'checked' : '';
+      return ( $this->input->$field === $needle ) ? 'checked' : null;
     }
   }
 
