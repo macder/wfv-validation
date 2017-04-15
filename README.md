@@ -318,7 +318,7 @@ Return string `'selected'` when `$field` has input `$needle`.
 ```php
 <?php
 /**
- * Convenience method to repopulate select dropdown.
+ * Convenience method to repopulate select input.
  * Returns 'selected' string if field has value in POST.
  *
  * @param string $field Field name.
