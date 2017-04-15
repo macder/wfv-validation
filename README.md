@@ -110,8 +110,7 @@ Just an API for input validation with WordPress.
 * Developer freedom
 
 ## TODO
-- Expose an api for the front end to support singe configuration.
-- Standardize storage for default error messages.
+- API endpoint for front end - support single configuration.
 
 # Install
 
