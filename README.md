@@ -21,7 +21,8 @@ Intended for developers who want to build forms in a theme using custom markup a
     5. [Markup a Form](#create-a-form-somewhere-in-your-theme)
     6. [Validation Instance](#create-the-validation-instance)
     7. [Retrieve User Input](#retrieve-user-input)
-    8. [Working with Errors](#working-with-errors)
+    8. [Checkboxes and Radio](#checkboxes-and-radio)
+    9. [Working with Errors](#working-with-errors)
 
 ## Basic example
 
