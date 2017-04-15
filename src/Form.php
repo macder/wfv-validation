@@ -53,6 +53,20 @@ class Form {
   }
 
   /**
+   * Convenience method to repopulate select dropdown.
+   * Returns 'selected' string if field has value in POST.
+   *
+   * @since 0.8.6
+   *
+   * @param string $field Field name.
+   * @param string $needle Value to compare against.
+   * @return string|null
+   */
+  public function selected_if( $field, $needle ) {
+    return $this->get_selected_attr( $field, $needle, 'selected' );
+  }
+
+  /**
    * Convenience method into $this->input.
    * Makes access more declarative.
    * $this->input is an instance of WFV\Input.
