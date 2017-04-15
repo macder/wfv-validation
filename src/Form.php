@@ -87,7 +87,7 @@ class Form {
    */
   public function make_checked( $field, $needle ) {
     if( $this->input->has( $field ) ) {
-      echo ( in_array( $needle, $this->input->$field ) ) ? 'checked' : '';
+      return ( in_array( $needle, $this->input->$field ) ) ? 'checked' : '';
     }
   }
 }
