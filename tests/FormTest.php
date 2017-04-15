@@ -27,7 +27,10 @@ class FormTest extends \PHPUnit_Framework_TestCase {
    *
    *
    */
-  public function test_form() {
+  public function test_form_POST() {
+    $_POST = self::HTTP_POST;
+    return $_POST;
+  }
 
   }
 
