@@ -69,5 +69,16 @@ class FormTest extends \PHPUnit_Framework_TestCase {
     }
   }
 
+  /**
+   *
+   * @depends test_form_create
+   */
+  public function test_form_does_selected_if_return_selected( $form ) {
+    foreach( $form->input->skills as $skill ) {
+      $this->assertEquals( 'selected', $form->selected_if( 'skills', $skill ) );
+    }
+    foreach( $form->input->skills as $skill ) {
+      $this->assertEquals( null, $form->selected_if( 'skills', 'BAH!' ) );
+    }
   }
 }
