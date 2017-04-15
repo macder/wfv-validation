@@ -67,22 +67,18 @@ class Validator extends Form implements ValidationInterface {
   }
 
   /**
-   * Convienience method to access errors property.
-   * Default returns WFV\Errors instance.
-   * If $field supplied, returns fields first error.
+   * Convienience method to get first error on field.
    *
    * @since 0.6.1
+   * @since 0.8.4 simple pure function
    *
-   * @param string (optional) $field Name of field
-   * @return class|string Instance of WFV\Errors or first error string.
+   * @param string $field Name of field
+   * @return string First error message.
    */
-  public function error( $field = null ) {
-    if( $field ) {
-      $errors = $this->errors;
-      $error = $errors->$field;
-      return $error[0];
-    }
-    return $this->errors;
+  public function error( $field ) {
+    $errors = $this->errors;
+    $error = $errors->$field;
+    return $error[0];
   }
 
   /**
