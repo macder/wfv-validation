@@ -64,6 +64,13 @@ class FormTest extends \PHPUnit_Framework_TestCase {
     foreach( $form->input->skills as $skill ) {
       $this->assertEquals( 'checked', $form->checked_if( 'skills', $skill ) );
     }
+  }
+
+  /**
+   *
+   * @depends test_form_create
+   */
+  public function test_form_does_checked_if_return_null( $form ) {
     foreach( $form->input->skills as $skill ) {
       $this->assertEquals( null, $form->checked_if( 'skills', 'BAH!' ) );
     }
@@ -77,6 +84,13 @@ class FormTest extends \PHPUnit_Framework_TestCase {
     foreach( $form->input->skills as $skill ) {
       $this->assertEquals( 'selected', $form->selected_if( 'skills', $skill ) );
     }
+  }
+
+  /**
+   *
+   * @depends test_form_create
+   */
+  public function test_form_does_selected_if_return_null( $form ) {
     foreach( $form->input->skills as $skill ) {
       $this->assertEquals( null, $form->selected_if( 'skills', 'BAH!' ) );
     }
