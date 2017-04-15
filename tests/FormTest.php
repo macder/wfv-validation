@@ -64,7 +64,10 @@ class FormTest extends \PHPUnit_Framework_TestCase {
     foreach( $form->input->skills as $skill ) {
       $this->assertEquals( 'checked', $form->checked_if( 'skills', $skill ) );
     }
+    foreach( $form->input->skills as $skill ) {
+      $this->assertEquals( null, $form->checked_if( 'skills', 'BAH!' ) );
     }
+  }
 
   }
 }
