@@ -23,9 +23,11 @@ class ValidationFactory {
    * @param array $form
    */
   public static function create( &$form ){
+    $custom_messages = ( isset( $form['messages'] ) ) ? $form['messages'] : null;
+
     $rules = new Rules();
     $input = new Input( $form['action'] );
-    $messages = new Messages( $form['messages'] );
+    $messages = new Messages( $custom_messages );
     $errors = new Errors();
     $rules->set( $form['rules'] );
     $form = new Validator( $form['action'], $rules, $input, $messages, $errors );
