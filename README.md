@@ -21,7 +21,8 @@ Intended for developers who want to build forms in a theme using custom markup a
     5. [Markup a Form](#create-a-form-somewhere-in-your-theme)
     6. [Validation Instance](#create-the-validation-instance)
     7. [Retrieve User Input](#retrieve-user-input)
-    8. [Working with Errors](#working-with-errors)
+    8. [Checkboxes and Radio](#checkboxes-and-radio)
+    9. [Working with Errors](#working-with-errors)
 
 ## Basic example
 
@@ -98,8 +99,11 @@ Just an API for input validation with WordPress.
 * 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
 * Create custom rules
 * Default and custom error messages
-* Self POST. No redirects, GET vars, sessions, or cookies
-* Declarative API
+* Sanitized input return
+* Repopulate fields, including checkboxes, radio, and multi-selects
+* Action hook for validation success
+* Self POST - no redirects, no GET vars, no sessions, no cookies
+* Declarative object oriented API
 * None intrusive and lightweight
 * Stays away from your admin dashboard
 * No rendered markup
@@ -266,6 +270,45 @@ Get input as an array:
 
 $input = $my_form->input->get_array();
 echo $input['email']; // foo@bar.com
+```
+
+## Checkboxes and Radio
+### `checked_if( string $field, string $needle )`
+Return string `'checked'` when `$field` has input `$needle`.
+
+```php
+<?php
+/**
+ * Convenience method to repopulate checkbox or radio.
+ * Returns 'checked' string if field has value in POST.
+ *
+ * @param string $field Field name.
+ * @param string $needle Value to compare against.
+ * @return string|null
+ */
+```
+
+Available to the `WFV\Validator` instance:
+```php
+<?php // will echo 'checked' if user checked 'green' checkbox
+
+echo $my_form->checked_if('color', 'green'); // checked
+
+```
+
+**Repopulate:**
+
+Checkbox:
+```php
+<input name="color[]" type="checkbox" value="green" <?= $my_form->checked_if('color', 'green'); ?>>
+<input name="color[]" type="checkbox" value="blue" <?= $my_form->checked_if('color', 'blue'); ?>>
+<input name="color[]" type="checkbox" value="red" <?= $my_form->checked_if('color', 'red'); ?>>
+```
+
+Radio:
+```php
+<input name="agree" type="radio" value="yes" <?= $my_form->checked_if('agree', 'yes'); ?>>
+<input name="agree" type="radio" value="no" <?= $my_form->checked_if('agree', 'no'); ?>>
 ```
 
 ## Working with errors
