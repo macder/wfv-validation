@@ -7,22 +7,24 @@ Intended for developers who want to build forms in a theme using custom markup a
 
 
 # Table of Contents
-1. [Basic Example](#basic-example)
-2. [Problem](#problem)
-3. [Solution](#solution)
-4. [Features](#features)
-5. [TODO](#todo)
-6. [Install](#install)
-7. [Usage](#usage)
-    1. [Rules](#configure-validation-rules)
-    2. [Custom Rules](#custom-validation-rules)
-    3. [Error Messages](#custom-error-messages)
-    4. [Validation Action](#callback-for-successful-validation)
-    5. [Markup a Form](#create-a-form-somewhere-in-your-theme)
-    6. [Validation Instance](#create-the-validation-instance)
-    7. [Retrieve User Input](#retrieve-user-input)
-    8. [Checkboxes and Radio](#checkboxes-and-radio)
-    9. [Working with Errors](#working-with-errors)
+* [Basic Example](#basic-example)
+* [Problem](#problem)
+* [Solution](#solution)
+* [Features](#features)
+* [TODO](#todo)
+* [Install](#install)
+* [Usage](#usage)
+  * [Rules](#configure-validation-rules)
+  * [Custom Rules](#custom-validation-rules)
+  * [Custom Error Messages](#custom-error-messages)
+  * [Validation Action](#callback-for-successful-validation)
+  * [Markup a Form](#create-a-form-somewhere-in-your-theme)
+  * [Validation Instance](#create-the-validation-instance)
+  * [Retrieve User Input](#retrieve-user-input)
+  * [Checkboxes and Radio](#checkboxes-and-radio)
+  * [Select and multi-select](#select-and-multi-select)
+  * [Working with Errors](#working-with-errors)
+
 
 ## Basic example
 
@@ -221,9 +223,9 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 
 ## Create the validation instance
 ### `wfv_create( array $form )`
+Send `array $form` to the `WFV\Factory\ValidationFactory` to create an instance of `WFV\Validator`
 
-Create and assign by reference the instance of `WFV\Validator` as described by the `array $form` parameter.
-
+The instance is assigned by reference:
 ```php
 <?php
 // $my_form becomes an instance of WFV\Validator
@@ -241,10 +243,9 @@ $my_form->messages;  // Instance of WFV\Messages
 ```
 **Get and Set:**
 
-All property instances on `WFV\Validator` share a accessor and mutator.
+All property instances on `WFV\Validator` share the same accessor and mutator traits.
 
 Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
-
 
 ## Retrieve user input
 ### `WFV\Input`
@@ -309,6 +310,52 @@ Radio:
 <input name="agree" type="radio" value="yes" <?= $my_form->checked_if('agree', 'yes'); ?>>
 <input name="agree" type="radio" value="no" <?= $my_form->checked_if('agree', 'no'); ?>>
 ```
+
+## Select and multi-select
+### `selected_if( string $field, string $needle )`
+Return string `'selected'` when `$field` has input `$needle`.
+
+```php
+<?php
+/**
+ * Convenience method to repopulate select dropdown.
+ * Returns 'selected' string if field has value in POST.
+ *
+ * @param string $field Field name.
+ * @param string $needle Value to compare against.
+ * @return string|null
+ */
+ ```
+Available to the `WFV\Validator` instance:
+```php
+<?php // will echo 'selected' if user selected 'green' in select input
+
+echo $my_form->selected_if('color', 'green'); // selected
+```
+
+**Repopulate:**
+
+Select:
+```php
+<select name="title">
+  <option value="">Select...</option>
+  <option value="Mr" <?= $my_form->selected_if('title', 'Mr'); ?>>Mr</option>
+  <option value="Dr" <?= $my_form->selected_if('title', 'Dr'); ?>>Dr</option>
+  <option value="Miss" <?= $my_form->selected_if('title', 'Miss'); ?>>Miss</option>
+  <option value="Mrs" <?= $my_form->selected_if('title', 'Mrs'); ?>>Mrs</option>
+</select>
+```
+
+Multi-select:
+```php
+<select name="color[]" multiple>
+  <option value="red"<?= $my_form->selected_if('color', 'red'); ?>>Red</option>
+  <option value="blue"<?= $my_form->selected_if('color', 'blue'); ?>>Blue</option>
+  <option value="green"<?= $my_form->selected_if('color', 'green'); ?>>Green</option>
+</select>
+
+```
+
 
 ## Working with errors
 ### `WFV\Errors`
