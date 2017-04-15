@@ -294,11 +294,9 @@ echo $my_form->checked_if('colors', 'green'); // checked
 
 
 ```php
-<input name="colors[]" type="checkbox" value="green" <?= $my_form->checked_if('colors', 'green'); ?>>
-
-<input name="colors[]" type="checkbox" value="blue" <?= $my_form->checked_if('colors', 'blue'); ?>>
-
-<input name="colors[]" type="checkbox" value="red" <?= $my_form->checked_if('colors', 'red'); ?>>
+<input name="colors[]" type="checkbox" value="green" <?php echo $my_form->checked_if('colors', 'green'); ?>>
+<input name="colors[]" type="checkbox" value="blue" <?php echo $my_form->checked_if('colors', 'blue'); ?>>
+<input name="colors[]" type="checkbox" value="red" <?php echo $my_form->checked_if('colors', 'red'); ?>>
 ```
 
 ## Working with errors
