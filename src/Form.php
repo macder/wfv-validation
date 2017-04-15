@@ -37,14 +37,6 @@ class Form {
    */
   protected $token;
 
-  /**
-   * __construct
-   *
-   * @since 0.8.0
-   *
-   */
-  function __construct() {
-  }
 
   /**
    * Convenience method to repopulate checkbox or radio.
