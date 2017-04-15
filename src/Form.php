@@ -77,7 +77,7 @@ class Form {
   }
 
   /**
-   * Repopulates checkboxes
+   * Convienience method to repopulate a checkbox
    * Adds a 'checked' attribute
    *
    * @since 0.8.4
@@ -85,7 +85,7 @@ class Form {
    * @param string $field
    * @param string $needle
    */
-  public function make_checked( $field, $needle ) {
+  public function checked_if( $field, $needle ) {
     if( $this->input->has( $field ) ) {
       return ( in_array( $needle, $this->input->$field ) ) ? 'checked' : '';
     }
