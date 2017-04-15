@@ -61,15 +61,9 @@ class FormTest extends \PHPUnit_Framework_TestCase {
    * @depends test_form_create
    */
   public function test_form_does_checked_if_return_checked( $form ) {
-
     foreach( $form->input->skills as $skill ) {
       $this->assertEquals( 'checked', $form->checked_if( 'skills', $skill ) );
     }
-
-    // ugh... repeat... trickier than it looks...
-
-    foreach( $form->input->color as $color ) {
-      $this->assertEquals( 'checked', $form->checked_if( 'color', $color ) );
     }
 
   }
