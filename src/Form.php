@@ -54,7 +54,7 @@ class Form {
    *
    * @param string $field The checkbox field group name
    * @param string $needle The value to look for
-   * @return string 'checked', or ''
+   * @return string 'checked' or ''
    */
   public function checked_if( $field, $needle ) {
     if( $this->input->has( $field ) ) {
