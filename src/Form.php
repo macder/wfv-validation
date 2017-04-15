@@ -46,21 +46,28 @@ class Form {
    *
    * @param string $field Field name.
    * @param string $needle Value to compare against.
-   * @return string 'checked' or ''
+   * @return string|null
    */
   public function checked_if( $field, $needle ) {
-    if( $this->input->has( $field ) ) {
-      if ( is_array( $this->input->$field ) ) { // hmmmm....
-        return ( in_array( $needle, $this->input->$field ) ) ? 'checked' : null;
-      }
-      return ( $this->input->$field === $needle ) ? 'checked' : null;
-    }
+    return ( $this->input->contains( $field, $needle ) ) ? 'checked' : null;
   }
 
   /**
-   * Convenience method into $this->input.
-   * Makes access more declarative.
-   * $this->input is an instance of WFV\Input.
+   * Convenience method to repopulate select dropdown.
+   * Returns 'selected' string if field has value in POST.
+   *
+   * @since 0.8.6
+   *
+   * @param string $field Field name.
+   * @param string $needle Value to compare against.
+   * @return string|null
+   */
+  public function selected_if( $field, $needle ) {
+    return ( $this->input->contains( $field, $needle ) ) ? 'selected' : null;
+  }
+
+  /**
+   * Convenience method into $this->input
    *
    * @since 0.8.0
    *
