@@ -10,6 +10,18 @@ defined( 'ABSPATH' ) or die();
 trait AccessorTrait {
 
   /**
+   * __get magic method
+   *
+   * @since 0.8.0
+   *
+   * @param string $property
+   * @return
+   */
+  public function __get( $property ) {
+    return ( true === $this->has( $property ) ) ? $this->$property : null;
+  }
+
+  /**
    *
    *
    * @since 0.8.6
@@ -22,18 +34,6 @@ trait AccessorTrait {
       return ( in_array( $value, $this->$property ) ) ? true : false;
     }
     return ( $this->$property === $value ) ? true : false;
-  }
-
-  /**
-   * __get magic method
-   *
-   * @since 0.8.0
-   *
-   * @param string $property
-   * @return
-   */
-  public function __get( $property ) {
-    return ( true === $this->has( $property ) ) ? $this->$property : null;
   }
 
   /**
