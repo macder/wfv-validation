@@ -285,6 +285,7 @@ Return string `'checked'` when `$field` has input `$needle`.
  */
 ```
 
+Available to the `WFV\Validator` instance:
 ```php
 <?php // will echo 'checked' if user checked 'green' checkbox
 
@@ -292,7 +293,7 @@ echo $my_form->checked_if('colors', 'green'); // checked
 
 ```
 
-
+Repopulate checkboxes:
 ```php
 <input name="colors[]" type="checkbox" value="green" <?php echo $my_form->checked_if('colors', 'green'); ?>>
 <input name="colors[]" type="checkbox" value="blue" <?php echo $my_form->checked_if('colors', 'blue'); ?>>
