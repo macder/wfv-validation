@@ -207,9 +207,9 @@ function contact_form_valid( $form ) {
 
 ```html
 <form name="contact_form" method="post">
-  <input id="name" name="name" type="text">
-  <input id="email" name="email" type="text">
-  <textarea id="msg" name="msg"></textarea>
+  <input name="name" type="text">
+  <input name="email" type="text">
+  <textarea name="msg"></textarea>
 
   <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
