@@ -22,7 +22,8 @@ Intended for developers who want to build forms in a theme using custom markup a
     6. [Validation Instance](#create-the-validation-instance)
     7. [Retrieve User Input](#retrieve-user-input)
     8. [Checkboxes and Radio](#checkboxes-and-radio)
-    9. [Working with Errors](#working-with-errors)
+    9. [Select and multi-select](#select-and-multi-select)
+    10. [Working with Errors](#working-with-errors)
 
 ## Basic example
 
