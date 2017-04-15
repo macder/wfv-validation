@@ -83,13 +83,11 @@ class Form {
    * @since 0.8.4
    *
    * @param string $field
-   * @param string $has_value
+   * @param string $needle
    */
-  public function make_checked( $field, $has_value ) {
+  public function make_checked( $field, $needle ) {
     if( $this->input->has( $field ) ) {
-      foreach( $this->input->$field as $value ) {
-        echo ( $has_value === $value ) ? 'checked' : '';
-      }
+      echo ( in_array( $needle, $this->input->$field ) ) ? 'checked' : '';
     }
   }
 }
