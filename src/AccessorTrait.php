@@ -18,13 +18,10 @@ trait AccessorTrait {
    */
   public function contains( $property, $value = null ) {
     // WIP
-    if( $this->has( $property ) ) {
-      if ( is_array( $this->$property ) ) {
-        return ( in_array( $value, $this->$property ) ) ? true : false;
-      }
-      return ( $this->$property === $value ) ? true : false;
+    if ( is_array( $this->$property ) ) {
+      return ( in_array( $value, $this->$property ) ) ? true : false;
     }
-    return false;
+    return ( $this->$property === $value ) ? true : false;
   }
 
   /**
