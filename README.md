@@ -221,9 +221,9 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 
 ## Create the validation instance
 ### `wfv_create( array $form )`
+Passes `array $form` to `WFV\Factory\ValidationFactory` to create an instance of `WFV\Validator` as described by `array $form`
 
-Create and assign by reference the instance of `WFV\Validator` as described by the `array $form` parameter.
-
+Assigns by reference the instance of `WFV\Validator`
 ```php
 <?php
 // $my_form becomes an instance of WFV\Validator
@@ -244,7 +244,6 @@ $my_form->messages;  // Instance of WFV\Messages
 All property instances on `WFV\Validator` share a accessor and mutator.
 
 Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
-
 
 ## Retrieve user input
 ### `WFV\Input`
