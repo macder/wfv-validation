@@ -18,7 +18,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
   );
 
   /**
-   *
+   * Are the rules array keys set as property names?
    *
    */
   public function test_rules_get_set_as_properties() {
@@ -31,7 +31,8 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Is the ruleset for each field assigned from the rules array
+   *  to the field property?
    *
    */
   public function test_rules_if_field_has_rules() {
@@ -50,7 +51,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Does is_custom return true if rule is custom?
    *
    */
   public function test_rule_is_custom_returns_true() {
@@ -59,7 +60,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Does is_custom return false if rule is NOT custom?
    *
    */
   public function test_rule_is_custom_returns_false() {
