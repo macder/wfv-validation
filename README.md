@@ -76,9 +76,9 @@ This means when the form is submitted, the user is sent to `http://yoursite.com/
 
 Why is this a problem?
 
-The user is no longer on the form. To send them back (i.e a required field was missed), we need to do a HTTP redirect. At this point the `$_POST` with the input is gone... which would have been useful to repopulate the form. In order to persist the users input, it needs to be stored in `GET`, a session, or a cookie.
+The user is no longer on the form. To send them back (i.e missed required field), we need to redirect. Now the `$_POST` with the input is gone... that would have been useful to repopulate the form. In order to persist that input, it needs to be stored in `GET`, or in the browser as a session or cookie.
 
-Neither is elegant, and both are clunky.
+Neither is elegant, both are clunky.
 
 Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern. It gets messy and confusing fast.
 
