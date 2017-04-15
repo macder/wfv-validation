@@ -72,6 +72,19 @@ class Form {
   }
 
   /**
+   *
+   *
+   * @since 0.8.6
+   * @access private
+   */
+  private function get_selected_attr( $field, $needle, $attr ) {
+    if( $this->input->has( $field ) ) {
+      return ( $this->input->contains( $field, $needle ) ) ? $attr : null;
+    }
+    return null;
+  }
+
+  /**
    * TEMP - upcoming re-work
    *
    * Returns markup for required hidden fields
