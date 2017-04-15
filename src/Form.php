@@ -52,8 +52,8 @@ class Form {
    *
    * @since 0.8.5
    *
-   * @param string $field
-   * @param string $needle
+   * @param string $field The checkbox field group name
+   * @param string $needle The value to look for
    * @return string 'checked', or ''
    */
   public function checked_if( $field, $needle ) {
