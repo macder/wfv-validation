@@ -48,7 +48,7 @@ class Form {
 
   /**
    * Convienience method to repopulate checkbox or radio
-   * Returns a 'checked' attribute if field has value in POST
+   * Returns 'checked' string if field has value in POST
    *
    * @since 0.8.5
    *
