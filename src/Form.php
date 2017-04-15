@@ -46,7 +46,7 @@ class Form {
    *
    * @param string $field Field name.
    * @param string $needle Value to compare against.
-   * @return string 'checked' or ''
+   * @return string|null
    */
   public function checked_if( $field, $needle ) {
     if( $this->input->has( $field ) ) {
