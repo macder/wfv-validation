@@ -289,7 +289,7 @@ Available to the `WFV\Validator` instance:
 ```php
 <?php // will echo 'checked' if user checked 'green' checkbox
 
-echo $my_form->checked_if('colors', 'green'); // checked
+echo $my_form->checked_if('color', 'green'); // checked
 
 ```
 
@@ -297,15 +297,15 @@ echo $my_form->checked_if('colors', 'green'); // checked
 
 Checkbox:
 ```php
-<input name="colors[]" type="checkbox" value="green" <?php echo $my_form->checked_if('colors', 'green'); ?>>
-<input name="colors[]" type="checkbox" value="blue" <?php echo $my_form->checked_if('colors', 'blue'); ?>>
-<input name="colors[]" type="checkbox" value="red" <?php echo $my_form->checked_if('colors', 'red'); ?>>
+<input name="color[]" type="checkbox" value="green" <?= $my_form->checked_if('color', 'green'); ?>>
+<input name="color[]" type="checkbox" value="blue" <?= $my_form->checked_if('color', 'blue'); ?>>
+<input name="color[]" type="checkbox" value="red" <?= $my_form->checked_if('color', 'red'); ?>>
 ```
 
 Radio:
 ```php
-<input name="agree" type="radio" value="yes" <?php echo $my_form->checked_if('agree', 'yes'); ?>>
-<input name="agree" type="radio" value="no" <?php echo $my_form->checked_if('agree', 'no'); ?>>
+<input name="agree" type="radio" value="yes" <?= $my_form->checked_if('agree', 'yes'); ?>>
+<input name="agree" type="radio" value="no" <?= $my_form->checked_if('agree', 'no'); ?>>
 ```
 
 ## Working with errors
