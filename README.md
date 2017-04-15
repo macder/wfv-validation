@@ -281,7 +281,7 @@ Return string `'checked'` when `$field` has input `$needle`.
  *
  * @param string $field Field name.
  * @param string $needle Value to compare against.
- * @return string 'checked' or ''
+ * @return string|null
  */
 ```
 
