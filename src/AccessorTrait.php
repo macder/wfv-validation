@@ -10,6 +10,21 @@ defined( 'ABSPATH' ) or die();
 trait AccessorTrait {
 
   /**
+   *
+   *
+   * @since 0.8.6
+   *
+   * @return bool
+   */
+  public function contains( $property, $value = null ) {
+    // WIP
+    if ( is_array( $this->$property ) ) {
+      return ( in_array( $value, $this->$property ) ) ? true : false;
+    }
+    return ( $this->$property === $value ) ? true : false;
+  }
+
+  /**
    * __get magic method
    *
    * @since 0.8.0
