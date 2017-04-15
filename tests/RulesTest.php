@@ -40,11 +40,8 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
     $rules->set( self::RULES );
 
     foreach( $rules as $field => $ruleset ) {
-
       foreach( $ruleset as $index => $rule ) {
-
         $has_rule = ( $rule === self::RULES[$field][$index] ) ? true : false;
-
         $this->assertTrue( $has_rule );
       }
     }
