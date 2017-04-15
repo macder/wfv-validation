@@ -337,19 +337,19 @@ Select:
 ```php
 <select name="title">
   <option value="">Select...</option>
-  <option value="Mr" <?php echo $my_form->selected_if('title', 'Mr'); ?>>Mr</option>
-  <option value="Dr" <?php echo $my_form->selected_if('title', 'Dr'); ?>>Dr</option>
-  <option value="Miss" <?php echo $my_form->selected_if('title', 'Miss'); ?>>Miss</option>
-  <option value="Mrs" <?php echo $my_form->selected_if('title', 'Mrs'); ?>>Mrs</option>
+  <option value="Mr" <?= $my_form->selected_if('title', 'Mr'); ?>>Mr</option>
+  <option value="Dr" <?= $my_form->selected_if('title', 'Dr'); ?>>Dr</option>
+  <option value="Miss" <?= $my_form->selected_if('title', 'Miss'); ?>>Miss</option>
+  <option value="Mrs" <?= $my_form->selected_if('title', 'Mrs'); ?>>Mrs</option>
 </select>
 ```
 
 Multi-select:
 ```php
 <select name="color[]" multiple>
-  <option value="red"<?php echo $my_form->selected_if('color', 'red'); ?>>Red</option>
-  <option value="blue"<?php echo $my_form->selected_if('color', 'blue'); ?>>Blue</option>
-  <option value="green"<?php echo $my_form->selected_if('color', 'green'); ?>>Green</option>
+  <option value="red"<?= $my_form->selected_if('color', 'red'); ?>>Red</option>
+  <option value="blue"<?= $my_form->selected_if('color', 'blue'); ?>>Blue</option>
+  <option value="green"<?= $my_form->selected_if('color', 'green'); ?>>Green</option>
 </select>
 
 ```
