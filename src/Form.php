@@ -47,6 +47,21 @@ class Form {
   }
 
   /**
+   * Convienience method to repopulate a checkbox
+   * Adds a 'checked' attribute
+   *
+   * @since 0.8.4
+   *
+   * @param string $field
+   * @param string $needle
+   */
+  public function checked_if( $field, $needle ) {
+    if( $this->input->has( $field ) ) {
+      return ( in_array( $needle, $this->input->$field ) ) ? 'checked' : '';
+    }
+  }
+
+  /**
    * Convienience method into $this->input.
    * Makes access more declarative.
    * $this->input is an instance of WFV\Input.
@@ -74,20 +89,5 @@ class Form {
 
     echo $nonce_field = wp_nonce_field( $this->action, $token_name, false, false );
     echo $action_field = '<input type="hidden" name="action" value="'. $this->action .'">';
-  }
-
-  /**
-   * Convienience method to repopulate a checkbox
-   * Adds a 'checked' attribute
-   *
-   * @since 0.8.4
-   *
-   * @param string $field
-   * @param string $needle
-   */
-  public function checked_if( $field, $needle ) {
-    if( $this->input->has( $field ) ) {
-      return ( in_array( $needle, $this->input->$field ) ) ? 'checked' : '';
-    }
   }
 }
