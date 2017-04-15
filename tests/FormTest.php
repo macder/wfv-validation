@@ -33,7 +33,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Create WFV\Form instance and put WFV\Input on input property
    *
    */
   public function test_form_create() {
