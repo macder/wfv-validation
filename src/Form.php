@@ -49,7 +49,7 @@ class Form {
    * @return string|null
    */
   public function checked_if( $field, $needle ) {
-    return $this->get_selected_attr( $field, $needle, 'checked' );
+    return ( $this->input->contains( $field, $needle ) ) ? 'checked' : null;
   }
 
   /**
@@ -63,7 +63,7 @@ class Form {
    * @return string|null
    */
   public function selected_if( $field, $needle ) {
-    return $this->get_selected_attr( $field, $needle, 'selected' );
+    return ( $this->input->contains( $field, $needle ) ) ? 'selected' : null;
   }
 
   /**
@@ -78,19 +78,6 @@ class Form {
    */
   public function input( $field = null ) {
     return ( $field ) ? $this->input->$field : $this->input;
-  }
-
-  /**
-   *
-   *
-   * @since 0.8.6
-   * @access private
-   */
-  private function get_selected_attr( $field, $needle, $attr ) {
-    if( $this->input->has( $field ) ) {
-      return ( $this->input->contains( $field, $needle ) ) ? $attr : null;
-    }
-    return null;
   }
 
   /**
