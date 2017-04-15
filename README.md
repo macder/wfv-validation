@@ -268,6 +268,38 @@ $input = $my_form->input->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
+## Checkboxes and Radio
+### `checked_if( string $field, string $needle )`
+Return string `'checked'` when `$field` has input `$needle`.
+
+```php
+<?php
+/**
+ * Convenience method to repopulate checkbox or radio.
+ * Returns 'checked' string if field has value in POST.
+ *
+ * @param string $field Field name.
+ * @param string $needle Value to compare against.
+ * @return string 'checked' or ''
+ */
+```
+
+```php
+<?php // will echo 'checked' if user checked 'green' checkbox
+
+echo $my_form->checked_if('colors', 'green'); // checked
+
+```
+
+
+```php
+<input name="colors[]" type="checkbox" value="green" <?= $my_form->checked_if('colors', 'green'); ?>>
+
+<input name="colors[]" type="checkbox" value="blue" <?= $my_form->checked_if('colors', 'blue'); ?>>
+
+<input name="colors[]" type="checkbox" value="red" <?= $my_form->checked_if('colors', 'red'); ?>>
+```
+
 ## Working with errors
 ### `WFV\Errors`
 
