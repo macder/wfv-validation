@@ -47,13 +47,13 @@ class Form {
   }
 
   /**
-   * Convienience method to repopulate checkbox or radio
-   * Returns 'checked' string if field has value in POST
+   * Convienience method to repopulate checkbox or radio.
+   * Returns 'checked' string if field has value in POST.
    *
    * @since 0.8.5
    *
-   * @param string $field The checkbox field group name
-   * @param string $needle The value to look for
+   * @param string $field Field name.
+   * @param string $needle Value to compare against.
    * @return string 'checked' or ''
    */
   public function checked_if( $field, $needle ) {
