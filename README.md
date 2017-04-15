@@ -7,23 +7,24 @@ Intended for developers who want to build forms in a theme using custom markup a
 
 
 # Table of Contents
-1. [Basic Example](#basic-example)
-2. [Problem](#problem)
-3. [Solution](#solution)
-4. [Features](#features)
-5. [TODO](#todo)
-6. [Install](#install)
-7. [Usage](#usage)
-    1. [Rules](#configure-validation-rules)
-    2. [Custom Rules](#custom-validation-rules)
-    3. [Error Messages](#custom-error-messages)
-    4. [Validation Action](#callback-for-successful-validation)
-    5. [Markup a Form](#create-a-form-somewhere-in-your-theme)
-    6. [Validation Instance](#create-the-validation-instance)
-    7. [Retrieve User Input](#retrieve-user-input)
-    8. [Checkboxes and Radio](#checkboxes-and-radio)
-    9. [Select and multi-select](#select-and-multi-select)
-    10. [Working with Errors](#working-with-errors)
+* [Basic Example](#basic-example)
+* [Problem](#problem)
+* [Solution](#solution)
+* [Features](#features)
+* [TODO](#todo)
+* [Install](#install)
+* [Usage](#usage)
+  * [Rules](#configure-validation-rules)
+  * [Custom Rules](#custom-validation-rules)
+  * [Custom Error Messages](#custom-error-messages)
+  * [Validation Action](#callback-for-successful-validation)
+  * [Markup a Form](#create-a-form-somewhere-in-your-theme)
+  * [Validation Instance](#create-the-validation-instance)
+  * [Retrieve User Input](#retrieve-user-input)
+  * [Checkboxes and Radio](#checkboxes-and-radio)
+  * [Select and multi-select](#select-and-multi-select)
+  * [Working with Errors](#working-with-errors)
+
 
 ## Basic example
 
