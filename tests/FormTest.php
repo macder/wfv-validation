@@ -32,6 +32,17 @@ class FormTest extends \PHPUnit_Framework_TestCase {
     return $_POST;
   }
 
+  /**
+   *
+   *
+   */
+  public function test_form_create() {
+    $action = $_POST['action'];
+    $form = new Form();
+    $input = new Input( $action );
+    $form->put( 'action', $action );
+    $form->put( 'input', $input );
+
+    return $form;
   }
 
-}
