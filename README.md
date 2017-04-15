@@ -223,7 +223,7 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 ### `wfv_create( array $form )`
 Send `array $form` to the `WFV\Factory\ValidationFactory` to create an instance of `WFV\Validator`
 
-Assigns by reference the instance of `WFV\Validator`
+The instance is assigned by reference.
 ```php
 <?php
 // $my_form becomes an instance of WFV\Validator
