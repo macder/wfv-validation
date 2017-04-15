@@ -37,6 +37,8 @@ class Form {
    */
   protected $token;
 
+  use AccessorTrait;
+  use MutatorTrait;
 
   /**
    * Convenience method to repopulate checkbox or radio.
