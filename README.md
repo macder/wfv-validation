@@ -395,7 +395,7 @@ $my_form->input->put('email', 'foo@bar.com');
 ### `WFV\Errors`
 Class instance that holds validation errors.
 
-The `errors` property on `WFV\Validator` is an instance of `WFV\Erros`
+The `errors` property on `WFV\Validator` is an instance of `WFV\Errors`
 ```php
 <?php // $errors becomes instance of WFV\Errors
 
