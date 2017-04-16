@@ -18,9 +18,22 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     'name' => 'Foo Bar'
   );
 
-  protected static $form_no_post;
+  /**
+   * Instance of WFV\Validator before $_POST
+   *
+   * @access protected
+   * @var WFV\Validator $form_before_post
+   */
+  protected static $form_before_post;
 
-  protected static $form_has_post;
+  /**
+   * Instance of WFV\Validator after $_POST
+   *
+   * @access protected
+   * @var WFV\Validator $form_after_post
+   */
+  protected static $form_after_post;
+
 
   // there are a lot of possible cases
   // planning the automation...
