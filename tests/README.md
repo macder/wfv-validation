@@ -1,3 +1,18 @@
 # Unit Testing
 
+The setup procedure can be cumbersome
+
+Getting phpunit working with wp-cli, composer autoload, and a vagrant VM takes some serious config
+
+A bash script could solve this...
+
+Documentation backlog
+
+In the meantime, this is what helped:
+
+* [The command line interface for WordPress](http://wp-cli.org/)
+* [Introduction To Wordpress Unit Testing](https://carlalexander.ca/introduction-wordpress-unit-testing/)
+
+
+**SSH Tunnel to VM**
 `ssh -N -L 5555:127.0.0.1:3306 remoteuser@remotedomain.com -vv`

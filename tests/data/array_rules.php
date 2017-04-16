@@ -1,0 +1,39 @@
+<?php
+/**
+ * Array of built in Valitron rules
+ *
+ */
+return array(
+  'required',
+  'equals',
+  'different',
+  'accepted',
+  'numeric',
+  'integer',
+  'boolean',
+  'array',
+  'length',
+  'lengthBetween',
+  'lengthMin',
+  'lengthMax',
+  'min',
+  'max',
+  'in',
+  'notIn',
+  'ip',
+  'email',
+  'url',
+  'urlActive',
+  'alpha',
+  'alphaNum',
+  'slug',
+  'regex',
+  'date',
+  'dateFormat',
+  'dateBefore',
+  'dateAfter',
+  'contains',
+  'creditCard',
+  'instanceOf',
+  'optional',
+);

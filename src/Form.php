@@ -37,6 +37,8 @@ class Form {
    */
   protected $token;
 
+  use AccessorTrait;
+  use MutatorTrait;
 
   /**
    * Convenience method to repopulate checkbox or radio.
@@ -45,11 +47,11 @@ class Form {
    * @since 0.8.5
    *
    * @param string $field Field name.
-   * @param string $needle Value to compare against.
+   * @param string $value Value to compare against.
    * @return string|null
    */
-  public function checked_if( $field, $needle ) {
-    return ( $this->input->contains( $field, $needle ) ) ? 'checked' : null;
+  public function checked_if( $field, $value ) {
+    return ( $this->input->contains( $field, $value ) ) ? 'checked' : null;
   }
 
   /**
@@ -59,11 +61,11 @@ class Form {
    * @since 0.8.6
    *
    * @param string $field Field name.
-   * @param string $needle Value to compare against.
+   * @param string $value Value to compare against.
    * @return string|null
    */
-  public function selected_if( $field, $needle ) {
-    return ( $this->input->contains( $field, $needle ) ) ? 'selected' : null;
+  public function selected_if( $field, $value ) {
+    return ( $this->input->contains( $field, $value ) ) ? 'selected' : null;
   }
 
   /**

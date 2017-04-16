@@ -18,7 +18,7 @@ class Messages implements ValidationInterface {
    * @since 0.8.0
    *
    */
-  function __construct( $messages ) {
+  function __construct( $messages = null ) {
     if( $messages ) {
       $this->set( $messages );
     }

@@ -102,7 +102,7 @@ Just an API for input validation with WordPress.
 * Create custom rules
 * Default and custom error messages
 * Sanitized input return
-* Repopulate fields, including checkboxes, radio, and multi-selects
+* Repopulate fields, including [checkbox/radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hook for validation success
 * Self POST - no redirects, no GET vars, no sessions, no cookies
 * Declarative object oriented API
@@ -207,9 +207,9 @@ function contact_form_valid( $form ) {
 
 ```html
 <form name="contact_form" method="post">
-  <input id="name" name="name" type="text">
-  <input id="email" name="email" type="text">
-  <textarea id="msg" name="msg"></textarea>
+  <input name="name" type="text">
+  <input name="email" type="text">
+  <textarea name="msg"></textarea>
 
   <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Submit">
@@ -273,8 +273,8 @@ echo $input['email']; // foo@bar.com
 ```
 
 ## Checkboxes and Radio
-### `checked_if( string $field, string $needle )`
-Return string `'checked'` when `$field` has input `$needle`.
+### `checked_if( string $field, string $value )`
+Return string `'checked'` when `$field` has input `$value`.
 
 ```php
 <?php
@@ -283,7 +283,7 @@ Return string `'checked'` when `$field` has input `$needle`.
  * Returns 'checked' string if field has value in POST.
  *
  * @param string $field Field name.
- * @param string $needle Value to compare against.
+ * @param string $value Value to compare against.
  * @return string|null
  */
 ```
@@ -312,8 +312,8 @@ Radio:
 ```
 
 ## Select and multi-select
-### `selected_if( string $field, string $needle )`
-Return string `'selected'` when `$field` has input `$needle`.
+### `selected_if( string $field, string $value )`
+Return string `'selected'` when `$field` has input `$value`.
 
 ```php
 <?php
@@ -322,7 +322,7 @@ Return string `'selected'` when `$field` has input `$needle`.
  * Returns 'selected' string if field has value in POST.
  *
  * @param string $field Field name.
- * @param string $needle Value to compare against.
+ * @param string $value Value to compare against.
  * @return string|null
  */
  ```
