@@ -22,7 +22,7 @@ WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight 
   * [Rules](#configure-validation-rules)
   * [Custom Rules](#custom-validation-rules)
   * [Custom Error Messages](#custom-error-messages)
-  * [Validation Action](#callback-for-successful-validation)
+  * [Action Hooks](#action-hooks-into-validation-result)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
   * [Validation Instance](#create-the-validation-instance)
   * [User Input](#user-input)
