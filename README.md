@@ -81,16 +81,15 @@ Just an API for input validation with WordPress.
 ...nothing more, nothing less
 
 * 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
-* Create custom rules
-* Default and custom error messages
-* Sanitized input return
-* Repopulate fields, including [checkbox/radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
+* Custom rules
+* Custom error messages
+* Sanitized input data
+* Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hook for validation success
 * Self POST - no redirects, no GET vars, no sessions, no cookies
-* Declarative object oriented API
-* None intrusive and lightweight
-* Stays away from your admin dashboard
-* No rendered markup
+* Declarative and object oriented API
+* Lightweight
+* NO RENDERED MARKUP
 * Developer freedom
 
 ## TODO

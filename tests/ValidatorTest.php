@@ -63,11 +63,12 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Reset $_POST
+   * Reset $_POST and $_REQUEST
    *
    */
   public static function tearDownAfterClass() {
     $_POST = null;
+    $_REQUEST = null;
   }
 
   public function test_validator_is_instance() {
@@ -81,10 +82,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_validator_has_instances_before_post() {
-    $expected_instance = self::PROP_INSTANCE;
-
-    foreach( $expected_instance as $property => $instance ) {
-      $this->assertInstanceOf( $instance, self::$form_before_post->$property );
+    $instances = self::PROP_INSTANCE;
+    foreach( $instances as $property_name => $expected_instance ) {
+      $this->assertInstanceOf( $expected_instance, self::$form_before_post->$property_name );
     }
   }
 
@@ -94,12 +94,45 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_validator_has_instances_after_post() {
-    $expected_instance = self::PROP_INSTANCE;
-
-    foreach( $expected_instance as $property => $instance ) {
-      $this->assertInstanceOf( $instance, self::$form_after_post->$property );
+    $instances = self::PROP_INSTANCE;
+    foreach( $instances as $property_name => $expected_instance  ) {
+      $this->assertInstanceOf( $expected_instance , self::$form_after_post->$property_name );
     }
   }
 
+  /**
+   * Does is_safe return true when REQUEST is legit?
+   *
+   */
+  public function test_validator_is_safe_returns_true() {
+    $validator = self::$form_after_post;
 
+    // ok.. we need to fake a legit request to pass the nonce check
+    // 1. put the nonce token into WFV\Input
+    $validator->input->put( 'phpunit_token', $validator->token );
+    // 2. put the key and token into super global $_REQUEST
+    $_REQUEST[ 'phpunit_token' ] = $validator->input->phpunit_token;
+    // ...now this is a legit request
+
+    $this->assertTrue( $validator->is_safe() );
+  }
+
+  /**
+   * Does is_safe return false when the token in REQUEST
+   *  does not match token in WFV\Input?
+   *
+   */
+  public function test_validator_is_safe_returns_false_on_token_mismatch() {
+    $validator = self::$form_after_post;
+
+    // ok.. we need to fake a illegal request
+    // 1. put the real nonce token into WFV\Input
+    $validator->input->put( 'phpunit_token', $validator->token );
+    // 2. put a manipulated nonce token into super global $_REQUEST
+    $tampered_token = 'sdf'.$validator->token.'sdfert';
+    $_REQUEST[ 'phpunit_token' ] = $tampered_token;
+    // ...now the request is illegal
+
+    $this->assertFalse( $validator->is_safe() );
+  }
 }

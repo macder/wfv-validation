@@ -89,9 +89,8 @@ class Validator extends Form implements ValidationInterface {
   public function is_safe( ) {
     if( $this->has_request_action() ) {
       $safe = ( $this->is_legal( $this->input->action ) ) ? true : false;
-      $this->check_nonce();
     }
-    return ( $safe ) ? true : false;
+    return ( true === $safe ) ? $this->check_nonce() : false;
   }
 
   /**
@@ -131,9 +130,7 @@ class Validator extends Form implements ValidationInterface {
    */
   protected function check_nonce() {
     $nonce = $_REQUEST[ $this->action.'_token' ];
-    if ( ! wp_verify_nonce( $nonce, $this->action ) ) {
-      die( 'invalid token' );
-    }
+    return ( wp_verify_nonce( $nonce, $this->action ) ) ? true : false;
   }
 
   /**
