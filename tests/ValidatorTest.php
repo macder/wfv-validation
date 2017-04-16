@@ -33,8 +33,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     // needs to happen after no POST instance setup
     // otherwise first instance will also grab $_POST...
     $_POST = self::HTTP_POST;
+    $form_has_post = self::FORM;
     ValidationFactory::create( $form_has_post );
     self::$form_has_post = $form_has_post;
+  }
+
+  public static function tearDownAfterClass() {
+    $_POST = null;
   }
 
   /**
@@ -45,9 +50,11 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   public function test_validator_factory_create_instances() {
 
     $forms = array(
+      'no_post'  => self::$form_no_post,
       'has_post' => self::$form_has_post,
-      'no_post'  => self::$form_no_post
     );
+
+    print_r($forms);
 
     // assert with and without $_POST
     foreach( $forms as $type => $form ) {
