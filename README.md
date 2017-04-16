@@ -1,9 +1,16 @@
-# WFV
-## WordPress Form Validation
+# WFV - WordPress Form Validation
 
-#### *Declarative input validation API for WordPress*
+#### Declarative input validation API for WordPress
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
+
+WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
+
+Markup a form in a template and define its constraints in `functions.php`, a plugin, or wherever. Everything is up to you, the developer.
+
+You get a simple declarative api that helps you work with forms and input in an elegant way.
+
+WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight and powerful library to validate input constraints.
 
 
 # Table of Contents
@@ -69,38 +76,6 @@ Theme template:
   <input type="submit" value="Send">
 </form>
 ```
-<br>
-
----
-
-
-## Problem
-Working with custom forms in WordPress presents several challenges:
-
-WordPress does not have an elegant way to validate user input. It does not offer much beyond some general [sanitation methods](https://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data).
-
-And,
-
-The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29) to work with `$_POST` is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
-
-This means when the form is submitted, the user is sent to `http://yoursite.com/wp-admin/admin-post.php`.
-
-Why is this a problem?
-
-The user is no longer on the form. To send them back (i.e missed required field), we need to redirect. Now the `$_POST` with the input is gone... that would have been useful to repopulate the form. In order to persist that input, it needs to be stored in `GET`, or in the browser as a session or cookie.
-
-Neither is elegant, both are clunky.
-
-Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern. It gets messy and confusing fast.
-
-Most form building plugins have large footprints that generate rendered markup configured through the admin dashboard. Although it sounds much easier to point and click, and drag and drop; until something breaks or it can't meet some specific requirement. Enter hacks...
-
-## Solution
-WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
-
-Markup a form in a template and define its constraints in `functions.php` or a plugin.
-
-WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
 
 ## Features
 Just an API for input validation with WordPress.
