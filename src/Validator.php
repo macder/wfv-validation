@@ -39,9 +39,6 @@ class Validator extends Form implements ValidationInterface {
    */
   protected $rules;
 
-  use AccessorTrait;
-  use MutatorTrait;
-
   /**
    * __construct
    *
