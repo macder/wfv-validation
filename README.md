@@ -27,12 +27,12 @@ Intended for developers who want to build forms in a theme using custom markup a
   * [Auto Populate](#auto-populate)
     * [Text Fields](#text-input)
     * [Checkboxes and Radio](#checkboxes-and-radio)
-    * [Select and multi-select](#select-and-multi-select)
-    * [Pre-populate](#pre-populate)
+    * [Select and Multi-Select](#select-and-multi-select)
+    * [Pre Populate](#pre-populate)
   * [Errors](#validation-errors)
     * [Has](#has-error)
-    * [Get bag](#get-field-errors)
-    * [First error](#get-fields-first-error)
+    * [Bag](#get-field-errors)
+    * [First Error](#get-fields-first-error)
 
 
 ## Basic example
