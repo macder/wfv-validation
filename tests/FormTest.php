@@ -23,13 +23,12 @@ class FormTest extends \PHPUnit_Framework_TestCase {
     )
   );
 
-  /**
-   *
-   *
-   */
-  public function test_form_POST() {
+  public static function setUpBeforeClass() {
     $_POST = self::HTTP_POST;
-    return $_POST;
+  }
+
+  public static function tearDownAfterClass() {
+    $_POST = null;
   }
 
   /**
