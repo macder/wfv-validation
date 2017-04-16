@@ -69,7 +69,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * NOT IN USE
    *
    */
   public function provider_test_post() {
