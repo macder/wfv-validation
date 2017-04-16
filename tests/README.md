@@ -4,6 +4,8 @@ The setup procedure can be cumbersome
 
 Getting phpunit working with wp-cli, composer autoload, and a vagrant VM takes some serious config
 
+A bash script could solve this...
+
 Documentation backlog
 
 In the meantime, this is what helped:
