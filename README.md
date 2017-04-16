@@ -56,9 +56,15 @@ $my_form = array(
 );
 
 // hook for validation pass
-add_action( $my_form['action'], 'my_form_valid' );
+add_action( 'contact_form_pass', 'my_form_valid' );
 function my_form_valid( $form ) {
-  // form validated, do something...
+  // form input valid, do something...
+}
+
+// hook for validation fail
+add_action( 'contact_form_fail', 'my_form_invalid' );
+function my_form_invalid( $form ) {
+  // form input invalid, do something...
 }
 
 // activate the form
