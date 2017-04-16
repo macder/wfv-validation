@@ -27,11 +27,26 @@ class InputTest extends \PHPUnit_Framework_TestCase {
   );
 
   /**
+   * Populate $_POST
+   *
+   */
+  public static function setUpBeforeClass() {
+    $_POST = self::HTTP_POST;
+  }
+
+  /**
+   * Reset $_POST
+   *
+   */
+  public static function tearDownAfterClass() {
+    $_POST = null;
+  }
+
+  /**
    * Make sure properties are sanitized key/values from $_POST
    *
    */
   public function test_post_gets_sanitized_to_instance() {
-    $_POST = self::HTTP_POST;
     $result = new Input('phpunit');
     $expected = self::EXPECTED_RESULT;
 
@@ -45,7 +60,6 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_if_no_property_value_on_action_mismatch() {
-    $_POST = self::HTTP_POST;
     $action = 'phpunit_manipulated';
     $result = new Input( $action );
 
@@ -54,8 +68,11 @@ class InputTest extends \PHPUnit_Framework_TestCase {
     }
   }
 
+  /**
+   *
+   *
+   */
   public function provider_test_post() {
-    $_POST = self::HTTP_POST;
     $expected_result = self::EXPECTED_RESULT;
     return array( array( $_POST, $expected_result ) );
   }
