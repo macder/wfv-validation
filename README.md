@@ -26,18 +26,8 @@ WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight 
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
   * [Validation Instance](#create-the-validation-instance)
   * [User Input](#user-input)
-    * [Retrieve](#retrieve)
-    * [Has](#has-input)
-    * [Contains](#input-contains)
   * [Auto Populate](#auto-populate)
-    * [Text Fields](#text-input)
-    * [Checkboxes and Radio](#checkboxes-and-radio)
-    * [Select and Multi-Select](#select-and-multi-select)
-    * [Pre Populate](#pre-populate)
   * [Errors](#validation-errors)
-    * [Has](#has-error)
-    * [Bag](#get-field-errors)
-    * [First Error](#get-fields-first-error)
 
 
 ## Basic example
@@ -55,16 +45,16 @@ $my_form = array(
   )
 );
 
-// hook for validation pass
+// validation pass
 add_action( 'contact_form', 'my_form_valid' );
 function my_form_valid( $form ) {
-  // form input valid, do something...
+  // do something...
 }
 
-// hook for validation fail
+// validation fail
 add_action( 'contact_form_fail', 'my_form_invalid' );
 function my_form_invalid( $form ) {
-  // form input NOT valid, do something...
+  // do something...
 }
 
 // activate the form
