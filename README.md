@@ -307,31 +307,29 @@ $my_form->input->contains( 'email', 'foo@bar.com');  // true
 $my_form->input->contains( 'email', 'bar@foo.com');  // false
 ```
 
-## Checkboxes and Radio
-### `checked_if( string $field, string $value )`
-Return string `'checked'` when `$field` has input `$value`.
+## Auto Populate
 
-```php
-<?php
-/**
- * Convenience method to repopulate checkbox or radio.
- * Returns 'checked' string if field has value in POST.
- *
- * @param string $field Field name.
- * @param string $value Value to compare against.
- * @return string|null
- */
+### Text input
+
+If validation fails, these fields would populate using the submitted values:
+```html
+<input name="email" type="text" value="<?= $my_form->input->email ?>">
 ```
 
-Available to the `WFV\Validator` instance:
+```html
+<textarea name="msg"><?= $my_form->input->msg ?></textarea>
+```
+
+### Checkboxes and Radio
+#### `checked_if( string $field, string $value )`
+Return string `'checked'` when `$field` has input `$value`.
+
 ```php
 <?php // will echo 'checked' if user checked 'green' checkbox
 
 echo $my_form->checked_if('color', 'green'); // checked
 
 ```
-
-**Repopulate:**
 
 Checkbox:
 ```php
@@ -346,29 +344,15 @@ Radio:
 <input name="agree" type="radio" value="no" <?= $my_form->checked_if('agree', 'no'); ?>>
 ```
 
-## Select and multi-select
-### `selected_if( string $field, string $value )`
+### Select and multi-select
+#### `selected_if( string $field, string $value )`
 Return string `'selected'` when `$field` has input `$value`.
 
-```php
-<?php
-/**
- * Convenience method to repopulate select input.
- * Returns 'selected' string if field has value in POST.
- *
- * @param string $field Field name.
- * @param string $value Value to compare against.
- * @return string|null
- */
- ```
-Available to the `WFV\Validator` instance:
 ```php
 <?php // will echo 'selected' if user selected 'green' in select input
 
 echo $my_form->selected_if('color', 'green'); // selected
 ```
-
-**Repopulate:**
 
 Select:
 ```php
@@ -388,9 +372,17 @@ Multi-select:
   <option value="blue"<?= $my_form->selected_if('color', 'blue'); ?>>Blue</option>
   <option value="green"<?= $my_form->selected_if('color', 'green'); ?>>Green</option>
 </select>
-
 ```
 
+### Pre populate
+#### `put( string $field, string $value )`
+Pre-populate a field before `$_POST`
+
+```php
+<?php // the email field will always be pre populated with foo@bar.com
+
+$my_form->input->put('email', 'foo@bar.com');
+```
 
 ## Working with errors
 ### `WFV\Errors`
