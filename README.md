@@ -174,9 +174,9 @@ $my_form = array(
 
 ## Action hooks into validation result
 
-When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered.
+When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered. When it fails, the action hook appended with `_fail` triggers.
 
-Hook into it, do some logic in the callback:
+**Validation Pass:**
 
 ```php
 <?php // action hook and callback for validation pass
@@ -189,7 +189,7 @@ function contact_form_valid( $form ) {
 }
 ```
 
-When the input fails validation, the action hook `$my_form['action'] .'_fail'` is triggered:
+**Validation Fail:**
 ```php
 <?php // action hook and callback for validation fail
 
