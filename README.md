@@ -56,7 +56,7 @@ $my_form = array(
 );
 
 // hook for validation pass
-add_action( 'contact_form_pass', 'my_form_valid' );
+add_action( 'contact_form', 'my_form_valid' );
 function my_form_valid( $form ) {
   // form input valid, do something...
 }
@@ -172,22 +172,33 @@ $my_form = array(
 );
 ```
 
-## Callback for successful validation
+## Action hooks into validation result
 
 When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered.
 
 Hook into it, do some logic in the callback:
 
 ```php
-<?php
+<?php // action hook and callback for validation pass
 
 add_action( 'contact_form', 'contact_form_valid' );
 function contact_form_valid( $form ) {
-  // form validated, do something...
+  // form input valid, do something...
   echo $form->input->name;
   echo $form->input->email;
 }
-// that was better than using conditionals...
+```
+
+When the input fails validation, the action hook `$my_form['action'] .'_fail'` is triggered:
+```php
+<?php // action hook and callback for validation fail
+
+add_action( 'contact_form_fail', 'contact_form_invalid' );
+function contact_form_invalid( $form ) {
+  // form input NOT valid, do something...
+  echo $form->input->name;
+  echo $form->input->email;
+}
 ```
 
 ## Create a form somewhere in your theme
