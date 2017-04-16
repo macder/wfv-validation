@@ -12,4 +12,5 @@ In the meantime, this is what helped:
 * [Introduction To Wordpress Unit Testing](https://carlalexander.ca/introduction-wordpress-unit-testing/)
 
 
+**SSH Tunnel to VM**
 `ssh -N -L 5555:127.0.0.1:3306 remoteuser@remotedomain.com -vv`
