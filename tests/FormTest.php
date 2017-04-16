@@ -54,7 +54,23 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Is the for an instance of WFV\Form?
    *
+   */
+  public function test_form_is_instance() {
+    $this->assertInstanceOf( 'WFV\Form', self::$form );
+  }
+
+  /**
+   * Is the form input property an instance of WFV\Input?
+   *
+   */
+  public function test_form_input_property_is_input_instance() {
+    $this->assertInstanceOf( 'WFV\Input', self::$form->input );
+  }
+
+  /**
+   * Did the WFV\Input instance create properties from POST keys?
    *
    */
   public function test_form_input_prop_has_props_from_POST() {
@@ -64,7 +80,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Does 'checked_if' method return 'checked' when POST data
+   *  has matching key/value for the field
    *
    */
   public function test_form_does_checked_if_return_checked() {
@@ -74,7 +91,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Does 'checked_if' method return null when POST data
+   *  is NOT matching key/value for the field
    *
    */
   public function test_form_does_checked_if_return_null() {
@@ -84,7 +102,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Does 'selected_if' method return 'selected' when POST data
+   *  has matching key/value for the field
    *
    */
   public function test_form_does_selected_if_return_selected() {
@@ -94,7 +113,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Does 'selected_if' method return null when POST data
+   *  is NOT matching key/value for the field
    *
    */
   public function test_form_does_selected_if_return_null() {
