@@ -30,6 +30,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     ValidationFactory::create( $form_no_post );
     self::$form_no_post = $form_no_post;
 
+    // needs to happen after no POST instance setup
+    // otherwise first instance will also grab $_POST...
     $_POST = self::HTTP_POST;
     ValidationFactory::create( $form_has_post );
     self::$form_has_post = $form_has_post;
@@ -37,27 +39,23 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * is the factory building all instances and assigning
-   *  them as properties to WFV\Validator when there is no $_POST?
+   *  them as properties
    *
    */
-  public function test_validator_factory_create_with_no_post() {
-    $this->assertInstanceOf( 'WFV\Validator', self::$form_no_post );
-    $this->assertInstanceOf( 'WFV\Errors', self::$form_no_post->errors );
-    $this->assertInstanceOf( 'WFV\Input', self::$form_no_post->input );
-    $this->assertInstanceOf( 'WFV\Messages', self::$form_no_post->messages );
-    $this->assertInstanceOf( 'WFV\Rules', self::$form_no_post->rules );
-  }
+  public function test_validator_factory_create_instances() {
 
-  /**
-   * $_POST exists - is the factory building all instances and assigning
-   *  them as properties to WFV\Validator?
-   *
-   */
-  public function test_validator_factory_create_with_post() {
-    $this->assertInstanceOf( 'WFV\Validator', self::$form_has_post );
-    $this->assertInstanceOf( 'WFV\Errors', self::$form_has_post->errors );
-    $this->assertInstanceOf( 'WFV\Input', self::$form_has_post->input );
-    $this->assertInstanceOf( 'WFV\Messages', self::$form_has_post->messages );
-    $this->assertInstanceOf( 'WFV\Rules', self::$form_has_post->rules );
+    $forms = array(
+      'has_post' => self::$form_has_post,
+      'no_post'  => self::$form_no_post
+    );
+
+    // assert with and without $_POST
+    foreach( $forms as $type => $form ) {
+      $this->assertInstanceOf( 'WFV\Validator', $form );
+      $this->assertInstanceOf( 'WFV\Errors', $form->errors );
+      $this->assertInstanceOf( 'WFV\Input', $form->input );
+      $this->assertInstanceOf( 'WFV\Messages', $form->messages );
+      $this->assertInstanceOf( 'WFV\Rules', $form->rules );
+    }
   }
 }
