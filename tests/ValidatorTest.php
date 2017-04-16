@@ -63,11 +63,12 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Reset $_POST
+   * Reset $_POST and $_REQUEST
    *
    */
   public static function tearDownAfterClass() {
     $_POST = null;
+    $_REQUEST = null;
   }
 
   public function test_validator_is_instance() {
