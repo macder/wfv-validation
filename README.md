@@ -388,23 +388,26 @@ $my_form->input->put('email', 'foo@bar.com');
 <input name="email" type="text" value="<?= $my_form->input->email ?>">
 ```
 
-## Working with errors
+## Validation Errors
 ### `WFV\Errors`
+Class instance that holds validation errors.
 
+The `errors` property on `WFV\Validator` is an instance of `WFV\Erros`
 ```php
-<?php // errors property is an instance of WFV\Errors
+<?php // $errors becomes instance of WFV\Errors
 
 $errors = $my_form->errors;
 ```
-
-Check if field has an error:
+### Has error
+#### `has( string $field )`
+Check if `$field` has error, return `bool`
 ```php
 <?php // does the email field have an error?
 
 $my_form->errors->has('email'); // true or false
 ```
 
-Get field errors:
+### Get field errors:
 ```php
 <?php // get the error bag for a field
 
@@ -415,8 +418,8 @@ foreach( $email_errors as $error ) {
 }
 ```
 
-
-### `error( string $field )`
+### Get field's first error
+#### `error( string $field )`
 Convienience method to get first error on field.
 
 ```php
@@ -424,7 +427,6 @@ Convienience method to get first error on field.
 
 echo $my_form->error('email'); // Email is required
 ```
-
 First error message is the first declared rule.
 
 For example: `required` is the first error if rules are declared as `['required', 'email']` and both validations fail.
