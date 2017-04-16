@@ -10,7 +10,7 @@ Markup a form in a template and define its constraints in `functions.php`, a plu
 
 You get a simple declarative api that helps you work with forms and input in an elegant way.
 
-WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight and powerful library to validate input constraints.
+WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight library that has ZERO dependencies, to validate input constraints.
 
 
 # Table of Contents
