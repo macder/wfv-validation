@@ -113,7 +113,7 @@ class Validator extends Form implements ValidationInterface {
   public function validate() {
     $v = $this->create();
     if ( $v->validate() ) {
-      do_action( $this->action .'_pass', $this );
+      do_action( $this->action, $this );
     } else {
       $errors = $v->errors();
       $this->errors->set( $errors );
