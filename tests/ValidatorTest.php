@@ -4,6 +4,9 @@ namespace WFV;
 
 use WFV\Factory\ValidationFactory;
 
+// there are a lot of possible cases
+// planning in progress...
+
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
   const FORM = array(
@@ -19,7 +22,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   );
 
   /**
-   * Instance of WFV\Validator before $_POST
+   * Instance of WFV\Validator before $_POST.
    *
    * @access protected
    * @var WFV\Validator $form_before_post
@@ -27,17 +30,18 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   protected static $form_before_post;
 
   /**
-   * Instance of WFV\Validator after $_POST
+   * Instance of WFV\Validator after $_POST.
    *
    * @access protected
    * @var WFV\Validator $form_after_post
    */
   protected static $form_after_post;
 
-
-  // there are a lot of possible cases
-  // planning the automation...
-
+  /**
+   * Create 2 instances of WFV\Validator.
+   * Instances for before and after $_POST.
+   *
+   */
   public static function setUpBeforeClass() {
     $form_before_post = self::FORM;
     ValidationFactory::create( $form_before_post );
@@ -51,13 +55,18 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     self::$form_after_post = $form_after_post;
   }
 
+  /**
+   * Reset $_POST
+   *
+   */
   public static function tearDownAfterClass() {
     $_POST = null;
   }
 
   /**
-   * is the factory building all instances and assigning
-   *  them as properties
+   * Is the factory building all instances and assigning
+   *  them as properties?
+   * Check using before and after $_POST instances.
    *
    */
   public function test_validator_factory_create_instances() {

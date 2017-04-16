@@ -26,10 +26,18 @@ class InputTest extends \PHPUnit_Framework_TestCase {
       )
   );
 
+  /**
+   * Populate $_POST
+   *
+   */
   public static function setUpBeforeClass() {
     $_POST = self::HTTP_POST;
   }
 
+  /**
+   * Reset $_POST
+   *
+   */
   public static function tearDownAfterClass() {
     $_POST = null;
   }
@@ -60,6 +68,10 @@ class InputTest extends \PHPUnit_Framework_TestCase {
     }
   }
 
+  /**
+   *
+   *
+   */
   public function provider_test_post() {
     $expected_result = self::EXPECTED_RESULT;
     return array( array( $_POST, $expected_result ) );

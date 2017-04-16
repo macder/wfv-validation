@@ -46,7 +46,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   *
+   * Reset $_POST
    *
    */
   public static function tearDownAfterClass() {
