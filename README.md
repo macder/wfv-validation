@@ -22,7 +22,7 @@ WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight 
   * [Rules](#configure-validation-rules)
   * [Custom Rules](#custom-validation-rules)
   * [Custom Error Messages](#custom-error-messages)
-  * [Action Hooks](#action-hooks-into-validation-result)
+  * [Action Hooks](#validation-action-hooks)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
   * [Validation Instance](#create-the-validation-instance)
   * [User Input](#user-input)
@@ -172,7 +172,7 @@ $my_form = array(
 );
 ```
 
-## Action hooks into validation result
+## Validation action hooks
 
 When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered. When it fails, the action hook appended with `_fail` triggers.
 
