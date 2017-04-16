@@ -24,10 +24,11 @@ Intended for developers who want to build forms in a theme using custom markup a
     * [Retrieve](#retrieve)
     * [Has](#has-input)
     * [Contains](#input-contains)
-  * [Auto Populate](#lorem)
-    * [Text Fields](#lorem)
+  * [Auto Populate](#auto-populate)
+    * [Text Fields](#text-input)
     * [Checkboxes and Radio](#checkboxes-and-radio)
     * [Select and multi-select](#select-and-multi-select)
+    * [Pre-populate](#pre-populate)
   * [Errors](#working-with-errors)
 
 
