@@ -74,7 +74,10 @@ class FormTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_form_input_prop_has_props_from_POST() {
-    foreach( self::$form->input as $key => $value ) {
+    $post = self::HTTP_POST;
+    // array_push($post, array('injected_field' => 'injected_value'));
+
+    foreach( $post as $key => $value ) {
       $this->assertTrue( property_exists( self::$form->input, $key ) );
     }
   }
