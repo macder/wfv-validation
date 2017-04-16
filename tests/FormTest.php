@@ -24,10 +24,10 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   );
 
   /**
-   * Instance of WFV\Validator
+   * Instance of WFV\Form
    *
    * @access protected
-   * @var WFV\Validator $form
+   * @var WFV\Form $form
    */
   protected static $form;
 
