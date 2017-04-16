@@ -81,10 +81,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_validator_has_instances_before_post() {
-    $expected_instance = self::PROP_INSTANCE;
-
-    foreach( $expected_instance as $property => $instance ) {
-      $this->assertInstanceOf( $instance, self::$form_before_post->$property );
+    $instances = self::PROP_INSTANCE;
+    foreach( $instances as $property_name => $expected_instance ) {
+      $this->assertInstanceOf( $expected_instance, self::$form_before_post->$property_name );
     }
   }
 
@@ -94,10 +93,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_validator_has_instances_after_post() {
-    $expected_instance = self::PROP_INSTANCE;
-
-    foreach( $expected_instance as $property => $instance ) {
-      $this->assertInstanceOf( $instance, self::$form_after_post->$property );
+    $instances = self::PROP_INSTANCE;
+    foreach( $instances as $property_name => $expected_instance  ) {
+      $this->assertInstanceOf( $expected_instance , self::$form_after_post->$property_name );
     }
   }
 
