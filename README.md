@@ -20,7 +20,7 @@ Intended for developers who want to build forms in a theme using custom markup a
   * [Validation Action](#callback-for-successful-validation)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
   * [Validation Instance](#create-the-validation-instance)
-  * [Retrieve User Input](#retrieve-user-input)
+  * [User Input](#user-input)
   * [Checkboxes and Radio](#checkboxes-and-radio)
   * [Select and multi-select](#select-and-multi-select)
   * [Working with Errors](#working-with-errors)
@@ -277,7 +277,7 @@ $input = $my_form->input->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-### Field is populated?
+### Has input
 #### `has( string $field )`
 Check if `$field` has value, return `bool`
 
@@ -287,7 +287,7 @@ Check if `$field` has value, return `bool`
 $my_form->input->has('email');  // true
 ```
 
-### Field contains
+### Input contains
 #### `contains( string $field, string $value )`
 Check if `$field` contains `$value`, return `bool`
 
