@@ -22,7 +22,7 @@ WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight 
   * [Rules](#configure-validation-rules)
   * [Custom Rules](#custom-validation-rules)
   * [Custom Error Messages](#custom-error-messages)
-  * [Validation Action](#callback-for-successful-validation)
+  * [Action Hooks](#validation-action-hooks)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
   * [Validation Instance](#create-the-validation-instance)
   * [User Input](#user-input)
@@ -56,9 +56,15 @@ $my_form = array(
 );
 
 // hook for validation pass
-add_action( $my_form['action'], 'my_form_valid' );
+add_action( 'contact_form', 'my_form_valid' );
 function my_form_valid( $form ) {
-  // form validated, do something...
+  // form input valid, do something...
+}
+
+// hook for validation fail
+add_action( 'contact_form_fail', 'my_form_invalid' );
+function my_form_invalid( $form ) {
+  // form input NOT valid, do something...
 }
 
 // activate the form
@@ -81,16 +87,15 @@ Just an API for input validation with WordPress.
 ...nothing more, nothing less
 
 * 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
-* Create custom rules
-* Default and custom error messages
-* Sanitized input return
-* Repopulate fields, including [checkbox/radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
-* Action hook for validation success
+* Custom rules
+* Custom error messages
+* Sanitized input data
+* Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
+* Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
-* Declarative object oriented API
-* None intrusive and lightweight
-* Stays away from your admin dashboard
-* No rendered markup
+* Declarative and object oriented API
+* Lightweight
+* NO RENDERED MARKUP
 * Developer freedom
 
 ## TODO
@@ -167,22 +172,33 @@ $my_form = array(
 );
 ```
 
-## Callback for successful validation
+## Validation action hooks
 
-When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered.
+When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered. When it fails, the action hook appended with `_fail` triggers.
 
-Hook into it, do some logic in the callback:
+**Validation Pass:**
 
 ```php
-<?php
+<?php // action hook and callback for validation pass
 
 add_action( 'contact_form', 'contact_form_valid' );
 function contact_form_valid( $form ) {
-  // form validated, do something...
+  // form input valid, do something...
   echo $form->input->name;
   echo $form->input->email;
 }
-// that was better than using conditionals...
+```
+
+**Validation Fail:**
+```php
+<?php // action hook and callback for validation fail
+
+add_action( 'contact_form_fail', 'contact_form_invalid' );
+function contact_form_invalid( $form ) {
+  // form input NOT valid, do something...
+  echo $form->input->name;
+  echo $form->input->email;
+}
 ```
 
 ## Create a form somewhere in your theme
