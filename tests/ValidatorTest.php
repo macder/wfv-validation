@@ -21,6 +21,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     'name' => 'Foo Bar'
   );
 
+  const PROP_INSTANCE = array(
+    'errors' => 'WFV\Errors',
+    'input' => 'WFV\Input',
+    'messages' => 'WFV\Messages',
+    'rules' => 'WFV\Rules',
+  );
+
   /**
    * Instance of WFV\Validator before $_POST.
    *
@@ -63,26 +70,36 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     $_POST = null;
   }
 
+  public function test_validator_is_instance() {
+    $this->assertInstanceOf( 'WFV\Validator', self::$form_before_post );
+    $this->assertInstanceOf( 'WFV\Validator', self::$form_after_post );
+  }
+
   /**
    * Is the factory building all instances and assigning
-   *  them as properties?
-   * Check using before and after $_POST instances.
+   *  them as properties before $_POST?
    *
    */
-  public function test_validator_factory_create_instances() {
+  public function test_validator_has_instances_before_post() {
+    $expected_instance = self::PROP_INSTANCE;
 
-    $forms = array(
-      'before_post'  => self::$form_before_post,
-      'after_post' => self::$form_after_post,
-    );
-
-    // assert with and without $_POST
-    foreach( $forms as $type => $form ) {
-      $this->assertInstanceOf( 'WFV\Validator', $form );
-      $this->assertInstanceOf( 'WFV\Errors', $form->errors );
-      $this->assertInstanceOf( 'WFV\Input', $form->input );
-      $this->assertInstanceOf( 'WFV\Messages', $form->messages );
-      $this->assertInstanceOf( 'WFV\Rules', $form->rules );
+    foreach( $expected_instance as $property => $instance ) {
+      $this->assertInstanceOf( $instance, self::$form_before_post->$property );
     }
   }
+
+  /**
+   * Is the factory building all instances and assigning
+   *  them as properties after $_POST?
+   *
+   */
+  public function test_validator_has_instances_after_post() {
+    $expected_instance = self::PROP_INSTANCE;
+
+    foreach( $expected_instance as $property => $instance ) {
+      $this->assertInstanceOf( $instance, self::$form_after_post->$property );
+    }
+  }
+
+
 }
