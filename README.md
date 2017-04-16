@@ -1,15 +1,20 @@
-# WFV
-## WordPress Form Validation
+# WFV - WordPress Form Validation
 
-#### *Declarative input validation API for WordPress*
+#### Declarative input validation API for WordPress
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
+
+WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
+
+Markup a form in a template and define its constraints in `functions.php`, a plugin, or wherever. Everything is up to you, the developer.
+
+You get a simple declarative api that helps you work with forms and input in an elegant way.
+
+WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight and powerful library to validate input constraints.
 
 
 # Table of Contents
 * [Basic Example](#basic-example)
-* [Problem](#problem)
-* [Solution](#solution)
 * [Features](#features)
 * [TODO](#todo)
 * [Install](#install)
@@ -20,10 +25,19 @@ Intended for developers who want to build forms in a theme using custom markup a
   * [Validation Action](#callback-for-successful-validation)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
   * [Validation Instance](#create-the-validation-instance)
-  * [Retrieve User Input](#retrieve-user-input)
-  * [Checkboxes and Radio](#checkboxes-and-radio)
-  * [Select and multi-select](#select-and-multi-select)
-  * [Working with Errors](#working-with-errors)
+  * [User Input](#user-input)
+    * [Retrieve](#retrieve)
+    * [Has](#has-input)
+    * [Contains](#input-contains)
+  * [Auto Populate](#auto-populate)
+    * [Text Fields](#text-input)
+    * [Checkboxes and Radio](#checkboxes-and-radio)
+    * [Select and Multi-Select](#select-and-multi-select)
+    * [Pre Populate](#pre-populate)
+  * [Errors](#validation-errors)
+    * [Has](#has-error)
+    * [Bag](#get-field-errors)
+    * [First Error](#get-fields-first-error)
 
 
 ## Basic example
@@ -60,38 +74,6 @@ Theme template:
   <input type="submit" value="Send">
 </form>
 ```
-<br>
-
----
-
-
-## Problem
-Working with custom forms in WordPress presents several challenges:
-
-WordPress does not have an elegant way to validate user input. It does not offer much beyond some general [sanitation methods](https://codex.wordpress.org/Validating_Sanitizing_and_Escaping_User_Data).
-
-And,
-
-The [WordPress way](https://codex.wordpress.org/Plugin_API/Action_Reference/admin_post_%28action%29) to work with `$_POST` is to create an action hook that triggers after a http request to `/wp-admin/admin-post.php`
-
-This means when the form is submitted, the user is sent to `http://yoursite.com/wp-admin/admin-post.php`.
-
-Why is this a problem?
-
-The user is no longer on the form. To send them back (i.e missed required field), we need to redirect. Now the `$_POST` with the input is gone... that would have been useful to repopulate the form. In order to persist that input, it needs to be stored in `GET`, or in the browser as a session or cookie.
-
-Neither is elegant, both are clunky.
-
-Far too common the solution to `SELF_POST` the form is to capture the `$_POST` and run the logic in a template file. Albeit this solves the redirect problem, having logic in a template file is a poor separation of concerns and an anti-pattern. It gets messy and confusing fast.
-
-Most form building plugins have large footprints that generate rendered markup configured through the admin dashboard. Although it sounds much easier to point and click, and drag and drop; until something breaks or it can't meet some specific requirement. Enter hacks...
-
-## Solution
-WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
-
-Markup a form in a template and define its constraints in `functions.php` or a plugin.
-
-WFV uses [Valitron](https://github.com/vlucas/valitron) as the validation library.
 
 ## Features
 Just an API for input validation with WordPress.
@@ -247,16 +229,21 @@ All property instances on `WFV\Validator` share the same accessor and mutator tr
 
 Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
 
-## Retrieve user input
+## User input
 ### `WFV\Input`
+Class instance that holds the form input data as properties.
+
+The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 
 ```php
-<?php // input property is an instance of WFV\Input
+<?php // $input becomes instance of WFV\Input
 
 $input = $my_form->input;
 ```
 
-Get the input from a field:
+### Retrieve
+
+Get the input value of a field:
 ```php
 <?php // output the value the user entered into the email field
 
@@ -272,31 +259,54 @@ $input = $my_form->input->get_array();
 echo $input['email']; // foo@bar.com
 ```
 
-## Checkboxes and Radio
-### `checked_if( string $field, string $value )`
-Return string `'checked'` when `$field` has input `$value`.
+### Has input
+#### `has( string $field )`
+Check if `$field` has value, return `bool`
 
 ```php
-<?php
-/**
- * Convenience method to repopulate checkbox or radio.
- * Returns 'checked' string if field has value in POST.
- *
- * @param string $field Field name.
- * @param string $value Value to compare against.
- * @return string|null
- */
+<?php // was something entered into the email field?
+
+$my_form->input->has('email');  // true
 ```
 
-Available to the `WFV\Validator` instance:
+### Input contains
+#### `contains( string $field, string $value )`
+Check if `$field` contains `$value`, return `bool`
+
+```php
+<?php // Did the user enter foo@bar.com into the email field?
+
+$my_form->input->contains( 'email', 'foo@bar.com');  // true
+```
+```php
+<?php // Did the user enter bar@foo.com into the email field?
+
+$my_form->input->contains( 'email', 'bar@foo.com');  // false
+```
+
+## Auto Populate
+
+### Text input
+
+If validation fails, these fields would populate using the submitted values:
+```html
+<input name="email" type="text" value="<?= $my_form->input->email ?>">
+```
+
+```html
+<textarea name="msg"><?= $my_form->input->msg ?></textarea>
+```
+
+### Checkboxes and Radio
+#### `checked_if( string $field, string $value )`
+Return string `'checked'` when `$field` has input `$value`.
+
 ```php
 <?php // will echo 'checked' if user checked 'green' checkbox
 
 echo $my_form->checked_if('color', 'green'); // checked
 
 ```
-
-**Repopulate:**
 
 Checkbox:
 ```php
@@ -311,29 +321,15 @@ Radio:
 <input name="agree" type="radio" value="no" <?= $my_form->checked_if('agree', 'no'); ?>>
 ```
 
-## Select and multi-select
-### `selected_if( string $field, string $value )`
+### Select and multi-select
+#### `selected_if( string $field, string $value )`
 Return string `'selected'` when `$field` has input `$value`.
 
-```php
-<?php
-/**
- * Convenience method to repopulate select input.
- * Returns 'selected' string if field has value in POST.
- *
- * @param string $field Field name.
- * @param string $value Value to compare against.
- * @return string|null
- */
- ```
-Available to the `WFV\Validator` instance:
 ```php
 <?php // will echo 'selected' if user selected 'green' in select input
 
 echo $my_form->selected_if('color', 'green'); // selected
 ```
-
-**Repopulate:**
 
 Select:
 ```php
@@ -353,27 +349,41 @@ Multi-select:
   <option value="blue"<?= $my_form->selected_if('color', 'blue'); ?>>Blue</option>
   <option value="green"<?= $my_form->selected_if('color', 'green'); ?>>Green</option>
 </select>
-
 ```
 
-
-## Working with errors
-### `WFV\Errors`
+### Pre populate
+#### `put( string $field, string $value )`
+Pre-populate a field before `$_POST`
 
 ```php
-<?php // errors property is an instance of WFV\Errors
+<?php // the email field will always be pre populated with foo@bar.com
+
+$my_form->input->put('email', 'foo@bar.com');
+```
+```html
+<input name="email" type="text" value="<?= $my_form->input->email ?>">
+```
+
+## Validation Errors
+### `WFV\Errors`
+Class instance that holds validation errors.
+
+The `errors` property on `WFV\Validator` is an instance of `WFV\Errors`
+```php
+<?php // $errors becomes instance of WFV\Errors
 
 $errors = $my_form->errors;
 ```
-
-Check if field has an error:
+### Has error
+#### `has( string $field )`
+Check if `$field` has error, return `bool`
 ```php
 <?php // does the email field have an error?
 
 $my_form->errors->has('email'); // true or false
 ```
 
-Get field errors:
+### Get field errors:
 ```php
 <?php // get the error bag for a field
 
@@ -384,8 +394,8 @@ foreach( $email_errors as $error ) {
 }
 ```
 
-
-### `error( string $field )`
+### Get field's first error
+#### `error( string $field )`
 Convienience method to get first error on field.
 
 ```php
@@ -393,7 +403,6 @@ Convienience method to get first error on field.
 
 echo $my_form->error('email'); // Email is required
 ```
-
 First error message is the first declared rule.
 
 For example: `required` is the first error if rules are declared as `['required', 'email']` and both validations fail.
