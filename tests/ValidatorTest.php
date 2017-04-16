@@ -7,7 +7,7 @@ use WFV\Factory\ValidationFactory;
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
   const FORM = array(
-    'action'  => 'phpunit', // unique identifier
+    'action'  => 'phpunit',
     'rules'   => array(
       'name'      => ['required']
     )
