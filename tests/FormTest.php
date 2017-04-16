@@ -10,16 +10,16 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   const HTTP_POST = array(
     'action' => 'phpunit',
     'name' => 'Foo Bar',
-    'skills' => array(
-      'js',
-      'php',
-      'sh',
-      'sass',
+    'shades' => array(
+      'lightest',
+      'light',
+      'dark',
+      'darkest',
     ),
     'color' => array(
       'red',
+      'green',
       'blue',
-      'green'
     )
   );
 
@@ -88,8 +88,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_form_does_checked_if_return_checked() {
-    foreach( self::$form->input->skills as $skill ) {
-      $this->assertEquals( 'checked', self::$form->checked_if( 'skills', $skill ) );
+    foreach( self::$form->input->shades as $shade ) {
+      $this->assertEquals( 'checked', self::$form->checked_if( 'shades', $shade ) );
     }
   }
 
@@ -99,8 +99,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_form_does_checked_if_return_null() {
-    foreach( self::$form->input->skills as $skill ) {
-      $this->assertEquals( null, self::$form->checked_if( 'skills', 'BAH!' ) );
+    foreach( self::$form->input->shades as $shade ) {
+      $this->assertEquals( null, self::$form->checked_if( 'shades', 'BAH!' ) );
     }
   }
 
@@ -110,8 +110,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_form_does_selected_if_return_selected() {
-    foreach( self::$form->input->skills as $skill ) {
-      $this->assertEquals( 'selected', self::$form->selected_if( 'skills', $skill ) );
+    foreach( self::$form->input->shades as $shade ) {
+      $this->assertEquals( 'selected', self::$form->selected_if( 'shades', $shade ) );
     }
   }
 
@@ -121,8 +121,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_form_does_selected_if_return_null() {
-    foreach( self::$form->input->skills as $skill ) {
-      $this->assertEquals( null, self::$form->selected_if( 'skills', 'BAH!' ) );
+    foreach( self::$form->input->shades as $shade ) {
+      $this->assertEquals( null, self::$form->selected_if( 'shades', 'BAH!' ) );
     }
   }
 }
