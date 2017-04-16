@@ -39,16 +39,16 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   // planning the automation...
 
   public static function setUpBeforeClass() {
-    $form_no_post = self::FORM;
-    ValidationFactory::create( $form_no_post );
-    self::$form_no_post = $form_no_post;
+    $form_before_post = self::FORM;
+    ValidationFactory::create( $form_before_post );
+    self::$form_before_post = $form_before_post;
 
     // needs to happen after no POST instance setup
     // otherwise first instance will also grab $_POST...
     $_POST = self::HTTP_POST;
-    $form_has_post = self::FORM;
-    ValidationFactory::create( $form_has_post );
-    self::$form_has_post = $form_has_post;
+    $form_after_post = self::FORM;
+    ValidationFactory::create( $form_after_post );
+    self::$form_after_post = $form_after_post;
   }
 
   public static function tearDownAfterClass() {
@@ -63,11 +63,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   public function test_validator_factory_create_instances() {
 
     $forms = array(
-      'no_post'  => self::$form_no_post,
-      'has_post' => self::$form_has_post,
+      'before_post'  => self::$form_before_post,
+      'after_post' => self::$form_after_post,
     );
-
-    print_r($forms);
 
     // assert with and without $_POST
     foreach( $forms as $type => $form ) {
