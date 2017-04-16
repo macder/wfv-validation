@@ -16,3 +16,6 @@ In the meantime, this is what helped:
 
 **SSH Tunnel to VM**
 `ssh -N -L 5555:127.0.0.1:3306 remoteuser@remotedomain.com -vv`
+
+
+`bash bin/install-wp-tests.sh wordpress_test root root localhost latest true`
