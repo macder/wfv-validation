@@ -54,7 +54,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Is the for an instance of WFV\Form?
+   * Is the form an instance of WFV\Form?
    *
    */
   public function test_form_is_instance() {
