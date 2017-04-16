@@ -15,8 +15,6 @@ WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight and power
 
 # Table of Contents
 * [Basic Example](#basic-example)
-* [Problem](#problem)
-* [Solution](#solution)
 * [Features](#features)
 * [TODO](#todo)
 * [Install](#install)
