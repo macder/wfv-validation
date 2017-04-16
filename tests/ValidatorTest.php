@@ -107,7 +107,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   public function test_validator_is_safe_returns_true() {
     $validator = self::$form_after_post;
 
-    // ok.. we need to fake a legit request to pass the nonce check
+    // ok.. need to fake a legit request to pass the nonce check
     // 1. put the nonce token into WFV\Input
     $validator->input->put( 'phpunit_token', $validator->token );
     // 2. put the key and token into super global $_REQUEST
@@ -125,7 +125,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   public function test_validator_is_safe_returns_false_on_token_mismatch() {
     $validator = self::$form_after_post;
 
-    // ok.. we need to fake a illegal request
+    // ok.. need to fake a illegal request
     // 1. put the real nonce token into WFV\Input
     $validator->input->put( 'phpunit_token', $validator->token );
     // 2. put a manipulated nonce token into super global $_REQUEST
