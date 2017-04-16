@@ -247,16 +247,21 @@ All property instances on `WFV\Validator` share the same accessor and mutator tr
 
 Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
 
-## Retrieve user input
+## User input
 ### `WFV\Input`
+Class instance that holds the form input data as properties.
+
+The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 
 ```php
-<?php // input property is an instance of WFV\Input
+<?php // $input becomes instance of WFV\Input
 
 $input = $my_form->input;
 ```
 
-Get the input from a field:
+### Retrieve
+
+Get the input value of a field:
 ```php
 <?php // output the value the user entered into the email field
 
@@ -270,6 +275,31 @@ Get input as an array:
 
 $input = $my_form->input->get_array();
 echo $input['email']; // foo@bar.com
+```
+
+### Field is populated?
+#### `has( string $field )`
+Check if `$field` has value, return `bool`
+
+```php
+<?php // was something entered into the email field?
+
+$my_form->input->has('email');  // true
+```
+
+### Field contains
+#### `contains( string $field, string $value )`
+Check if `$field` contains `$value`, return `bool`
+
+```php
+<?php // Did the user enter foo@bar.com into the email field?
+
+$my_form->input->contains( 'email', 'foo@bar.com');  // true
+```
+```php
+<?php // Did the user enter bar@foo.com into the email field?
+
+$my_form->input->contains( 'email', 'bar@foo.com');  // false
 ```
 
 ## Checkboxes and Radio
