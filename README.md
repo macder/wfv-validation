@@ -24,9 +24,11 @@ Intended for developers who want to build forms in a theme using custom markup a
     * [Retrieve](#retrieve)
     * [Has](#has-input)
     * [Contains](#input-contains)
-  * [Checkboxes and Radio](#checkboxes-and-radio)
-  * [Select and multi-select](#select-and-multi-select)
-  * [Working with Errors](#working-with-errors)
+  * [Auto Populate](#lorem)
+    * [Text Fields](#lorem)
+    * [Checkboxes and Radio](#checkboxes-and-radio)
+    * [Select and multi-select](#select-and-multi-select)
+  * [Errors](#working-with-errors)
 
 
 ## Basic example
