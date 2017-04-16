@@ -384,6 +384,9 @@ Pre-populate a field before `$_POST`
 
 $my_form->input->put('email', 'foo@bar.com');
 ```
+```html
+<input name="email" type="text" value="<?= $my_form->input->email ?>">
+```
 
 ## Working with errors
 ### `WFV\Errors`
