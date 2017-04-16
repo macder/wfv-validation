@@ -64,7 +64,7 @@ function my_form_valid( $form ) {
 // hook for validation fail
 add_action( 'contact_form_fail', 'my_form_invalid' );
 function my_form_invalid( $form ) {
-  // form input invalid, do something...
+  // form input NOT valid, do something...
 }
 
 // activate the form
