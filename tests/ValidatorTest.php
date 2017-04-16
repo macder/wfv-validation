@@ -118,10 +118,11 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Does is_safe return false when REQUEST is NOT legit?
+   * Does is_safe return false when the token in REQUEST
+   *  does not match token in WFV\Input?
    *
    */
-  public function test_validator_is_safe_returns_false() {
+  public function test_validator_is_safe_returns_false_on_token_mismatch() {
     $validator = self::$form_after_post;
 
     // ok.. we need to fake a illegal request
