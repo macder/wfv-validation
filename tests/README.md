@@ -38,6 +38,10 @@ $: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest t
 
 
 ## Run Tests
+
+### Bash Script
+*(recommended method once scripts mature)*
+
 Set the plugin root path in:
 `./tests/bin/config.local`
 
@@ -48,6 +52,18 @@ $: cd tests/bin
 $: ./test.sh
 ```
 
+### Directly
+```sh
+# Individual
+
+$: vendor/bin/phpunit test/Input --report-useless-tests --verbose
+```
+
+```sh
+# Full suite
+
+$: vendor/bin/phpunit --report-useless-tests --verbose
+```
 
 ## External Resources
 
