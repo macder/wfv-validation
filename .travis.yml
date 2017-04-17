@@ -9,7 +9,7 @@ notifications:
 
 branches:
   only:
-    - feature/docs
+    - feature/travis
     - master
 
 php:
