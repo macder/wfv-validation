@@ -2,14 +2,12 @@
 
 Testing in the context of a WordPress plugin requires some additional setup.
 
-The concern is to have a local WordPress testing instance so PHPunit has access to the API. Otherwise, any calls to WP methods would fail.
+If you are unfamiliar about the concerns to use PHPunit and WordPress together, I highly recommend reading [this](https://carlalexander.ca/introduction-wordpress-unit-testing/), and [that](https://neliosoftware.com/blog/introduction-to-unit-testing-in-wordpress-phpunit/).
 
-[Helpful links](#external-resources)
-
-
+Otherwise...
 ## Prerequisites
 
-Make sure you have [wp-cli](http://wp-cli.org/#installing) installed.
+A working [wp-cli](http://wp-cli.org/#installing) install.
 
 ## Setup
 
