@@ -20,9 +20,7 @@ $: cd ~/wp-form-validation/
 $: bash bin/install-wp-tests.sh wordpress_test root password localhost latest
 ```
 
-If your database is inside a VM, open up a tunnel.
-
-
+If your database is inside a VM, open up a tunnel:
 ```sh
 # On your local machine, run:
 
