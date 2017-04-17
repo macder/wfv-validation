@@ -22,7 +22,7 @@ $: bash bin/install-wp-tests.sh wordpress_test root password localhost latest
 
 If your database is inside a VM, open up a tunnel:
 ```sh
-# On your local machine, run:
+# e.g. from local:
 
 $: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
 ```
