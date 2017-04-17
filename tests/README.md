@@ -26,6 +26,7 @@ If your database is inside a VM, open up a tunnel:
 
 $: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
 ```
+
 ```sh
 # Then, in a new local terminal:
 
@@ -34,6 +35,19 @@ $: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest t
 ```
 
 [Developing Locally on WordPress with Remote Database Over SSH](https://technosailor.com/2013/03/15/tutorial-developing-locally-on-wordpress-with-remote-database-over-ssh/)
+
+
+## Run Tests
+Set the plugin root path in:
+`./tests/bin/config.local`
+
+```sh
+# Run the test suite
+
+$: cd tests/bin
+$: ./test.sh
+```
+
 
 ## External Resources
 
