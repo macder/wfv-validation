@@ -2,14 +2,12 @@
 
 Testing in the context of a WordPress plugin requires some additional setup.
 
-The concern is to have a local WordPress testing instance so PHPunit has access to the API. Otherwise, any calls to WP methods would fail.
+If you are unfamiliar about the concerns using PHPunit and WordPress together, I highly recommend reading [this](https://carlalexander.ca/introduction-wordpress-unit-testing/), and [that](https://neliosoftware.com/blog/introduction-to-unit-testing-in-wordpress-phpunit/).
 
-[Helpful links](#external-resources)
-
-
+Otherwise...
 ## Prerequisites
 
-Make sure you have [wp-cli](http://wp-cli.org/#installing) installed.
+A working [wp-cli](http://wp-cli.org/#installing) install.
 
 ## Setup
 
@@ -26,6 +24,7 @@ If your database is inside a VM, open up a tunnel:
 
 $: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
 ```
+
 ```sh
 # Then, in a new local terminal:
 
@@ -34,6 +33,35 @@ $: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest t
 ```
 
 [Developing Locally on WordPress with Remote Database Over SSH](https://technosailor.com/2013/03/15/tutorial-developing-locally-on-wordpress-with-remote-database-over-ssh/)
+
+
+## Run Tests
+
+### Bash Script
+*(recommended method once scripts mature)*
+
+Set the plugin root path in:
+`./tests/bin/config.local`
+
+```sh
+# Run the test suite
+
+$: cd tests/bin
+$: ./test.sh
+```
+
+### Directly
+```sh
+# Individual
+
+$: vendor/bin/phpunit test/Input --report-useless-tests --verbose
+```
+
+```sh
+# Full suite
+
+$: vendor/bin/phpunit --report-useless-tests --verbose
+```
 
 ## External Resources
 
