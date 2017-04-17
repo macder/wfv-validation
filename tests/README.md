@@ -8,25 +8,28 @@ The concern is to have a local WordPress testing instance so PHPunit has access 
 
 Make sure you have [wp-cli](http://wp-cli.org/#installing) installed.
 
-
-
 ## Setup
 
-```sh
-bash bin/install-wp-tests.sh wordpress_test root password localhost latest
-```
+**Create the testing instance**
 
 ```sh
 $: cd ~/wp-form-validation/
-$: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest true
+$: bash bin/install-wp-tests.sh wordpress_test root password localhost latest
 ```
 
-**SSH Tunnel to VM**
+If your database is inside a VM, open up a tunnel.
+
+
 ```sh
-ssh -N -L 5555:127.0.0.1:3306 remoteuser@remotedomain.com -vv
+# On your local machine, run:
+
+$: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
 ```
 ```sh
-$: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
+# Then, in a new terminal:
+
+$: cd ~/wp-form-validation/
+$: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest true
 ```
 
 ## External Resources
