@@ -35,5 +35,6 @@ before_script:
   - |
 
 script:
+  - composer install
   - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
   - phpunit
