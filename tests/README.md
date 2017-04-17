@@ -35,7 +35,7 @@ $: cd ~/wp-form-validation/
 $: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest true
 ```
 
-Tutorial on [Developing Locally on WordPress with Remote Database Over SSH](https://technosailor.com/2013/03/15/tutorial-developing-locally-on-wordpress-with-remote-database-over-ssh/)
+[Developing Locally on WordPress with Remote Database Over SSH](https://technosailor.com/2013/03/15/tutorial-developing-locally-on-wordpress-with-remote-database-over-ssh/)
 
 ## External Resources
 
