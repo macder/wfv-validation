@@ -9,7 +9,7 @@ notifications:
 
 branches:
   only:
-    - master
+    - feature/docs
 
 php:
   - 5.3
