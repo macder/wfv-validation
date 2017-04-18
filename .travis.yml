@@ -14,8 +14,7 @@ branches:
     - master
 
 php:
-  - 5.4
-  - 7.0
+  - 5.5
 
 env:
   - WP_VERSION=latest WP_MULTISITE=0
