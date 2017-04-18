@@ -104,17 +104,13 @@ Theme template:
 
 # Install
 
-Currently there is no release available.
+**Pre-release**
 
-Under active development
-
-If you can't wait, install as development.
-
-`$ git clone` inside `./wp-content/plugins`
+`$ git clone` or download `master` to `./wp-content/plugins`
 
 `$ composer install`
 
-Once a release is packaged, install will be the usual WordPress way.
+
 
 # Usage
 
