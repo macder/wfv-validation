@@ -25,7 +25,7 @@ matrix:
       env: WP_VERSION=latest WP_MULTISITE=1
 
 before_script:
-  - bash/bin/travis.sh
+  - bash bin/travis.sh
   - |
     echo ${TRAVIS_PHP_VERSION:0:2}
     if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
