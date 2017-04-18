@@ -42,7 +42,7 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
 * Declarative and object oriented API
-* Lightweight, only one dependency
+* Lightweight and [unit tested code](https://github.com/macder/wp-form-validation/tree/master/tests)
 * No rendered markup
 * Developer freedom
 
