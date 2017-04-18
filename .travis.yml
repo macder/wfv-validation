@@ -9,7 +9,7 @@ notifications:
 
 branches:
   only:
-    - release/.*/
+    - release/0.8.9
     - master
 
 php:
