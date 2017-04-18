@@ -59,8 +59,9 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     $_POST = null;
     $_REQUEST = null;
   }
+
   /**
-   * Reset $_POST and $_REQUEST
+   *
    *
    */
   protected function setUp() {
