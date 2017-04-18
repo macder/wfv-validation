@@ -106,15 +106,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     self::$form_after_post = $form_after_post;
   }
 
-  /**
-   * Reset $_POST and $_REQUEST
-   *
-   */
-  public static function tearDownAfterClass() {
-    $_POST = null;
-    $_REQUEST = null;
-  }
-
   public function test_validator_is_instance() {
     $this->assertInstanceOf( 'WFV\Validator', self::$form_before_post );
     $this->assertInstanceOf( 'WFV\Validator', self::$form_after_post );
