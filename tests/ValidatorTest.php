@@ -3,6 +3,7 @@
 namespace WFV;
 
 use WFV\Factory\ValidationFactory;
+use WFV\Validator;
 
 // there are a lot of possible cases
 // planning in progress...
@@ -51,13 +52,17 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     $form_args = array(
       'action'  => 'phpunit',
       'rules'   => array(
-        'name'      => ['required']
+        'name'      => ['required'],
+        'email'     => ['required', 'email'],
+        'website'   => ['required', 'url'],
       )
     );
 
     self::$http_post = array(
-      'action' => 'phpunit',
-      'name' => 'Foo Bar'
+      'action'  => 'phpunit',
+      'name'    => 'Foo Bar',
+      'email'   => 'foo@bar.com',
+      'website' => 'http://test.com'
     );
 
     self::$instances = array(
@@ -126,12 +131,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   public function test_validator_is_safe_returns_true() {
     $validator = self::$form_after_post;
 
-    // ok.. need to fake a legit request to pass the nonce check
-    // 1. put the nonce token into WFV\Input
     $validator->input->put( 'phpunit_token', $validator->token );
-    // 2. put the key and token into super global $_REQUEST
     $_REQUEST[ 'phpunit_token' ] = $validator->input->phpunit_token;
-    // ...now this is a legit request
 
     $this->assertTrue( $validator->is_safe() );
   }
@@ -144,14 +145,47 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   public function test_validator_is_safe_returns_false_on_token_mismatch() {
     $validator = self::$form_after_post;
 
-    // ok.. need to fake a illegal request
-    // 1. put the real nonce token into WFV\Input
     $validator->input->put( 'phpunit_token', $validator->token );
-    // 2. put a manipulated nonce token into super global $_REQUEST
     $tampered_token = 'sdf'.$validator->token.'sdfert';
     $_REQUEST[ 'phpunit_token' ] = $tampered_token;
-    // ...now the request is illegal
 
     $this->assertFalse( $validator->is_safe() );
+  }
+
+  /**
+   * When validation passes, validate should return true.
+   *
+   */
+  public function test_validator_validate_input_pass() {
+    $form = self::$form_after_post;
+    $this->assertTrue( $form->validate() );
+  }
+
+  /**
+   * When validation passes there should be no properties on errors.
+   *
+   */
+  public function test_validator_validate_input_pass_has_no_errors() {
+    $form = self::$form_after_post;
+    $form->validate();
+
+    foreach( $form->rules as $field => $rule ) {
+      $this->assertFalse( property_exists( $form->errors, $field ) );
+    }
+
+  }
+
+  /**
+   * When validation fails, validate should return false.
+   *
+   */
+  public function test_validator_validate_input_fail() {
+    $form = self::$form_after_post;
+
+    foreach( $form->input as $field => $value ) {
+      $form->input->forget( $field );
+    }
+
+    $this->assertFalse( $form->validate() );
   }
 }

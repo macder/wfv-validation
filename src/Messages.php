@@ -35,8 +35,8 @@ class Messages implements ValidationInterface {
    */
   public function exist( $field, $rule ) {
     if( property_exists( $this, $field ) && array_key_exists( $rule, $this->$field ) ) {
-      $exists = true;
+      return true;
     }
-    return ( $exists ) ? true : false;
+    return false;
   }
 }
