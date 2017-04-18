@@ -34,7 +34,7 @@ Information about [Unit Testing](https://github.com/macder/wp-form-validation/tr
   * [Errors](#validation-errors)
 
 ## Features
-* 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
+* 32 built-in [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) rules
 * Custom rules
 * Custom error messages
 * Sanitized input data
@@ -42,8 +42,8 @@ Information about [Unit Testing](https://github.com/macder/wp-form-validation/tr
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
 * Declarative and object oriented API
-* Lightweight
-* NO RENDERED MARKUP
+* Lightweight, only one dependency
+* No rendered markup
 * Developer freedom
 
 ## Basic example
