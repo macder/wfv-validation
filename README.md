@@ -10,16 +10,16 @@ WFV gives you the ability to declare form validation constraints in a similar wa
 
 Markup a form in a template and define its constraints in `functions.php`, a plugin, or wherever. Everything is up to you, the developer.
 
-You get a simple declarative api that helps you work with forms and input in an elegant way.
+You get a simple declarative API that helps you work with forms and input in an elegant way.
 
-WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight library that has ZERO dependencies, to validate input constraints.
+WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight library without dependencies, to validate input constraints.
 
-Information about [Unit Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
+For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
 
 # Table of Contents
-* [Basic Example](#basic-example)
 * [Features](#features)
+* [Basic Example](#basic-example)
 * [TODO](#todo)
 * [Install](#install)
 * [Usage](#usage)
@@ -33,6 +33,18 @@ Information about [Unit Testing](https://github.com/macder/wp-form-validation/tr
   * [Auto Populate](#auto-populate)
   * [Errors](#validation-errors)
 
+## Features
+* 32 built-in [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) rules
+* Custom rules
+* Custom error messages
+* Sanitized input data
+* Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
+* Action hooks for validation pass and fail
+* Self POST - no redirects, no GET vars, no sessions, no cookies
+* Declarative and object oriented API
+* Lightweight, only one dependency
+* No rendered markup
+* Developer freedom
 
 ## Basic example
 
@@ -61,53 +73,40 @@ function my_form_invalid( $form ) {
   // do something...
 }
 
-// activate the form
+// create the instance
 wfv_create( $my_form );
 
+// $my_form is now an instance of WFV\Validator:
+$my_form             // WFV\Validator
+$my_form->input;     // WFV\Input
+$my_form->errors;    // WFV\Errors
+$my_form->rules;     // WFV\Rules
+$my_form->messages;  // WFV\Messages
+
 ```
+
 Theme template:
-```html
+```php
 <form method="post">
-  <input name="first_name" type="text">
   <input name="email" type="text">
   <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Send">
 </form>
 ```
 
-## Features
-Just an API for input validation with WordPress.
-
-...nothing more, nothing less
-
-* 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
-* Custom rules
-* Custom error messages
-* Sanitized input data
-* Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
-* Action hooks for validation pass and fail
-* Self POST - no redirects, no GET vars, no sessions, no cookies
-* Declarative and object oriented API
-* Lightweight
-* NO RENDERED MARKUP
-* Developer freedom
 
 ## TODO
 - API endpoint for front end - support single configuration.
 
 # Install
 
-Currently there is no release available.
+**Pre-release**
 
-Under active development
-
-If you can't wait, install as development.
-
-`$ git clone` inside `./wp-content/plugins`
+`$ git clone` or download `master` to `./wp-content/plugins`
 
 `$ composer install`
 
-Once a release is packaged, install will be the usual WordPress way.
+
 
 # Usage
 
