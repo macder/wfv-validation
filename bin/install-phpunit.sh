@@ -12,5 +12,3 @@ if [ 70 = "$php_version" ]; then
 else
   composer require "phpunit/phpunit=4.8.*"
 fi
-
-# composer require "vlucas/valitron=^1.4"
