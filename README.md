@@ -2,6 +2,8 @@
 
 #### Declarative input validation API for WordPress
 
+[![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
+
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 
 WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
@@ -11,6 +13,8 @@ Markup a form in a template and define its constraints in `functions.php`, a plu
 You get a simple declarative api that helps you work with forms and input in an elegant way.
 
 WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight library that has ZERO dependencies, to validate input constraints.
+
+Information about [Unit Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
 
 # Table of Contents

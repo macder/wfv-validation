@@ -7,22 +7,6 @@ use WFV\Input;
 
 class FormTest extends \PHPUnit_Framework_TestCase {
 
-  const HTTP_POST = array(
-    'action' => 'phpunit',
-    'name' => 'Foo Bar',
-    'shades' => array(
-      'lightest',
-      'light',
-      'dark',
-      'darkest',
-    ),
-    'color' => array(
-      'red',
-      'green',
-      'blue',
-    )
-  );
-
   /**
    * Instance of WFV\Form
    *
@@ -32,11 +16,35 @@ class FormTest extends \PHPUnit_Framework_TestCase {
   protected static $form;
 
   /**
+   *
+   *
+   * @access protected
+   * @var
+   */
+  protected static $http_post;
+
+  /**
    * Create WFV\Form instance with WFV\Input input property
    *
    */
   public static function setUpBeforeClass() {
-    $_POST = self::HTTP_POST;
+    self::$http_post = array(
+      'action' => 'phpunit',
+      'name' => 'Foo Bar',
+      'shades' => array(
+        'lightest',
+        'light',
+        'dark',
+        'darkest',
+      ),
+      'color' => array(
+        'red',
+        'green',
+        'blue',
+      )
+    );
+
+    $_POST = self::$http_post;
 
     $action = $_POST['action'];
     self::$form = new Form();
@@ -74,7 +82,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_form_input_prop_has_props_from_POST() {
-    $post = self::HTTP_POST;
+    $post = self::$http_post;
     // array_push($post, array('injected_field' => 'injected_value'));
 
     foreach( $post as $key => $value ) {
