@@ -8,9 +8,9 @@ try() { "$@" || die "cannot $*"; }
 php_version=$(php --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3);
 
 if [ 70 = "$php_version" ]; then
-  composer global require "phpunit/phpunit=5.7.*"
+  composer require "phpunit/phpunit=5.7.*"
 else
-  composer global require "phpunit/phpunit=4.8.*"
+  composer require "phpunit/phpunit=4.8.*"
 fi
 
 composer require "vlucas/valitron=^1.4"
