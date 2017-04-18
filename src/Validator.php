@@ -107,12 +107,12 @@ class Validator extends Form implements ValidationInterface {
   public function validate() {
     $valitron = $this->create();
 
-    $valid = ( $valitron->validate() ) ? true : false;
-    if ( false === $valid ) {
+    $is_valid = ( $valitron->validate() ) ? true : false;
+    if ( false === $is_valid ) {
       $this->errors->set( $valitron->errors() );
     }
-    $this->trigger_action( $valid );
-    return ( $valid ) ? true : false;
+    $this->trigger_post_validate_action( $is_valid );
+    return $is_valid;
   }
 
   /**
@@ -180,8 +180,8 @@ class Validator extends Form implements ValidationInterface {
    *
    * @param bool $valid Did the input validate?
    */
-  private function trigger_action( $valid = false ) {
-    $action = ( true === $valid ) ? $this->action : $this->action .'_fail';
+  private function trigger_post_validate_action( $is_valid = false ) {
+    $action = ( true === $is_valid ) ? $this->action : $this->action .'_fail';
     do_action( $action, $this );
   }
 }
