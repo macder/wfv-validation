@@ -10,6 +10,7 @@ notifications:
 branches:
   only:
     - feature/travis
+    - release/*
     - master
 
 php:
