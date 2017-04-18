@@ -9,25 +9,6 @@ use WFV\Factory\ValidationFactory;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
-  const FORM = array(
-    'action'  => 'phpunit',
-    'rules'   => array(
-      'name'      => ['required']
-    )
-  );
-
-  const HTTP_POST = array(
-    'action' => 'phpunit',
-    'name' => 'Foo Bar'
-  );
-
-  const PROP_INSTANCE = array(
-    'errors' => 'WFV\Errors',
-    'input' => 'WFV\Input',
-    'messages' => 'WFV\Messages',
-    'rules' => 'WFV\Rules',
-  );
-
   /**
    * Instance of WFV\Validator before $_POST.
    *
@@ -45,19 +26,57 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   protected static $form_after_post;
 
   /**
+   *
+   *
+   * @access protected
+   * @var
+   */
+  protected static $http_post;
+
+  /**
+   *
+   *
+   * @access protected
+   * @var
+   */
+  protected static $instances;
+
+  /**
    * Create 2 instances of WFV\Validator.
    * Instances for before and after $_POST.
    *
    */
   public static function setUpBeforeClass() {
-    $form_before_post = self::FORM;
+
+    $form_args = array(
+      'action'  => 'phpunit',
+      'rules'   => array(
+        'name'      => ['required']
+      )
+    );
+
+    self::$http_post = array(
+      'action' => 'phpunit',
+      'name' => 'Foo Bar'
+    );
+
+    self::$instances = array(
+      'errors' => 'WFV\Errors',
+      'input' => 'WFV\Input',
+      'messages' => 'WFV\Messages',
+      'rules' => 'WFV\Rules',
+    );
+
+
+
+    $form_before_post = $form_args;
     ValidationFactory::create( $form_before_post );
     self::$form_before_post = $form_before_post;
 
     // needs to happen after no POST instance setup
     // otherwise first instance will also grab $_POST...
-    $_POST = self::HTTP_POST;
-    $form_after_post = self::FORM;
+    $_POST = self::$http_post;
+    $form_after_post = $form_args;
     ValidationFactory::create( $form_after_post );
     self::$form_after_post = $form_after_post;
   }
@@ -82,7 +101,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_validator_has_instances_before_post() {
-    $instances = self::PROP_INSTANCE;
+    $instances = self::$instances;
     foreach( $instances as $property_name => $expected_instance ) {
       $this->assertInstanceOf( $expected_instance, self::$form_before_post->$property_name );
     }
@@ -94,7 +113,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_validator_has_instances_after_post() {
-    $instances = self::PROP_INSTANCE;
+    $instances = self::$instances;
     foreach( $instances as $property_name => $expected_instance  ) {
       $this->assertInstanceOf( $expected_instance , self::$form_after_post->$property_name );
     }
