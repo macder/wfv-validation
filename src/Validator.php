@@ -105,20 +105,25 @@ class Validator extends Form implements ValidationInterface {
   }
 
   /**
-   * Do the validation
+   * Validate the input with Valitron
+   * Trigger pass or fail action hook
+   * Return true or false
    *
    * @since 0.2.0
    * @since 0.6.0 Public access
+   * @since 0.8.10 Return bool
+   *
+   * @return bool
    */
   public function validate() {
-    $v = $this->create();
-    if ( $v->validate() ) {
-      do_action( $this->action, $this );
-    } else {
-      $errors = $v->errors();
-      $this->errors->set( $errors );
-      do_action( $this->action .'_fail', $this );
+    $valitron = $this->create();
+
+    $valid = ( $valitron->validate() ) ? true : false;
+    if ( false === $valid ) {
+      $this->errors->set( $valitron->errors() );
     }
+    $this->trigger_action( $valid );
+    return ( $valid ) ? true : false;
   }
 
   /**
@@ -176,5 +181,18 @@ class Validator extends Form implements ValidationInterface {
    */
   private function is_legal( $action ) {
     return ( $action === $this->action ) ? true : false;
+  }
+
+  /**
+   * Trigger action hook for validation pass or fail
+   *
+   * @since 0.8.10
+   * @access private
+   *
+   * @param bool $valid Did the input validate?
+   */
+  private function trigger_action( $valid = false ) {
+    $action = ( true === $valid ) ? $this->action : $this->action .'_fail';
+    do_action( $action, $this );
   }
 }
