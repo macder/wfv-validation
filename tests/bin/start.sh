@@ -33,6 +33,8 @@ function user_confirm {
   done
 }
 
+# 1-parameter 2-default
+function user_param_input {
   read -p "$1 (default: $2): " input
   input=${input:-$2}
 }
