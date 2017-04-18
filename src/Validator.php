@@ -94,17 +94,6 @@ class Validator extends Form implements ValidationInterface {
   }
 
   /**
-   *
-   *
-   * @since 0.8.0
-   *
-   * @param string (optional) $field
-   */
-  public function rules( $field = null ) {
-    return $this->rules->get( $field );
-  }
-
-  /**
    * Validate the input with Valitron
    * Trigger pass or fail action hook
    * Return true or false
