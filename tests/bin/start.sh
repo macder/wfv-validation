@@ -1,10 +1,23 @@
 #!/bin/bash
 
-# ["Question"]="default"
-declare -A DEFAULT=(
-  ["Database_Name"]="wordpress_test"
+declare WP_PROPERTY=(
+  "DB_NAME"
+  "DB_USER"
+  "DB_PASS"
+  "DB_HOST"
+  "WP_VERSION"
+  "SKIP_DB_CREATE"
 )
-# 1-question 2-default
+
+declare WP_DEFAULT=(
+  "wordpress_test"
+  "root"
+  "root"
+  "localhost"
+  "latest"
+  "false"
+)
+
 function user_confirm {
   read -p "$1 (default: $2): " input
   input=${input:-$2}
