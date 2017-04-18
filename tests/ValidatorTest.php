@@ -70,7 +70,12 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
         'name'      => ['required'],
         'email'     => ['required', 'email'],
         'website'   => ['required', 'url'],
-      )
+      ),
+      'messages' => [
+        'email' => array(
+          'required' => 'Email required - phpunit'
+        ),
+      ]
     );
 
     self::$http_post = array(
