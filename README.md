@@ -14,6 +14,8 @@ You get a simple declarative api that helps you work with forms and input in an 
 
 WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight library that has ZERO dependencies, to validate input constraints.
 
+Information about [Unit Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
+
 
 # Table of Contents
 * [Basic Example](#basic-example)

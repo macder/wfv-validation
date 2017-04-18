@@ -9,8 +9,7 @@ notifications:
 
 branches:
   only:
-    - feature/travis
-    - release/*
+    - /^release\/.*$/
     - master
 
 php:
