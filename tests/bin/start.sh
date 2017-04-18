@@ -34,6 +34,8 @@ declare SSH_DEFAULT=(
   "192.168.33.10"
 )
 
+# 5555:127.0.0.1:3306 vagrant@192.168.33.10
+
 yell() { echo "$0: $*" >&2; }
 die() { yell "$*"; exit 111; }
 try() { "$@" || die "cannot $*"; }
