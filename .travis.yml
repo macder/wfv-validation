@@ -22,9 +22,10 @@ env:
 
 matrix:
   include:
-    - php:
-      - 5.4
-      - 7.0
+    - php: 5.4
+      env: WP_VERSION=latest WP_MULTISITE=1
+  include:
+    - php: 7.0
       env: WP_VERSION=latest WP_MULTISITE=1
 
 before_script:
