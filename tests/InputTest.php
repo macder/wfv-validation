@@ -6,32 +6,48 @@ use WFV\Input;
 
 class InputTest extends \PHPUnit_Framework_TestCase {
 
-  const HTTP_POST = array(
-    'action' => 'phpunit',
-    'name' => '<h1>Foo Bar</h1>',
-    '<% skills %>' =>
-      array(
-        'js <script>console.log("oh no!");</script>',
-        'php <?php echo "oh no!"; ?>',
-      )
-  );
+  /**
+   *
+   *
+   * @access protected
+   * @var
+   */
+  protected static $expected_result;
 
-  const EXPECTED_RESULT = array(
-    'action' => 'phpunit',
-    'name' => 'Foo Bar',
-    'skills' =>
-      array(
-        'js',
-        'php',
-      )
-  );
+  /**
+   *
+   *
+   * @access protected
+   * @var
+   */
+  protected static $http_post;
 
   /**
    * Populate $_POST
    *
    */
   public static function setUpBeforeClass() {
-    $_POST = self::HTTP_POST;
+    self::$http_post = array(
+      'action' => 'phpunit',
+      'name' => '<h1>Foo Bar</h1>',
+      '<% skills %>' =>
+        array(
+          'js <script>console.log("oh no!");</script>',
+          'php <?php echo "oh no!"; ?>',
+        )
+      );
+
+    self::$expected_result = array(
+      'action' => 'phpunit',
+      'name' => 'Foo Bar',
+      'skills' =>
+        array(
+          'js',
+          'php',
+        )
+    );
+
+    $_POST = self::$http_post;
   }
 
   /**
@@ -48,7 +64,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    */
   public function test_post_gets_sanitized_to_instance() {
     $result = new Input('phpunit');
-    $expected = self::EXPECTED_RESULT;
+    $expected = self::$expected_result;
 
     foreach( $result as $key => $value ) {
       $this->assertEquals( $expected[$key], $result->$key );
@@ -63,7 +79,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
     $action = 'phpunit_manipulated';
     $result = new Input( $action );
 
-    foreach( self::EXPECTED_RESULT as $key => $expected ) {
+    foreach( self::$expected_result as $key => $expected ) {
       $this->assertFalse( ( property_exists( $result, $key ) ) );
     }
   }
@@ -73,7 +89,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function provider_test_post() {
-    $expected_result = self::EXPECTED_RESULT;
+    $expected_result = self::$expected_result;
     return array( array( $_POST, $expected_result ) );
   }
 }

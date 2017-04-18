@@ -54,7 +54,7 @@ $: ./test.sh
 ```sh
 # Individual
 
-$: vendor/bin/phpunit test/Input --report-useless-tests --verbose
+$: vendor/bin/phpunit tests/InputTest --report-useless-tests --verbose
 ```
 
 ```sh
