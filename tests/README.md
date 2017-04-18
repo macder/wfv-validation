@@ -47,7 +47,7 @@ Set the plugin root path in:
 # Run the test suite
 
 $: cd tests/bin
-$: ./test.sh
+$: ./run.sh
 ```
 
 ### Directly
