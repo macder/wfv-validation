@@ -7,7 +7,7 @@ try() { "$@" || die "cannot $*"; }
 
 php_version=$(php --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3);
 
-if [ 54 -lt "$php_version" ]; then
+if [ 56 -lt "$php_version" ]; then
   composer require "phpunit/phpunit=5.7.*"
 else
   composer require "phpunit/phpunit=4.8.*"
