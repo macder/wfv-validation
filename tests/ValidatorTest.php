@@ -52,13 +52,17 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     $form_args = array(
       'action'  => 'phpunit',
       'rules'   => array(
-        'name'      => ['required']
+        'name'      => ['required'],
+        'email'     => ['required', 'email'],
+        'website'   => ['required', 'url'],
       )
     );
 
     self::$http_post = array(
-      'action' => 'phpunit',
-      'name' => 'Foo Bar'
+      'action'  => 'phpunit',
+      'name'    => 'Foo Bar',
+      'email'   => 'foo@bar.com',
+      'website' => 'http://test.com'
     );
 
     self::$instances = array(
@@ -149,25 +153,39 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * When validation passes there should be no properties on errors.
+   * When validation passes, validate should return true.
    *
    */
   public function test_validator_validate_input_pass() {
-    // TODO: use @dataprovider to cover more cases
     $form = self::$form_after_post;
-    $form->validate();
-    $this->assertFalse( property_exists( $form->errors, 'name') );
+    $this->assertTrue( $form->validate() );
   }
 
   /**
-   * When validation fails, error instance should have properties.
+   * When validation passes there should be no properties on errors.
+   *
+   */
+  public function test_validator_validate_input_pass_has_no_errors() {
+    $form = self::$form_after_post;
+    $form->validate();
+
+    foreach( $form->rules as $field => $rule ) {
+      $this->assertFalse( property_exists( $form->errors, $field ) );
+    }
+
+  }
+
+  /**
+   * When validation fails, validate should return false.
    *
    */
   public function test_validator_validate_input_fail() {
-    // TODO: use @dataprovider to cover more cases
     $form = self::$form_after_post;
-    $form->input->forget('name');
-    $form->validate();
-    $this->assertTrue( property_exists( $form->errors, 'name') );
+
+    foreach( $form->input as $field => $value ) {
+      $form->input->forget( $field );
+    }
+
+    $this->assertFalse( $form->validate() );
   }
 }
