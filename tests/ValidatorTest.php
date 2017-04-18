@@ -3,6 +3,7 @@
 namespace WFV;
 
 use WFV\Factory\ValidationFactory;
+use WFV\Validator;
 
 // there are a lot of possible cases
 // planning in progress...
@@ -153,5 +154,28 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     // ...now the request is illegal
 
     $this->assertFalse( $validator->is_safe() );
+  }
+
+  /**
+   * When validation passes there should be no properties on errors.
+   *
+   */
+  public function test_validator_validate_input_pass() {
+    // TODO: use @dataprovider to cover more cases
+    $form = self::$form_after_post;
+    $form->validate();
+    $this->assertFalse( property_exists( $form->errors, 'name') );
+  }
+
+  /**
+   * When validation fails, error instance should have properties.
+   *
+   */
+  public function test_validator_validate_input_fail() {
+    // TODO: use @dataprovider to cover more cases
+    $form = self::$form_after_post;
+    $form->input->forget('name');
+    $form->validate();
+    $this->assertTrue( property_exists( $form->errors, 'name') );
   }
 }
