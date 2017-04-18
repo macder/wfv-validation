@@ -76,37 +76,19 @@ function my_form_invalid( $form ) {
 // create the instance
 wfv_create( $my_form );
 
-```
-
-The instances:
-```php
-
-<?php
-
+// $my_form is now:
 $my_form             // WFV\Validator
 $my_form->input;     // WFV\Input
 $my_form->errors;    // WFV\Errors
 $my_form->rules;     // WFV\Rules
 $my_form->messages;  // WFV\Messages
-```
-
-```php
-<?php
-
-echo $my_form->input->email;  // foobarcom
-
-$has_error = $my_form->errors->has('email') // true
-
-echo $my_form->error('email');  // Email is invalid.
 
 ```
 
 Theme template:
 ```php
 <form method="post">
-  <input name="email" type="text" value="<?= $my_form->input->email ?>">
-  <span style="color: red;"><?= $my_form->error('email'); ?></span>
-
+  <input name="email" type="text">
   <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Send">
 </form>
