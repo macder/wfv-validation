@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# WIP - Do not use
+#
+
 declare WP_PROPERTY=(
   "DB_NAME"
   "DB_USER"
