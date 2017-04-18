@@ -10,11 +10,11 @@ WFV gives you the ability to declare form validation constraints in a similar wa
 
 Markup a form in a template and define its constraints in `functions.php`, a plugin, or wherever. Everything is up to you, the developer.
 
-You get a simple declarative api that helps you work with forms and input in an elegant way.
+You get a simple declarative API that helps you work with forms and input in an elegant way.
 
-WFV uses [Valitron](https://github.com/vlucas/valitron), a powerful lightweight library that has ZERO dependencies, to validate input constraints.
+WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight library that has ZERO dependencies, to validate input constraints.
 
-Information about [Unit Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
+For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
 
 # Table of Contents
@@ -76,7 +76,7 @@ function my_form_invalid( $form ) {
 // create the instance
 wfv_create( $my_form );
 
-// $my_form is now:
+// $my_form is now an instance of WFV\Validator:
 $my_form             // WFV\Validator
 $my_form->input;     // WFV\Input
 $my_form->errors;    // WFV\Errors
