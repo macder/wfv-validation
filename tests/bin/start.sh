@@ -47,3 +47,13 @@ function set_params_from_input {
   done
 }
 
+function ssh_tunnel {
+  user_confirm "e.g Docker, Vagrant, VM" "Is the database remote?"
+
+  if $confirm ; then
+    user_confirm "e.g vagrant@192.168.33.10" "Open SSH Tunnel to remote DB?"
+    if $confirm ; then
+      user_confirm "ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv" "Use default SSH settings?"
+    fi
+  fi
+}
