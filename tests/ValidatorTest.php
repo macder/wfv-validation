@@ -49,13 +49,33 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    */
   public static function setUpBeforeClass() {
 
+  }
+
+  /**
+   * Reset $_POST and $_REQUEST
+   *
+   */
+  public static function tearDownAfterClass() {
+    $_POST = null;
+    $_REQUEST = null;
+  }
+  /**
+   * Reset $_POST and $_REQUEST
+   *
+   */
+  protected function setUp() {
     $form_args = array(
       'action'  => 'phpunit',
       'rules'   => array(
         'name'      => ['required'],
         'email'     => ['required', 'email'],
         'website'   => ['required', 'url'],
-      )
+      ),
+      'messages' => [
+        'email' => array(
+          'required' => 'Email required - phpunit'
+        ),
+      ]
     );
 
     self::$http_post = array(
@@ -84,15 +104,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     $form_after_post = $form_args;
     ValidationFactory::create( $form_after_post );
     self::$form_after_post = $form_after_post;
-  }
-
-  /**
-   * Reset $_POST and $_REQUEST
-   *
-   */
-  public static function tearDownAfterClass() {
-    $_POST = null;
-    $_REQUEST = null;
   }
 
   public function test_validator_is_instance() {
@@ -188,4 +199,21 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertFalse( $form->validate() );
   }
+
+  /**
+   * Check if the error() method returns first error message string
+   *
+   */
+  public function test_validator_error_returns_first_message() {
+    $form = self::$form_after_post;
+
+    $custom_message = $form->messages->email;
+    $expected_result = $custom_message['required'];
+
+    $form->input->forget('email');
+    $form->validate();
+
+    $this->assertEquals( $expected_result, $form->error('email') );
+  }
+
 }
