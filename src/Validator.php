@@ -177,4 +177,17 @@ class Validator extends Form implements ValidationInterface {
   private function is_legal( $action ) {
     return ( $action === $this->action ) ? true : false;
   }
+
+  /**
+   * Trigger action hook for validation pass or fail
+   *
+   * @since 0.8.10
+   * @access private
+   *
+   * @param bool $valid Did the input validate?
+   */
+  private function trigger_action( $valid = false ) {
+    $action = ( true === $valid ) ? $this->action : $this->action .'_fail';
+    do_action( $action, $this );
+  }
 }
