@@ -6,16 +6,38 @@ use WFV\Rules;
 
 class RulesTest extends \PHPUnit_Framework_TestCase {
 
-  const RULES = array(
-    'first_name' => ['required', 'alpha'],
-    'last_name' => ['required', 'alpha'],
-    'phone'      => ['required', 'custom:phone'],
-    'username'   => ['required'],
-    'password'   => ['required'],
-    'email'      => ['email','required'],
-    'website'    => ['required', 'url'],
-    'postal'     => ['custom:postal_code'],
-  );
+  /**
+   *
+   *
+   * @access protected
+   * @var
+   */
+  protected static $rules;
+
+  /**
+   *
+   *
+   */
+  public static function setUpBeforeClass() {
+    self::$rules = array(
+      'first_name' => ['required', 'alpha'],
+      'last_name' => ['required', 'alpha'],
+      'phone'      => ['required', 'custom:phone'],
+      'username'   => ['required'],
+      'password'   => ['required'],
+      'email'      => ['email','required'],
+      'website'    => ['required', 'url'],
+      'postal'     => ['custom:postal_code'],
+    );
+  }
+
+  /**
+   *
+   *
+   */
+  public static function tearDownAfterClass() {
+
+  }
 
   /**
    * Are the rules array keys set as property names?
@@ -23,7 +45,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
    */
   public function test_rules_get_set_as_properties() {
     $rules = new Rules();
-    $rules->set( self::RULES );
+    $rules->set( self::$rules );
 
     foreach( $rules as $field => $ruleset ) {
       $this->assertTrue( property_exists( $rules, $field ) );
@@ -37,11 +59,11 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
    */
   public function test_rules_if_field_has_rules() {
     $rules = new Rules();
-    $rules->set( self::RULES );
+    $rules->set( self::$rules );
 
     foreach( $rules as $field => $ruleset ) {
       foreach( $ruleset as $index => $rule ) {
-        $has_rule = ( $rule === self::RULES[$field][$index] ) ? true : false;
+        $has_rule = ( $rule === self::$rules[$field][$index] ) ? true : false;
         $this->assertTrue( $has_rule );
       }
     }
