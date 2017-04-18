@@ -102,10 +102,11 @@ echo $my_form->error('email');  // Email is invalid.
 ```
 
 Theme template:
-```html
+```php
 <form method="post">
-  <input name="first_name" type="text">
-  <input name="email" type="text">
+  <input name="email" type="text" value="<?= $my_form->input->email ?>">
+  <span style="color: red;"><?= $my_form->error('email'); ?></span>
+
   <?php $my_form->get_token_fields(); ?>
   <input type="submit" value="Send">
 </form>
