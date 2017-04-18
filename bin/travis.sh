@@ -13,6 +13,4 @@ else
   composer require "phpunit/phpunit=4.8.*"
 fi
 
-composer require "vlucas/valitron=^1.4"
-
-# ${TRAVIS_PHP_VERSION:0:2}
+# composer require "vlucas/valitron=^1.4"
