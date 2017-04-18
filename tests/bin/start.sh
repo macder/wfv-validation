@@ -23,6 +23,16 @@ die() { yell "$*"; exit 111; }
 try() { "$@" || die "cannot $*"; }
 
 function user_confirm {
+  echo -e "\n"$2"\n"$1"\n"
+  select result in Yes No
+  do
+    confirm=$([ $REPLY == 1 ] && echo true || echo false )
+    if [ $REPLY == 1 ] || [ $REPLY == 2 ] ; then
+      break
+    fi
+  done
+}
+
   read -p "$1 (default: $2): " input
   input=${input:-$2}
 }
