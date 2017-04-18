@@ -2,7 +2,7 @@
 
 #### Declarative input validation API for WordPress
 
-[![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=feature%2Ftravis)](https://travis-ci.org/macder/wp-form-validation)
+[![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 
