@@ -111,14 +111,14 @@ class Validator extends Form implements ValidationInterface {
    * @since 0.6.0 Public access
    */
   public function validate() {
-    $v = $this->create();
-    if ( $v->validate() ) {
-      do_action( $this->action, $this );
-    } else {
-      $errors = $v->errors();
-      $this->errors->set( $errors );
-      do_action( $this->action .'_fail', $this );
+    $valitron = $this->create();
+
+    $valid = ( $valitron->validate() ) ? true : false;
+    if ( false === $valid ) {
+      $this->errors->set( $valitron->errors() );
     }
+    $this->trigger_action( $valid );
+    return ( $valid ) ? true : false;
   }
 
   /**
