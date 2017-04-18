@@ -199,4 +199,21 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertFalse( $form->validate() );
   }
+
+  /**
+   * Check if the error() method returns first error message string
+   *
+   */
+  public function test_validator_error_returns_first_message() {
+    $form = self::$form_after_post;
+
+    $custom_message = $form->messages->email;
+    $expected_result = $custom_message['required'];
+
+    $form->input->forget('email');
+    $form->validate();
+
+    $this->assertEquals( $expected_result, $form->error('email') );
+  }
+
 }
