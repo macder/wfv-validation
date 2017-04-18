@@ -57,3 +57,11 @@ function ssh_tunnel {
     fi
   fi
 }
+
+
+ssh_tunnel
+set_params_from_input
+
+echo ${WP_SETTINGS[0]} ${WP_SETTINGS[1]} ${WP_SETTINGS[2]} ${WP_SETTINGS[3]} ${WP_SETTINGS[4]} ${WP_SETTINGS[5]}
+
+# bash bin/install-wp-tests.sh wordpress_test root password localhost latest
