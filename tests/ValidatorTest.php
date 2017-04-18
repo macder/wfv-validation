@@ -49,6 +49,21 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    */
   public static function setUpBeforeClass() {
 
+  }
+
+  /**
+   * Reset $_POST and $_REQUEST
+   *
+   */
+  public static function tearDownAfterClass() {
+    $_POST = null;
+    $_REQUEST = null;
+  }
+  /**
+   * Reset $_POST and $_REQUEST
+   *
+   */
+  protected function setUp() {
     $form_args = array(
       'action'  => 'phpunit',
       'rules'   => array(
