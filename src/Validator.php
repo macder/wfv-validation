@@ -105,10 +105,15 @@ class Validator extends Form implements ValidationInterface {
   }
 
   /**
-   * Do the validation
+   * Validate the input with Valitron
+   * Trigger pass or fail action hook
+   * Return true or false
    *
    * @since 0.2.0
    * @since 0.6.0 Public access
+   * @since 0.8.10 Return bool
+   *
+   * @return bool
    */
   public function validate() {
     $valitron = $this->create();
