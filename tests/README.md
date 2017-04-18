@@ -1,4 +1,5 @@
-# Unit Testing
+# WFV Unit Testing
+[![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
 Testing in the context of a WordPress plugin requires some additional setup.
 
