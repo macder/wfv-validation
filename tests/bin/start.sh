@@ -40,4 +40,10 @@ function user_param_input {
 }
 
 
+function set_params_from_input {
+  for i in "${!WP_PROPERTY[@]}" ; do
+    user_param_input "${WP_PROPERTY[$i]}" "${WP_DEFAULT[$i]}"
+    WP_SETTINGS[$i]=$input
+  done
+}
 
