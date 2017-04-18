@@ -18,6 +18,10 @@ declare WP_DEFAULT=(
   "false"
 )
 
+yell() { echo "$0: $*" >&2; }
+die() { yell "$*"; exit 111; }
+try() { "$@" || die "cannot $*"; }
+
 function user_confirm {
   read -p "$1 (default: $2): " input
   input=${input:-$2}
