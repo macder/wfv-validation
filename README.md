@@ -18,8 +18,8 @@ Information about [Unit Testing](https://github.com/macder/wp-form-validation/tr
 
 
 # Table of Contents
-* [Basic Example](#basic-example)
 * [Features](#features)
+* [Basic Example](#basic-example)
 * [TODO](#todo)
 * [Install](#install)
 * [Usage](#usage)
@@ -33,6 +33,18 @@ Information about [Unit Testing](https://github.com/macder/wp-form-validation/tr
   * [Auto Populate](#auto-populate)
   * [Errors](#validation-errors)
 
+## Features
+* 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
+* Custom rules
+* Custom error messages
+* Sanitized input data
+* Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
+* Action hooks for validation pass and fail
+* Self POST - no redirects, no GET vars, no sessions, no cookies
+* Declarative and object oriented API
+* Lightweight
+* NO RENDERED MARKUP
+* Developer freedom
 
 ## Basic example
 
@@ -61,10 +73,21 @@ function my_form_invalid( $form ) {
   // do something...
 }
 
-// activate the form
+// create the instance
 wfv_create( $my_form );
 
 ```
+
+The instances:
+```php
+<?php
+$my_form             // Instance of WFV\Validator
+$my_form->input;     // Instance of WFV\Input
+$my_form->errors;    // Instance of WFV\Errors
+$my_form->rules;     // Instance of WFV\Rules
+$my_form->messages;  // Instance of WFV\Messages
+```
+
 Theme template:
 ```html
 <form method="post">
@@ -75,22 +98,6 @@ Theme template:
 </form>
 ```
 
-## Features
-Just an API for input validation with WordPress.
-
-...nothing more, nothing less
-
-* 32 built-in validation rules from [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules)
-* Custom rules
-* Custom error messages
-* Sanitized input data
-* Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
-* Action hooks for validation pass and fail
-* Self POST - no redirects, no GET vars, no sessions, no cookies
-* Declarative and object oriented API
-* Lightweight
-* NO RENDERED MARKUP
-* Developer freedom
 
 ## TODO
 - API endpoint for front end - support single configuration.
