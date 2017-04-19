@@ -6,8 +6,10 @@
 **PHP:** 5.4, 5.5, 5.6, 7.0<br>
 **WordPress:** 4.x.x including multisite
 
+[0.8.12](https://github.com/macder/wp-form-validation/tree/0.8.12) is passing on: [WordPress 4.7.3 + multisite / PHP 5.4, 5.5, 5.6, 7.0](https://travis-ci.org/macder/wp-form-validation/builds/223760563)
+
 **Minumum Versions:**<br>
-[0.8.11](https://github.com/macder/wp-form-validation/tree/0.8.11) is passing on: [WordPress 3.7 + multisite / PHP 5.4, 5.5, 5.6](https://travis-ci.org/macder/wp-form-validation/builds/223751483)
+[0.8.12](https://github.com/macder/wp-form-validation/tree/0.8.12) is passing on: [WordPress 3.7 + multisite / PHP 5.4, 5.5, 5.6](https://travis-ci.org/macder/wp-form-validation/builds/223755851)
 
 
 ## Prerequisites
