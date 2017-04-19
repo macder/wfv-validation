@@ -10,6 +10,24 @@ defined( 'ABSPATH' ) or die();
 trait MutatorTrait {
 
   /**
+   * Drop property and value
+   * Removes key and value
+   *
+   * @since 0.8.12
+   *
+   * @param string $property Property name.
+   * @return mixed|null
+   */
+  public function drop( $property ) {
+    $property_return = ( true === $this->has($property) ) ? $this->$property : null;
+
+    if( $property_return ){
+      unset( $this->$property );
+    }
+    return $property_return;
+  }
+
+  /**
    * Null a property value.
    *
    * @since 0.8.0
