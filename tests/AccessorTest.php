@@ -15,10 +15,18 @@ class AccessorTest extends \PHPUnit_Framework_TestCase {
   protected static $form;
 
   /**
+   * Array form config mock
+   *
+   * @access protected
+   * @var array
+   */
+  protected static $form_args;
+
+  /**
    * Mock $_POST
    *
    * @access protected
-   * @var
+   * @var array
    */
   protected static $http_post;
 
@@ -27,7 +35,7 @@ class AccessorTest extends \PHPUnit_Framework_TestCase {
    *
    */
   protected function setUp() {
-    $form_args = array(
+    self::$form_args = array(
       'action'  => 'phpunit',
       'rules'   => array(
         'name'      => ['required'],
@@ -60,7 +68,7 @@ class AccessorTest extends \PHPUnit_Framework_TestCase {
     );
 
     $_POST = self::$http_post;
-    $form = $form_args;
+    $form = self::$form_args;
     ValidationFactory::create( $form );
     self::$form = $form;
   }
