@@ -97,4 +97,42 @@ class MutatorTest extends \PHPUnit_Framework_TestCase {
       }
     }
   }
+
+  /**
+   * Does forget null property values?
+   *
+   */
+  public function test_mutator_forget_nulls_property() {
+    $form = self::$form;
+    $form_args = self::$form_args;
+    unset( $form_args['action'] );
+
+    foreach( $form_args as $instance => $values ) {
+      foreach( $values as $property => $value ) {
+        $form->$instance->forget( $property );
+        $this->assertEquals( null, $form->$instance->$property );
+      }
+    }
+  }
+
+  /**
+   * Does put create a property and assign the value?
+   *
+   */
+  public function test_mutator_put_adds_property() {
+    $form = self::$form;
+
+    $instances = array(
+      'input',
+      'rules',
+      'errors',
+      'messages'
+    );
+
+    foreach( $instances as $instance ) {
+      $form->$instance->put('phpunit', 'put');
+      $this->assertTrue( property_exists( $form->$instance, 'phpunit' ) );
+      $this->assertEquals('put', $form->$instance->phpunit);
+    }
+  }
 }
