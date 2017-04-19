@@ -100,6 +100,16 @@ Theme template:
 
 # Install
 
+**Minumum Requirements:**
+* WordPress 3.7
+* PHP 5.4
+
+*PHP 7.0 supported only for WordPress 4.0+*
+
+**Recommended:**
+* WordPress 4.7.x
+* PHP 7.0
+
 **Pre-release**
 
 `$ git clone` or download `master` to `./wp-content/plugins`
