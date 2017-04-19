@@ -145,4 +145,28 @@ class AccessorTest extends \PHPUnit_Framework_TestCase {
       $this->assertTrue( $form->input->has( $property ) );
     }
   }
+
+  /**
+   * Does has return false when property DOES NOT exist?
+   *
+   */
+  public function test_accessor_has_returns_false() {
+    $form = self::$form;
+    $form_args = self::$form_args;
+    unset( $form_args['action'] );
+
+    // rules and messages
+    foreach( $form_args as $instance => $properties ) {
+      foreach( $properties as $property => $value ) {
+        unset($form->{$instance}->{$property});
+        $this->assertFalse( $form->$instance->has( $property ) );
+      }
+    }
+
+    // input
+    foreach( self::$http_post as $property => $value ) {
+      unset($form->input->{$property});
+      $this->assertFalse( $form->input->has( $property ) );
+    }
+  }
 }
