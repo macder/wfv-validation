@@ -1,16 +1,28 @@
 # WFV Unit Testing
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
-Testing in the context of a WordPress plugin requires some additional setup.
 
-If you are unfamiliar about the concerns using PHPunit and WordPress together, I highly recommend reading [this](https://carlalexander.ca/introduction-wordpress-unit-testing/), and [that](https://neliosoftware.com/blog/introduction-to-unit-testing-in-wordpress-phpunit/).
+## Support:
+**PHP:** 5.4, 5.5, 5.6, 7.0<br>
+**WordPress:** 4.x.x including multisite
 
-Otherwise...
+**Lowest Pass:**<br>
+[0.8.10](https://github.com/macder/wp-form-validation/tree/0.8.10) is passing on:
+* [WordPress 3.7 / PHP 5.4](https://travis-ci.org/macder/wp-form-validation/builds/223375921)
+* [WordPress 3.7 / PHP 5.5](https://travis-ci.org/macder/wp-form-validation/builds/223400008)
+* [WordPress 3.7 / PHP 5.6](https://travis-ci.org/macder/wp-form-validation/builds/223400538)
+
+[0.8.10](https://github.com/macder/wp-form-validation/tree/0.8.10) is failing on:
+* [WordPress 3.7 / PHP 7.0](https://travis-ci.org/macder/wp-form-validation/jobs/223399514)
+
 ## Prerequisites
 
 A working [wp-cli](http://wp-cli.org/#installing) install.
 
 ## Setup
+Testing in the context of a WordPress plugin requires some additional setup.
+
+If you are unfamiliar about the concerns using PHPunit and WordPress together, I highly recommend reading [this](https://carlalexander.ca/introduction-wordpress-unit-testing/), and [that](https://neliosoftware.com/blog/introduction-to-unit-testing-in-wordpress-phpunit/).
 
 **Create the testing instance**
 
