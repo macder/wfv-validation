@@ -111,18 +111,4 @@ class InputTest extends \PHPUnit_Framework_TestCase {
       $this->assertEquals( $expected[$field], $input->$field );
     }
   }
-
-  /**
-   * Make sure POST is ignored when $_POST['action'] does not match $this->action
-   *
-   */
-  /*public function test_if_no_property_value_on_action_mismatch() {
-    $input = self::$input_before_post;
-    $_POST = self::$http_post;
-
-    // $action = 'phpunit_manipulated';
-    // foreach( self::$expected_result as $key => $expected ) {
-    //   $this->assertFalse( ( property_exists( $result, $key ) ) );
-    // }
-  }*/
 }
