@@ -19,7 +19,7 @@ trait MutatorTrait {
    * @return mixed|null
    */
   public function drop( $property ) {
-    $property_return = ( true === $this->has($property) ) ? $this->$property : null;
+    $property_return = ( true === $this->has( $property ) ) ? $this->$property : null;
 
     if( $property_return ){
       unset( $this->$property );
