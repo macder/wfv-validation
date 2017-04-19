@@ -91,6 +91,15 @@ class InputTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Is input an instance of WFV\Input?
+   *
+   */
+  public function test_input_is_instance() {
+    $this->assertInstanceOf( 'WFV\Input', self::$input_before_post );
+    $this->assertInstanceOf( 'WFV\Input', self::$input_after_post );
+  }
+
+  /**
    * Make sure properties are sanitized key/values from $_POST
    *
    */
