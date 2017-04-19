@@ -15,7 +15,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
   protected static $expected_result;
 
   /**
-   *
+   * Mock $_POST
    *
    * @access protected
    * @var
@@ -23,13 +23,38 @@ class InputTest extends \PHPUnit_Framework_TestCase {
   protected static $http_post;
 
   /**
-   * Populate $_POST
+   *
+   *
+   * @access protected
+   * @var class WFV\Input
+   */
+  protected static $input_after_post;
+
+  /**
+   *
+   *
+   * @access protected
+   * @var class WFV\Input
+   */
+  protected static $input_before_post;
+
+  /**
+   *
    *
    */
   public static function setUpBeforeClass() {
+
+  }
+
+  /**
+   *
+   *
+   */
+  protected function setUp() {
     self::$http_post = array(
       'action' => 'phpunit',
       'name' => '<h1>Foo Bar</h1>',
+      'email' => 'foo@bar.com',
       '<% skills %>' =>
         array(
           'js <script>console.log("oh no!");</script>',
@@ -40,14 +65,21 @@ class InputTest extends \PHPUnit_Framework_TestCase {
     self::$expected_result = array(
       'action' => 'phpunit',
       'name' => 'Foo Bar',
+      'email' => 'foo@bar.com',
       'skills' =>
         array(
           'js',
           'php',
         )
     );
+    self::$input_before_post = new Input('phpunit');
 
     $_POST = self::$http_post;
+    self::$input_after_post = new Input('phpunit');
+  }
+
+  public function tearDown() {
+    $_POST = null;
   }
 
   /**
@@ -63,11 +95,11 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_post_gets_sanitized_to_instance() {
-    $result = new Input('phpunit');
+    $input = self::$input_after_post;
     $expected = self::$expected_result;
 
-    foreach( $result as $key => $value ) {
-      $this->assertEquals( $expected[$key], $result->$key );
+    foreach( $input as $field => $value ) {
+      $this->assertEquals( $expected[$field], $input->$field );
     }
   }
 
@@ -75,21 +107,13 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    * Make sure POST is ignored when $_POST['action'] does not match $this->action
    *
    */
-  public function test_if_no_property_value_on_action_mismatch() {
-    $action = 'phpunit_manipulated';
-    $result = new Input( $action );
+  /*public function test_if_no_property_value_on_action_mismatch() {
+    $input = self::$input_before_post;
+    $_POST = self::$http_post;
 
-    foreach( self::$expected_result as $key => $expected ) {
-      $this->assertFalse( ( property_exists( $result, $key ) ) );
-    }
-  }
-
-  /**
-   * NOT IN USE
-   *
-   */
-  public function provider_test_post() {
-    $expected_result = self::$expected_result;
-    return array( array( $_POST, $expected_result ) );
-  }
+    // $action = 'phpunit_manipulated';
+    // foreach( self::$expected_result as $key => $expected ) {
+    //   $this->assertFalse( ( property_exists( $result, $key ) ) );
+    // }
+  }*/
 }
