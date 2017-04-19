@@ -35,7 +35,9 @@ trait MutatorTrait {
    * @param string $property Property name.
    */
   public function forget( $property ) {
-    $this->$property = null;
+    if( $this->has( $property ) ) {
+      $this->$property = null;
+    }
   }
 
   /**
