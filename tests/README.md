@@ -3,11 +3,10 @@
 
 ### Support:
 **PHP:** 5.4, 5.5, 5.6, 7.0<br>
-**WordPress:** Latest, 4.x
+**WordPress:** 4.x.x including multisite
 
-**Lowest Passing:**<br>
-WordPress 3.7 / PHP 5.4 [Passing](https://travis-ci.org/macder/wp-form-validation/builds/223375921)<br>
-[0.8.10](https://github.com/macder/wp-form-validation/tree/0.8.10)
+**Lowest Pass:**<br>
+[0.8.10](https://github.com/macder/wp-form-validation/tree/0.8.10) is [passing](https://travis-ci.org/macder/wp-form-validation/builds/223375921) on WordPress 3.7 / PHP 5.4
 
 Testing in the context of a WordPress plugin requires some additional setup.
 
