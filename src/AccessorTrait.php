@@ -15,7 +15,7 @@ trait AccessorTrait {
    * @since 0.8.0
    *
    * @param string $property
-   * @return
+   * @return mixed
    */
   public function __get( $property ) {
     return ( true === $this->has( $property ) ) ? $this->$property : null;
