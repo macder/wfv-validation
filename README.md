@@ -104,7 +104,7 @@ Theme template:
 * WordPress 3.7
 * PHP 5.4
 
-*PHP 7.0 supported only for WordPress 4.0+*
+*PHP 7.0 support for WordPress 4.0+*
 
 **Recommended:**
 * WordPress 4.7.x
