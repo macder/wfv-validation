@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Based on https://bash.cyberciti.biz/guide/Menu_driven_scripts
-
-# A menu driven shell script sample template
-
 ## ----------------------------------
 # Step #1: Define variables
 # ----------------------------------
