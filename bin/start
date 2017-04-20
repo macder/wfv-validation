@@ -33,7 +33,7 @@ declare SSH_TUNNEL=(
 declare MENU_MAIN=(
   "MAIN MENU"
   # "Database Settings"
-  # "SSH Tunnel For Remote DB"
+  "SSH Tunnel For Remote DB"
   # "WordPress Settings"
   "Run Tests"
 )
@@ -47,10 +47,11 @@ declare MENU_DATABASE=(
 
 declare MENU_SSH_TUNNEL=(
   "SSH TUNNEL"
-  "Inbound Port: "${SSH_TUNNEL[0]}
-  "Localhost IP: "${SSH_TUNNEL[1]}
-  "Remote User: "${SSH_TUNNEL[2]}
-  "Remote Host: "${SSH_TUNNEL[3]}
+  # "Inbound Port: "${SSH_TUNNEL[0]}
+  # "Localhost IP: "${SSH_TUNNEL[1]}
+  # "Remote User: "${SSH_TUNNEL[2]}
+  # "Remote Host: "${SSH_TUNNEL[3]}
+  "Open Tunnel: ssh "${SSH_TUNNEL[0]}":"${SSH_TUNNEL[1]}":"${SSH_TUNNEL[2]}" "${SSH_TUNNEL[3]}"@"${SSH_TUNNEL[4]}
 )
 
 declare MENU_WORDPRESS=(
@@ -90,8 +91,9 @@ menu_main() {
     # 1) menu_database ;;
     # 2) menu_ssh ;;
     # 3) menu_wordpress ;;
-    1) menu_tests ;;
-    2) exit 0 ;;
+    1) menu_ssh ;;
+    2) menu_tests ;;
+    3) exit 0 ;;
     *) echo -e "${RED}void choice${STD}" && sleep 0.1
   esac
 }
@@ -115,12 +117,26 @@ menu_ssh() {
   CURRENT_MENU=("${MENU_SSH_TUNNEL[@]}")
   show_menu CURRENT_MENU
   read_options $item_count
+
+  case $choice in
+    1) clear; ssh -f -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10; pause ;;
+    2) exit 0 ;;
+    0) menu_main ;;
+    *) echo -e "${RED}void choice${STD}" && sleep 0.1
+  esac
 }
 
 menu_wordpress() {
   CURRENT_MENU=("${MENU_WORDPRESS[@]}")
   show_menu CURRENT_MENU
   read_options $item_count
+
+  case $choice in
+    1) clear; bash ../../bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest true; pause ;;
+    2) exit 0 ;;
+    0) menu_main ;;
+    *) echo -e "${RED}void choice${STD}" && sleep 0.1
+  esac
 }
 
 menu_tests() {
