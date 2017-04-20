@@ -1,8 +1,6 @@
 #!/bin/bash
-
-## ---------------------------------
-#  Define variables
-#  ---------------------------------
+#
+# Interactive menu driven testing
 
 declare DATABASE=(
   "wordpress_test" # DB Name
@@ -10,7 +8,6 @@ declare DATABASE=(
   "root"           # DB Pass
   "localhost"      # DB Host
 )
-
 
 declare WORDPRESS=(
   "4.7.3"          # WordPress Ver
@@ -24,11 +21,6 @@ declare SSH_TUNNEL=(
   "vagrant"        # Remote User
   "192.168.33.10"  # Remote Host
 )
-
-
-## -------------------------------------
-#  DO NOT EDIT VARIABLES PAST THIS POINT
-#  -------------------------------------
 
 declare MENU_MAIN=(
   "MAIN MENU"
@@ -65,13 +57,30 @@ declare MENU_TESTS=(
 RED='\033[0;41;30m'
 STD='\033[0;0;39m'
 
-#export CHOICE
-# read input from the keyboard, store it in 'choice'
+
+#######################################
+# Read input from the keyboard, store it in 'choice'
+# Globals:
+#   choice
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 read_options(){
   items_in_menu=$1
   read -p "Enter choice [ 1 - $items_in_menu ] " choice
 }
 
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 menu_main() {
   CURRENT_MENU=("${MENU_MAIN[@]}")
   show_menu CURRENT_MENU
@@ -86,13 +95,30 @@ menu_main() {
   esac
 }
 
-
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 menu_database() {
   CURRENT_MENU=("${MENU_DATABASE[@]}")
   show_menu CURRENT_MENU
   read_options $item_count
 }
 
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 menu_ssh() {
   CURRENT_MENU=("${MENU_SSH_TUNNEL[@]}")
   show_menu CURRENT_MENU
@@ -106,6 +132,15 @@ menu_ssh() {
   esac
 }
 
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 menu_wordpress() {
   CURRENT_MENU=("${MENU_WORDPRESS[@]}")
   show_menu CURRENT_MENU
@@ -119,6 +154,15 @@ menu_wordpress() {
   esac
 }
 
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 menu_tests() {
   CURRENT_MENU=("${MENU_TESTS[@]}")
   show_menu CURRENT_MENU
@@ -136,17 +180,36 @@ menu_tests() {
   esac
 }
 
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 pause(){
   read -p "Press [Enter] key to continue..." EnterKey
 }
 
-# function to display menus
+
+#######################################
+# Display menus
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 show_menu() {
   local -n MENU_ITEMS="$1"
   MENU_NAME=${MENU_ITEMS[0]}
   bash lib/menu.sh "${MENU_ITEMS[@]}"
   item_count=${#MENU_ITEMS[@]}
 }
+
 
 MENU_NAME=("MAIN MENU")
 while true

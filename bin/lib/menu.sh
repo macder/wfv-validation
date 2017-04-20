@@ -1,7 +1,18 @@
 #!/bin/bash
+#
+# WFV Unit Testing Menu Shell
 
 ITEMS=("$@")
 
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
 show_menu() {
   local -n MENU_ITEMS="$1"
 
