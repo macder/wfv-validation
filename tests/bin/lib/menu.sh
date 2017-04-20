@@ -25,6 +25,7 @@ show_menu() {
     echo "  $INDEX. ${MENU_ITEMS[INDEX]}"
   done
 
+  echo ""
   echo "  $((INDEX+1)). Exit"
   echo ""
 }
