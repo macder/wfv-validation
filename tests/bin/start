@@ -21,9 +21,10 @@ declare SSH_TUNNEL=(
   "192.168.33.10"  # Remote Host
 )
 
-## ---------------------------------
-#  DO NOT VARIABLES PAST THIS POINT
-#  ---------------------------------
+
+## -------------------------------------
+#  DO NOT EDIT VARIABLES PAST THIS POINT
+#  -------------------------------------
 
 declare MENU_MAIN=(
   "MAIN MENU"
