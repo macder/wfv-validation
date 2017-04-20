@@ -9,7 +9,7 @@ ITEMS=("$@")
 # Globals:
 #
 # Arguments:
-#   None
+#   $1 MENU_ITEMS
 # Returns:
 #   None
 #######################################
