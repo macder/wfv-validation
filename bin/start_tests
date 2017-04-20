@@ -49,8 +49,10 @@ declare MENU_WORDPRESS=(
 declare MENU_TESTS=(
   "UNIT TESTS"
   "ALL"
+  "Accessor"
   "Input"
   "Form"
+  "Mutator"
   "Validator"
 )
 
@@ -171,10 +173,12 @@ menu_tests() {
 
   case $choice in
     1) clear; bash lib/run_test.sh; pause ;;
-    2) clear; bash lib/run_test.sh InputTest; pause ;;
-    3) clear; bash lib/run_test.sh FormTest; pause ;;
-    4) clear; bash lib/run_test.sh ValidatorTest; pause ;;
-    5) exit 0 ;;
+    2) clear; bash lib/run_test.sh AccessorTest; pause ;;
+    3) clear; bash lib/run_test.sh InputTest; pause ;;
+    4) clear; bash lib/run_test.sh FormTest; pause ;;
+    5) clear; bash lib/run_test.sh MutatorTest; pause ;;
+    6) clear; bash lib/run_test.sh ValidatorTest; pause ;;
+    7) exit 0 ;;
     0) menu_main ;;
     *) echo -e "${RED}void choice${STD}" && sleep 0.1
   esac
@@ -190,6 +194,7 @@ menu_tests() {
 #   None
 #######################################
 pause(){
+  echo ""
   read -p "Press [Enter] key to continue..." EnterKey
 }
 
