@@ -27,7 +27,7 @@ declare SSH_TUNNEL=(
 declare MENU_MAIN=(
   "MAIN MENU"
   "Database Settings"
-  "SSH Settings"
+  "SSH Tunnel For Remote DB"
   "WordPress Version"
   "Run Tests"
 )
@@ -37,7 +37,7 @@ declare MENU_DATABASE=(
   "NAME: "${DATABASE[0]}
   "USER: "${DATABASE[1]}
   "PASS: "${DATABASE[2]}
-  "HOST: "${DATABASE[3]}
+
 )
 
 declare MENU_SSH_TUNNEL=(
@@ -48,40 +48,107 @@ declare MENU_SSH_TUNNEL=(
   "Remote Host: "${SSH_TUNNEL[3]}
 )
 
+declare MENU_WORDPRESS=(
+  "WORDPRESS VERSION"
+  "$WORDPRESS"
+  "Other"
+)
+
+declare MENU_TESTS=(
+  "UNIT TESTS"
+  "ALL"
+  "Input"
+  "Form"
+  "Errors"
+  "Messages"
+  "Validator"
+)
+
+# read input from the keyboard, store it in 'choice'
+read_options(){
+  items_in_menu=$(($1+1))
+  read -p "Enter choice [ 1 - $items_in_menu ] " choice
+
+}
+
+menu_main() {
+  CURRENT_MENU=("${MENU_MAIN[@]}")
+  show_menu CURRENT_MENU
+  read_options $item_count
+
+  case $choice in
+    1) menu_database ;;
+    2) menu_ssh ;;
+    3) menu_wordpress ;;
+    4) menu_tests ;;
+    5) exit 0 ;;
+    *) echo -e "${RED}void choice${STD}" && sleep 0.1
+  esac
+}
+
+
+menu_database() {
+  CURRENT_MENU=("${MENU_DATABASE[@]}")
+  show_menu CURRENT_MENU
+  read_options $item_count
+}
+
+menu_ssh() {
+  CURRENT_MENU=("${MENU_SSH_TUNNEL[@]}")
+  show_menu CURRENT_MENU
+  read_options $item_count
+}
+
+menu_wordpress() {
+  CURRENT_MENU=("${MENU_WORDPRESS[@]}")
+  show_menu CURRENT_MENU
+  read_options $item_count
+}
+
+menu_tests() {
+  CURRENT_MENU=("${MENU_TESTS[@]}")
+  show_menu CURRENT_MENU
+  read_options $item_count
+}
+
 # function to display menus
 show_menu() {
-  local -n MENU="$1"
+  local -n MENU_ITEMS="$1"
 
   clear
   echo "--------------------------------"
   echo " W F V   U N I T  T E S T I N G "
   echo "--------------------------------"
-  echo "           ${MENU[0]}"
+  echo " ${MENU_ITEMS[0]}"
   echo "--------------------------------"
   echo ""
-  unset MENU[0]
-  for i in "${!MENU[@]}" ; do
-    echo "  $i. ${MENU[i]}"
+
+  MENU_NAME=${MENU_ITEMS[0]}
+  unset MENU_ITEMS[0]
+
+  for index in "${!MENU_ITEMS[@]}" ; do
+    echo "  $index. ${MENU_ITEMS[index]}"
   done
-  i=$((i+1))
-  echo "  $i. Exit"
+
+  echo "  $((index+1)). Exit"
   echo ""
+  item_count=$index
+
 }
 
-# read input from the keyboard and take a action
-# invoke the one() when the user select 1 from the menu option.
-# invoke the two() when the user select 2 from the menu option.
-# Exit when user the user select 3 form the menu option.
-read_options(){
-  local choice
-  read -p "Enter choice [ 1 - 3] " choice
-  case $choice in
-    1) one ;;
-    2) two ;;
-    3) exit 0;;
-    *) echo -e "${RED}Error...${STD}" && sleep 2
+
+
+MENU_NAME=("MAIN MENU")
+while true
+do
+  case $MENU_NAME in
+    "MAIN MENU") menu_main ;;
+    "DATABASE") menu_database ;;
+    "SSH TUNNEL") menu_ssh ;;
+    "UNIT TESTS") menu_tests ;;
   esac
-}
 
-show_menu MENU_SSH_TUNNEL # MENU_DATABASE # MENU_MAIN
-read_options
+  #CURRENT_MENU=("${MENU_MAIN[@]}")
+  # show_menu CURRENT_MENU # MENU_SSH_TUNNEL MENU_DATABASE MENU_MAIN MENU_WP_VER
+
+done
