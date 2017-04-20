@@ -11,7 +11,6 @@ declare DATABASE=(
   "localhost"      # DB Host
 )
 
-# WORDPRESS="latest" # WordPress Version
 
 declare WORDPRESS=(
   "4.7.3"
@@ -33,9 +32,9 @@ declare SSH_TUNNEL=(
 
 declare MENU_MAIN=(
   "MAIN MENU"
-  "Database Settings"
-  "SSH Tunnel For Remote DB"
-  "WordPress Settings"
+  # "Database Settings"
+  # "SSH Tunnel For Remote DB"
+  # "WordPress Settings"
   "Run Tests"
 )
 
@@ -44,7 +43,6 @@ declare MENU_DATABASE=(
   "NAME: "${DATABASE[0]}
   "USER: "${DATABASE[1]}
   "PASS: "${DATABASE[2]}
-
 )
 
 declare MENU_SSH_TUNNEL=(
@@ -68,8 +66,8 @@ declare MENU_TESTS=(
   "ALL"
   "Input"
   "Form"
-  "Errors"
-  "Messages"
+  # "Errors"
+  # "Messages"
   "Validator"
 )
 
@@ -79,7 +77,7 @@ STD='\033[0;0;39m'
 #export CHOICE
 # read input from the keyboard, store it in 'choice'
 read_options(){
-  items_in_menu=$(($1+1))
+  items_in_menu=$1
   read -p "Enter choice [ 1 - $items_in_menu ] " choice
 }
 
@@ -89,11 +87,11 @@ menu_main() {
   read_options $item_count
 
   case $choice in
-    1) menu_database ;;
-    2) menu_ssh ;;
-    3) menu_wordpress ;;
-    4) menu_tests ;;
-    5) exit 0 ;;
+    # 1) menu_database ;;
+    # 2) menu_ssh ;;
+    # 3) menu_wordpress ;;
+    1) menu_tests ;;
+    2) exit 0 ;;
     *) echo -e "${RED}void choice${STD}" && sleep 0.1
   esac
 }
@@ -102,17 +100,15 @@ menu_main() {
 menu_database() {
   CURRENT_MENU=("${MENU_DATABASE[@]}")
   show_menu CURRENT_MENU
-  # bash lib/menu/sand.sh
-
   read_options $item_count
 
-  case $choice in
-    1) echo -e "11111" && sleep 3;;
-    2) echo -e "22222" ;;
-    3) echo -e "33333" ;;
-    4) exit 0 ;;
-    *) echo -e "${RED}void choice${STD}" && sleep 0.1
-  esac
+  # case $choice in
+  #   1) ;;
+  #   2) ;;
+  #   3) ;;
+  #   4) ;;
+  #   *) echo -e "${RED}void choice${STD}" && sleep 0.1
+  # esac
 }
 
 menu_ssh() {
@@ -133,6 +129,22 @@ menu_tests() {
 
   # bash lib/menu/sand.sh
   read_options $item_count
+
+  case $choice in
+    1) bash lib/run.sh; pause ;;
+    2) bash lib/run.sh InputTest; pause ;;
+    3) bash lib/run.sh FormTest; pause ;;
+    # 4) bash lib/run.sh ErrorsTest; pause ;;
+    # 5) bash lib/run.sh MessagesTest; pause ;;
+    4) bash lib/run.sh ValidatorTest; pause ;;
+    5) exit 0 ;;
+    0) menu_main ;;
+    *) echo -e "${RED}void choice${STD}" && sleep 0.1
+  esac
+}
+
+pause(){
+  read -p "Press [Enter] key to continue..." EnterKey
 }
 
 # function to display menus

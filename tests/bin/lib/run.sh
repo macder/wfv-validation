@@ -1,5 +1,7 @@
 #!/bin/bash
 
+TEST_NAME="tests/"$1
+
 # Run test suite
 #
 #
@@ -19,4 +21,4 @@ if [ ! -d "$root_path" ]; then
 fi
 
 cd $root_path
-vendor/bin/phpunit --report-useless-tests --verbose
+vendor/bin/phpunit $TEST_NAME --report-useless-tests --verbose

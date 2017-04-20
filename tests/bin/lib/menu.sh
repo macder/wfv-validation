@@ -16,6 +16,11 @@ show_menu() {
   MENU_NAME=${MENU_ITEMS[0]}
   unset MENU_ITEMS[0]
 
+  if [ "$MENU_NAME" != "MAIN MENU" ] ; then
+    echo "  0. Back"
+    echo ""
+  fi
+
   for INDEX in "${!MENU_ITEMS[@]}" ; do
     echo "  $INDEX. ${MENU_ITEMS[INDEX]}"
   done
