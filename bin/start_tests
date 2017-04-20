@@ -34,7 +34,7 @@ declare MENU_MAIN=(
   "MAIN MENU"
   # "Database Settings"
   "SSH Tunnel For Remote DB"
-  # "WordPress Settings"
+  "Start WordPress Testing Instance"
   "Run Tests"
 )
 
@@ -56,10 +56,11 @@ declare MENU_SSH_TUNNEL=(
 
 declare MENU_WORDPRESS=(
   "WORDPRESS"
-  ${WORDPRESS[0]}
-  "4.7.3"
-  "4.7.2"
-  "Other"
+  "Start"
+  # ${WORDPRESS[0]}
+  # "4.7.3"
+  # "4.7.2"
+  # "Other"
 )
 
 declare MENU_TESTS=(
@@ -92,8 +93,9 @@ menu_main() {
     # 2) menu_ssh ;;
     # 3) menu_wordpress ;;
     1) menu_ssh ;;
-    2) menu_tests ;;
-    3) exit 0 ;;
+    2) menu_wordpress ;;
+    3) menu_tests ;;
+    4) exit 0 ;;
     *) echo -e "${RED}void choice${STD}" && sleep 0.1
   esac
 }
@@ -180,6 +182,7 @@ do
     "MAIN MENU") menu_main ;;
     "DATABASE") menu_database ;;
     "SSH TUNNEL") menu_ssh ;;
+    "WORDPRESS") menu_ssh ;;
     "UNIT TESTS") menu_tests ;;
   esac
 done
