@@ -1,0 +1,92 @@
+#!/bin/bash
+
+# Based on https://bash.cyberciti.biz/guide/Menu_driven_scripts
+
+# A menu driven shell script sample template
+
+## ----------------------------------
+# Step #1: Define variables
+# ----------------------------------
+EDITOR=vim
+# PASSWD=/etc/passwd
+RED='\033[0;41;30m'
+STD='\033[0;0;39m'
+
+declare DATABASE=(
+  "wordpress_test" # DB Name
+  "root"           # DB User
+  "root"           # DB Pass
+  "localhost"      # DB Host
+)
+
+WORDPRESS="latest" # WordPress Version
+
+declare SSH_TUNNEL=(
+  "5555"           # Local Inbound Port
+  "127.0.0.1"      # Localhost IP
+  "3306"           # Local Outbound Port
+  "vagrant"        # Remote User
+  "192.168.33.10"  # Remote Host
+)
+
+declare MENU_MAIN=(
+  "MAIN MENU"
+  "Database Settings"
+  "SSH Settings"
+  "WordPress Version"
+  "Run Tests"
+)
+
+declare MENU_DATABASE=(
+  "DATABASE"
+  "NAME: "${DATABASE[0]}
+  "USER: "${DATABASE[1]}
+  "PASS: "${DATABASE[2]}
+  "HOST: "${DATABASE[3]}
+)
+
+declare MENU_SSH_TUNNEL=(
+  "SSH TUNNEL"
+  "Inbound Port: "${SSH_TUNNEL[0]}
+  "Localhost IP: "${SSH_TUNNEL[1]}
+  "Remote User: "${SSH_TUNNEL[2]}
+  "Remote Host: "${SSH_TUNNEL[3]}
+)
+
+# function to display menus
+show_menu() {
+  local -n MENU="$1"
+
+  clear
+  echo "--------------------------------"
+  echo " W F V   U N I T  T E S T I N G "
+  echo "--------------------------------"
+  echo "           ${MENU[0]}"
+  echo "--------------------------------"
+  echo ""
+  unset MENU[0]
+  for i in "${!MENU[@]}" ; do
+    echo "  $i. ${MENU[i]}"
+  done
+  i=$((i+1))
+  echo "  $i. Exit"
+  echo ""
+}
+
+# read input from the keyboard and take a action
+# invoke the one() when the user select 1 from the menu option.
+# invoke the two() when the user select 2 from the menu option.
+# Exit when user the user select 3 form the menu option.
+read_options(){
+  local choice
+  read -p "Enter choice [ 1 - 3] " choice
+  case $choice in
+    1) one ;;
+    2) two ;;
+    3) exit 0;;
+    *) echo -e "${RED}Error...${STD}" && sleep 2
+  esac
+}
+
+show_menu MENU_SSH_TUNNEL # MENU_DATABASE # MENU_MAIN
+read_options
