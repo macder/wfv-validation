@@ -13,8 +13,8 @@ declare DATABASE=(
 
 
 declare WORDPRESS=(
-  "4.7.3"
-  true
+  "4.7.3"          # WordPress Ver
+  true             # Create DB
 )
 
 declare SSH_TUNNEL=(
@@ -32,7 +32,6 @@ declare SSH_TUNNEL=(
 
 declare MENU_MAIN=(
   "MAIN MENU"
-  # "Database Settings"
   "SSH Tunnel For Remote DB"
   "Start WordPress Testing Instance"
   "Run Tests"
@@ -47,20 +46,12 @@ declare MENU_DATABASE=(
 
 declare MENU_SSH_TUNNEL=(
   "SSH TUNNEL"
-  # "Inbound Port: "${SSH_TUNNEL[0]}
-  # "Localhost IP: "${SSH_TUNNEL[1]}
-  # "Remote User: "${SSH_TUNNEL[2]}
-  # "Remote Host: "${SSH_TUNNEL[3]}
   "Open Tunnel: ssh "${SSH_TUNNEL[0]}":"${SSH_TUNNEL[1]}":"${SSH_TUNNEL[2]}" "${SSH_TUNNEL[3]}"@"${SSH_TUNNEL[4]}
 )
 
 declare MENU_WORDPRESS=(
   "WORDPRESS"
   "Start"
-  # ${WORDPRESS[0]}
-  # "4.7.3"
-  # "4.7.2"
-  # "Other"
 )
 
 declare MENU_TESTS=(
@@ -68,8 +59,6 @@ declare MENU_TESTS=(
   "ALL"
   "Input"
   "Form"
-  # "Errors"
-  # "Messages"
   "Validator"
 )
 
@@ -89,9 +78,6 @@ menu_main() {
   read_options $item_count
 
   case $choice in
-    # 1) menu_database ;;
-    # 2) menu_ssh ;;
-    # 3) menu_wordpress ;;
     1) menu_ssh ;;
     2) menu_wordpress ;;
     3) menu_tests ;;
@@ -105,14 +91,6 @@ menu_database() {
   CURRENT_MENU=("${MENU_DATABASE[@]}")
   show_menu CURRENT_MENU
   read_options $item_count
-
-  # case $choice in
-  #   1) ;;
-  #   2) ;;
-  #   3) ;;
-  #   4) ;;
-  #   *) echo -e "${RED}void choice${STD}" && sleep 0.1
-  # esac
 }
 
 menu_ssh() {
@@ -145,15 +123,12 @@ menu_tests() {
   CURRENT_MENU=("${MENU_TESTS[@]}")
   show_menu CURRENT_MENU
 
-  # bash lib/menu/sand.sh
   read_options $item_count
 
   case $choice in
     1) clear; bash lib/run_test.sh; pause ;;
     2) clear; bash lib/run_test.sh InputTest; pause ;;
     3) clear; bash lib/run_test.sh FormTest; pause ;;
-    # 4) clear; bash lib/run_test.sh ErrorsTest; pause ;;
-    # 5) clear; bash lib/run_test.sh MessagesTest; pause ;;
     4) clear; bash lib/run_test.sh ValidatorTest; pause ;;
     5) exit 0 ;;
     0) menu_main ;;
@@ -172,8 +147,6 @@ show_menu() {
   bash lib/menu.sh "${MENU_ITEMS[@]}"
   item_count=${#MENU_ITEMS[@]}
 }
-
-# bash lib/menu.sh "${MENU_MAIN[@]}"
 
 MENU_NAME=("MAIN MENU")
 while true
