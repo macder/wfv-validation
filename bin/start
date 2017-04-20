@@ -132,7 +132,7 @@ menu_wordpress() {
   read_options $item_count
 
   case $choice in
-    1) clear; bash ../../bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest true; pause ;;
+    1) clear; bash lib/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest true; pause ;;
     2) exit 0 ;;
     0) menu_main ;;
     *) echo -e "${RED}void choice${STD}" && sleep 0.1
@@ -147,12 +147,12 @@ menu_tests() {
   read_options $item_count
 
   case $choice in
-    1) clear; bash lib/run.sh; pause ;;
-    2) clear; bash lib/run.sh InputTest; pause ;;
-    3) clear; bash lib/run.sh FormTest; pause ;;
-    # 4) clear; bash lib/run.sh ErrorsTest; pause ;;
-    # 5) clear; bash lib/run.sh MessagesTest; pause ;;
-    4) clear; bash lib/run.sh ValidatorTest; pause ;;
+    1) clear; bash lib/run_test.sh; pause ;;
+    2) clear; bash lib/run_test.sh InputTest; pause ;;
+    3) clear; bash lib/run_test.sh FormTest; pause ;;
+    # 4) clear; bash lib/run_test.sh ErrorsTest; pause ;;
+    # 5) clear; bash lib/run_test.sh MessagesTest; pause ;;
+    4) clear; bash lib/run_test.sh ValidatorTest; pause ;;
     5) exit 0 ;;
     0) menu_main ;;
     *) echo -e "${RED}void choice${STD}" && sleep 0.1
