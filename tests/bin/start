@@ -11,7 +11,12 @@ declare DATABASE=(
   "localhost"      # DB Host
 )
 
-WORDPRESS="latest" # WordPress Version
+# WORDPRESS="latest" # WordPress Version
+
+declare WORDPRESS=(
+  "4.7.3"
+  true
+)
 
 declare SSH_TUNNEL=(
   "5555"           # Local Inbound Port
@@ -30,7 +35,7 @@ declare MENU_MAIN=(
   "MAIN MENU"
   "Database Settings"
   "SSH Tunnel For Remote DB"
-  "WordPress Version"
+  "WordPress Settings"
   "Run Tests"
 )
 
@@ -51,8 +56,10 @@ declare MENU_SSH_TUNNEL=(
 )
 
 declare MENU_WORDPRESS=(
-  "WORDPRESS VERSION"
-  "$WORDPRESS"
+  "WORDPRESS"
+  ${WORDPRESS[0]}
+  "4.7.3"
+  "4.7.2"
   "Other"
 )
 
@@ -69,11 +76,11 @@ declare MENU_TESTS=(
 RED='\033[0;41;30m'
 STD='\033[0;0;39m'
 
+#export CHOICE
 # read input from the keyboard, store it in 'choice'
 read_options(){
   items_in_menu=$(($1+1))
   read -p "Enter choice [ 1 - $items_in_menu ] " choice
-
 }
 
 menu_main() {
@@ -95,6 +102,8 @@ menu_main() {
 menu_database() {
   CURRENT_MENU=("${MENU_DATABASE[@]}")
   show_menu CURRENT_MENU
+  # bash lib/menu/sand.sh
+
   read_options $item_count
 
   case $choice in
@@ -121,35 +130,20 @@ menu_wordpress() {
 menu_tests() {
   CURRENT_MENU=("${MENU_TESTS[@]}")
   show_menu CURRENT_MENU
+
+  # bash lib/menu/sand.sh
   read_options $item_count
 }
 
 # function to display menus
 show_menu() {
   local -n MENU_ITEMS="$1"
-
-  clear
-  echo "--------------------------------"
-  echo " W F V   U N I T  T E S T I N G "
-  echo "--------------------------------"
-  echo " ${MENU_ITEMS[0]}"
-  echo "--------------------------------"
-  echo ""
-
   MENU_NAME=${MENU_ITEMS[0]}
-  unset MENU_ITEMS[0]
-
-  for index in "${!MENU_ITEMS[@]}" ; do
-    echo "  $index. ${MENU_ITEMS[index]}"
-  done
-
-  echo "  $((index+1)). Exit"
-  echo ""
-  item_count=$index
-
+  bash lib/menu.sh "${MENU_ITEMS[@]}"
+  item_count=${#MENU_ITEMS[@]}
 }
 
-
+# bash lib/menu.sh "${MENU_MAIN[@]}"
 
 MENU_NAME=("MAIN MENU")
 while true
@@ -160,8 +154,4 @@ do
     "SSH TUNNEL") menu_ssh ;;
     "UNIT TESTS") menu_tests ;;
   esac
-
-  #CURRENT_MENU=("${MENU_MAIN[@]}")
-  # show_menu CURRENT_MENU # MENU_SSH_TUNNEL MENU_DATABASE MENU_MAIN MENU_WP_VER
-
 done
