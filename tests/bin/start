@@ -1,11 +1,8 @@
 #!/bin/bash
 
-## ----------------------------------
-# Step #1: Define variables
-# ----------------------------------
-
-RED='\033[0;41;30m'
-STD='\033[0;0;39m'
+## ---------------------------------
+#  Define variables
+#  ---------------------------------
 
 declare DATABASE=(
   "wordpress_test" # DB Name
@@ -23,6 +20,10 @@ declare SSH_TUNNEL=(
   "vagrant"        # Remote User
   "192.168.33.10"  # Remote Host
 )
+
+## ---------------------------------
+#  DO NOT VARIABLES PAST THIS POINT
+#  ---------------------------------
 
 declare MENU_MAIN=(
   "MAIN MENU"
@@ -64,6 +65,9 @@ declare MENU_TESTS=(
   "Validator"
 )
 
+RED='\033[0;41;30m'
+STD='\033[0;0;39m'
+
 # read input from the keyboard, store it in 'choice'
 read_options(){
   items_in_menu=$(($1+1))
@@ -91,6 +95,14 @@ menu_database() {
   CURRENT_MENU=("${MENU_DATABASE[@]}")
   show_menu CURRENT_MENU
   read_options $item_count
+
+  case $choice in
+    1) echo -e "11111" && sleep 3;;
+    2) echo -e "22222" ;;
+    3) echo -e "33333" ;;
+    4) exit 0 ;;
+    *) echo -e "${RED}void choice${STD}" && sleep 0.1
+  esac
 }
 
 menu_ssh() {
