@@ -21,6 +21,45 @@ Testing in the context of a WordPress plugin requires some additional setup.
 
 If you are unfamiliar about the concerns using PHPunit and WordPress together, I highly recommend reading [this](https://carlalexander.ca/introduction-wordpress-unit-testing/), and [that](https://neliosoftware.com/blog/introduction-to-unit-testing-in-wordpress-phpunit/).
 
+### Interactive Setup
+The easiest way to get setup is using the interactive bash script `bin/start_tests`.
+
+**Local Parameters**
+
+Using an editor, open `bin/start_tests` and at the top of the file, put in your local config parameters for:
+
+`DATABASE`<br>
+`WORDPRESS`<br>
+`SSH_TUNNEL` *only if DB is remote, eg. Vagrant, Docker, etc.*
+
+**Start**
+
+```sh
+# From plugin root:
+$: cd bin
+$: ./start_tests
+
+```
+```sh
+--------------------------------
+ W F V   U N I T  T E S T I N G
+--------------------------------
+ MAIN MENU
+--------------------------------
+
+  1. SSH Tunnel For Remote DB
+  2. Start WordPress Testing Instance
+  3. Run Tests
+
+  4. Exit
+
+Enter choice [ 1 - 4 ]
+
+
+```
+
+### Manual Setup
+
 **Create the testing instance**
 
 ```sh
