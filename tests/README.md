@@ -37,6 +37,8 @@ Set your local parameters, you know the drill.
 **2) Start**
 
 ```sh
+#!/bin/bash
+
 # From plugin root:
 $: cd bin
 $: ./start_tests
@@ -88,25 +90,30 @@ Enter choice [ 1 - 7 ]
 
 ```
 
-
 ## Manual Setup
 
 **Create the testing instance**
 
 If database is local:
 ```sh
+#!/bin/bash
+
 # From plugin root
 $: bash bin/lib/install_wp_tests.sh wordpress_test db_user db_pass localhost latest
 ```
 
 If database is remote (Docker, Vagrant, VM) open a SSH tunnel:
 ```sh
+#!/bin/bash
+
 # e.g. from local:
 
 $: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
 ```
 
 ```sh
+#!/bin/bash
+
 # Then, in a new local terminal:
 
 $: cd ~/wp-form-validation/
@@ -119,12 +126,16 @@ $: bash bin/lib/install_wp_tests.sh wordpress_test db_user db_pass 127.0.0.1:555
 ## Manually Run Tests
 
 ```sh
+#!/bin/bash
+
 # Individual
 
 $: vendor/bin/phpunit tests/InputTest --report-useless-tests --verbose
 ```
 
 ```sh
+#!/bin/bash
+
 # Full suite
 
 $: vendor/bin/phpunit --report-useless-tests --verbose
