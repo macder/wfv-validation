@@ -30,11 +30,9 @@ It's menu driven, with the hope of making more of the process self explanatory.
 
 **1) Set Local Parameters**
 
-Using an editor, open `bin/start_tests` and at the top of the file, put in your local config parameters for:
+Rename `bin/tests_sample.conf` to `bin/tests.conf`, then open with an editor.
 
-`DATABASE`<br>
-`WORDPRESS`<br>
-`SSH_TUNNEL` *only if DB is remote, eg. Vagrant, Docker, etc.*
+Set your local parameters, you know the drill.
 
 **2) Start**
 
@@ -98,7 +96,7 @@ Enter choice [ 1 - 7 ]
 If database is local:
 ```sh
 # From plugin root
-$: bash bin/lib/install_wp_tests.sh wordpress_test root password localhost latest
+$: bash bin/lib/install_wp_tests.sh wordpress_test db_user db_pass localhost latest
 ```
 
 If database is remote (Docker, Vagrant, VM) open a SSH tunnel:
@@ -112,7 +110,7 @@ $: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
 # Then, in a new local terminal:
 
 $: cd ~/wp-form-validation/
-$: bash bin/lib/install_wp_tests.sh wordpress_test root root 127.0.0.1:5555 latest true
+$: bash bin/lib/install_wp_tests.sh wordpress_test db_user db_pass 127.0.0.1:5555 latest true
 ```
 
 [Developing Locally on WordPress with Remote Database Over SSH](https://technosailor.com/2013/03/15/tutorial-developing-locally-on-wordpress-with-remote-database-over-ssh/)
