@@ -235,8 +235,6 @@ set_prefered_menu() {
   local menu=$1
   case $menu in
     test) MENU_NAME=("UNIT TESTS") ;;
-    wp) MENU_NAME=("WORDPRESS") ;;
-    ssh) MENU_NAME=("SSH TUNNEL") ;;
     *) MENU_NAME=("MAIN MENU")
   esac
 }
@@ -250,8 +248,6 @@ while true
 do
   case $MENU_NAME in
     "MAIN MENU") menu_main ;;
-    "SSH TUNNEL") menu_ssh ;;
-    "WORDPRESS") menu_wordpress ;;
     "UNIT TESTS") menu_tests ;;
   esac
 done
