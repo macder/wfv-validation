@@ -16,7 +16,7 @@ class Input implements ValidationInterface {
    * __construct
    *
    * @since 0.8.0
-   * @since 0.9.1 Sanitize $_POST moved
+   * @since 0.9.0 Sanitize $_POST moved
    *
    */
   function __construct( $action ) {
@@ -26,10 +26,11 @@ class Input implements ValidationInterface {
     print_r($_POST);
   }
 
+
   /**
    * escape on output
    *
-   * @since 0.9.1
+   * @since 0.9.0
    *
    * @param
    * @return
@@ -44,51 +45,45 @@ class Input implements ValidationInterface {
   /**
    *
    *
-   * @since 0.9.1
+   * @since 0.9.0
    * @access private
    *
-   * @param string|array
+   * @param string|array $data
    * @param string $callback
    * @return
    */
-  private function clean( $input, $callback ) {
+  public function clean( $data, $callback ) {
 
     // function_exists ( $callback )
 
-    if( is_array( $input ) ) {
-      return $this->clean_array( $input, $callback );
+    if( is_array( $data ) ) {
+
+      return array_map( $callback, $data );
     }
-    return $callback( $input );
+    return $callback( $data );
   }
 
   /**
    *
    *
-   * @since 0.9.1
-   * @access private
-   *
-   * @param array $array
-   * @param string $callback The callback name for array_map
-   * @return array
-   */
-  private function clean_array( $array, $callback ) {
-    // if array is array check before doing...
-    return array_map( $callback, $array );
-  }
-
-  /**
-   * Remove quote backslashes incase magic quotes is on
-   *
-   * @since 0.9.1
-   * @access private
+   * @since 0.9.0
    *
    * @param array $request The POST array
    * @return array
    */
-  private function clean_request( $request ) {
-    return array_map( function( $input ) {
-      return $this->clean( $input, 'stripslashes' );
-    }, $request );
+  public function clean_array( $array, $callback ) {
+    return array_map( function( $row ) use ( $callback ) {
+
+      if( is_array( $row ) ) {
+        foreach( $row as $key => $value ) {
+          $test[$key] = $this->clean( $value, $callback );
+        }
+        return $test;
+      } else {
+        return $this->clean( $row, $callback );
+      }
+
+    }, $array );
   }
 
   /**
@@ -137,11 +132,11 @@ class Input implements ValidationInterface {
   /**
    * Set the properties
    *
-   * @since 0.9.1
+   * @since 0.9.0
    * @access private
    */
   private function set_input() {
-    $input = $this->clean_request( $_POST );
+    $input = $this->clean_array( $_POST, 'stripslashes' );
     $this->set( $input );
   }
 }
