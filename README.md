@@ -260,7 +260,20 @@ The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 $input = $my_form->input;
 ```
 
+### Render
+#### `render( string $input, string|array $callback = 'htmlspecialchars' )`
+```php
+<?php
+```
+
+### Transform
+#### `transform( string|array $value, string|array $callback )`
+```php
+<?php
+```
+
 ### Retrieve
+**Caution:** Returns the raw unescaped values from $_POST
 
 Get the input value of a field:
 ```php
