@@ -1,0 +1,350 @@
+#!/bin/bash
+#
+# Interactive menu driven testing
+
+
+#######################################
+#
+#     Settings for DB, WP, SSH
+#
+#######################################
+
+#######################################
+# Database Config
+#######################################
+declare DATABASE=(
+  "wordpress_test" # DB Name
+  "root"           # DB User
+  "root"           # DB Pass
+  "127.0.0.1:5555" # DB Host
+)
+
+#######################################
+# WordPress Version for Testing
+#######################################
+declare WORDPRESS=(
+  "latest"          # WordPress Ver
+  "true"            # Skip DB Create
+)
+
+#######################################
+# SSH Tunnel Config
+# Remote DB - eg. Docker, Vagrant, VM
+#######################################
+declare SSH_TUNNEL=(
+  "5555"           # Local Inbound Port
+  "127.0.0.1"      # Localhost IP
+  "3306"           # Local Outbound Port
+  "vagrant"        # Remote User
+  "192.168.33.10"  # Remote Host
+)
+
+#######################################
+#
+#     END - You're all setup :)
+#
+#######################################
+
+
+
+DEFAULT_COLOR='\033[0;0;39m'
+RED_BG='\033[0;41;30m'
+GREEN_FG='\033[0;32m'
+GREEN_BG='\033[1;42m'
+
+export DEFAULT_COLOR
+export RED_BG
+export GREEN_FG
+export GREEN_BG
+
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+install_wp_tests() {
+  clear
+  bash lib/install_wp_tests.sh "${DATABASE[0]}" "${DATABASE[1]}" "${DATABASE[2]}" "${DATABASE[3]}" "${WORDPRESS[0]}" "${WORDPRESS[1]}"
+
+  if [ $? -eq 0 ]; then
+    echo ""
+    echo -e "${GREEN_BG}WP-TESTS IS UP AND RUNNING${DEFAULT_COLOR}" && sleep 2
+  else
+    # echo ""
+    # echo -e "${RED_BG}WP-TESTS HAD AN ERROR.${DEFAULT_COLOR}"
+    # echo -e "${GREEN_BG}IF ERROR IS database exists YOU SHOULD BE OK${DEFAULT_COLOR}"
+    sleep 3
+  fi
+
+  MENU_NAME=("MAIN MENU")
+}
+
+#######################################
+#
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+invalid_choice() {
+  echo -e "${RED_BG}void${DEFAULT_COLOR}" && sleep 0.1
+}
+
+#######################################
+# Menu declaration for database
+# Globals:
+#   $choice
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+menu_database() {
+  local declare MENU_DATABASE=(
+    "DATABASE"
+    "NAME: "${DATABASE[0]}
+    "USER: "${DATABASE[1]}
+    "PASS: "${DATABASE[2]}
+  )
+  MENU=("${MENU_DATABASE[@]}")
+  show_menu MENU
+  read_choice $ITEM_COUNT
+}
+
+#######################################
+# Menu declaration for main
+# Globals:
+#   $choice
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+menu_main() {
+  local declare MENU_MAIN=(
+    "MAIN MENU"
+    "SSH Tunnel For Remote DB"
+    "Start WordPress Testing Instance"
+    "Run Tests"
+  )
+
+  MENU=("${MENU_MAIN[@]}")
+  show_menu MENU
+  read_choice $ITEM_COUNT
+
+  case $choice in
+    1) menu_ssh ;;
+    2) menu_wordpress ;;
+    3) menu_tests ;;
+    4) exit 0 ;;
+    *) invalid_choice
+  esac
+}
+
+#######################################
+# Menu declaration for ssh tunnel
+# Globals:
+#   $choice
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+menu_ssh() {
+  local declare MENU_SSH_TUNNEL=(
+    "SSH TUNNEL"
+    "Open Tunnel: "${SSH_TUNNEL[0]}":"${SSH_TUNNEL[1]}":"${SSH_TUNNEL[2]}" "${SSH_TUNNEL[3]}"@"${SSH_TUNNEL[4]}
+  )
+
+  MENU=("${MENU_SSH_TUNNEL[@]}")
+  show_menu MENU
+  read_choice $ITEM_COUNT
+
+  case $choice in
+    1) start_ssh_tunnel ;;
+    2) exit 0 ;;
+    0) menu_main ;;
+    *) invalid_choice
+  esac
+}
+
+#######################################
+# Menu declaration for wordpress
+# Globals:
+#   $choice
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+menu_wordpress() {
+  local declare MENU_WORDPRESS=(
+    "WORDPRESS"
+    "Start"
+  )
+
+  MENU=("${MENU_WORDPRESS[@]}")
+  show_menu MENU
+  read_choice $ITEM_COUNT
+
+  case $choice in
+    1) install_wp_tests ;;
+    2) exit 0 ;;
+    0) menu_main ;;
+    *) invalid_choice
+  esac
+}
+
+#######################################
+# Menu declaration for tests
+# Globals:
+#   $choice
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+menu_tests() {
+  local declare MENU_TESTS=(
+    "UNIT TESTS"
+    "ALL"
+    "Accessor"
+    "Input"
+    "Form"
+    "Mutator"
+    "Validator"
+  )
+
+  MENU=("${MENU_TESTS[@]}")
+  show_menu MENU
+
+  read_choice $ITEM_COUNT
+
+  case $choice in
+    1) run_test "" ;;
+    2) run_test "AccessorTest" ;;
+    3) run_test "InputTest" ;;
+    4) run_test "FormTest" ;;
+    5) run_test "MutatorTest" ;;
+    6) run_test "ValidatorTest" ;;
+    7) exit 0 ;;
+    0) menu_main ;;
+    *) invalid_choice
+  esac
+}
+
+#######################################
+# Pause until enter key is pressed
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+pause() {
+  echo ""
+  read -p "Press [Enter] key to continue..."
+}
+
+#######################################
+# Read keyboard input, store it in 'choice'
+# Globals:
+#   choice
+# Arguments:
+#   $1 items_in_menu
+# Returns:
+#   None
+#######################################
+read_choice(){
+  items_in_menu=$1
+  read -p "Enter choice [ 1 - $items_in_menu ] " choice
+}
+
+#######################################
+# Run a unit test
+# Globals:
+#
+# Arguments:
+#   $1 test_name
+# Returns:
+#   None
+#######################################
+run_test() {
+  local test_name=$1
+  clear
+  bash lib/run_test.sh $test_name
+  pause
+}
+
+#######################################
+# Display a menu
+# Globals:
+#
+# Arguments:
+#   $1 MENU_ITEMS
+# Returns:
+#   None
+#######################################
+show_menu() {
+  local -n MENU_ITEMS="$1"
+  MENU_NAME=${MENU_ITEMS[0]}
+  bash lib/menu.sh "${MENU_ITEMS[@]}"
+  ITEM_COUNT=${#MENU_ITEMS[@]}
+}
+
+#######################################
+# Start a SSH Tunnel
+# Globals:
+#
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+start_ssh_tunnel() {
+  clear
+  # ssh -f -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10
+  ssh -f -N -L ${SSH_TUNNEL[0]}:${SSH_TUNNEL[1]}:${SSH_TUNNEL[2]} ${SSH_TUNNEL[3]}@${SSH_TUNNEL[4]}
+  pause
+  MENU_NAME=("MAIN MENU")
+}
+
+#######################################
+# Determine start menu
+# Globals:
+#
+# Arguments:
+#   $1 menu
+# Returns:
+#   None
+#######################################
+set_prefered_menu() {
+  local menu=$1
+  case $menu in
+    test) MENU_NAME=("UNIT TESTS") ;;
+    wp) MENU_NAME=("WORDPRESS") ;;
+    ssh) MENU_NAME=("SSH TUNNEL") ;;
+    *) MENU_NAME=("MAIN MENU")
+  esac
+}
+
+prefer_menu=$1
+set_prefered_menu $prefer_menu
+
+while true
+do
+  case $MENU_NAME in
+    "MAIN MENU") menu_main ;;
+    "DATABASE") menu_database ;;
+    "SSH TUNNEL") menu_ssh ;;
+    "WORDPRESS") menu_wordpress ;;
+    "UNIT TESTS") menu_tests ;;
+  esac
+done
