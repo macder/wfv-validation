@@ -21,7 +21,6 @@ class Input implements ValidationInterface {
    */
   function __construct( $action ) {
     if( $this->is_submit( $action ) ) {
-      // print_r($_POST);
       $this->set_input();
     }
   }
