@@ -267,7 +267,7 @@ $input = $my_form->input;
 ```
 
 ### Transform
-#### `transform( string|array $value, string|array $callback )`
+#### `transform( string|array $input, string|array $callback )`
 ```php
 <?php
 ```
