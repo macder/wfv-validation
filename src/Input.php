@@ -31,11 +31,15 @@ class Input implements ValidationInterface {
    * @since 0.9.0
    *
    * @param string $field
-   * @param string|array $callback
-   * @return mixed
+   * @param string|array (optional) $callback
+   * @return string|null
    */
-  public function render( $field, $callback = 'htmlspecialchars' ) {
-    return ( $this->has( $field ) ) ? $this->call_func( $callback, $this->$field ) : null;
+  public function render( $input, $callback = 'htmlspecialchars' ) {
+    if( is_string( $input ) ) {
+      $input = ( $this->has( $property = $input ) ) ? $this->$property : $input;
+      return $this->call_func( $callback, $input );
+    }
+    return null;
   }
 
   /**
