@@ -14,6 +14,10 @@
 
 A working [wp-cli](http://wp-cli.org/#installing) install.
 
+Install PHPunit dependency by running `bin/lib/install_phpunit.sh`.
+
+This will `composer require` the correct package for your local PHP version. The install is isolated to the project.
+
 ## Setup
 Testing in the context of a WordPress plugin requires some additional setup.
 
