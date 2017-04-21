@@ -53,12 +53,11 @@ class Input implements ValidationInterface {
    * @param string $callback
    * @return string|array
    */
-  public function transform( $value, $callback ) {
-
-    if( is_array( $value ) ) {
-      return $this->transform_array_leafs( $value, $callback );
+  public function transform( $input, $callback ) {
+    if( is_array( $input ) ) {
+      return $this->transform_array_leafs( $input, $callback );
     }
-    return $this->call_func( $callback, $value );
+    return $this->call_func( $callback, $input );
   }
 
   /**
