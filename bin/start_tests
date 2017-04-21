@@ -52,27 +52,6 @@ invalid_choice() {
 }
 
 #######################################
-# Menu declaration for database
-# Globals:
-#   $choice
-# Arguments:
-#   None
-# Returns:
-#   None
-#######################################
-menu_database() {
-  local declare MENU_DATABASE=(
-    "DATABASE"
-    "NAME: "$DB_NAME
-    "USER: "$DB_USER
-    "PASS: "$DB_PASS
-  )
-  MENU=("${MENU_DATABASE[@]}")
-  show_menu MENU
-  read_choice $ITEM_COUNT
-}
-
-#######################################
 # Menu declaration for main
 # Globals:
 #   $choice
@@ -325,7 +304,6 @@ while true
 do
   case $MENU_NAME in
     "MAIN MENU") menu_main ;;
-    "DATABASE") menu_database ;;
     "SSH TUNNEL") menu_ssh ;;
     "WORDPRESS") menu_wordpress ;;
     "UNIT TESTS") menu_tests ;;
