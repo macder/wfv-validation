@@ -264,12 +264,21 @@ $input = $my_form->input;
 #### `render( string $input, string|array $callback = 'htmlspecialchars' )`
 ```php
 <?php
+
+echo $my_form->input->render('email');
 ```
 
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
 ```php
 <?php
+
+$colors = array('red', 'blue', 'green');
+
+$colors = $my_form->input->transform( $colors, 'strtoupper' ); // array('RED', 'BLUE', 'GREEN')
+
+
+
 ```
 
 ### Retrieve
