@@ -1,6 +1,14 @@
 # WFV Unit Testing
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
+# Table of Contents
+* [Prerequisites](#prerequisites)
+* [Setup and Testing](#setup)
+  * [Interactive](#interactive-setup)
+  * [Manual](#manual-setup)
+* [Support](#support)
+* [External Resources](#external-resources)
+
 
 ## Prerequisites
 
