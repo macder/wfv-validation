@@ -45,8 +45,37 @@ $: ./start_tests
 
 Enter choice [ 1 - 4 ]
 
+```
+
+**1. SSH Tunnel:**<br>
+Starts SSH tunnel to a remote DB host. If your DB is local, you don't need this.
+
+**2. Start wp-tests Instance**<br>
+Creates and starts the wp-test instance.
+
+**3.Run Tests**
+```sh
+--------------------------------
+ W F V   U N I T  T E S T I N G
+--------------------------------
+ UNIT TESTS
+--------------------------------
+
+  0. Back
+
+  1. ALL
+  2. Accessor
+  3. Input
+  4. Form
+  5. Mutator
+  6. Validator
+
+  7. Exit
+
+Enter choice [ 1 - 7 ]
 
 ```
+
 
 ### Manual Setup
 
