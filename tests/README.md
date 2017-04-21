@@ -90,6 +90,15 @@ Enter choice [ 1 - 7 ]
 
 ```
 
+**Skip Main Menu**
+```sh
+#!/bin/bash
+
+# Open testing menu
+$: ./start_tests test
+
+```
+
 ## Manual Setup
 
 **Create the testing instance**
