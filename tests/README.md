@@ -3,7 +3,7 @@
 
 # Table of Contents
 * [Prerequisites](#prerequisites)
-* [Setup and Testing](#setup)
+* Setup
   * [Interactive](#interactive-setup)
   * [Manual](#manual-setup)
 * [Support](#support)
@@ -18,12 +18,8 @@ Install PHPunit dependency by running `bin/lib/install_phpunit.sh`.
 
 This will `composer require` the correct package for your local PHP version. The install is isolated to the project.
 
-## Setup
-Testing in the context of a WordPress plugin requires some additional setup.
 
-If you are unfamiliar about the concerns using PHPunit and WordPress together, I highly recommend reading [this](https://carlalexander.ca/introduction-wordpress-unit-testing/), and [that](https://neliosoftware.com/blog/introduction-to-unit-testing-in-wordpress-phpunit/).
-
-### Interactive Setup
+## Interactive Setup
 The easiest way to get setup and test is using the interactive bash script `bin/start_tests`
 
 It's menu driven, with the hope of making more of the process self explanatory.
@@ -99,7 +95,7 @@ $: ./start_tests test
 
 ```
 
-### Manual Setup
+## Manual Setup
 The nuts and bolts of what `./start_tests` is doing
 
 **Create the testing instance**
