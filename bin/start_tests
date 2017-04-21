@@ -2,51 +2,6 @@
 #
 # Interactive menu driven testing
 
-
-#######################################
-#
-#     Settings for DB, WP, SSH
-#
-#######################################
-
-#######################################
-# Database Config
-#######################################
-declare DATABASE=(
-  "wordpress_test" # DB Name
-  "root"           # DB User
-  "root"           # DB Pass
-  "127.0.0.1:5555" # DB Host
-)
-
-#######################################
-# WordPress Version for Testing
-#######################################
-declare WORDPRESS=(
-  "latest"          # WordPress Ver
-  "true"            # Skip DB Create
-)
-
-#######################################
-# SSH Tunnel Config
-# Remote DB - eg. Docker, Vagrant, VM
-#######################################
-declare SSH_TUNNEL=(
-  "5555"           # Local Inbound Port
-  "127.0.0.1"      # Localhost IP
-  "3306"           # Local Outbound Port
-  "vagrant"        # Remote User
-  "192.168.33.10"  # Remote Host
-)
-
-#######################################
-#
-#     END - You're all setup :)
-#
-#######################################
-
-
-
 DEFAULT_COLOR='\033[0;0;39m'
 RED_BG='\033[0;41;30m'
 GREEN_FG='\033[0;32m'
@@ -68,7 +23,7 @@ export GREEN_BG
 #######################################
 install_wp_tests() {
   clear
-  bash lib/install_wp_tests.sh "${DATABASE[0]}" "${DATABASE[1]}" "${DATABASE[2]}" "${DATABASE[3]}" "${WORDPRESS[0]}" "${WORDPRESS[1]}"
+  bash lib/install_wp_tests.sh "$DB_NAME" "$DB_USER" "$DB_PASS" "$DB_HOST" "$WP_VERSION" "$WP_SKIP_DB"
 
   if [ $? -eq 0 ]; then
     echo ""
@@ -108,9 +63,9 @@ invalid_choice() {
 menu_database() {
   local declare MENU_DATABASE=(
     "DATABASE"
-    "NAME: "${DATABASE[0]}
-    "USER: "${DATABASE[1]}
-    "PASS: "${DATABASE[2]}
+    "NAME: "$DB_NAME
+    "USER: "$DB_USER
+    "PASS: "$DB_PASS
   )
   MENU=("${MENU_DATABASE[@]}")
   show_menu MENU
@@ -159,7 +114,7 @@ menu_main() {
 menu_ssh() {
   local declare MENU_SSH_TUNNEL=(
     "SSH TUNNEL"
-    "Open Tunnel: "${SSH_TUNNEL[0]}":"${SSH_TUNNEL[1]}":"${SSH_TUNNEL[2]}" "${SSH_TUNNEL[3]}"@"${SSH_TUNNEL[4]}
+    "Open Tunnel: "$SSH_PORT_IN":"$SSH_LOCAL_IP":"$SSH_PORT_OUT" "$SSH_REMOTE_USER"@"$SSH_REMOTE_HOST
   )
 
   MENU=("${MENU_SSH_TUNNEL[@]}")
@@ -284,6 +239,33 @@ run_test() {
 }
 
 #######################################
+#
+# Globals:
+#
+# Arguments:
+#
+# Returns:
+#   None
+#######################################
+set_config() {
+  configfile='tests.conf'
+  configfile_secured='tests_secure.conf'
+
+  # check if the file contains something we don't want
+  if egrep -q -v '^#|^[^ ]*=[^;]*' "$configfile"; then
+    echo "Config file is unclean, cleaning it..." >&2
+    # filter the original to a new file
+    egrep '^#|^[^ ]*=[^;&]*'  "$configfile" > "$configfile_secured"
+    configfile="$configfile_secured"
+  fi
+
+  # now source it, either the original or the filtered variant
+  source "$configfile_secured"
+  rm tests_secure.conf
+}
+
+
+#######################################
 # Display a menu
 # Globals:
 #
@@ -311,7 +293,7 @@ show_menu() {
 start_ssh_tunnel() {
   clear
   # ssh -f -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10
-  ssh -f -N -L ${SSH_TUNNEL[0]}:${SSH_TUNNEL[1]}:${SSH_TUNNEL[2]} ${SSH_TUNNEL[3]}@${SSH_TUNNEL[4]}
+  ssh -f -N -L $SSH_PORT_IN:$SSH_LOCAL_IP:$SSH_PORT_OUT $SSH_REMOTE_USER@$SSH_REMOTE_HOST
   pause
   MENU_NAME=("MAIN MENU")
 }
@@ -334,6 +316,8 @@ set_prefered_menu() {
     *) MENU_NAME=("MAIN MENU")
   esac
 }
+
+set_config
 
 prefer_menu=$1
 set_prefered_menu $prefer_menu
