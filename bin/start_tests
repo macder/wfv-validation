@@ -73,64 +73,10 @@ menu_main() {
   read_choice $ITEM_COUNT
 
   case $choice in
-    1) menu_ssh ;;
-    2) menu_wordpress ;;
+    1) start_ssh_tunnel ;;
+    2) install_wp_tests ;;
     3) menu_tests ;;
     4) exit 0 ;;
-    *) invalid_choice
-  esac
-}
-
-#######################################
-# Menu declaration for ssh tunnel
-# Globals:
-#   $choice
-# Arguments:
-#   None
-# Returns:
-#   None
-#######################################
-menu_ssh() {
-  local declare MENU_SSH_TUNNEL=(
-    "SSH TUNNEL"
-    "Open Tunnel: "$SSH_PORT_IN":"$SSH_LOCAL_IP":"$SSH_PORT_OUT" "$SSH_REMOTE_USER"@"$SSH_REMOTE_HOST
-  )
-
-  MENU=("${MENU_SSH_TUNNEL[@]}")
-  show_menu MENU
-  read_choice $ITEM_COUNT
-
-  case $choice in
-    1) start_ssh_tunnel ;;
-    2) exit 0 ;;
-    0) menu_main ;;
-    *) invalid_choice
-  esac
-}
-
-#######################################
-# Menu declaration for wordpress
-# Globals:
-#   $choice
-# Arguments:
-#   None
-# Returns:
-#   None
-#######################################
-menu_wordpress() {
-  local declare MENU_WORDPRESS=(
-    "WORDPRESS"
-    "Start"
-  )
-
-  MENU=("${MENU_WORDPRESS[@]}")
-  show_menu MENU
-  read_choice $ITEM_COUNT
-
-  case $choice in
-    1) install_wp_tests ;;
-    2) exit 0 ;;
-    0) menu_main ;;
     *) invalid_choice
   esac
 }
