@@ -99,7 +99,8 @@ $: ./start_tests test
 
 ```
 
-## Manual Setup
+### Manual Setup
+The nuts and bolts of what `./start_tests` is doing
 
 **Create the testing instance**
 
@@ -132,8 +133,7 @@ $: bash bin/lib/install_wp_tests.sh wordpress_test db_user db_pass 127.0.0.1:555
 [Developing Locally on WordPress with Remote Database Over SSH](https://technosailor.com/2013/03/15/tutorial-developing-locally-on-wordpress-with-remote-database-over-ssh/)
 
 
-## Manually Run Tests
-
+**Run Tests**
 ```sh
 #!/bin/bash
 
