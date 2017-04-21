@@ -68,7 +68,6 @@ export GREEN_BG
 #######################################
 install_wp_tests() {
   clear
-  echo "${DATABASE[0]}" "${DATABASE[1]}" "${DATABASE[2]}" "${DATABASE[3]}" "${WORDPRESS[0]}" "${WORDPRESS[1]}"
   bash lib/install_wp_tests.sh "${DATABASE[0]}" "${DATABASE[1]}" "${DATABASE[2]}" "${DATABASE[3]}" "${WORDPRESS[0]}" "${WORDPRESS[1]}"
 
   if [ $? -eq 0 ]; then
