@@ -264,7 +264,6 @@ set_config() {
   rm tests_secure.conf
 }
 
-
 #######################################
 # Display a menu
 # Globals:
