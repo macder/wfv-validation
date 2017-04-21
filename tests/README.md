@@ -12,9 +12,11 @@ Testing in the context of a WordPress plugin requires some additional setup.
 If you are unfamiliar about the concerns using PHPunit and WordPress together, I highly recommend reading [this](https://carlalexander.ca/introduction-wordpress-unit-testing/), and [that](https://neliosoftware.com/blog/introduction-to-unit-testing-in-wordpress-phpunit/).
 
 ### Interactive Setup
-The easiest way to get setup is using the interactive bash script `bin/start_tests`.
+The easiest way to get setup and test is using the interactive bash script `bin/start_tests`
 
-**Local Parameters**
+It's menu driven, with the hope of making more of the process self explanatory.
+
+**1) Set Local Parameters**
 
 Using an editor, open `bin/start_tests` and at the top of the file, put in your local config parameters for:
 
@@ -22,7 +24,7 @@ Using an editor, open `bin/start_tests` and at the top of the file, put in your 
 `WORDPRESS`<br>
 `SSH_TUNNEL` *only if DB is remote, eg. Vagrant, Docker, etc.*
 
-**Start**
+**2) Start**
 
 ```sh
 # From plugin root:
@@ -51,7 +53,7 @@ Enter choice [ 1 - 4 ]
 Starts SSH tunnel to a remote DB host. If your DB is local, you don't need this.
 
 **2. Start wp-tests Instance**<br>
-Creates and starts the wp-test instance.
+Creates and starts the wp-tests instance.
 
 **3.Run Tests**
 ```sh
@@ -77,16 +79,17 @@ Enter choice [ 1 - 7 ]
 ```
 
 
-### Manual Setup
+## Manual Setup
 
 **Create the testing instance**
 
+If database is local:
 ```sh
-$: cd ~/wp-form-validation/
-$: bash bin/install-wp-tests.sh wordpress_test root password localhost latest
+# From plugin root
+$: bash bin/lib/install_wp_tests.sh wordpress_test root password localhost latest
 ```
 
-If your database is inside a VM, open up a tunnel:
+If database is remote (Docker, Vagrant, VM) open a SSH tunnel:
 ```sh
 # e.g. from local:
 
@@ -97,28 +100,14 @@ $: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
 # Then, in a new local terminal:
 
 $: cd ~/wp-form-validation/
-$: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:5555 latest true
+$: bash bin/lib/install_wp_tests.sh wordpress_test root root 127.0.0.1:5555 latest true
 ```
 
 [Developing Locally on WordPress with Remote Database Over SSH](https://technosailor.com/2013/03/15/tutorial-developing-locally-on-wordpress-with-remote-database-over-ssh/)
 
 
-## Run Tests
+## Manually Run Tests
 
-### Bash Script
-*(recommended method once scripts mature)*
-
-Set the plugin root path in:
-`./tests/bin/config.local`
-
-```sh
-# Run the test suite
-
-$: cd tests/bin
-$: ./run.sh
-```
-
-### Directly
 ```sh
 # Individual
 
