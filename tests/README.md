@@ -12,7 +12,7 @@
 
 ## Prerequisites
 
-A working [wp-cli](http://wp-cli.org/#installing) install.
+A working [wp-cli](http://wp-cli.org) install.
 
 Install PHPunit dependency by running `bin/lib/install_phpunit.sh`.
 
