@@ -270,10 +270,10 @@ e.g:
 $my_form->input->name;  // Foo
 $my_form->input->email; // foo@bar.com
 ```
-> #### **Caution:** <br>
-> Input properties hold raw `$_POST` values.<br>
->
-> For output or database inserts, use `render()` or `transform()` or something to filter and/or escape input strings.<br>
+#### **Caution:**
+Input properties hold raw `$_POST` values.<br>
+
+For output or database inserts, use the `render()` or `transform()` helpers, or something to filter and/or escape input strings.<br>
 
 WFV adheres to a "filter but don't escape on input" philosophy.
 
