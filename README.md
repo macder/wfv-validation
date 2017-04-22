@@ -308,16 +308,17 @@ echo $my_form->input->render('name', 'strtoupper');  // JOHN
 
 // You can use any PHP function that returns a string
 ```
+#### Advanced usage
 
 Custom callback:
 ```php
 <?php
 
 // user entered foo@bar.com
-echo $my_form->input->render('email', 'email_domain'); // bar.com
+echo $my_form->input->render('email', 'append_to_string'); // foo@bar.com_lorem
 
-function email_domain( $email ) {
-  return substr( $email, strpos( $email, '@' ) + 1 );
+function append_to_string( $string ) {
+  return $string .'_lorem';
 }
 ```
 
