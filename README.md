@@ -256,10 +256,10 @@ Instance holding form input data as properties, and input helper methods.
 
 Available methods:
 * [render()](#render)
-* [transform()](#transform)
 * [get_array()](#get-array)
 * [has()](#has-input)
 * [contains()](#input-contains)
+* [transform()](#transform)
 
 *Plus methods from Mutator and Accessor traits*
 
@@ -313,13 +313,12 @@ echo $my_form->input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
 
 Using a native PHP callback:
 ```php
-<?php // single parameter callback
+<?php // eg. user entered <h1>John</h1>
 
-// user entered john into name field
-echo $my_form->input->render('name', 'ucfirst');     // John
-echo $my_form->input->render('name', 'strtoupper');  // JOHN
+echo $my_form->input->render('name', 'strip_tags');  // John
 
-// You can use any PHP function that returns a string
+// You can call any function that returns a string
+// For multiple parameter callbacks, see 'Advanced usage'
 ```
 #### Advanced usage
 
@@ -335,7 +334,7 @@ function append_to_string( $string ) {
 }
 ```
 
-Or with a closure:
+Closure:
 ```php
 <?php
 
@@ -357,6 +356,42 @@ echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
 function wfv_example( $value, $arg2, $arg3 ) {
   return $arg2 .'-'. $value .'-'. $arg3;
 }
+```
+
+### Get array
+#### `get_array()`
+
+Get input members as an array:
+```php
+<?php // get users input as an associative array
+
+$input = $my_form->input->get_array();
+echo $input['email']; // foo@bar.com
+```
+
+### Has input
+#### `has( string $field )`
+Check if `$field` has value, return `bool`
+
+```php
+<?php // was something entered into the email field?
+
+$my_form->input->has('email');  // true
+```
+
+### Input contains
+#### `contains( string $field, string $value )`
+Check if `$field` contains `$value`, return `bool`
+
+```php
+<?php // Did the user enter foo@bar.com into the email field?
+
+$my_form->input->contains( 'email', 'foo@bar.com');  // true
+```
+```php
+<?php // Did the user enter bar@foo.com into the email field?
+
+$my_form->input->contains( 'email', 'bar@foo.com');  // false
 ```
 
 ### Transform
@@ -435,41 +470,52 @@ Array
 )
 */
 ```
-
-### Get array
-#### `get_array()`
-
-Get input members as an array:
+#### Advanced usage
+Custom callback:
 ```php
-<?php // get users input as an associative array
+<?php
 
-$input = $my_form->input->get_array();
-echo $input['email']; // foo@bar.com
+$colors = array('red', 'blue', 'green');
+$colors = $my_form->input->transform( $colors, 'everything_green' );
+
+function everything_green( $value ) {
+  return 'GREEN';
+}
+
+print_r( $colors );
+/*
+Array
+(
+  [0] => GREEN
+  [1] => GREEN
+  [2] => GREEN
+)
+*/
 ```
 
-### Has input
-#### `has( string $field )`
-Check if `$field` has value, return `bool`
-
+Callback with multiple parameters:
 ```php
-<?php // was something entered into the email field?
+<?php // lets change red to green
 
-$my_form->input->has('email');  // true
-```
+$colors = array('red', 'blue', 'green');
+$callback = array( 'change_color', array( 'red', 'green' ) );
 
-### Input contains
-#### `contains( string $field, string $value )`
-Check if `$field` contains `$value`, return `bool`
+$colors = $my_form->input->transform( $colors, $callback );
 
-```php
-<?php // Did the user enter foo@bar.com into the email field?
+function change_color( $value, $original, $new ) {
+  return ( $value === $original ) ? $new : $value;
+}
 
-$my_form->input->contains( 'email', 'foo@bar.com');  // true
-```
-```php
-<?php // Did the user enter bar@foo.com into the email field?
+print_r( $colors );
 
-$my_form->input->contains( 'email', 'bar@foo.com');  // false
+/*
+Array
+(
+  [0] => green
+  [1] => blue
+  [2] => green
+)
+*/
 ```
 
 ## Auto Populate
