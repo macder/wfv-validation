@@ -282,13 +282,13 @@ $my_form->input->email; // foo@bar.com
 ### **Caution:**
 Input properties hold raw `$_POST` values.<br>
 
-For output to external systems make sure to encode the data to the appropriate context. If storing input to a database, make use of a WordPress API, eg. [wpdb](https://codex.wordpress.org/Class_Reference/wpdb)<br>
+For output to external systems make sure to encode the data to the appropriate context. If storing input to a database, make use of a WordPress API, eg. [wpdb](https://codex.wordpress.org/Class_Reference/wpdb).<br>
 
 WFV adheres to ***filter but don't escape on input.***
 
-The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of the gatekeeper.
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of gatekeeping.
 
-Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use would there be having a `mysqli_real_escape_string` string when you need to render it in markup?
+Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use is `mysqli_real_escape_string` it rendered in a markup template? Context dictates the encoding, validation filters.
 
 Manipulating data without context is not useful and introduces more problems than it's trying to solve. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
 
