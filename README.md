@@ -354,14 +354,12 @@ function wfv_example( $value, $arg2, $arg3 ) {
 ```php
 <?php
 
+// Proper examples coming soon, this one is a beast...
+
 // $colors = array('red', 'blue', 'green');
 
 // $colors = $my_form->input->transform( $colors, 'strtoupper' ); // array('RED', 'BLUE', 'GREEN')
-
-
-
 ```
-
 
 ### Get array
 #### `get_array()`
@@ -405,11 +403,11 @@ $my_form->input->contains( 'email', 'bar@foo.com');  // false
 
 If validation fails, these fields would populate using the submitted values:
 ```html
-<input name="email" type="text" value="<?= $my_form->input->email ?>">
+<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
 ```
 
 ```html
-<textarea name="msg"><?= $my_form->input->msg ?></textarea>
+<textarea name="msg"><?= $my_form->input->render('msg') ?></textarea>
 ```
 
 ### Checkboxes and Radio
@@ -476,7 +474,7 @@ Pre-populate a field before `$_POST`
 $my_form->input->put('email', 'foo@bar.com');
 ```
 ```html
-<input name="email" type="text" value="<?= $my_form->input->email ?>">
+<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
 ```
 
 ## Validation Errors
