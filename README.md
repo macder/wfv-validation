@@ -300,7 +300,7 @@ That being said, WFV does provide useful (perhaps powerful?) helpers to work wit
 
 ### Render
 #### `render( string $field, string|array $callback = 'htmlspecialchars' )`
-Returns the resulting string from a callback.
+Passes an input value through a callback and returns the new string.
 
 Use this method to output encoded input values, eg. in markup templates
 
@@ -363,11 +363,11 @@ function wfv_example( $value, $arg2, $arg3 ) {
 #### `transform( string|array $input, string|array $callback )`
 Transform a string or array leafs using a callback.
 
-This method is similiar to `render()`, except it can take in any string value (not just submitted input) or an array of strings.
+This method is similar to `render()`, except it can take in any string value (not just submitted input) or an array of strings.
 
-If an array is passed in as the `$input` param, this method will traverse and apply the callback to each leaf.
+If an array is passed in as the `$input` parameter, this method will traverse and apply the callback to each leaf.
 
-Transform will travese infinetly through an array's dimensions applying the callback to every leaf regardless of how deep the levels go.
+Transform will traverse infinitively through an array's dimensions applying the callback to every leaf regardless of how deep the levels go.
 
 The catch is it only transforms the leafs and DOES NOT touch the keys.
 
