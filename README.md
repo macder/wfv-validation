@@ -38,7 +38,7 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * Custom rules
 * Custom error messages
 * No escape-on-input
-* Powerful and customizable helper methods for rendering, escaping, filtering, and transforming
+* Powerful and customizable [helper methods](#user-input) for working with input data
 * Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
