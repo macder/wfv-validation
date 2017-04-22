@@ -518,6 +518,20 @@ Array
 */
 ```
 
+Closure:
+```php
+<?php // same thing as above, except using a closure
+
+$colors = array('red', 'blue', 'green');
+
+$original = 'red';
+$new = 'green';
+
+$colors = $my_form->input->transform( $colors, function( $value ) use ( $original, $new ) {
+  return ( $value === $original ) ? $new : $value;
+});
+```
+
 ## Auto Populate
 
 ### Text input
