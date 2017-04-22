@@ -260,6 +260,18 @@ The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 $input = $my_form->input;
 ```
 
+After a form submission, the input data is populated as properties. The property names will be the forms field names
+
+e.g:
+```php
+<?php
+$my_form->input->name;  // Foo
+$my_form->input->email; // foo@bar.com
+```
+> **Caution:** <br>
+> Input properties are the raw unescaped values from `$_POST`
+
+
 ### Render
 #### `render( string $input, string|array $callback = 'htmlspecialchars' )`
 Returns an escaped string from the result of the callback.
