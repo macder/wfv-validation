@@ -290,10 +290,10 @@ For more info on the subject, read ["Why escape-on-input is a bad idea"](https:/
 That being said, WFV does provide useful (perhaps powerful?) helpers to work with input data:
 
 ### Render
-#### `render( string $input, string|array $callback = 'htmlspecialchars' )`
+#### `render( string $field, string|array $callback = 'htmlspecialchars' )`
 Returns the resulting string from a callback.
 
-Use this method to output input values into markup.
+Use this method to output encoded input values, eg. in markup templates
 
 Default callback is `htmlspecialchars`:
 ```php
@@ -316,7 +316,7 @@ echo $my_form->input->render('name', 'strtoupper');  // JOHN
 
 Custom callback:
 ```php
-<?php // the most over-engineered string concatenation
+<?php // over-engineered string concatenation
 
 // user entered foo@bar.com
 echo $my_form->input->render('email', 'append_to_string'); // foo@bar.com_lorem
@@ -339,7 +339,7 @@ echo $my_form->input->render('email', function( $string ){
 
 Callback with multiple parameters:
 ```php
-<?php
+<?php // even more over-engineered string concatenation
 
 $callback = array( 'wfv_example', array( 'second', 'third' ) );
 
@@ -348,21 +348,83 @@ echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
 function wfv_example( $value, $arg2, $arg3 ) {
   return $arg2 .'-'. $value .'-'. $arg3;
 }
-
 ```
 
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
+Transform a string or array leafs using a callback.
 
-**Documentation is WIP**
+This method is similiar to `render()`, except it can take in any string value (not just submitted input) or an array of strings.
+
+If an array is passed in as the `$input` param, this method will traverse and apply the callback to each leaf.
+
+Transform will travese infinetly through an array's dimensions applying the callback to every leaf regardless of how deep the levels go.
+
+The catch is it only transforms the leafs and DOES NOT touch the keys.
+
 ```php
 <?php
 
-// Proper examples coming soon, this one is a beast...
+$colors = array('red', 'blue', 'green');
+$colors = $my_form->input->transform( $colors, 'strtoupper' );
 
-// $colors = array('red', 'blue', 'green');
+print_r( $colors );
+/*
+Array
+(
+    [0] => RED
+    [1] => BLUE
+    [2] => GREEN
+)
+*/
+```
+Multi-dimensional array:
+```php
+<?php
 
-// $colors = $my_form->input->transform( $colors, 'strtoupper' ); // array('RED', 'BLUE', 'GREEN')
+$options = array(
+  'colors' => array(
+    'red',
+    'blue',
+    'green',
+    'premium' => array(
+      'gold',
+      'silver',
+    )
+  ),
+  'shades' => array(
+    'dark',
+    'medium',
+    'light',
+  ),
+);
+
+$options = $my_form->input->transform( $options, 'strtoupper' );
+
+print_r( $options );
+/*
+Array
+(
+  [colors] => Array
+    (
+      [0] => RED
+      [1] => BLUE
+      [2] => GREEN
+      [premium] => Array
+        (
+          [0] => GOLD
+          [1] => SILVER
+        )
+    )
+
+  [shades] => Array
+    (
+      [0] => DARK
+      [1] => MEDIUM
+      [2] => LIGHT
+    )
+)
+*/
 ```
 
 ### Get array
