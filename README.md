@@ -283,7 +283,7 @@ Returns the resulting string from a callback.
 
 Use this method to output input values.
 
-Default callback is `htmlspecialchars` if none is specified:
+Default callback when none is specified is `htmlspecialchars`:
 ```php
 <?php // eg. user entered <h1>John</h1>
 
