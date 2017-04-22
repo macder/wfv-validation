@@ -69,18 +69,6 @@ class Form {
   }
 
   /**
-   * Convenience method into $this->input
-   *
-   * @since 0.8.0
-   *
-   * @param string (optional) $field Property to retrieve value from.
-   * @return class|string WFV\Input or $field string value.
-   */
-  public function input( $field = null ) {
-    return ( $field ) ? $this->input->$field : $this->input;
-  }
-
-  /**
    * TEMP - upcoming re-work
    *
    * Returns markup for required hidden fields

@@ -37,18 +37,20 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * 32 built-in [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) rules
 * Custom rules
 * Custom error messages
-* Sanitized input data
+* No escape-on-input
+* Powerful and customizable [helper methods](#user-input) for working with input data
 * Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
 * Declarative and object oriented API
-* Lightweight and [unit tested code](https://github.com/macder/wp-form-validation/tree/master/tests)
+* Lightweight - Only one dependency (WordPress aside)
+* [Unit tested core](https://github.com/macder/wp-form-validation/tree/master/tests) - More stable, quicker fixes, less bugs, more happy
 * No rendered markup
 * Developer freedom
 
 ## Basic example
 
-`functions.php` or in some plugin:
+`functions.php` or wherever:
 ```php
 <?php
 
@@ -100,7 +102,7 @@ Theme template:
 
 # Install
 
-**Minumum Requirements:**
+**Minimum Requirements:**
 * WordPress 3.7
 * PHP 5.4
 
@@ -166,7 +168,7 @@ $my_form = array(
     'email'     => ['required', 'email']
   ),
 
-  // override an error msg
+  // override an error message
   'messages' => [
     'email' => array(
       'required' => 'No email, no reply... get it?'
@@ -224,9 +226,9 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 
 ## Create the validation instance
 ### `wfv_create( array $form )`
-Send `array $form` to the `WFV\Factory\ValidationFactory` to create an instance of `WFV\Validator`
+Creates an instance of 'WFV\Validator' and assigns it by reference to array parameter.
 
-The instance is assigned by reference:
+Example:
 ```php
 <?php
 // $my_form becomes an instance of WFV\Validator
@@ -250,7 +252,16 @@ Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/
 
 ## User input
 ### `WFV\Input`
-Class instance that holds the form input data as properties.
+Instance holding form input data as properties, and input helper methods.
+
+Available methods:
+* [render()](#render)
+* [get_array()](#get-array)
+* [has()](#has-input)
+* [contains()](#input-contains)
+* [transform()](#transform)
+
+*Plus methods from Mutator and Accessor traits*
 
 The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 
@@ -260,17 +271,97 @@ The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 $input = $my_form->input;
 ```
 
-### Retrieve
+After a form submission, the input data is populated as properties. The property names will be the forms field names
 
-Get the input value of a field:
+e.g:
 ```php
-<?php // output the value the user entered into the email field
+<?php
+$my_form->input->name;  // Foo
+$my_form->input->email; // foo@bar.com
+```
+### **Caution:**
+Input properties hold raw `$_POST` values.<br>
 
-echo $my_form->input->email; // foo@bar.com
+For output to external systems make sure to encode the data to the appropriate context. If storing input to a database, make use of a WordPress API, eg. [wpdb](https://codex.wordpress.org/Class_Reference/wpdb).<br>
 
+WFV adheres to ***filter but don't escape on input.***
+
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of gate keeping.
+
+Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use is `mysqli_real_escape_string` when rendered in a markup template? Context dictates the encoding, validation filters.
+
+Manipulating data without context is not useful and introduces more problems than it's trying to solve. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
+
+For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
+
+**Note:** WFV strips magic quotes if they're enabled in the environment. You're welcome.
+
+That being said, WFV does provide useful (perhaps powerful?) helpers to work with input data:
+
+### Render
+#### `render( string $field, string|array $callback = 'htmlspecialchars' )`
+Passes an input value through a callback and returns the new string.
+
+Use this method to output encoded input values, eg. in markup templates
+
+Default callback is `htmlspecialchars`:
+```php
+<?php // eg. user entered <h1>John</h1>
+
+echo $my_form->input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
 ```
 
-Get input as an array:
+Using a native PHP callback:
+```php
+<?php // eg. user entered <h1>John</h1>
+
+echo $my_form->input->render('name', 'strip_tags');  // John
+
+// You can call any function that returns a string
+// For multiple parameter callbacks, see 'Advanced usage'
+```
+#### Advanced usage
+
+Custom callback:
+```php
+<?php // over-engineered string concatenation
+
+// user entered foo@bar.com
+echo $my_form->input->render('email', 'append_to_string'); // foo@bar.com_lorem
+
+function append_to_string( $string ) {
+  return $string .'_lorem';
+}
+```
+
+Closure:
+```php
+<?php
+
+echo $my_form->input->render('email', function( $string ){
+  return $string .'_lorem';
+});
+
+// foo@bar.com_lorem
+```
+
+Callback with multiple parameters:
+```php
+<?php // even more over-engineered string concatenation
+
+$callback = array( 'wfv_example', array( 'second', 'third' ) );
+
+echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
+
+function wfv_example( $value, $arg2, $arg3 ) {
+  return $arg2 .'-'. $value .'-'. $arg3;
+}
+```
+
+### Get array
+#### `get_array()`
+
+Get input members as an array:
 ```php
 <?php // get users input as an associative array
 
@@ -301,6 +392,144 @@ $my_form->input->contains( 'email', 'foo@bar.com');  // true
 <?php // Did the user enter bar@foo.com into the email field?
 
 $my_form->input->contains( 'email', 'bar@foo.com');  // false
+```
+
+### Transform
+#### `transform( string|array $input, string|array $callback )`
+Transform a string or array leafs using a callback.
+
+This method is similar to `render()`, except it can take in any string value (not just submitted input) or an array of strings.
+
+If an array is passed in as the `$input` parameter, this method will traverse and apply the callback to each leaf.
+
+Transform will traverse infinitively through an array's dimensions applying the callback to every leaf regardless of how deep the levels go.
+
+The catch is it only transforms the leafs and DOES NOT touch the keys.
+
+```php
+<?php
+
+$colors = array('red', 'blue', 'green');
+$colors = $my_form->input->transform( $colors, 'strtoupper' );
+
+print_r( $colors );
+/*
+Array
+(
+    [0] => RED
+    [1] => BLUE
+    [2] => GREEN
+)
+*/
+```
+Multi-dimensional array:
+```php
+<?php
+
+$options = array(
+  'colors' => array(
+    'red',
+    'blue',
+    'green',
+    'premium' => array(
+      'gold',
+      'silver',
+    )
+  ),
+  'shades' => array(
+    'dark',
+    'medium',
+    'light',
+  ),
+);
+
+$options = $my_form->input->transform( $options, 'strtoupper' );
+
+print_r( $options );
+/*
+Array
+(
+  [colors] => Array
+    (
+      [0] => RED
+      [1] => BLUE
+      [2] => GREEN
+      [premium] => Array
+        (
+          [0] => GOLD
+          [1] => SILVER
+        )
+    )
+
+  [shades] => Array
+    (
+      [0] => DARK
+      [1] => MEDIUM
+      [2] => LIGHT
+    )
+)
+*/
+```
+#### Advanced usage
+Custom callback:
+```php
+<?php
+
+$colors = array('red', 'blue', 'green');
+$colors = $my_form->input->transform( $colors, 'everything_green' );
+
+function everything_green( $value ) {
+  return 'GREEN';
+}
+
+print_r( $colors );
+/*
+Array
+(
+  [0] => GREEN
+  [1] => GREEN
+  [2] => GREEN
+)
+*/
+```
+
+Callback with multiple parameters:
+```php
+<?php // lets change red to green
+
+$colors = array('red', 'blue', 'green');
+$callback = array( 'change_color', array( 'red', 'green' ) );
+
+$colors = $my_form->input->transform( $colors, $callback );
+
+function change_color( $value, $original, $new ) {
+  return ( $value === $original ) ? $new : $value;
+}
+
+print_r( $colors );
+
+/*
+Array
+(
+  [0] => green
+  [1] => blue
+  [2] => green
+)
+*/
+```
+
+Closure:
+```php
+<?php // same thing as above, except using a closure
+
+$colors = array('red', 'blue', 'green');
+
+$original = 'red';
+$new = 'green';
+
+$colors = $my_form->input->transform( $colors, function( $value ) use ( $original, $new ) {
+  return ( $value === $original ) ? $new : $value;
+});
 ```
 
 ## Auto Populate
