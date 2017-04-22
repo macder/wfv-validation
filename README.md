@@ -275,9 +275,11 @@ Input properties hold raw `$_POST` values.<br>
 
 For output or database inserts, use the `render()` or `transform()` helpers, or something to escape/encode input strings.<br>
 
-WFV adheres to the ***filter but don't escape on input*** philosophy.
+WFV adheres to ***filter but don't escape on input.***
 
-The responsibility of form validation is filtering input as defined by a set of rules and constraints. Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use would there be having a `mysqli_real_escape_string` string when you need to render it in markup?
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of the gatekeeper.
+
+Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use would there be having a `mysqli_real_escape_string` string when you need to render it in markup?
 
 Manipulating data without context is not useful and introduces more problems than it's trying to solve. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
 
@@ -291,22 +293,28 @@ That being said, WFV does provide useful (perhaps powerful?) helpers to work wit
 #### `render( string $input, string|array $callback = 'htmlspecialchars' )`
 Returns the resulting string from a callback.
 
-Use this method to output input values.
+Use this method to output input values into markup.
 
 Default callback is `htmlspecialchars`:
 ```php
 <?php // eg. user entered <h1>John</h1>
 
-echo $my_form->input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
+$input = $my_form->input;
+echo $input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
+
+// or chain
+echo $my_form->input->render('name');
 ```
 
 Using a native PHP callback:
 ```php
 <?php // single parameter callback
 
+$input = $my_form->input;
+
 // user entered john into name field
-echo $my_form->input->render('name', 'ucfirst');     // John
-echo $my_form->input->render('name', 'strtoupper');  // JOHN
+echo $input->render('name', 'ucfirst');     // John
+echo $input->render('name', 'strtoupper');  // JOHN
 
 // You can use any PHP function that returns a string
 ```
@@ -316,8 +324,10 @@ Custom callback:
 ```php
 <?php
 
+$input = $my_form->input;
+
 // user entered foo@bar.com
-echo $my_form->input->render('email', 'append_to_string'); // foo@bar.com_lorem
+echo $input->render('email', 'append_to_string'); // foo@bar.com_lorem
 
 function append_to_string( $string ) {
   return $string .'_lorem';
@@ -328,7 +338,9 @@ Or with a closure:
 ```php
 <?php
 
-echo $my_form->input->render('email', function( $string ){
+$input = $my_form->input;
+
+echo $input->render('email', function( $string ){
   return $string .'_lorem';
 });
 
