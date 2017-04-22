@@ -16,79 +16,87 @@ class Input implements ValidationInterface {
    * __construct
    *
    * @since 0.8.0
-   * @since 0.9.1 Sanitize $_POST moved
+   * @since 0.9.0 Sanitize $_POST moved
    *
    */
   function __construct( $action ) {
     if( $this->is_submit( $action ) ) {
       $this->set_input();
     }
-    print_r($_POST);
   }
 
   /**
-   * escape on output
    *
-   * @since 0.9.1
    *
-   * @param
-   * @return
+   * @since 0.9.0
+   *
+   * @param string $field
+   * @param string|array (optional) $callback
+   * @return string|null
    */
-  public function get( $field, $html = true ) {
-    if ( $this->has( $field ) ) {
-      return ( true === $html ) ? htmlspecialchars( $this->$field ) : $this->$field;
+  public function render( $field, $callback = 'htmlspecialchars' ) {
+    if( is_string( $field ) ) {
+      return ( $this->has( $field ) ) ? $this->call_func( $callback, $this->$field ) : null;
     }
     return null;
   }
 
   /**
+   * Transform a string or array leafs using a callback.
+   * When $value is an array, only the leafs (no keys) are transformed.
+   * Infinite array traversal.
    *
+   * @since 0.9.0
    *
-   * @since 0.9.1
+   * @param string|array $value
+   * @param string $callback
+   * @return string|array
+   */
+  public function transform( $input, $callback ) {
+    if( is_array( $input ) ) {
+      return $this->transform_array_leafs( $input, $callback );
+    }
+    return $this->call_func( $callback, $input );
+  }
+
+  /**
+   * Trigger a callback function
+   *
+   * @since 0.9.0
    * @access private
    *
-   * @param string|array
-   * @param string $callback
+   * @param string|array $callback
+   * @param string (optional) $input The input string
    * @return
    */
-  private function clean( $input, $callback ) {
+  private function call_func( $callback, $input = null ) {
+    if( is_array( $callback ) ) {
+      $method = $callback[0];
+      $args = $callback[1];
 
-    // function_exists ( $callback )
-
-    if( is_array( $input ) ) {
-      return $this->clean_array( $input, $callback );
+      if ( $input ) {
+        array_unshift( $args, $input );
+      }
+      return call_user_func_array( $method, $args );
     }
     return $callback( $input );
   }
 
   /**
+   * Transform the $array leafs, traversing infinite dimensions
    *
-   *
-   * @since 0.9.1
+   * @since 0.9.0
    * @access private
    *
    * @param array $array
-   * @param string $callback The callback name for array_map
+   * @param string|array $callback
    * @return array
    */
-  private function clean_array( $array, $callback ) {
-    // if array is array check before doing...
-    return array_map( $callback, $array );
-  }
-
-  /**
-   * Remove quote backslashes incase magic quotes is on
-   *
-   * @since 0.9.1
-   * @access private
-   *
-   * @param array $request The POST array
-   * @return array
-   */
-  private function clean_request( $request ) {
-    return array_map( function( $input ) {
-      return $this->clean( $input, 'stripslashes' );
-    }, $request );
+  private function transform_array_leafs( $array, $callback ) {
+    array_walk_recursive( $array, function( &$item, $key ) use( $callback ) {
+      $item = $this->call_func( $callback, $item );
+    } );
+    return $array;
   }
 
   /**
@@ -137,11 +145,11 @@ class Input implements ValidationInterface {
   /**
    * Set the properties
    *
-   * @since 0.9.1
+   * @since 0.9.0
    * @access private
    */
   private function set_input() {
-    $input = $this->clean_request( $_POST );
+    $input = $this->transform_array_leafs( $_POST, 'stripslashes' );
     $this->set( $input );
   }
 }
