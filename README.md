@@ -301,7 +301,20 @@ echo $my_form->input->render('name', 'strtoupper');  // JOHN
 // You can use any PHP function that returns a string
 ```
 
+Custom callback:
+```php
+<?php
 
+// user entered foo@bar.com
+$email_domain = $my_form->input->render('email', 'email_domain');
+
+echo $email_domain; // bar.com
+
+function email_domain( $email ) {
+  $domain = substr( $email, strpos( $email, '@' ) + 1 );
+  return $domain;
+}
+```
 
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
