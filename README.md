@@ -326,11 +326,11 @@ Or with a closure:
 ```php
 <?php
 
-echo $my_form->input->render('email', function( $email ){
-  return substr( $email, strpos( $email, '@' ) + 1 );
+echo $my_form->input->render('email', function( $string ){
+  return $string .'_lorem';
 });
 
-// bar.com
+// foo@bar.com_lorem
 ```
 
 Callback with multiple parameters:
