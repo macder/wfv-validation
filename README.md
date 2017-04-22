@@ -306,13 +306,10 @@ Custom callback:
 <?php
 
 // user entered foo@bar.com
-$email_domain = $my_form->input->render('email', 'email_domain');
-
-echo $email_domain; // bar.com
+echo $my_form->input->render('email', 'email_domain'); // bar.com
 
 function email_domain( $email ) {
-  $domain = substr( $email, strpos( $email, '@' ) + 1 );
-  return $domain;
+  return substr( $email, strpos( $email, '@' ) + 1 );
 }
 ```
 
