@@ -69,26 +69,6 @@ class Form {
   }
 
   /**
-   * Get unescaped input value
-   * Do not use this for db inserts
-   * Useful to populate forms, solves the backlash issue
-   *
-   * @since 0.8.0
-   *
-   * @param string $field Property to retrieve value from.
-   * @return string|null
-   */
-  public function input( $field, $html = true ) {
-    // echo $this->input->$field ;
-    if ( true === $html ) {
-      return ( $this->input->has( $field ) ) ? htmlspecialchars( $this->input->$field ) : null;
-    }
-    else {
-      return ( $this->input->has( $field ) ) ? $this->input->$field : null;
-    }
-  }
-
-  /**
    * TEMP - upcoming re-work
    *
    * Returns markup for required hidden fields
