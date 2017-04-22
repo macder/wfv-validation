@@ -254,6 +254,15 @@ Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/
 ### `WFV\Input`
 Instance holding form input data as properties, and input helper methods.
 
+Available methods:
+* [render()](#render)
+* [transform()](#transform)
+* [get_array()](#get-array)
+* [has()](#has)
+* [contains()](#contains)
+
+*Plus methods from Mutator and Accessor traits*
+
 The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 
 ```php
