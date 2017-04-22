@@ -277,7 +277,7 @@ For output or database inserts, use the `render()` or `transform()` helpers, or 
 
 WFV adheres to a "filter but don't escape on input" philosophy.
 
-The responsibility of form validation is filtering input as defined by a set of rules and constraints. Encoding data should be done at runtime when some context requires it, e.g output to external systems - database, API endpoint, etc.
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Encoding should be done during runtime when some context requires it, e.g output to external systems - database, API endpoint, etc.
 
 Manipulating data without context is not useful and introduces more problems than it solves. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
 
