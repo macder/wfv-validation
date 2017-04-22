@@ -361,18 +361,11 @@ function wfv_example( $value, $arg2, $arg3 ) {
 
 ```
 
-### Retrieve
-**Caution:** Returns the raw unescaped values from $_POST
 
-Get the input value of a field:
-```php
-<?php // output the value the user entered into the email field
+### Get array
+#### `get_array()`
 
-echo $my_form->input->email; // foo@bar.com
-
-```
-
-Get input as an array:
+Get input members as an array:
 ```php
 <?php // get users input as an associative array
 
