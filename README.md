@@ -272,7 +272,7 @@ $my_form->input->email; // foo@bar.com
 > Input properties are raw unescaped values from `$_POST`<br>
 > For output or database inserts, use `render()` or `transform()` or something to sanitize or escape the strings.<br>
 
-> WFV adheres to "no-escape-on-input" and will only manipulate data values when it is directed to do so.<br>
+> WFV adheres to a "no-escape-on-input" philosophy. Manipulating data without context is not useful.<br>
 > For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
 
 
