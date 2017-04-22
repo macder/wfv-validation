@@ -349,7 +349,7 @@ function wfv_example( $value, $arg2, $arg3 ) {
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
 
-**WIP doc**
+**Documentation is WIP**
 ```php
 <?php
 
