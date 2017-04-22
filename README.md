@@ -16,7 +16,7 @@ WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight library w
 
 For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
-*WFV is the cumulative result from 5yrs+ experience with making secure and high volume web forms for blue chip brands and the public sector.*
+*WFV is the cumulative result from 5yrs+ of experience making secure and high volume web forms for blue chip and public sector organizations.*
 
 
 # Table of Contents
