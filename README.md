@@ -324,6 +324,19 @@ echo $my_form->input->render('email', function( $email ){
 // bar.com
 ```
 
+Callback with multiple parameters:
+```php
+<?php
+
+$callback = array( 'wfv_example', array( 'second', 'third' ) );
+
+echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
+
+function wfv_example( $value, $arg2, $arg3 ) {
+  return $arg2 .'-'. $value .'-'. $arg3;
+}
+
+```
 
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
