@@ -283,7 +283,7 @@ Manipulating data without context is not useful and introduces more problems tha
 
 For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
 
-**Note:** WFV does strip magic quotes if it is enabled in the environment. You're welcome.
+**Note:** WFV strips magic quotes if it is enabled in the environment. You're welcome.
 
 That being said, WFV does provide useful (perhaps powerful?) helpers to work with input data:
 
