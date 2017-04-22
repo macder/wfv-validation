@@ -269,12 +269,15 @@ $my_form->input->name;  // Foo
 $my_form->input->email; // foo@bar.com
 ```
 > **Caution:** <br>
-> Input properties are raw unescaped values from `$_POST`<br>
+> Input properties hold raw `$_POST` values.<br>
+>
 > For output or database inserts, use `render()` or `transform()` or something to filter and/or escape input strings.<br>
 
-> WFV adheres to a "no-escape-on-input" philosophy.<br>
-> Manipulating data without context is not useful and introduces more problems than it solves.<br>
-> For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
+WFV adheres to a "no-escape-on-input" philosophy.
+
+Manipulating data without context is not useful and introduces more problems than it solves.
+
+For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
 
 
 ### Render
@@ -283,7 +286,7 @@ Returns the resulting string from a callback.
 
 Use this method to output input values.
 
-Default callback when none is specified is `htmlspecialchars`:
+Default callback is `htmlspecialchars`:
 ```php
 <?php // eg. user entered <h1>John</h1>
 
