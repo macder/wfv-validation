@@ -282,7 +282,7 @@ $my_form->input->email; // foo@bar.com
 ### **Caution:**
 Input properties hold raw `$_POST` values.<br>
 
-For output or database inserts, use the `render()` or `transform()` helpers, or something to escape/encode input strings.<br>
+For output to external systems make sure to encode the data to the appropriate context. If storing input to a database, make use of a WordPress API, eg. [wpdb](https://codex.wordpress.org/Class_Reference/wpdb)<br>
 
 WFV adheres to ***filter but don't escape on input.***
 
