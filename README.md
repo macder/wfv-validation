@@ -262,11 +262,27 @@ $input = $my_form->input;
 
 ### Render
 #### `render( string $input, string|array $callback = 'htmlspecialchars' )`
-```php
-<?php
+Returns an escaped string from the result of the callback.
 
-echo $my_form->input->render('email');
+Default $callback is `htmlspecialchars` if none is specified:
+```php
+<?php // eg. user entered <h1>John</h1>
+
+echo $my_form->input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
 ```
+
+Using a native PHP callback:
+```php
+<?php // single parameter callback
+
+// user entered john into name field
+echo $my_form->input->render('name', 'ucfirst');     // John
+echo $my_form->input->render('name', 'strtoupper');  // JOHN
+
+// You can use any PHP function that returns a string
+```
+
+
 
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
