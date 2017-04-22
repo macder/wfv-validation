@@ -270,17 +270,20 @@ e.g:
 $my_form->input->name;  // Foo
 $my_form->input->email; // foo@bar.com
 ```
-> **Caution:** <br>
+> #### **Caution:** <br>
 > Input properties hold raw `$_POST` values.<br>
 >
 > For output or database inserts, use `render()` or `transform()` or something to filter and/or escape input strings.<br>
 
-WFV adheres to a "no-escape-on-input" philosophy.
+WFV adheres to a "filter but don't escape on input" philosophy.
+
+The responsibility of form validation is filtering input as defined by a set of rules and constraints.
 
 Manipulating data without context is not useful and introduces more problems than it solves.
 
 For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
 
+That being said, WFV does provide useful helpers to work with input data:
 
 ### Render
 #### `render( string $input, string|array $callback = 'htmlspecialchars' )`
