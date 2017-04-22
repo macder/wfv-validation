@@ -299,22 +299,16 @@ Default callback is `htmlspecialchars`:
 ```php
 <?php // eg. user entered <h1>John</h1>
 
-$input = $my_form->input;
-echo $input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
-
-// or chain
-echo $my_form->input->render('name');
+echo $my_form->input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
 ```
 
 Using a native PHP callback:
 ```php
 <?php // single parameter callback
 
-$input = $my_form->input;
-
 // user entered john into name field
-echo $input->render('name', 'ucfirst');     // John
-echo $input->render('name', 'strtoupper');  // JOHN
+echo $my_form->input->render('name', 'ucfirst');     // John
+echo $my_form->input->render('name', 'strtoupper');  // JOHN
 
 // You can use any PHP function that returns a string
 ```
@@ -322,12 +316,10 @@ echo $input->render('name', 'strtoupper');  // JOHN
 
 Custom callback:
 ```php
-<?php
-
-$input = $my_form->input;
+<?php // the most over-engineered string concatenation
 
 // user entered foo@bar.com
-echo $input->render('email', 'append_to_string'); // foo@bar.com_lorem
+echo $my_form->input->render('email', 'append_to_string'); // foo@bar.com_lorem
 
 function append_to_string( $string ) {
   return $string .'_lorem';
@@ -338,9 +330,7 @@ Or with a closure:
 ```php
 <?php
 
-$input = $my_form->input;
-
-echo $input->render('email', function( $string ){
+echo $my_form->input->render('email', function( $string ){
   return $string .'_lorem';
 });
 
