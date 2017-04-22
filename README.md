@@ -538,11 +538,11 @@ $colors = $my_form->input->transform( $colors, function( $value ) use ( $origina
 
 If validation fails, these fields would populate using the submitted values:
 ```html
-<input name="email" type="text" value="<?= $my_form->input->email ?>">
+<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
 ```
 
 ```html
-<textarea name="msg"><?= $my_form->input->msg ?></textarea>
+<textarea name="msg"><?= $my_form->input->render('msg') ?></textarea>
 ```
 
 ### Checkboxes and Radio
@@ -609,7 +609,7 @@ Pre-populate a field before `$_POST`
 $my_form->input->put('email', 'foo@bar.com');
 ```
 ```html
-<input name="email" type="text" value="<?= $my_form->input->email ?>">
+<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
 ```
 
 ## Validation Errors
