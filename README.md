@@ -38,7 +38,7 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * Custom rules
 * Custom error messages
 * No escape-on-input
-* Powerful and customizable helper methods for rendering, escaping, filtering, and transforming
+* Powerful and customizable [helper methods](#user-input) for working with input data
 * Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
@@ -102,7 +102,7 @@ Theme template:
 
 # Install
 
-**Minumum Requirements:**
+**Minimum Requirements:**
 * WordPress 3.7
 * PHP 5.4
 
@@ -168,7 +168,7 @@ $my_form = array(
     'email'     => ['required', 'email']
   ),
 
-  // override an error msg
+  // override an error message
   'messages' => [
     'email' => array(
       'required' => 'No email, no reply... get it?'
@@ -226,9 +226,9 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 
 ## Create the validation instance
 ### `wfv_create( array $form )`
-Send `array $form` to the `WFV\Factory\ValidationFactory` to create an instance of `WFV\Validator`
+Creates an instance of 'WFV\Validator' and assigns it by reference to array parameter.
 
-The instance is assigned by reference:
+Example:
 ```php
 <?php
 // $my_form becomes an instance of WFV\Validator
@@ -254,6 +254,15 @@ Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/
 ### `WFV\Input`
 Instance holding form input data as properties, and input helper methods.
 
+Available methods:
+* [render()](#render)
+* [get_array()](#get-array)
+* [has()](#has-input)
+* [contains()](#input-contains)
+* [transform()](#transform)
+
+*Plus methods from Mutator and Accessor traits*
+
 The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 
 ```php
@@ -273,13 +282,13 @@ $my_form->input->email; // foo@bar.com
 ### **Caution:**
 Input properties hold raw `$_POST` values.<br>
 
-For output or database inserts, use the `render()` or `transform()` helpers, or something to escape/encode input strings.<br>
+For output to external systems make sure to encode the data to the appropriate context. If storing input to a database, make use of a WordPress API, eg. [wpdb](https://codex.wordpress.org/Class_Reference/wpdb).<br>
 
 WFV adheres to ***filter but don't escape on input.***
 
-The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of the gatekeeper.
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of gate keeping.
 
-Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use would there be having a `mysqli_real_escape_string` string when you need to render it in markup?
+Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use is `mysqli_real_escape_string` when rendered in a markup template? Context dictates the encoding, validation filters.
 
 Manipulating data without context is not useful and introduces more problems than it's trying to solve. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
 
@@ -290,10 +299,10 @@ For more info on the subject, read ["Why escape-on-input is a bad idea"](https:/
 That being said, WFV does provide useful (perhaps powerful?) helpers to work with input data:
 
 ### Render
-#### `render( string $input, string|array $callback = 'htmlspecialchars' )`
-Returns the resulting string from a callback.
+#### `render( string $field, string|array $callback = 'htmlspecialchars' )`
+Passes an input value through a callback and returns the new string.
 
-Use this method to output input values into markup.
+Use this method to output encoded input values, eg. in markup templates
 
 Default callback is `htmlspecialchars`:
 ```php
@@ -304,19 +313,18 @@ echo $my_form->input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
 
 Using a native PHP callback:
 ```php
-<?php // single parameter callback
+<?php // eg. user entered <h1>John</h1>
 
-// user entered john into name field
-echo $my_form->input->render('name', 'ucfirst');     // John
-echo $my_form->input->render('name', 'strtoupper');  // JOHN
+echo $my_form->input->render('name', 'strip_tags');  // John
 
-// You can use any PHP function that returns a string
+// You can call any function that returns a string
+// For multiple parameter callbacks, see 'Advanced usage'
 ```
 #### Advanced usage
 
 Custom callback:
 ```php
-<?php // the most over-engineered string concatenation
+<?php // over-engineered string concatenation
 
 // user entered foo@bar.com
 echo $my_form->input->render('email', 'append_to_string'); // foo@bar.com_lorem
@@ -326,7 +334,7 @@ function append_to_string( $string ) {
 }
 ```
 
-Or with a closure:
+Closure:
 ```php
 <?php
 
@@ -339,7 +347,7 @@ echo $my_form->input->render('email', function( $string ){
 
 Callback with multiple parameters:
 ```php
-<?php
+<?php // even more over-engineered string concatenation
 
 $callback = array( 'wfv_example', array( 'second', 'third' ) );
 
@@ -348,21 +356,6 @@ echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
 function wfv_example( $value, $arg2, $arg3 ) {
   return $arg2 .'-'. $value .'-'. $arg3;
 }
-
-```
-
-### Transform
-#### `transform( string|array $input, string|array $callback )`
-
-**Documentation is WIP**
-```php
-<?php
-
-// Proper examples coming soon, this one is a beast...
-
-// $colors = array('red', 'blue', 'green');
-
-// $colors = $my_form->input->transform( $colors, 'strtoupper' ); // array('RED', 'BLUE', 'GREEN')
 ```
 
 ### Get array
@@ -401,17 +394,155 @@ $my_form->input->contains( 'email', 'foo@bar.com');  // true
 $my_form->input->contains( 'email', 'bar@foo.com');  // false
 ```
 
+### Transform
+#### `transform( string|array $input, string|array $callback )`
+Transform a string or array leafs using a callback.
+
+This method is similar to `render()`, except it can take in any string value (not just submitted input) or an array of strings.
+
+If an array is passed in as the `$input` parameter, this method will traverse and apply the callback to each leaf.
+
+Transform will traverse infinitively through an array's dimensions applying the callback to every leaf regardless of how deep the levels go.
+
+The catch is it only transforms the leafs and DOES NOT touch the keys.
+
+```php
+<?php
+
+$colors = array('red', 'blue', 'green');
+$colors = $my_form->input->transform( $colors, 'strtoupper' );
+
+print_r( $colors );
+/*
+Array
+(
+    [0] => RED
+    [1] => BLUE
+    [2] => GREEN
+)
+*/
+```
+Multi-dimensional array:
+```php
+<?php
+
+$options = array(
+  'colors' => array(
+    'red',
+    'blue',
+    'green',
+    'premium' => array(
+      'gold',
+      'silver',
+    )
+  ),
+  'shades' => array(
+    'dark',
+    'medium',
+    'light',
+  ),
+);
+
+$options = $my_form->input->transform( $options, 'strtoupper' );
+
+print_r( $options );
+/*
+Array
+(
+  [colors] => Array
+    (
+      [0] => RED
+      [1] => BLUE
+      [2] => GREEN
+      [premium] => Array
+        (
+          [0] => GOLD
+          [1] => SILVER
+        )
+    )
+
+  [shades] => Array
+    (
+      [0] => DARK
+      [1] => MEDIUM
+      [2] => LIGHT
+    )
+)
+*/
+```
+#### Advanced usage
+Custom callback:
+```php
+<?php
+
+$colors = array('red', 'blue', 'green');
+$colors = $my_form->input->transform( $colors, 'everything_green' );
+
+function everything_green( $value ) {
+  return 'GREEN';
+}
+
+print_r( $colors );
+/*
+Array
+(
+  [0] => GREEN
+  [1] => GREEN
+  [2] => GREEN
+)
+*/
+```
+
+Callback with multiple parameters:
+```php
+<?php // lets change red to green
+
+$colors = array('red', 'blue', 'green');
+$callback = array( 'change_color', array( 'red', 'green' ) );
+
+$colors = $my_form->input->transform( $colors, $callback );
+
+function change_color( $value, $original, $new ) {
+  return ( $value === $original ) ? $new : $value;
+}
+
+print_r( $colors );
+
+/*
+Array
+(
+  [0] => green
+  [1] => blue
+  [2] => green
+)
+*/
+```
+
+Closure:
+```php
+<?php // same thing as above, except using a closure
+
+$colors = array('red', 'blue', 'green');
+
+$original = 'red';
+$new = 'green';
+
+$colors = $my_form->input->transform( $colors, function( $value ) use ( $original, $new ) {
+  return ( $value === $original ) ? $new : $value;
+});
+```
+
 ## Auto Populate
 
 ### Text input
 
 If validation fails, these fields would populate using the submitted values:
 ```html
-<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
+<input name="email" type="text" value="<?= $my_form->input->email ?>">
 ```
 
 ```html
-<textarea name="msg"><?= $my_form->input->render('msg') ?></textarea>
+<textarea name="msg"><?= $my_form->input->msg ?></textarea>
 ```
 
 ### Checkboxes and Radio
@@ -478,7 +609,7 @@ Pre-populate a field before `$_POST`
 $my_form->input->put('email', 'foo@bar.com');
 ```
 ```html
-<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
+<input name="email" type="text" value="<?= $my_form->input->email ?>">
 ```
 
 ## Validation Errors
