@@ -275,13 +275,15 @@ Input properties hold raw `$_POST` values.<br>
 
 For output or database inserts, use the `render()` or `transform()` helpers, or something to escape/encode input strings.<br>
 
-WFV adheres to a "filter but don't escape on input" philosophy.
+WFV adheres to the ***filter but don't escape on input*** philosophy.
 
-The responsibility of form validation is filtering input as defined by a set of rules and constraints. Encoding should be done during runtime when some context requires it, e.g output to external systems - database, API endpoint, etc.
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use would there be having a `mysqli_real_escape_string` string when you need to render it in markup?
 
 Manipulating data without context is not useful and introduces more problems than it's trying to solve. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
 
 For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
+
+**Note:** WFV strips magic quotes if they're enabled in the environment. You're welcome.
 
 That being said, WFV does provide useful (perhaps powerful?) helpers to work with input data:
 
