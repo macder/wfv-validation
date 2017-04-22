@@ -348,12 +348,14 @@ function wfv_example( $value, $arg2, $arg3 ) {
 
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
+
+**WIP doc**
 ```php
 <?php
 
-$colors = array('red', 'blue', 'green');
+// $colors = array('red', 'blue', 'green');
 
-$colors = $my_form->input->transform( $colors, 'strtoupper' ); // array('RED', 'BLUE', 'GREEN')
+// $colors = $my_form->input->transform( $colors, 'strtoupper' ); // array('RED', 'BLUE', 'GREEN')
 
 
 
