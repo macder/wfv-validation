@@ -37,18 +37,20 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * 32 built-in [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) rules
 * Custom rules
 * Custom error messages
-* Sanitized input data
+* No escape-on-input
+* Powerful and customizable helper methods for rendering, escaping, filtering, and transforming
 * Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
 * Declarative and object oriented API
-* Lightweight and [unit tested code](https://github.com/macder/wp-form-validation/tree/master/tests)
+* Lightweight - Only one dependency (WordPress aside)
+* [Unit tested core](https://github.com/macder/wp-form-validation/tree/master/tests) - More stable, quicker fixes, less bugs, more happy
 * No rendered markup
 * Developer freedom
 
 ## Basic example
 
-`functions.php` or in some plugin:
+`functions.php` or wherever:
 ```php
 <?php
 
@@ -250,7 +252,7 @@ Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/
 
 ## User input
 ### `WFV\Input`
-Class instance that holds the form input data as properties.
+Instance holding form input data as properties, and input helper methods.
 
 The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 
@@ -260,17 +262,109 @@ The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 $input = $my_form->input;
 ```
 
-### Retrieve
+After a form submission, the input data is populated as properties. The property names will be the forms field names
 
-Get the input value of a field:
+e.g:
 ```php
-<?php // output the value the user entered into the email field
+<?php
+$my_form->input->name;  // Foo
+$my_form->input->email; // foo@bar.com
+```
+### **Caution:**
+Input properties hold raw `$_POST` values.<br>
 
-echo $my_form->input->email; // foo@bar.com
+For output or database inserts, use the `render()` or `transform()` helpers, or something to escape/encode input strings.<br>
+
+WFV adheres to a "filter but don't escape on input" philosophy.
+
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Encoding should be done during runtime when some context requires it, e.g output to external systems - database, API endpoint, etc.
+
+Manipulating data without context is not useful and introduces more problems than it's trying to solve. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
+
+For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
+
+That being said, WFV does provide useful (perhaps powerful?) helpers to work with input data:
+
+### Render
+#### `render( string $input, string|array $callback = 'htmlspecialchars' )`
+Returns the resulting string from a callback.
+
+Use this method to output input values.
+
+Default callback is `htmlspecialchars`:
+```php
+<?php // eg. user entered <h1>John</h1>
+
+echo $my_form->input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
+```
+
+Using a native PHP callback:
+```php
+<?php // single parameter callback
+
+// user entered john into name field
+echo $my_form->input->render('name', 'ucfirst');     // John
+echo $my_form->input->render('name', 'strtoupper');  // JOHN
+
+// You can use any PHP function that returns a string
+```
+#### Advanced usage
+
+Custom callback:
+```php
+<?php
+
+// user entered foo@bar.com
+echo $my_form->input->render('email', 'append_to_string'); // foo@bar.com_lorem
+
+function append_to_string( $string ) {
+  return $string .'_lorem';
+}
+```
+
+Or with a closure:
+```php
+<?php
+
+echo $my_form->input->render('email', function( $string ){
+  return $string .'_lorem';
+});
+
+// foo@bar.com_lorem
+```
+
+Callback with multiple parameters:
+```php
+<?php
+
+$callback = array( 'wfv_example', array( 'second', 'third' ) );
+
+echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
+
+function wfv_example( $value, $arg2, $arg3 ) {
+  return $arg2 .'-'. $value .'-'. $arg3;
+}
 
 ```
 
-Get input as an array:
+### Transform
+#### `transform( string|array $input, string|array $callback )`
+
+**Documentation is WIP**
+```php
+<?php
+
+// Proper examples coming soon, this one is a beast...
+
+// $colors = array('red', 'blue', 'green');
+
+// $colors = $my_form->input->transform( $colors, 'strtoupper' ); // array('RED', 'BLUE', 'GREEN')
+```
+
+### Get array
+#### `get_array()`
+
+Get input members as an array:
 ```php
 <?php // get users input as an associative array
 
@@ -309,11 +403,11 @@ $my_form->input->contains( 'email', 'bar@foo.com');  // false
 
 If validation fails, these fields would populate using the submitted values:
 ```html
-<input name="email" type="text" value="<?= $my_form->input->email ?>">
+<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
 ```
 
 ```html
-<textarea name="msg"><?= $my_form->input->msg ?></textarea>
+<textarea name="msg"><?= $my_form->input->render('msg') ?></textarea>
 ```
 
 ### Checkboxes and Radio
@@ -380,7 +474,7 @@ Pre-populate a field before `$_POST`
 $my_form->input->put('email', 'foo@bar.com');
 ```
 ```html
-<input name="email" type="text" value="<?= $my_form->input->email ?>">
+<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
 ```
 
 ## Validation Errors

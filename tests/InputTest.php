@@ -100,15 +100,97 @@ class InputTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Make sure properties are sanitized key/values from $_POST
+   *
    *
    */
-  /*public function test_post_gets_sanitized_to_instance() {
+  public function test_input_render_returns_default_escaped_string_from_property() {
     $input = self::$input_after_post;
-    $expected = self::$expected_result;
+    $input->put( 'name', '<p>phpunit<p>' );
 
-    foreach( $input as $field => $value ) {
-      $this->assertEquals( $expected[$field], $input->$field );
+    $expected_result = htmlspecialchars( '<p>phpunit<p>' );
+    $result = $input->render('name');
+
+    $this->assertEquals( $expected_result, $result );
+  }
+
+  /**
+   *
+   *
+   */
+  public function test_input_render_returns_default_escaped_string_when_no_property() {
+    $input = self::$input_after_post;
+    $input->put( 'name', '<p>phpunit<p>' );
+
+    $expected_result = htmlspecialchars( '<p>phpunit<p>' );
+    $result = $input->render('name');
+
+    $this->assertEquals( $expected_result, $result );
+  }
+
+  /**
+   *
+   *
+   */
+  public function test_input_render_returns_null() {
+    $input = self::$input_after_post;
+
+    $expected_result = null;
+    $result = $input->render( array('php', 'unit') );
+
+    $this->assertEquals( $expected_result, $result );
+  }
+
+  /**
+   *
+   *
+   */
+  public function test_input_render_supported_single_param_callbacks() {
+    $callback = array(
+      'addslashes',
+      'bin2hex',
+      'htmlentities',
+      'html_entity_decode',
+      'htmlspecialchars',
+      'htmlspecialchars_decode',
+      'lcfirst',
+      'ltrim', // only 1st param
+      'md5',
+      'nl2br',
+      'quotemeta',
+      'rtrim',
+      'stripslashes',
+      'ucfirst',
+      'ucwords',
+
+    );
+
+    $strings = array(
+      '<p>phpunit</p>',
+      '&lt;p&gt;phpunit&lt;/p&gt;',
+      'php\\\'unit\\\'',
+      'php\'unit\'',
+      'Phpunit',
+      'PHPUNIT',
+      'pHpUnIt',
+      'PhPuNiT',
+      ' phpunit',
+      'phpunit ',
+      ' phpunit ',
+      'test test
+        test',
+      '. \ + * ? [ ^ ] ( $ )',
+      'lorem ipsum dolor sit amet',
+    );
+
+    $input = self::$input_after_post;
+
+    foreach( $strings as $value ) {
+      $input->put( 'name', $value );
+      foreach( $callback as $method ) {
+        $expected_result = $method( $value );
+        $result = $input->render( 'name', $method );
+        $this->assertEquals( $expected_result, $result );
+      }
     }
-  }*/
+  }
 }
