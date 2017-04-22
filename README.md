@@ -102,7 +102,7 @@ Theme template:
 
 # Install
 
-**Minumum Requirements:**
+**Minimum Requirements:**
 * WordPress 3.7
 * PHP 5.4
 
@@ -168,7 +168,7 @@ $my_form = array(
     'email'     => ['required', 'email']
   ),
 
-  // override an error msg
+  // override an error message
   'messages' => [
     'email' => array(
       'required' => 'No email, no reply... get it?'
@@ -226,9 +226,9 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 
 ## Create the validation instance
 ### `wfv_create( array $form )`
-Send `array $form` to the `WFV\Factory\ValidationFactory` to create an instance of `WFV\Validator`
+Creates an instance of 'WFV\Validator' and assigns it by reference to array parameter.
 
-The instance is assigned by reference:
+Example:
 ```php
 <?php
 // $my_form becomes an instance of WFV\Validator
@@ -286,7 +286,7 @@ For output to external systems make sure to encode the data to the appropriate c
 
 WFV adheres to ***filter but don't escape on input.***
 
-The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of gatekeeping.
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of gate keeping.
 
 Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use is `mysqli_real_escape_string` when rendered in a markup template? Context dictates the encoding, validation filters.
 
@@ -538,11 +538,11 @@ $colors = $my_form->input->transform( $colors, function( $value ) use ( $origina
 
 If validation fails, these fields would populate using the submitted values:
 ```html
-<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
+<input name="email" type="text" value="<?= $my_form->input->email ?>">
 ```
 
 ```html
-<textarea name="msg"><?= $my_form->input->render('msg') ?></textarea>
+<textarea name="msg"><?= $my_form->input->msg ?></textarea>
 ```
 
 ### Checkboxes and Radio
@@ -609,7 +609,7 @@ Pre-populate a field before `$_POST`
 $my_form->input->put('email', 'foo@bar.com');
 ```
 ```html
-<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
+<input name="email" type="text" value="<?= $my_form->input->email ?>">
 ```
 
 ## Validation Errors
