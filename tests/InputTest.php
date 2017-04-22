@@ -105,8 +105,9 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    */
   public function test_input_render_returns_default_escaped_string_from_property() {
     $input = self::$input_after_post;
+    $input->put( 'name', '<p>phpunit<p>' );
 
-    $expected_result = htmlspecialchars( $input->name );
+    $expected_result = htmlspecialchars( '<p>phpunit<p>' );
     $result = $input->render('name');
 
     $this->assertEquals( $expected_result, $result );
@@ -118,9 +119,10 @@ class InputTest extends \PHPUnit_Framework_TestCase {
    */
   public function test_input_render_returns_default_escaped_string_when_no_property() {
     $input = self::$input_after_post;
+    $input->put( 'name', '<p>phpunit<p>' );
 
     $expected_result = htmlspecialchars( '<p>phpunit<p>' );
-    $result = $input->render('<p>phpunit<p>');
+    $result = $input->render('name');
 
     $this->assertEquals( $expected_result, $result );
   }
@@ -181,10 +183,12 @@ class InputTest extends \PHPUnit_Framework_TestCase {
     );
 
     $input = self::$input_after_post;
+
     foreach( $strings as $value ) {
+      $input->put( 'name', $value );
       foreach( $callback as $method ) {
         $expected_result = $method( $value );
-        $result = $input->render( $value, $method );
+        $result = $input->render( 'name', $method );
         $this->assertEquals( $expected_result, $result );
       }
     }
