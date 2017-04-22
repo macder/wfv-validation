@@ -313,6 +313,18 @@ function email_domain( $email ) {
 }
 ```
 
+Or with a closure:
+```php
+<?php
+
+echo $my_form->input->render('email', function( $email ){
+  return substr( $email, strpos( $email, '@' ) + 1 );
+});
+
+// bar.com
+```
+
+
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
 ```php
