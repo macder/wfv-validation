@@ -50,7 +50,7 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 
 ## Basic example
 
-`functions.php` or in some plugin:
+`functions.php` or wherever:
 ```php
 <?php
 
