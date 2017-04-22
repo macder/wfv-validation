@@ -258,8 +258,8 @@ Available methods:
 * [render()](#render)
 * [transform()](#transform)
 * [get_array()](#get-array)
-* [has()](#has)
-* [contains()](#contains)
+* [has()](#has-input)
+* [contains()](#input-contains)
 
 *Plus methods from Mutator and Accessor traits*
 
