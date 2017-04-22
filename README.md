@@ -279,11 +279,11 @@ WFV adheres to a "filter but don't escape on input" philosophy.
 
 The responsibility of form validation is filtering input as defined by a set of rules and constraints. Encoding should be done during runtime when some context requires it, e.g output to external systems - database, API endpoint, etc.
 
-Manipulating data without context is not useful and introduces more problems than it solves. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
+Manipulating data without context is not useful and introduces more problems than it's trying to solve. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
 
 For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
 
-That being said, WFV does provide useful helpers to work with input data:
+That being said, WFV does provide useful (perhaps powerful?) helpers to work with input data:
 
 ### Render
 #### `render( string $input, string|array $callback = 'htmlspecialchars' )`
