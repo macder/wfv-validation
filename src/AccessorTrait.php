@@ -19,12 +19,6 @@ trait AccessorTrait {
    */
   public function __get( $property ) {
     return ( true === $this->has( $property ) ) ? $this->$property : null;
-
-    // stripcslashes(); is_string
-    /*if( $this->has( $property ) ) {
-      return ( is_string( $this->$property ) ) ? stripslashes( $this->$property ) : $this->$property;
-    }
-    return null;*/
   }
 
   /**
