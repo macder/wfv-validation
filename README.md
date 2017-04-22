@@ -269,7 +269,8 @@ $my_form->input->name;  // Foo
 $my_form->input->email; // foo@bar.com
 ```
 > **Caution:** <br>
-> Input properties are the raw unescaped values from `$_POST`
+> Input properties are the raw unescaped values from `$_POST`<br>
+> For output or database inserts, use `render()` or `transform()` described below.
 
 
 ### Render
