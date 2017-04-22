@@ -275,7 +275,7 @@ Input properties hold raw `$_POST` values.<br>
 
 For output or database inserts, use the `render()` or `transform()` helpers, or something to escape/encode input strings.<br>
 
-WFV adheres to a "filter but don't escape on input" philosophy.
+WFV adheres to the ***filter but don't escape on input*** philosophy.
 
 The responsibility of form validation is filtering input as defined by a set of rules and constraints. Encoding should be done during runtime when some context requires it, e.g output to external systems - database, API endpoint, etc.
 
