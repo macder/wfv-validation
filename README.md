@@ -252,7 +252,7 @@ Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/
 
 ## User input
 ### `WFV\Input`
-Class instance that holds the form input data as properties.
+Instance holding form input data as properties, and input helper methods.
 
 The `input` property on `WFV\Validator` is an instance of `WFV\Input`
 
