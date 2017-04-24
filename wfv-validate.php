@@ -46,5 +46,8 @@ function wfv_create( &$form ) {
  * @return WFV\Validator
  */
 function wfv_validate( $form ) {
-  return ( $form->must_validate() ) ? $form->validate() : $form;
+  if( $form->must_validate() ) {
+    $form->validate();
+  }
+  return $form;
 }
