@@ -18,21 +18,88 @@ use WFV\Rules;
 class ValidationFactory {
 
   /**
+   *
+   *
+   * @since 0.9.1
+   * @access protected
+   * @var
+   */
+  protected static $config;
+
+
+  /**
    * Build an instance of WFV\Validator as described by $form
    *
    * @since 0.8.2
    *
    * @param array $form
    */
-  public static function create_form( &$form ){
-    $custom_messages = ( isset( $form['messages'] ) ) ? $form['messages'] : null;
+  public static function create_form( &$form ) {
+    self::$config = $form;
 
-    $rules = new Rules();
-    $input = new Input( $form['action'] );
-    $messages = new Messages( $custom_messages );
-    $errors = new Errors();
-    $rules->set( $form['rules'] );
-    $form = new Validator( $form['action'], $rules, $input, $messages, $errors );
+    $action = $form['action'];
+    $input = self::input();
+    $messages = self::messages();
+    $rules = self::rules();
+    $validator = self::validator();
+
+    $form = new Form( $action, $input, $rules, $messages );
+  }
+
+  /**
+   *
+   *
+   * @since 0.9.1
+   *
+   * @param
+   */
+  private function guard() {
+    // return new Input( self::$config['action'] );
+  }
+
+  /**
+   *
+   *
+   * @since 0.9.1
+   *
+   * @param
+   */
+  private function input() {
+    return new Input( self::$config['action'] );
+  }
+
+  /**
+   *
+   *
+   * @since 0.9.1
+   *
+   * @param
+   */
+  private function messages() {
+    $messages = ( isset( self::$config['messages'] ) ) ? self::$config['messages'] : null;
+    return new Messages( $messages );
+  }
+
+  /**
+   *
+   *
+   * @since 0.9.1
+   *
+   * @param
+   */
+  private function rules() {
+    return new Rules( self::$config['rules'] );
+  }
+
+  /**
+   *
+   *
+   * @since 0.9.1
+   *
+   * @param
+   */
+  private function validator() {
+    return new Validator();
   }
 
 }
