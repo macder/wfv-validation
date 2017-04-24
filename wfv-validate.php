@@ -37,8 +37,7 @@ function wfv_create( &$form ) {
 }
 
 /**
- * Do the validation
- * Only if $_POST['action'] matches param instance action
+ *
  *
  * @since 0.8.2
  *
