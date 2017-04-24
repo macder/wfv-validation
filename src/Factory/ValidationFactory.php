@@ -2,11 +2,13 @@
 namespace WFV\Factory;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Rules;
+use \Valitron\Validator;
+
+use WFV\Errors;
+use WFV\Form;
 use WFV\Input;
 use WFV\Messages;
-use WFV\Errors;
-use WFV\Validator;
+use WFV\Rules;
 
 /**
  * Static methods for assembling instances
