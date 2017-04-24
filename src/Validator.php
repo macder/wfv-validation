@@ -45,13 +45,12 @@ class Validator extends Form implements ValidationInterface {
 
   /**
    * Check if input action is for this instance.
-   * Dies if nonce invalid.
    *
    * @since 0.8.0
    *
    * @return bool True if $this->action is $input->action and nonce is valid.
    */
-  public function is_safe( ) {
+  public function must_validate( ) {
     if( $this->has_request_action() ) {
       $safe = ( $this->is_legal( $this->input->action ) ) ? true : false;
     }
