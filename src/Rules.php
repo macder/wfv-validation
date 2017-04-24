@@ -18,8 +18,8 @@ class Rules implements ValidationInterface {
    * @since 0.8.0
    *
    */
-  function __construct() {
-
+  function __construct( $rules ) {
+    $this->set( $rules );
   }
 
   /**
