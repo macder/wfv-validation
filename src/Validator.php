@@ -44,20 +44,6 @@ class Validator extends Form implements ValidationInterface {
   }
 
   /**
-   * Check if input action is for this instance.
-   *
-   * @since 0.8.0
-   *
-   * @return bool True if $this->action is $input->action and nonce is valid.
-   */
-  public function must_validate( ) {
-    if( $this->has_request_action() ) {
-      $safe = ( $this->is_legal( $this->input->action ) ) ? true : false;
-    }
-    return ( true === $safe ) ? $this->check_nonce() : false;
-  }
-
-  /**
    * Validate the input with Valitron
    * Trigger pass or fail action hook
    * Return true or false

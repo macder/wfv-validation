@@ -92,6 +92,20 @@ class Form {
   }
 
   /**
+   * Check if input action is for this instance.
+   *
+   * @since 0.8.0
+   *
+   * @return bool True if $this->action is $input->action and nonce is valid.
+   */
+  public function must_validate( ) {
+    if( $this->has_request_action() ) {
+      return ( $this->is_legal( $this->input->action ) ) ? true : false;
+    }
+    return false;
+  }
+
+  /**
    * Convenience method to repopulate select dropdown.
    * Returns 'selected' string if field has value in POST.
    *
