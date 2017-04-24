@@ -28,7 +28,7 @@ class ValidationFactory {
 
 
   /**
-   * Build an instance of WFV\Validator as described by $form
+   * Build an instance of WFV\Form as described by $form
    *
    * @since 0.8.2
    *
