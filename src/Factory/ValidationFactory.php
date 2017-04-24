@@ -52,9 +52,57 @@ class ValidationFactory {
    *
    * @param
    */
-  public static function create_validator( &$form ) {
-    $validator = self::validator( $form->input->get_array() );
-    $form->rules->load( $validator, $form->messages );
+  public static function create_validator( $form ) {
+    return self::validator( $form->input->get_array() );
+  }
+
+  /**
+   * Push rules onto an instance of Valitron
+   *
+   * @since 0.7.0
+   *
+   * @param
+   * @param
+   */
+  public static function load_rules( $form, &$validator ) {
+
+    // loop the field
+    foreach( $form->rules as $field => $rules ) {
+
+      // loop this field rules - a field can have many rules
+      foreach( $rules as $rule ) {
+        if( $form->rules->is_custom( $rule ) ) {
+          self::add_rule( $rule, $validator );
+        }
+
+        // check if this field/rule has a custom error message
+        if( $form->messages->exist( $field, $rule ) ) {
+          $message = $form->messages->$field;
+          $validator->rule( $rule, $field )->message( $message[ $rule ] );
+        } else { // use defaults
+          $validator->rule( $rule, $field );
+        }
+      }
+    }
+  }
+
+  /**
+   * Add custom rule to Valitron\Validator
+   * Trigger callback function for this custom rule
+   *
+   * @since 0.7.1
+   * @access private
+   *
+   * @param string $rule
+   * @param object $valitron Instance of Valitron\Validator
+   */
+  private function add_rule( $rule, $validator ) {
+    $validator::addRule( $rule, function($field, $value, array $params, array $fields ) use ( $rule ) {
+      $rule = explode( ':', $rule );
+      $callback = 'wfv__'. $rule[1];
+      // TODO: throw exception if no callback, or warning?
+      return ( function_exists( $callback ) ) ? $callback( $value ) : false;
+    });
   }
 
   /**
@@ -65,7 +113,7 @@ class ValidationFactory {
    * @param
    */
   private function guard() {
-    // return new Input( self::$config['action'] );
+
   }
 
   /**
