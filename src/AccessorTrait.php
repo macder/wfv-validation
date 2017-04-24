@@ -30,6 +30,7 @@ trait AccessorTrait {
    */
   public function contains( $property, $value = null ) {
     // WIP
+    // TODO: do a 'has' check
     if ( is_array( $this->$property ) ) {
       return ( in_array( $value, $this->$property ) ) ? true : false;
     }
