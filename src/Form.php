@@ -83,4 +83,33 @@ class Form {
     echo $nonce_field = wp_nonce_field( $this->action, $token_name, false, false );
     echo $action_field = '<input type="hidden" name="action" value="'. $this->action .'">';
   }
+
+  /**
+   * Check if $this->input has action property
+   *
+   * @since 0.8.0
+   * @since 0.9.1 Moved from WFV/Validator
+   * @access protected
+   *
+   * @return bool
+   */
+  protected function has_request_action() {
+    return ( $this->input->has('action') ) ? true : false;
+  }
+
+  /**
+   * Safety method.
+   * Verifies if the input action matches action on this instance.
+   * Very unlikely to get false, unless sneaky things happening...
+   *
+   * @since 0.8.0
+   * @since 0.9.1 Moved from WFV/Validator
+   * @access protected
+   *
+   * @param string $action String to compare against $this->action.
+   * @return bool
+   */
+  protected function is_legal( $action ) {
+    return ( $action === $this->action ) ? true : false;
+  }
 }

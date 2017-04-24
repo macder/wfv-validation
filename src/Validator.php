@@ -131,33 +131,6 @@ class Validator extends Form implements ValidationInterface {
   }
 
   /**
-   * Check if $this->input has action property
-   *
-   * @since 0.8.0
-   * @access private
-   *
-   * @return bool
-   */
-  private function has_request_action() {
-    return ( $this->input->has('action') ) ? true : false;
-  }
-
-  /**
-   * Safety method.
-   * Verifies if the input action matches action on this instance.
-   * Very unlikely to get false, unless sneaky things happening...
-   *
-   * @since 0.8.0
-   * @access private
-   *
-   * @param string $action String to compare against $this->action.
-   * @return bool
-   */
-  private function is_legal( $action ) {
-    return ( $action === $this->action ) ? true : false;
-  }
-
-  /**
    * Trigger action hook for validation pass or fail
    *
    * @since 0.8.10
