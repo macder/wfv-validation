@@ -64,21 +64,6 @@ class Validator extends Form implements ValidationInterface {
   }
 
   /**
-   * Convienience method to get first error on field.
-   *
-   * @since 0.6.1
-   * @since 0.8.4 simple pure function
-   *
-   * @param string $field Name of field
-   * @return string First error message.
-   */
-  public function error( $field ) {
-    $errors = $this->errors;
-    $error = $errors->$field;
-    return $error[0];
-  }
-
-  /**
    * Check if input action is for this instance.
    * Dies if nonce invalid.
    *
