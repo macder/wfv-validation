@@ -10,26 +10,6 @@ defined( 'ABSPATH' ) or die();
 class Validator extends Form implements ValidationInterface {
 
   /**
-   * Error message bag
-   *
-   * @since 0.6.1
-   * @since 0.7.3 WFV\Errors instance
-   * @access protected
-   * @var class $errors Instance of WFV_Errors.
-   */
-  protected $errors;
-
-  /**
-   * Error message overrides
-   *
-   * @since 0.4.0
-   * @since 0.7.0 WFV\Messages instance
-   * @access protected
-   * @var class $messages Instance of WFV_Messages.
-   */
-  protected $messages;
-
-  /**
    * Validation rules
    *
    * @since 0.1.0
