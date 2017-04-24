@@ -138,21 +138,21 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
    * Does must_validate return true when REQUEST is legit?
    *
    */
-  public function test_validator_must_validate_returns_true() {
+  /*public function test_validator_must_validate_returns_true() {
     $validator = self::$form_after_post;
 
     $validator->input->put( 'phpunit_token', $validator->token );
     $_REQUEST[ 'phpunit_token' ] = $validator->input->phpunit_token;
 
     $this->assertTrue( $validator->must_validate() );
-  }
+  }*/
 
   /**
    * Does must_validate return false when the token in REQUEST
    *  does not match token in WFV\Input?
    *
    */
-  public function test_validator_must_validate_returns_false_on_token_mismatch() {
+  /*public function test_validator_must_validate_returns_false_on_token_mismatch() {
     $validator = self::$form_after_post;
 
     $validator->input->put( 'phpunit_token', $validator->token );
@@ -160,7 +160,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
     $_REQUEST[ 'phpunit_token' ] = $tampered_token;
 
     $this->assertFalse( $validator->must_validate() );
-  }
+  }*/
 
   /**
    * When validation passes, validate should return true.
