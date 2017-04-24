@@ -41,9 +41,20 @@ class ValidationFactory {
     $input = self::input();
     $messages = self::messages();
     $rules = self::rules();
-    $validator = self::validator();
 
     $form = new Form( $action, $input, $rules, $messages );
+  }
+
+  /**
+   *
+   *
+   * @since 0.9.1
+   *
+   * @param
+   */
+  public static function create_validator( &$form ) {
+    $validator = self::validator( $form->input->get_array() );
+    $form->rules->load( $validator, $form->messages );
   }
 
   /**
