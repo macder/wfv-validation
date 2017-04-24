@@ -9,7 +9,7 @@ use WFV\Errors;
 use WFV\Validator;
 
 /**
- * Static methods to build instances of WFV\Validator
+ * Static methods for assembling instances
  *
  * @since 0.8.2
  */
