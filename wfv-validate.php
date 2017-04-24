@@ -32,7 +32,7 @@ use WFV\Factory\ValidationFactory;
  * @param array $form Form configuration
  */
 function wfv_create( &$form ) {
-  ValidationFactory::create( $form );
+  ValidationFactory::create_form( $form );
   wfv_validate( $form );
 }
 

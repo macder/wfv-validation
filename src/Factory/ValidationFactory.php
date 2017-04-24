@@ -22,7 +22,7 @@ class ValidationFactory {
    *
    * @param array $form
    */
-  public static function create( &$form ){
+  public static function create_form( &$form ){
     $custom_messages = ( isset( $form['messages'] ) ) ? $form['messages'] : null;
 
     $rules = new Rules();
