@@ -7,17 +7,9 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-class Validator extends Form implements ValidationInterface {
+class Guard implements ValidationInterface {
 
-  /**
-   * Validation rules
-   *
-   * @since 0.1.0
-   * @since 0.7.0 WFV\Rules instance
-   * @access protected
-   * @var class $rules Instance of WFV_Rules.
-   */
-  protected $rules;
+
 
   /**
    * __construct
@@ -31,16 +23,11 @@ class Validator extends Form implements ValidationInterface {
    * @param WFV\Errors $errors
    *
    */
-  function __construct( $action, Rules $rules, Input $input, Messages $messages, Errors $errors ) {
-    $properties = array(
-      'action' => $action,
-      'rules' => $rules,
-      'messages' => $messages,
-      'input' => $input,
-      'errors' => $errors,
-      'token' => wp_create_nonce( $action ),
-    );
-    $this->set( $properties );
+
+  use AccessorTrait;
+  use MutatorTrait;
+
+  function __construct() {
   }
 
   /**
