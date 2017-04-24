@@ -35,7 +35,8 @@ function wfv_create( &$form ) {
   ValidationFactory::create_form( $form );
 
   if( $form->must_validate() ) {
-    ValidationFactory::create_validator( $form );
+    $validator = ValidationFactory::create_validator( $form );
+    wfv_validate( $form, $validator );
   }
 }
 
@@ -43,13 +44,12 @@ function wfv_create( &$form ) {
  *
  *
  * @since 0.8.2
+ * @since 0.9.1
  *
- * @param WFV\Validator $form
- * @return WFV\Validator
+ * @param WFV\Form $form
+ * @param \Valitron\Validator $validator
+ * @return WFV\Form
  */
-function wfv_validate( $form ) {
-  if( $form->must_validate() ) {
-    $form->validate();
-  }
-  return $form;
+function wfv_validate( $form, $validator ) {
+  ValidationFactory::load_rules( $form, $validator );
 }
