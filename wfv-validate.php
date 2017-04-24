@@ -33,7 +33,10 @@ use WFV\Factory\ValidationFactory;
  */
 function wfv_create( &$form ) {
   ValidationFactory::create_form( $form );
-  wfv_validate( $form );
+
+  if( $form->must_validate() ) {
+    ValidationFactory::create_validator( $form );
+  }
 }
 
 /**
