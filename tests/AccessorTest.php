@@ -69,7 +69,7 @@ class AccessorTest extends \PHPUnit_Framework_TestCase {
 
     $_POST = self::$http_post;
     $form = self::$form_args;
-    ValidationFactory::create( $form );
+    ValidationFactory::create_form( $form );
     self::$form = $form;
   }
 

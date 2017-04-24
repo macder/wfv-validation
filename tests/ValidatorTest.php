@@ -94,14 +94,14 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
 
     $form_before_post = $form_args;
-    ValidationFactory::create( $form_before_post );
+    ValidationFactory::create_form( $form_before_post );
     self::$form_before_post = $form_before_post;
 
     // needs to happen after no POST instance setup
     // otherwise first instance will also grab $_POST...
     $_POST = self::$http_post;
     $form_after_post = $form_args;
-    ValidationFactory::create( $form_after_post );
+    ValidationFactory::create_form( $form_after_post );
     self::$form_after_post = $form_after_post;
   }
 
@@ -135,31 +135,31 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Does is_safe return true when REQUEST is legit?
+   * Does must_validate return true when REQUEST is legit?
    *
    */
-  public function test_validator_is_safe_returns_true() {
+  public function test_validator_must_validate_returns_true() {
     $validator = self::$form_after_post;
 
     $validator->input->put( 'phpunit_token', $validator->token );
     $_REQUEST[ 'phpunit_token' ] = $validator->input->phpunit_token;
 
-    $this->assertTrue( $validator->is_safe() );
+    $this->assertTrue( $validator->must_validate() );
   }
 
   /**
-   * Does is_safe return false when the token in REQUEST
+   * Does must_validate return false when the token in REQUEST
    *  does not match token in WFV\Input?
    *
    */
-  public function test_validator_is_safe_returns_false_on_token_mismatch() {
+  public function test_validator_must_validate_returns_false_on_token_mismatch() {
     $validator = self::$form_after_post;
 
     $validator->input->put( 'phpunit_token', $validator->token );
     $tampered_token = 'sdf'.$validator->token.'sdfert';
     $_REQUEST[ 'phpunit_token' ] = $tampered_token;
 
-    $this->assertFalse( $validator->is_safe() );
+    $this->assertFalse( $validator->must_validate() );
   }
 
   /**
