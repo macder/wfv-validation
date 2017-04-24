@@ -55,20 +55,6 @@ class Form {
   }
 
   /**
-   * Convenience method to repopulate select dropdown.
-   * Returns 'selected' string if field has value in POST.
-   *
-   * @since 0.8.6
-   *
-   * @param string $field Field name.
-   * @param string $value Value to compare against.
-   * @return string|null
-   */
-  public function selected_if( $field, $value ) {
-    return ( $this->input->contains( $field, $value ) ) ? 'selected' : null;
-  }
-
-  /**
    * TEMP - upcoming re-work
    *
    * Returns markup for required hidden fields
@@ -82,6 +68,20 @@ class Form {
 
     echo $nonce_field = wp_nonce_field( $this->action, $token_name, false, false );
     echo $action_field = '<input type="hidden" name="action" value="'. $this->action .'">';
+  }
+
+  /**
+   * Convenience method to repopulate select dropdown.
+   * Returns 'selected' string if field has value in POST.
+   *
+   * @since 0.8.6
+   *
+   * @param string $field Field name.
+   * @param string $value Value to compare against.
+   * @return string|null
+   */
+  public function selected_if( $field, $value ) {
+    return ( $this->input->contains( $field, $value ) ) ? 'selected' : null;
   }
 
   /**
