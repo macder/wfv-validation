@@ -112,7 +112,7 @@ class ValidationFactory {
    * @param string $rule
    * @param \Valitron\Validator $validator
    */
-  private function add_rule( $rule, $validator ) {
+  private static function add_rule( $rule, $validator ) {
     $validator::addRule( $rule, function($field, $value, array $params, array $fields ) use ( $rule ) {
       $rule = explode( ':', $rule );
       $callback = 'wfv__'. $rule[1];
@@ -128,7 +128,7 @@ class ValidationFactory {
    *
    * @param
    */
-  private function guard( $input_action, $input_token ) {
+  private static function guard( $input_action, $input_token ) {
     return new Guard( $input_action, $input_token );
   }
 
@@ -139,7 +139,7 @@ class ValidationFactory {
    *
    * @param
    */
-  private function input() {
+  private static function input() {
     return new Input( self::$config['action'] );
   }
 
@@ -150,7 +150,7 @@ class ValidationFactory {
    *
    * @param
    */
-  private function messages() {
+  private static function messages() {
     $messages = ( isset( self::$config['messages'] ) ) ? self::$config['messages'] : null;
     return new Messages( $messages );
   }
@@ -162,7 +162,7 @@ class ValidationFactory {
    *
    * @param
    */
-  private function rules() {
+  private static function rules() {
     return new Rules( self::$config['rules'] );
   }
 
@@ -173,7 +173,7 @@ class ValidationFactory {
    *
    * @param
    */
-  private function validator( $input ) {
+  private static function validator( $input ) {
     return new Validator( $input );
   }
 
