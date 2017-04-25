@@ -67,15 +67,6 @@ class Form implements ValidationInterface {
    */
   protected $token;
 
-  /**
-   *
-   *
-   * @since 0.9.1
-   * @access private
-   * @var
-   */
-  // private $validator;
-
 
   use AccessorTrait;
   use MutatorTrait;
