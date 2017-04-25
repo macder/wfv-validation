@@ -23,7 +23,7 @@ class ValidationFactory {
    *
    * @since 0.9.1
    * @access protected
-   * @var
+   * @var array $config The array of form args
    */
   protected static $config;
 
@@ -48,22 +48,25 @@ class ValidationFactory {
   }
 
   /**
-   *
+   * Create instance of WFV\Guard
    *
    * @since 0.9.1
    *
-   * @param
+   * @param string $input_action Action value from POST
+   * @param string $input_token Token value from POST
+   * @return WFV\Guard
    */
   public static function create_guard( $input_action, $input_token ) {
     return self::guard( $input_action, $input_token );
   }
 
   /**
-   *
+   * Create instance of \Valitron\Validator
    *
    * @since 0.9.1
    *
-   * @param
+   * @param WFV\Form $form
+   * @return \Valitron\Validator
    */
   public static function create_validator( $form ) {
     return self::validator( $form->input->get_array() );
@@ -122,33 +125,38 @@ class ValidationFactory {
   }
 
   /**
-   *
+   * Return instance of WFV\Guard
    *
    * @since 0.9.1
+   * @access private
    *
-   * @param
+   * @param string $input_action Action value from POST
+   * @param string $input_token Token value from POST
+   * @return WFV\Guard
    */
   private static function guard( $input_action, $input_token ) {
     return new Guard( $input_action, $input_token );
   }
 
   /**
-   *
+   * Return instance of WFV\Input
    *
    * @since 0.9.1
+   * @access private
    *
-   * @param
+   * @return WFV\Input
    */
   private static function input() {
     return new Input( self::$config['action'] );
   }
 
   /**
-   *
+   * Return instance of WFV\Messages
    *
    * @since 0.9.1
+   * @access private
    *
-   * @param
+   * @return WFV\Messages
    */
   private static function messages() {
     $messages = ( isset( self::$config['messages'] ) ) ? self::$config['messages'] : null;
@@ -156,22 +164,25 @@ class ValidationFactory {
   }
 
   /**
-   *
+   * Return instance of WFV\Rules
    *
    * @since 0.9.1
+   * @access private
    *
-   * @param
+   * @return WFV\Rules
    */
   private static function rules() {
     return new Rules( self::$config['rules'] );
   }
 
   /**
-   *
+   * Return instance of \Valitron\Validator
    *
    * @since 0.9.1
+   * @access private
    *
-   * @param
+   * @param array $input Form input
+   * @return \Valitron\Validator
    */
   private static function validator( $input ) {
     return new Validator( $input );
