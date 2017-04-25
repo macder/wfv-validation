@@ -78,8 +78,8 @@ function my_form_invalid( $form ) {
 // create the instance
 wfv_create( $my_form );
 
-// $my_form is now an instance of WFV\Validator:
-$my_form             // WFV\Validator
+// $my_form is now an instance of WFV\Form:
+$my_form             // WFV\Form
 $my_form->input;     // WFV\Input
 $my_form->errors;    // WFV\Errors
 $my_form->rules;     // WFV\Rules
@@ -226,16 +226,16 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 
 ## Create the validation instance
 ### `wfv_create( array $form )`
-Creates an instance of 'WFV\Validator' and assigns it by reference to array parameter.
+Creates an instance of 'WFV\Form' and assigns it by reference to array parameter.
 
 Example:
 ```php
 <?php
-// $my_form becomes an instance of WFV\Validator
+// $my_form becomes an instance of WFV\Form
 wfv_create( $my_form );
 ```
 
-`$my_form` can now access properties and methods available to `WFV\Validator`
+`$my_form` can now access properties and methods available to `WFV\Form`
 
 ```php
 <?php
@@ -246,7 +246,7 @@ $my_form->messages;  // Instance of WFV\Messages
 ```
 **Get and Set:**
 
-All property instances on `WFV\Validator` share the same accessor and mutator traits.
+All property instances on `WFV\Form` share the same accessor and mutator traits.
 
 Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
 
@@ -263,7 +263,7 @@ Available methods:
 
 *Plus methods from Mutator and Accessor traits*
 
-The `input` property on `WFV\Validator` is an instance of `WFV\Input`
+The `input` property on `WFV\Form` is an instance of `WFV\Input`
 
 ```php
 <?php // $input becomes instance of WFV\Input
@@ -616,7 +616,7 @@ $my_form->input->put('email', 'foo@bar.com');
 ### `WFV\Errors`
 Class instance that holds validation errors.
 
-The `errors` property on `WFV\Validator` is an instance of `WFV\Errors`
+The `errors` property on `WFV\Form` is an instance of `WFV\Errors`
 ```php
 <?php // $errors becomes instance of WFV\Errors
 
