@@ -643,13 +643,13 @@ foreach( $email_errors as $error ) {
 ```
 
 ### Get field's first error
-#### `error( string $field )`
+#### `first( string $field )`
 Convienience method to get first error on field.
 
 ```php
 <?php // get the first email error message
 
-echo $my_form->error('email'); // Email is required
+echo $my_form->errors->first('email'); // Email is required
 ```
 First error message is the first declared rule.
 
