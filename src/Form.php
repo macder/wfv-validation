@@ -130,7 +130,7 @@ class Form implements ValidationInterface {
     // TODO - Move markup into a view
     $token_name = $this->action . '_token';
 
-    // echo $nonce_field = wp_nonce_field( $this->action, $token_name, false, false );
+    echo $nonce_field = wp_nonce_field( $this->action, $token_name, false, false );
     echo $action_field = '<input type="hidden" name="action" value="'. $this->action .'">';
   }
 
