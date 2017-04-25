@@ -141,7 +141,7 @@ class Form implements ValidationInterface {
    *
    * @return bool True if $this->action is $input->action and nonce is valid.
    */
-  public function must_validate( ) {
+  public function must_validate() {
     if( $this->has_request_action() ) {
       return ( $this->is_legal( $this->input->action ) ) ? true : false;
     }
