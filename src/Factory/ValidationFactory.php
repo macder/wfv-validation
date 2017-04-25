@@ -38,11 +38,12 @@ class ValidationFactory {
     self::$config = $form;
 
     $action = $form['action'];
+    $errors = new Errors();
     $input = self::input();
     $messages = self::messages();
     $rules = self::rules();
 
-    $form = new Form( $action, $input, $rules, $messages );
+    $form = new Form( $action, $input, $rules, $messages, $errors );
   }
 
   /**
