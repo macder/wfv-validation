@@ -7,10 +7,10 @@ use WFV\Factory\ValidationFactory;
 class MutatorTest extends \PHPUnit_Framework_TestCase {
 
   /**
-   * Instance of WFV\Validator after $_POST.
+   * Instance of WFV\Form after $_POST.
    *
    * @access protected
-   * @var WFV\Validator $form_after_post
+   * @var WFV\Form $form_after_post
    */
   protected static $form;
 
