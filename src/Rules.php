@@ -17,6 +17,7 @@ class Rules implements ValidationInterface {
    *
    * @since 0.8.0
    *
+   * @param array (optional) $rules
    */
   function __construct( $rules ) {
     $this->set( $rules );
