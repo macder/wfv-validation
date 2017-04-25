@@ -35,9 +35,13 @@ class Guard implements ValidationInterface {
    * @since 0.8.0 no params
    * @access protected
    */
-  protected function check_nonce() {
-    $nonce = $_REQUEST[ $this->action.'_token' ];
-    return ( wp_verify_nonce( $nonce, $this->action ) ) ? true : false;
+  public function is_nonce_valid( $action, $token ) {
+    if ( $this->request_action === $action && $this->request_token === $token ) {
+      $nonce = $_REQUEST[ $action.'_token' ];
+      return ( wp_verify_nonce( $nonce, $action ) ) ? true : false;
+    }
+    return false;
+
   }
 
   /**
