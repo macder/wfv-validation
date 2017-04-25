@@ -98,7 +98,7 @@ menu_tests() {
     "Input"
     "Form"
     "Mutator"
-    "Validator"
+    "Guard"
   )
 
   MENU=("${MENU_TESTS[@]}")
@@ -112,7 +112,7 @@ menu_tests() {
     3) run_test "InputTest" ;;
     4) run_test "FormTest" ;;
     5) run_test "MutatorTest" ;;
-    6) run_test "ValidatorTest" ;;
+    6) run_test "GuardTest" ;;
     7) exit 0 ;;
     0) menu_main ;;
     *) invalid_choice
