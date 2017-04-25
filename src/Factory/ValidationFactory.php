@@ -6,6 +6,7 @@ use \Valitron\Validator;
 
 use WFV\Errors;
 use WFV\Form;
+use WFV\Guard;
 use WFV\Input;
 use WFV\Messages;
 use WFV\Rules;
@@ -44,6 +45,17 @@ class ValidationFactory {
     $rules = self::rules();
 
     $form = new Form( $action, $input, $rules, $messages, $errors );
+  }
+
+  /**
+   *
+   *
+   * @since 0.9.1
+   *
+   * @param
+   */
+  public static function create_guard( $input_action, $input_token ) {
+    return self::guard( $input_action, $input_token );
   }
 
   /**
@@ -113,8 +125,8 @@ class ValidationFactory {
    *
    * @param
    */
-  private function guard() {
-
+  private function guard( $input_action, $input_token ) {
+    return new Guard( $input_action, $input_token );
   }
 
   /**
