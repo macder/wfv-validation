@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-class Guard implements ValidationInterface {
+class Guard {
 
   private $request_action;
   private $request_token;
@@ -18,9 +18,6 @@ class Guard implements ValidationInterface {
    * @since 0.8.0
    *
    */
-
-  use AccessorTrait;
-  use MutatorTrait;
 
   function __construct( $action, $token ) {
     $this->request_action = $action;
