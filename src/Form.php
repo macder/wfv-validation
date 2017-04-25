@@ -158,11 +158,11 @@ class Form implements ValidationInterface {
    *
    * @since 0.8.0
    * @since 0.9.1 Moved from WFV/Validator
-   * @access protected
+   * @access private
    *
    * @return bool
    */
-  protected function has_request_action() {
+  private function has_request_action() {
     return ( $this->input->has('action') ) ? true : false;
   }
 
@@ -173,12 +173,12 @@ class Form implements ValidationInterface {
    *
    * @since 0.8.0
    * @since 0.9.1 Moved from WFV/Validator
-   * @access protected
+   * @access private
    *
    * @param string $action String to compare against $this->action.
    * @return bool
    */
-  protected function is_legal( $action ) {
+  private function is_legal( $action ) {
     return ( $action === $this->action ) ? true : false;
   }
 }
