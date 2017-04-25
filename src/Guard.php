@@ -3,20 +3,34 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 /**
+ * Perfoms input safety checks and validation
  *
- *
- * @since 0.8.0
+ * @since 0.9.1
  */
 class Guard {
 
+  /**
+   * POST action value
+   *
+   * @since 0.9.1
+   * @access private
+   * @var string $request_action
+   */
   private $request_action;
+
+  /**
+   * POST token value
+   *
+   * @since 0.9.1
+   * @access private
+   * @var string $request_token
+   */
   private $request_token;
 
   /**
    * __construct
    *
-   * @since 0.8.0
-   *
+   * @since 0.9.1
    */
 
   function __construct( $action, $token ) {
@@ -30,7 +44,8 @@ class Guard {
    *
    * @since 0.2.2
    * @since 0.8.0 no params
-   * @access protected
+   *
+   * @return bool
    */
   public function is_nonce_valid( $action, $token ) {
     if ( $this->request_action === $action && $this->request_token === $token ) {
@@ -50,6 +65,8 @@ class Guard {
    * @since 0.6.0 Public access
    * @since 0.8.10 Return bool
    *
+   * @param WFV\Form $form
+   * @param \Valitron\Validator $validator
    * @return bool
    */
   public function validate( $form, $validator ) {
@@ -67,6 +84,7 @@ class Guard {
    * @since 0.8.10
    * @access private
    *
+   * @param WFV\Form $form
    * @param bool $valid Did the input validate?
    */
   private function trigger_post_validate_action( $form, $is_valid = false ) {
