@@ -60,7 +60,7 @@ class Guard implements ValidationInterface {
     if ( false === $is_valid ) {
       $form->errors->set( $validator->errors() );
     }
-    // $this->trigger_post_validate_action( $is_valid );
+    $this->trigger_post_validate_action( $form, $is_valid );
     return $is_valid;
   }
 
@@ -72,8 +72,8 @@ class Guard implements ValidationInterface {
    *
    * @param bool $valid Did the input validate?
    */
-  private function trigger_post_validate_action( $is_valid = false ) {
-    $action = ( true === $is_valid ) ? $this->action : $this->action .'_fail';
-    do_action( $action, $this );
+  private function trigger_post_validate_action( $form, $is_valid = false ) {
+    $action = ( true === $is_valid ) ? $form->action : $form->action .'_fail';
+    do_action( $action, $form );
   }
 }
