@@ -23,6 +23,12 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
    */
   protected static $form_args;
 
+  /**
+   *
+   *
+   * @access protected
+   * @var WFV\Guard $guard
+   */
   protected static $guard;
 
   /**
@@ -33,8 +39,20 @@ class GuardTest extends \PHPUnit_Framework_TestCase {
    */
   protected static $http_post;
 
+  /**
+   *
+   *
+   * @access protected
+   * @var string $input_action
+   */
   protected static $input_action;
 
+  /**
+   *
+   *
+   * @access protected
+   * @var string $input_token
+   */
   protected static $input_token;
 
   /**
