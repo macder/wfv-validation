@@ -45,20 +45,23 @@ class Guard implements ValidationInterface {
   }
 
   /**
-   * Create an instance of Valitron\Validator with our rules / messages
-   * Assign to $valitron property
+   * Validate the input with Valitron
+   * Trigger pass or fail action hook
+   * Return true or false
    *
    * @since 0.2.0
-   * @access protected
+   * @since 0.6.0 Public access
+   * @since 0.8.10 Return bool
    *
-   * @param array $form Form configuration array
+   * @return bool
    */
-  private function create() {
-    $input = $this->input->get_array();
-    $valitron = new \Valitron\Validator( $input );
-    $this->rules->load( $valitron, $this->messages );
-    return $valitron;
-    // void in abyss...
+  public function validate( $form, $validator ) {
+    $is_valid = ( $validator->validate() ) ? true : false;
+    if ( false === $is_valid ) {
+      $form->errors->set( $validator->errors() );
+    }
+    // $this->trigger_post_validate_action( $is_valid );
+    return $is_valid;
   }
 
   /**
