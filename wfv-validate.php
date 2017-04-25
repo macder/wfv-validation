@@ -35,8 +35,7 @@ function wfv_create( &$form ) {
   ValidationFactory::create_form( $form );
 
   if( $form->must_validate() ) {
-    $validator = ValidationFactory::create_validator( $form );
-    wfv_validate( $form, $validator );
+    wfv_validate( $form );
   }
 }
 
@@ -50,6 +49,16 @@ function wfv_create( &$form ) {
  * @param \Valitron\Validator $validator
  * @return WFV\Form
  */
-function wfv_validate( $form, $validator ) {
-  ValidationFactory::load_rules( $form, $validator );
+function wfv_validate( $form ) {
+  $token_name = $form->action .'_token';
+  $input_action = $form->input->action;
+  $input_token = $form->input->$token_name;
+
+  $guard = ValidationFactory::create_guard( $input_action, $input_token );
+
+  if( $guard->is_nonce_valid( $form->action, $form->token ) ) {
+    $validator = ValidationFactory::create_validator( $form );
+    ValidationFactory::load_rules( $form, $validator );
+    $guard->validate( $form, $validator );
+  }
 }
