@@ -9,47 +9,22 @@ defined( 'ABSPATH' ) or die();
  */
 class Guard implements ValidationInterface {
 
-
+  private $request_action;
+  private $request_token;
 
   /**
    * __construct
    *
    * @since 0.8.0
    *
-   * @param string
-   * @param WFV\Rules $rules
-   * @param WFV\Input $input
-   * @param WFV\Messages $messages
-   * @param WFV\Errors $errors
-   *
    */
 
   use AccessorTrait;
   use MutatorTrait;
 
-  function __construct() {
-  }
-
-  /**
-   * Validate the input with Valitron
-   * Trigger pass or fail action hook
-   * Return true or false
-   *
-   * @since 0.2.0
-   * @since 0.6.0 Public access
-   * @since 0.8.10 Return bool
-   *
-   * @return bool
-   */
-  public function validate() {
-    $valitron = $this->create();
-
-    $is_valid = ( $valitron->validate() ) ? true : false;
-    if ( false === $is_valid ) {
-      $this->errors->set( $valitron->errors() );
-    }
-    $this->trigger_post_validate_action( $is_valid );
-    return $is_valid;
+  function __construct( $action, $token ) {
+    $this->request_action = $action;
+    $this->request_token = $token;
   }
 
   /**
