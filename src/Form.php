@@ -92,14 +92,14 @@ class Form implements ValidationInterface {
    * @param WFV\Errors $errors
    *
    */
-  function __construct( $action, Input $input, Rules $rules, Messages $messages ) {
+  function __construct( $action, Input $input, Rules $rules, Messages $messages, Errors $errors ) {
     $properties = array(
       'action' => $action,
       'rules' => $rules,
       'messages' => $messages,
       'input' => $input,
-      //'errors' => $errors,
-      //'token' => wp_create_nonce( $action ),
+      'errors' => $errors,
+      'token' => wp_create_nonce( $action ),
     );
     $this->set( $properties );
   }
