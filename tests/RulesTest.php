@@ -44,8 +44,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_rules_get_set_as_properties() {
-    $rules = new Rules();
-    $rules->set( self::$rules );
+    $rules = new Rules( self::$rules );
 
     foreach( $rules as $field => $ruleset ) {
       $this->assertTrue( property_exists( $rules, $field ) );
@@ -58,8 +57,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_rules_if_field_has_rules() {
-    $rules = new Rules();
-    $rules->set( self::$rules );
+    $rules = new Rules( self::$rules );
 
     foreach( $rules as $field => $ruleset ) {
       foreach( $ruleset as $index => $rule ) {
@@ -74,7 +72,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_rule_is_custom_returns_true() {
-    $rules = new Rules();
+    $rules = new Rules( self::$rules );
     $this->assertTrue( $rules->is_custom('custom:phone') );
   }
 
@@ -83,7 +81,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase {
    *
    */
   public function test_rule_is_custom_returns_false() {
-    $rules = new Rules();
+    $rules = new Rules( self::$rules );
     $this->assertFalse( $rules->is_custom('required') );
   }
 }

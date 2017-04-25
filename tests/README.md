@@ -78,7 +78,7 @@ Creates and starts the wp-tests instance.
   3. Input
   4. Form
   5. Mutator
-  6. Validator
+  6. Guard
 
   7. Exit
 
@@ -150,10 +150,10 @@ $: vendor/bin/phpunit --report-useless-tests --verbose
 **PHP:** 5.4+<br>
 **WordPress:** 4.x.x including multisite
 
-[0.9.0](https://github.com/macder/wp-form-validation/tree/0.9.0) is passing on: [WordPress 4.7.4 + multisite / PHP 5.4, 5.5, 5.6, 7.0](https://travis-ci.org/macder/wp-form-validation/builds/224660816)
+[0.9.1](https://github.com/macder/wp-form-validation/tree/0.9.1) is passing on: [WordPress 4.7.4 + multisite / PHP 5.4, 5.5, 5.6, 7.0](https://travis-ci.org/macder/wp-form-validation/builds/225493740)
 
 **Minimum un-supported version:**<br>
-[0.9.0](https://github.com/macder/wp-form-validation/tree/0.9.0) is passing on: [WordPress 3.7 + multisite / PHP 5.4, 5.5, 5.6](https://travis-ci.org/macder/wp-form-validation/builds/224660275)
+[0.9.1](https://github.com/macder/wp-form-validation/tree/0.9.1) is passing on: [WordPress 3.7 + multisite / PHP 5.4, 5.5, 5.6](https://travis-ci.org/macder/wp-form-validation/builds/225493342)
 
 ## External Resources
 

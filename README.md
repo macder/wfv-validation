@@ -28,7 +28,7 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
   * [Custom Error Messages](#custom-error-messages)
   * [Action Hooks](#validation-action-hooks)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
-  * [Validation Instance](#create-the-validation-instance)
+  * [Form Instance](#create-the-form-instance)
   * [User Input](#user-input)
   * [Auto Populate](#auto-populate)
   * [Errors](#validation-errors)
@@ -37,8 +37,8 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * 32 built-in [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) rules
 * Custom rules
 * Custom error messages
-* No escape-on-input
-* Powerful and customizable [helper methods](#user-input) for working with input data
+* [No escape-on-input](#no-escape-on-input)
+* [Helper methods](#user-input) for working with input data
 * Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
@@ -78,8 +78,8 @@ function my_form_invalid( $form ) {
 // create the instance
 wfv_create( $my_form );
 
-// $my_form is now an instance of WFV\Validator:
-$my_form             // WFV\Validator
+// $my_form is now an instance of WFV\Form:
+$my_form             // WFV\Form
 $my_form->input;     // WFV\Input
 $my_form->errors;    // WFV\Errors
 $my_form->rules;     // WFV\Rules
@@ -224,18 +224,18 @@ The form must have the required token tag:
 ```
 This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
-## Create the validation instance
+## Create the form instance
 ### `wfv_create( array $form )`
-Creates an instance of 'WFV\Validator' and assigns it by reference to array parameter.
+Creates an instance of 'WFV\Form' and assigns it by reference to array parameter.
 
 Example:
 ```php
 <?php
-// $my_form becomes an instance of WFV\Validator
+// $my_form becomes an instance of WFV\Form
 wfv_create( $my_form );
 ```
 
-`$my_form` can now access properties and methods available to `WFV\Validator`
+`$my_form` can now access properties and methods available to `WFV\Form`
 
 ```php
 <?php
@@ -246,7 +246,7 @@ $my_form->messages;  // Instance of WFV\Messages
 ```
 **Get and Set:**
 
-All property instances on `WFV\Validator` share the same accessor and mutator traits.
+All property instances on `WFV\Form` share the same accessor and mutator traits.
 
 Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
 
@@ -263,7 +263,7 @@ Available methods:
 
 *Plus methods from Mutator and Accessor traits*
 
-The `input` property on `WFV\Validator` is an instance of `WFV\Input`
+The `input` property on `WFV\Form` is an instance of `WFV\Input`
 
 ```php
 <?php // $input becomes instance of WFV\Input
@@ -279,14 +279,17 @@ e.g:
 $my_form->input->name;  // Foo
 $my_form->input->email; // foo@bar.com
 ```
-### **Caution:**
+### **No escape-on-input**
+
+**Caution**
+
 Input properties hold raw `$_POST` values.<br>
 
 For output to external systems make sure to encode the data to the appropriate context. If storing input to a database, make use of a WordPress API, eg. [wpdb](https://codex.wordpress.org/Class_Reference/wpdb).<br>
 
 WFV adheres to ***filter but don't escape on input.***
 
-The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of gate keeping.
+The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of filtering input.
 
 Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use is `mysqli_real_escape_string` when rendered in a markup template? Context dictates the encoding, validation filters.
 
@@ -616,7 +619,7 @@ $my_form->input->put('email', 'foo@bar.com');
 ### `WFV\Errors`
 Class instance that holds validation errors.
 
-The `errors` property on `WFV\Validator` is an instance of `WFV\Errors`
+The `errors` property on `WFV\Form` is an instance of `WFV\Errors`
 ```php
 <?php // $errors becomes instance of WFV\Errors
 
@@ -643,13 +646,13 @@ foreach( $email_errors as $error ) {
 ```
 
 ### Get field's first error
-#### `error( string $field )`
+#### `first( string $field )`
 Convienience method to get first error on field.
 
 ```php
 <?php // get the first email error message
 
-echo $my_form->error('email'); // Email is required
+echo $my_form->errors->first('email'); // Email is required
 ```
 First error message is the first declared rule.
 

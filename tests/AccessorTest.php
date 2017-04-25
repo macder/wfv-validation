@@ -7,10 +7,10 @@ use WFV\Factory\ValidationFactory;
 class AccessorTest extends \PHPUnit_Framework_TestCase {
 
   /**
-   * Instance of WFV\Validator after $_POST.
+   * Instance of WFV\Form after $_POST.
    *
    * @access protected
-   * @var WFV\Validator $form_after_post
+   * @var WFV\Form $form_after_post
    */
   protected static $form;
 
@@ -69,7 +69,7 @@ class AccessorTest extends \PHPUnit_Framework_TestCase {
 
     $_POST = self::$http_post;
     $form = self::$form_args;
-    ValidationFactory::create( $form );
+    ValidationFactory::create_form( $form );
     self::$form = $form;
   }
 
