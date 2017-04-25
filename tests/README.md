@@ -78,7 +78,7 @@ Creates and starts the wp-tests instance.
   3. Input
   4. Form
   5. Mutator
-  6. Validator
+  6. Guard
 
   7. Exit
 
