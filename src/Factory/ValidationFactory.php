@@ -78,6 +78,7 @@ class ValidationFactory {
    * @param
    */
   public static function load_rules( $form, &$validator ) {
+    // WIP - simplification
 
     // loop the field
     foreach( $form->rules as $field => $rules ) {
