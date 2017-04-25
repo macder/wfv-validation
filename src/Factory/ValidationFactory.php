@@ -73,9 +73,10 @@ class ValidationFactory {
    * Push rules onto an instance of Valitron
    *
    * @since 0.7.0
+   * @since 0.9.1 Moved here from WFV\Rules
    *
-   * @param
-   * @param
+   * @param WFV\Form $form
+   * @param \Valitron\Validator $validator
    */
   public static function load_rules( $form, &$validator ) {
     // WIP - simplification
@@ -105,10 +106,11 @@ class ValidationFactory {
    * Trigger callback function for this custom rule
    *
    * @since 0.7.1
+   * @since 0.9.1 Moved here from WFV\Rules
    * @access private
    *
    * @param string $rule
-   * @param object $valitron Instance of Valitron\Validator
+   * @param \Valitron\Validator $validator
    */
   private function add_rule( $rule, $validator ) {
     $validator::addRule( $rule, function($field, $value, array $params, array $fields ) use ( $rule ) {
