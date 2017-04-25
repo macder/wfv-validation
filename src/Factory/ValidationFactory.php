@@ -170,8 +170,8 @@ class ValidationFactory {
    *
    * @param
    */
-  private function validator() {
-    return new Validator();
+  private function validator( $input ) {
+    return new Validator( $input );
   }
 
 }
