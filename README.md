@@ -28,7 +28,7 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
   * [Custom Error Messages](#custom-error-messages)
   * [Action Hooks](#validation-action-hooks)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
-  * [Validation Instance](#create-the-validation-instance)
+  * [Form Instance](#create-the-form-instance)
   * [User Input](#user-input)
   * [Auto Populate](#auto-populate)
   * [Errors](#validation-errors)
@@ -37,8 +37,8 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * 32 built-in [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) rules
 * Custom rules
 * Custom error messages
-* No escape-on-input
-* Powerful and customizable [helper methods](#user-input) for working with input data
+* [No escape-on-input](#no-escape-on-input)
+* [Helper methods](#user-input) for working with input data
 * Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
@@ -224,7 +224,7 @@ The form must have the required token tag:
 ```
 This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
-## Create the validation instance
+## Create the form instance
 ### `wfv_create( array $form )`
 Creates an instance of 'WFV\Form' and assigns it by reference to array parameter.
 
