@@ -2,23 +2,14 @@
 namespace WFV\Builder;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Component\Form;
+use WFV\Component\Validation;
 use WFV\Component\Rules;
 /**
  *
  *
  * @since 0.9.2
  */
-class FormBuilder implements BuilderInterface {
-
-	/**
-	 *
-	 *
-	 * @since 0.9.2
-	 * @access protected
-	 * @var array $config
-	 */
-	protected $config;
+class ValidationBuilder implements BuilderInterface {
 
 	/**
 	 *
@@ -27,7 +18,16 @@ class FormBuilder implements BuilderInterface {
 	 * @access protected
 	 * @var
 	 */
-	protected $form;
+	protected $validation;
+
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 * @access private
+	 * @var array $config
+	 */
+	private $config;
 
 	/**
 	 *
@@ -48,7 +48,7 @@ class FormBuilder implements BuilderInterface {
 	 * @return
 	 */
 	public function add_action() {
-		$this->form->set( 'action', $this->config['action'] );
+		$this->validation->set( 'action', $this->config['action'] );
 	}
 
 	/**
@@ -59,6 +59,7 @@ class FormBuilder implements BuilderInterface {
 	 * @return
 	 */
 	public function add_rules() {
+		$this->validation->set( 'rules', new Rules( $this->config['rules'] ) );
 	}
 
 	/**
@@ -81,7 +82,7 @@ class FormBuilder implements BuilderInterface {
 	 */
 	public function create() {
 
-		$this->form = new Form();
+		$this->validation = new Validation();
 
 	}
 
@@ -92,8 +93,7 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @return
 	 */
-	public function get_form() {
-		return $this->form;
+	public function get_validation() {
+		return $this->validation;
 	}
-
 }
