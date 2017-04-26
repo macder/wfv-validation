@@ -11,13 +11,13 @@ use WFV\Component\Rules;
  */
 class FormBuilder implements BuilderInterface {
 
-  /**
-   *
-   *
-   * @since 0.9.2
-   * @access protected
-   * @var array $config
-   */
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 * @access protected
+	 * @var array $config
+	 */
 	protected $config;
 
   /**
