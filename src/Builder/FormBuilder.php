@@ -20,78 +20,78 @@ class FormBuilder implements BuilderInterface {
 	 */
 	protected $config;
 
-  /**
-   *
-   *
-   * @since 0.9.2
-   * @access protected
-   * @var
-   */
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 * @access protected
+	 * @var
+	 */
 	protected $form;
 
-  /**
-   *
-   *
-   * @since 0.9.2
-   *
-   * @return
-   */
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return
+	 */
 	public function __construct( $config ) {
 		$this->config = $config;
 	}
 
-  /**
-   *
-   *
-   * @since 0.9.2
-   *
-   * @return
-   */
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return
+	 */
 	public function add_action() {
 		$this->form->set( 'action', $this->config['action'] );
 	}
 
-  /**
-   *
-   *
-   * @since 0.9.2
-   *
-   * @return
-   */
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return
+	 */
 	public function add_rules() {
 	}
 
-  /**
-   *
-   *
-   * @since 0.9.2
-   *
-   * @return
-   */
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return
+	 */
 	public function add_input() {
 
 	}
 
-  /**
-   *
-   *
-   * @since 0.9.2
-   *
-   * @return
-   */
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return
+	 */
 	public function create() {
 
 		$this->form = new Form();
 
 	}
 
-  /**
-   *
-   *
-   * @since 0.9.2
-   *
-   * @return
-   */
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return
+	 */
 	public function get_form() {
 		return $this->form;
 	}
