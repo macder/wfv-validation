@@ -42,8 +42,8 @@ class Rules {
 	 * @return
 	 */
 	private function set( $rules ) {
-			foreach( $rules as $field => $ruleset ) {
-				$this->$field = $ruleset;
-			}
+		foreach( $rules as $field => $ruleset ) {
+			$this->$field = $ruleset;
+		}
 	}
 }
