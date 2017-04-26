@@ -19,7 +19,8 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
-use WFV\Factory\ValidationFactory;
+use WFV\Builder\ValidationBuilder;
+use WFV\Builder\Director;
 
 /**
  * Build instance of WFV\Validator using factory
@@ -32,33 +33,21 @@ use WFV\Factory\ValidationFactory;
  * @param array $form Form configuration
  */
 function wfv_create( &$form ) {
-  ValidationFactory::create_form( $form );
 
-  if( $form->must_validate() ) {
-    wfv_validate( $form );
-  }
+  $validation_builder = new ValidationBuilder( $form );
+  $form = ( new Director() )->build( $validation_builder );
 }
 
 /**
  *
  *
- * @since 0.8.2
- * @since 0.9.1
  *
- * @param WFV\Form $form
- * @param \Valitron\Validator $validator
- * @return WFV\Form
+ * @since 0.9.2
+ *
+ * @param
+ * @param
+ * @return
  */
-function wfv_validate( $form ) {
-  $token_name = $form->action .'_token';
-  $input_action = $form->input->action;
-  $input_token = $form->input->$token_name;
+function wfv_validate() {
 
-  $guard = ValidationFactory::create_guard( $input_action, $input_token );
-
-  if( $guard->is_nonce_valid( $form->action, $form->token ) ) {
-    $validator = ValidationFactory::create_validator( $form );
-    ValidationFactory::load_rules( $form, $validator );
-    $guard->validate( $form, $validator );
-  }
 }
