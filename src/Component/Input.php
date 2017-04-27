@@ -46,7 +46,7 @@ class Input implements ValidationInterface {
    * @param string|array (optional) $callback
    * @return string|null
    */
-  public function render( $field, $callback = 'htmlspecialchars' ) {
+  public function render( $field, callable $callback ) {
     if( is_string( $field ) ) {
       return ( $this->has( $field ) ) ? $this->call_func( $callback, $this->$field ) : null;
     }
