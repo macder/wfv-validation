@@ -61,7 +61,8 @@ class Director {
 	}
 
 	/**
-	 * Push component arguments into $this->components
+	 * Assign a components arguments to use when
+	 *  creating an entity.
 	 *
 	 * @since 0.10.0
 	 *
