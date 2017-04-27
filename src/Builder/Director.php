@@ -30,7 +30,20 @@ class Director {
 	 */
 	private $components = array();
 
+	/**
+	 * Give an attribute
 	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $type
+	 * @param string $attribute
+	 * @return WFV\Builder\Director
+	 */
+	public function attribute( $type, $attribute ) {
+		$this->config[ $type ] = $attribute;
+		return $this;
+	}
+
 	 * @param BuilderInterface $builder
 	 * @return class
 	 */
