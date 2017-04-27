@@ -5,23 +5,23 @@ defined( 'ABSPATH' ) or die();
 /**
  *
  *
- * @since 0.9.2
+ * @since 0.10.0
  */
 class Form {
 
 	/**
 	 * Action name
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 * @access private
 	 * @var string
 	 */
 	private $action;
 
 	/**
-	 * Group of entity instances
+	 * Group of entity instances.
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 * @access private
 	 * @var array
 	 */
@@ -31,7 +31,7 @@ class Form {
 	/**
 	 *
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 *
 	 * @param string $action
 	 * @param array $components
@@ -42,9 +42,9 @@ class Form {
 	}
 
 	/**
-	 * Render an entity value returned from a callback
+	 * Render an entity value returned from a callback.
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 *
 	 * @param string $entity
 	 * @param string $value
