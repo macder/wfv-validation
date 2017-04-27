@@ -37,7 +37,7 @@ function wfv_create( $action, &$form ) {
     ->give_attribute( 'action', $action )
     ->with_entity( 'rules', $form['rules'] )
     ->with_entity( 'input', $action )
-    ->fulfill( $builder ); //invoke
+    ->invoke( $builder ); //invoke
 }
 
 /**
