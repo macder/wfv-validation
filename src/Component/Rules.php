@@ -5,14 +5,14 @@ defined( 'ABSPATH' ) or die();
 /**
  *
  *
- * @since 0.9.2
+ * @since 0.10.0
  */
 class Rules {
 
 	/**
 	 *
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 *
 	 * @param array $rules
 	 * @return
@@ -36,7 +36,7 @@ class Rules {
 	/**
 	 *
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 *
 	 * @param array $rules
 	 * @return
