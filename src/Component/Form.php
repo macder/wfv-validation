@@ -7,37 +7,35 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.9.2
  */
-abstract class Form {
-
-  protected $action;
-
-  protected $input;
-
-  /**
-   * Check if property exists
-   *
-   * @since 0.8.0
-   *
-   * @param string $property
-   * @return bool
-   */
-  public function has( $property ) {
-    return ( true === property_exists( $this, $property ) ) ? true : false;
-  }
+class Form {
 
   /**
    *
    *
    * @since 0.9.2
-   *
-   * @param string $property
-   * @param mixed $value
+   * @access protected
+   * @var string
    */
-  public function set( $property, $value ) {
-    if( $this->has( $property ) ) {
-      if( is_null( $this->$property ) ) {
-        $this->$property = $value;
-      }
-    }
-  }
+  private $action;
+
+  /**
+   *
+   *
+   * @since 0.9.2
+   * @access protected
+   * @var
+   */
+  private $rules;
+
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return
+	 */
+	public function __construct( $action, $rules ) {
+		$this->action = $action;
+		$this->rules = $rules;
+	}
 }
