@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Builder;
+namespace WFV\Contract;
 defined( 'ABSPATH' ) or die();
 
 /**
