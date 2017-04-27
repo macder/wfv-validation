@@ -1,5 +1,5 @@
 <?php
-namespace WFV;
+namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
 /**
@@ -7,10 +7,7 @@ defined( 'ABSPATH' ) or die();
  *
  * @since 0.8.0
  */
-class Input implements ValidationInterface {
-
-  use AccessorTrait;
-  use MutatorTrait;
+class Input {
 
   /**
    * __construct
@@ -21,7 +18,7 @@ class Input implements ValidationInterface {
    */
   function __construct( $action ) {
     if( $this->is_submit( $action ) ) {
-      $this->set_input();
+      $this->copy_input();
     }
   }
 
@@ -112,13 +109,17 @@ class Input implements ValidationInterface {
   }
 
   /**
-   * Set the properties
+   * Assign input properties
    *
    * @since 0.9.0
    * @access private
    */
-  private function set_input() {
+  private function copy_input() {
+    // WIP reduce responsibility
     $input = $this->transform_array_leafs( $_POST, 'stripslashes' );
-    $this->set( $input );
+
+    foreach( $input as $field => $value ) {
+      $this->$field = $value;
+    }
   }
 }
