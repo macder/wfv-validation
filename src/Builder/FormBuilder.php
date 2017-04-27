@@ -2,6 +2,7 @@
 namespace WFV\Builder;
 defined( 'ABSPATH' ) or die();
 
+use WFV\Contract\BuilderInterface;
 use WFV\Component\Form;
 use WFV\Component\Input;
 use WFV\Component\Rules;
