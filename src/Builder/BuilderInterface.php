@@ -18,5 +18,5 @@ interface BuilderInterface {
 	/**
 	 * @return mixed
 	 */
-	public function result();
+	public function deliver();
 }
