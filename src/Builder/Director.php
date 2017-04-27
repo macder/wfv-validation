@@ -2,6 +2,8 @@
 namespace WFV\Builder;
 defined( 'ABSPATH' ) or die();
 
+use WFV\Contract\BuilderInterface;
+
 /**
  *
  *
