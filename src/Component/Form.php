@@ -25,7 +25,7 @@ class Form {
 	 * @access private
 	 * @var array
 	 */
-	private $entities = [];
+	private $entities = array();
 
 
 	/**
@@ -36,7 +36,7 @@ class Form {
 	 * @param string $action
 	 * @param array $components
 	 */
-	function __construct( $action, $components ) {
+	function __construct( $action, array $components = [] ) {
 		$this->action = $action;
 		$this->assign( $components );
 	}
@@ -77,7 +77,7 @@ class Form {
 	 *
 	 * @param array $components
 	 */
-	private function assign( $components ) {
+	private function assign( array $components ) {
 		foreach( $components as $name => $entity ) {
 			$this->add_entity( $name, $entity );
 		}
