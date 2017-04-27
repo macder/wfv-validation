@@ -36,7 +36,6 @@ class Input implements ValidationInterface {
 		return ( true === property_exists( $this, $property ) ) ? true : false;
 	}
 
-
 	/**
 	 *
 	 *
