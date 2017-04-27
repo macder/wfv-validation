@@ -44,16 +44,20 @@ class Director {
 		return $this;
 	}
 
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
 	 * @param BuilderInterface $builder
 	 * @return class
 	 */
 	public function invoke( BuilderInterface $builder ) {
-		foreach( $this->config['component'] as $entity => $attributes ) {
-			$builder->$entity( $attributes );
-		}
-		$builder->create( $this->config['action'] );
+		$this->integrate( $this->components, $builder );
 
-		return $builder->deliver();
+		return $builder
+			->create( $this->config['action'] )
+			->deliver();
 	}
 
 	/**
