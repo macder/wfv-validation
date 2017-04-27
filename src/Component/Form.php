@@ -10,10 +10,10 @@ defined( 'ABSPATH' ) or die();
 class Form {
 
   /**
-   *
+   * Action name
    *
    * @since 0.9.2
-   * @access protected
+   * @access private
    * @var string
    */
   private $action;
