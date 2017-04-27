@@ -4,13 +4,13 @@ defined( 'ABSPATH' ) or die();
 
 interface BuilderInterface {
 
-  /**
-   * @return mixed
-   */
-  public function create();
+	/**
+	 * @return mixed
+	 */
+	public function create();
 
-  /**
-   * @return mixed
-   */
-  public function result();
+	/**
+	 * @return mixed
+	 */
+	public function result();
 }
