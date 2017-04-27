@@ -25,6 +25,15 @@ class Form {
    * @access protected
    * @var
    */
+  private $input;
+
+  /**
+   *
+   *
+   * @since 0.9.2
+   * @access protected
+   * @var
+   */
   private $rules;
 
 	/**
@@ -34,8 +43,9 @@ class Form {
 	 *
 	 * @return
 	 */
-	public function __construct( $action, $rules ) {
+	public function __construct( $action, $rules, $input ) {
 		$this->action = $action;
+		$this->input = $input;
 		$this->rules = $rules;
 	}
 }
