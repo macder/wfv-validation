@@ -2,15 +2,20 @@
 namespace WFV\Builder;
 defined( 'ABSPATH' ) or die();
 
-class Director{
+class Director {
 
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @param
+	 * @return
+	 */
 	public function build( BuilderInterface $builder ) {
+		$builder->rules()
+			->create();
 
-		$builder->create();
-		$builder->add_action();
-		$builder->add_rules();
-
-		return $builder->get_validation();
-
+		return $builder->result();
 	}
 }
