@@ -13,8 +13,6 @@ use WFV\Component\Rules;
  */
 class FormBuilder implements BuilderInterface {
 
-	// private $action;
-
 	private $components;
 
 	/**
@@ -38,57 +36,58 @@ class FormBuilder implements BuilderInterface {
 	/**
 	 *
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 *
 	 * @return
 	 */
-	public function __construct( $config ) {
-		$this->config = $config;
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.9.2
-	 *
-	 * @return
-	 */
-	public function input() {
-		$this->components['input'] = new Input( $this->config['action'] );
+	public function create( $action ) {
+		$this->form = new Form( $action, $this->components );
 		return $this;
 	}
 
 	/**
 	 *
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 *
 	 * @return
 	 */
-	public function rules() {
-		$this->components['rules'] = new Rules( $this->config['rules'] );
-		return $this;
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.9.2
-	 *
-	 * @return
-	 */
-	public function create() {
-		$this->form = new Form( $this->config['action'], $this->components );
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.9.2
-	 *
-	 * @return
-	 */
-	public function result() {
+	public function deliver() {
 		return $this->form;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return
+	 */
+	public function input( $action ) {
+		$this->components['input'] = new Input( $action );
+		return $this;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return
+	 */
+	public function messages() {
+		return $this;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return
+	 */
+	public function rules( array $rules ) {
+		$this->components['rules'] = new Rules( $rules );
+		return $this;
 	}
 }
