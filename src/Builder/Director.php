@@ -14,6 +14,7 @@ class Director {
 	 */
 	public function build( BuilderInterface $builder ) {
 		$builder->rules()
+			->input()
 			->create();
 
 		return $builder->result();
