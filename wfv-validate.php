@@ -32,11 +32,7 @@ use WFV\Builder\Director;
  * @param array $form Form configuration
  */
 function wfv_create( &$form ) {
-
-  $action = $form['action'];
-  $rules = $form['rules'];
-
-  $builder = new FormBuilder( $action, $rules );
+  $builder = new FormBuilder( $form );
   $form = ( new Director() )->build( $builder );
 }
 
