@@ -78,13 +78,14 @@ class Director {
 	 *
 	 *
 	 * @since 0.10.0
+	 * @access private
 	 *
-	 * @param string $entity
-	 * @param string|array $attributes
-	 * @return
+	 * @param array $components
+	 * @param BuilderInterface $builder
 	 */
-	public function with_entity( $entity, $attributes ) {
-		$this->config['component'][$entity] = $attributes;
-		return $this;
+	private function integrate( array $components, BuilderInterface &$builder ) {
+		foreach( $components as $entity => $attributes ) {
+			$builder->$entity( $attributes );
+		}
 	}
 }
