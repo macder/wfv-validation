@@ -25,6 +25,19 @@ class Input implements ValidationInterface {
   }
 
   /**
+   * Check if property exists
+   *
+   * @since 0.8.0
+   *
+   * @param string $property
+   * @return bool
+   */
+  private function has( $property ) {
+    return ( true === property_exists( $this, $property ) ) ? true : false;
+  }
+
+
+  /**
    *
    *
    * @since 0.9.0
