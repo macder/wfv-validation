@@ -85,15 +85,14 @@ class Form {
   }
 
 	/**
-	 *
+	 * Return entity instance
 	 *
 	 * @since 0.9.2
+	 * @access private
 	 *
-	 * @return
+	 * @param string $entity Key indentifier
 	 */
-	public function __construct( $action, $rules, $input ) {
-		$this->action = $action;
-		$this->input = $input;
-		$this->rules = $rules;
+	private function employ( $entity ) {
+		return $this->entities[ $entity ];
 	}
 }
