@@ -45,7 +45,7 @@ class Director {
 	}
 
 	/**
-	 *
+	 * Build and deliver a finished entity
 	 *
 	 * @since 0.10.0
 	 *
