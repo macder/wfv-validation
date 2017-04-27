@@ -75,7 +75,8 @@ class Director {
 	}
 
 	/**
-	 *
+	 * Invokes builder methods to create entities
+	 *	for the component under construction.
 	 *
 	 * @since 0.10.0
 	 * @access private
