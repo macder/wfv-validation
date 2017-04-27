@@ -19,13 +19,13 @@ class Form {
   private $action;
 
   /**
-   *
+   * Group of entity instances
    *
    * @since 0.9.2
-   * @access protected
-   * @var
+   * @access private
+   * @var array
    */
-  private $input;
+  private $entities = [];
 
   /**
    *
