@@ -23,21 +23,21 @@ use WFV\Builder\FormBuilder;
 use WFV\Builder\Director;
 
 /**
- * Build instance of WFV\Validator using factory
- * Assign by reference the instance, as described by $form.
+ *
  *
  * @since 0.3.0
  * @since 0.10.0
  *
- * @param array $form Form configuration
+ * @param string $action
+ * @param array $form Form arguments
  */
-function wfv_create( $action, &$form ) {
+function wfv_create( $action, array &$form ) {
   $builder = new FormBuilder();
   $form = ( new Director() )
-    ->give_attribute( 'action', $action )
-    ->with_entity( 'rules', $form['rules'] )
-    ->with_entity( 'input', $action )
-    ->invoke( $builder ); //invoke
+    ->attribute( 'action', $action )
+    ->install( 'rules', $form['rules'] )
+    ->install( 'input', $action )
+    ->invoke( $builder );
 }
 
 /**
