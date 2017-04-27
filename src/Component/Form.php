@@ -58,13 +58,31 @@ class Form {
 	}
 
   /**
-   *
+   * Assign group of entities
    *
    * @since 0.9.2
-   * @access protected
-   * @var
+   * @access private
+   *
+   * @param array $components
    */
-  private $rules;
+  private function assign( $components ) {
+    foreach( $components as $name => $entity ) {
+      $this->add_entity( $name, $entity );
+    }
+  }
+
+  /**
+   * Add an entity
+   *
+   * @since 0.9.2
+   * @access private
+   *
+   * @param string $key
+   * @param class $entity
+   */
+  private function add_entity( $key, $entity ) {
+    $this->entities[ $key ] = $entity;
+  }
 
 	/**
 	 *
