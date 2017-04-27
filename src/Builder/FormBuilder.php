@@ -13,9 +13,9 @@ use WFV\Component\Rules;
  */
 class FormBuilder implements BuilderInterface {
 
-	private $action;
+	// private $action;
 
-	private $input;
+	private $components;
 
 	/**
 	 *
@@ -33,7 +33,7 @@ class FormBuilder implements BuilderInterface {
 	 * @access private
 	 * @var array
 	 */
-	private $rules;
+	private $config;
 
 	/**
 	 *
@@ -42,9 +42,8 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @return
 	 */
-	public function __construct( $action, $rules ) {
-		$this->action = $action;
-		$this->rules = $rules;
+	public function __construct( $config ) {
+		$this->config = $config;
 	}
 
 	/**
@@ -55,7 +54,7 @@ class FormBuilder implements BuilderInterface {
 	 * @return
 	 */
 	public function input() {
-		$this->input = new Input( $this->input );
+		$this->components['input'] = new Input( $this->config['action'] );
 		return $this;
 	}
 
@@ -67,7 +66,7 @@ class FormBuilder implements BuilderInterface {
 	 * @return
 	 */
 	public function rules() {
-		$this->rules = new Rules( $this->rules );
+		$this->components['rules'] = new Rules( $this->config['rules'] );
 		return $this;
 	}
 
@@ -79,7 +78,7 @@ class FormBuilder implements BuilderInterface {
 	 * @return
 	 */
 	public function create() {
-		$this->form = new Form( $this->action, $this->rules, $this->input );
+		$this->form = new Form( $this->config['action'], $this->components );
 	}
 
 	/**
