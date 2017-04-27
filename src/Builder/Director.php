@@ -2,6 +2,12 @@
 namespace WFV\Builder;
 defined( 'ABSPATH' ) or die();
 
+/**
+ *
+ *
+ * @since 0.9.2
+ *
+ */
 class Director {
 
 	/**
@@ -16,7 +22,6 @@ class Director {
 		$builder->rules()
 			->input()
 			->create();
-
 		return $builder->result();
 	}
 }
