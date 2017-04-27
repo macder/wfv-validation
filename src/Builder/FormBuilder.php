@@ -3,6 +3,7 @@ namespace WFV\Builder;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Component\Form;
+use WFV\Component\Input;
 use WFV\Component\Rules;
 
 /**
@@ -13,6 +14,8 @@ use WFV\Component\Rules;
 class FormBuilder implements BuilderInterface {
 
 	private $action;
+
+	private $input;
 
 	/**
 	 *
@@ -51,6 +54,18 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @return
 	 */
+	public function input() {
+		$this->input = new Input( $this->input );
+		return $this;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return
+	 */
 	public function rules() {
 		$this->rules = new Rules( $this->rules );
 		return $this;
@@ -64,7 +79,7 @@ class FormBuilder implements BuilderInterface {
 	 * @return
 	 */
 	public function create() {
-		$this->form = new Form( $this->action, $this->rules );
+		$this->form = new Form( $this->action, $this->rules, $this->input );
 	}
 
 	/**
