@@ -20,7 +20,7 @@ class Director {
 	 * @param BuilderInterface $builder
 	 * @return class
 	 */
-	public function enact( BuilderInterface $builder ) {
+	public function invoke( BuilderInterface $builder ) {
 		foreach( $this->config['component'] as $entity => $attributes ) {
 			$builder->$entity( $attributes );
 		}
