@@ -1,6 +1,6 @@
 # WFV - WordPress Form Validation
 
-#### Declarative input validation API for WordPress
+####  Fluent, immutable, and declarative API for elegant input validation with WordPress
 
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
