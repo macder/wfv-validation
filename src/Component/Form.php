@@ -57,9 +57,22 @@ class Form {
 	}
 
 	/**
-	 * Assign group of entities
+	 * Add an entity
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
+	 * @access private
+	 *
+	 * @param string $key
+	 * @param class $entity
+	 */
+	private function add_entity( $key, $entity ) {
+		$this->entities[ $key ] = $entity;
+	}
+
+	/**
+	 * Assign group of entities.
+	 *
+	 * @since 0.10.0
 	 * @access private
 	 *
 	 * @param array $components
@@ -71,25 +84,12 @@ class Form {
 	}
 
 	/**
-	 * Add an entity
+	 * Get an entity to make use of.
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 * @access private
 	 *
-	 * @param string $key
-	 * @param class $entity
-	 */
-	private function add_entity( $key, $entity ) {
-		$this->entities[ $key ] = $entity;
-	}
-
-	/**
-	 * Return entity instance
-	 *
-	 * @since 0.9.2
-	 * @access private
-	 *
-	 * @param string $entity Key indentifier
+	 * @param string $entity Key indentifier.
 	 */
 	private function employ( $entity ) {
 		return $this->entities[ $entity ];
