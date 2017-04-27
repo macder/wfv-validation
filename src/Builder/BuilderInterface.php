@@ -13,7 +13,7 @@ interface BuilderInterface {
 	/**
 	 * @return mixed
 	 */
-	public function create();
+	public function create( $action );
 
 	/**
 	 * @return mixed
