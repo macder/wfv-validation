@@ -9,7 +9,7 @@ use WFV\Component\Rules;
 /**
  *
  *
- * @since 0.9.2
+ * @since 0.10.0
  */
 class FormBuilder implements BuilderInterface {
 
@@ -20,7 +20,7 @@ class FormBuilder implements BuilderInterface {
 	/**
 	 *
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 * @access private
 	 * @var
 	 */
@@ -29,7 +29,7 @@ class FormBuilder implements BuilderInterface {
 	/**
 	 *
 	 *
-	 * @since 0.9.2
+	 * @since 0.10.0
 	 * @access private
 	 * @var array
 	 */
