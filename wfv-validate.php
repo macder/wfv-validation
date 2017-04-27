@@ -27,13 +27,17 @@ use WFV\Builder\Director;
  * Assign by reference the instance, as described by $form.
  *
  * @since 0.3.0
- * @since 0.9.2
+ * @since 0.10.0
  *
  * @param array $form Form configuration
  */
-function wfv_create( &$form ) {
-  $builder = new FormBuilder( $form );
-  $form = ( new Director() )->build( $builder );
+function wfv_create( $action, &$form ) {
+  $builder = new FormBuilder();
+  $form = ( new Director() )
+    ->give_attribute( 'action', $action )
+    ->with_entity( 'rules', $form['rules'] )
+    ->with_entity( 'input', $action )
+    ->build( $builder );
 }
 
 /**
