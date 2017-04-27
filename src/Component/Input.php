@@ -2,12 +2,14 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
+use WFV\ValidationInterface;
+
 /**
  *
  *
  * @since 0.8.0
  */
-class Input {
+class Input implements ValidationInterface {
 
   /**
    * __construct
