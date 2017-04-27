@@ -2,7 +2,7 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
-use WFV\ValidationInterface;
+use WFV\Contract\ValidationInterface;
 
 /**
  *
