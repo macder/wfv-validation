@@ -27,6 +27,20 @@ class Form {
    */
   private $entities = [];
 
+
+	/**
+	 *
+	 *
+	 * @since 0.9.2
+	 *
+	 * @param string $action
+	 * @param array $components
+	 */
+	function __construct( $action, $components ) {
+		$this->action = $action;
+		$this->assign( $components );
+	}
+
   /**
    *
    *
