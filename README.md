@@ -244,11 +244,6 @@ $my_form->errors;    // Instance of WFV\Errors
 $my_form->rules;     // Instance of WFV\Rules
 $my_form->messages;  // Instance of WFV\Messages
 ```
-**Get and Set:**
-
-All property instances on `WFV\Form` share the same accessor and mutator traits.
-
-Examine [`AccessorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/AccessorTrait.php) and [`MutatorTrait.php`](https://github.com/macder/wp-form-validation/blob/master/src/MutatorTrait.php) for available methods to get and set properties.
 
 ## User input
 ### `WFV\Input`
