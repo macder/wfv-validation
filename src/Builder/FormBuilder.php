@@ -14,16 +14,14 @@ use WFV\Component\Rules;
  */
 class FormBuilder implements BuilderInterface {
 
-	private $components;
-
 	/**
 	 *
 	 *
 	 * @since 0.10.0
 	 * @access private
-	 * @var
+	 * @var array
 	 */
-	private $form;
+	private $components = array();
 
 	/**
 	 *
@@ -32,14 +30,24 @@ class FormBuilder implements BuilderInterface {
 	 * @access private
 	 * @var array
 	 */
-	private $config;
+	private $config = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var WFV\Component\Form
+	 */
+	private $form;
 
 	/**
 	 *
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return
+	 * @param string $action
+	 * @return WFV\Builder\FormBuilder
 	 */
 	public function create( $action ) {
 		$this->form = new Form( $action, $this->components );
