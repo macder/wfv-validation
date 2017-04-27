@@ -59,7 +59,7 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return
+	 * @return WFV\Component\Form
 	 */
 	public function deliver() {
 		return $this->form;
@@ -70,7 +70,8 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return
+	 * @param string $action
+	 * @return WFV\Builder\FormBuilder
 	 */
 	public function input( $action ) {
 		$this->components['input'] = new Input( $action );
@@ -82,7 +83,7 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return
+	 * @return WFV\Builder\FormBuilder
 	 */
 	public function messages() {
 		return $this;
@@ -93,7 +94,8 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return
+	 * @param array $rules
+	 * @return WFV\Builder\FormBuilder
 	 */
 	public function rules( array $rules ) {
 		$this->components['rules'] = new Rules( $rules );
