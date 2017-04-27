@@ -12,7 +12,14 @@ use WFV\Contract\BuilderInterface;
  */
 class Director {
 
-	private $config = [];
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var array
+	 */
+	private $config = array();
 
 	/**
 	 *
