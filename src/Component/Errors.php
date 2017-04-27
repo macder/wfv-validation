@@ -2,7 +2,6 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
-// use WFV\Service\Collection;
 /**
  *
  *
