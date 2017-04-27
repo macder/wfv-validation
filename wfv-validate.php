@@ -19,7 +19,7 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
-use WFV\Builder\ValidationBuilder;
+use WFV\Builder\FormBuilder;
 use WFV\Builder\Director;
 
 /**
@@ -27,15 +27,17 @@ use WFV\Builder\Director;
  * Assign by reference the instance, as described by $form.
  *
  * @since 0.3.0
- * @since 0.5.0 $form parameter creates reference
- * @since 0.8.2 uses factory to create object
+ * @since 0.9.2
  *
  * @param array $form Form configuration
  */
 function wfv_create( &$form ) {
 
-  $validation_builder = new ValidationBuilder( $form );
-  $form = ( new Director() )->build( $validation_builder );
+  $action = $form['action'];
+  $rules = $form['rules'];
+
+  $builder = new FormBuilder( $action, $rules );
+  $form = ( new Director() )->build( $builder );
 }
 
 /**
