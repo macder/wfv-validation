@@ -61,16 +61,16 @@ class Director {
 	}
 
 	/**
-	 *
+	 * Push component arguments into $this->components
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $type
-	 * @param string $attribute
-	 * @return
+	 * @param string $entity
+	 * @param string|array $attributes
+	 * @return WFV\Builder\Director
 	 */
-	public function give_attribute( $type, $attribute ) {
-		$this->config[ $type ] = $attribute ;
+	public function install( $entity, $attributes ) {
+		$this->components[ $entity ] = $attributes;
 		return $this;
 	}
 
