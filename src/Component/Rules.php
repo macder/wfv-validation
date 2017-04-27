@@ -18,7 +18,7 @@ class Rules {
 	 * @return
 	 */
 	public function __construct( $rules ) {
-		$this->set( $rules );
+		$this->assign( $rules );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Rules {
 	 * @param array $rules
 	 * @return
 	 */
-	private function set( $rules ) {
+	private function assign( $rules ) {
 		foreach( $rules as $field => $ruleset ) {
 			$this->$field = $ruleset;
 		}
