@@ -25,6 +25,11 @@ class Director {
 	 *
 	 *
 	 * @since 0.10.0
+	 * @access private
+	 * @var array
+	 */
+	private $components = array();
+
 	 *
 	 * @param BuilderInterface $builder
 	 * @return class
