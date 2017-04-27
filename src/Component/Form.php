@@ -9,23 +9,23 @@ defined( 'ABSPATH' ) or die();
  */
 class Form {
 
-  /**
-   * Action name
-   *
-   * @since 0.9.2
-   * @access private
-   * @var string
-   */
-  private $action;
+	/**
+	 * Action name
+	 *
+	 * @since 0.9.2
+	 * @access private
+	 * @var string
+	 */
+	private $action;
 
-  /**
-   * Group of entity instances
-   *
-   * @since 0.9.2
-   * @access private
-   * @var array
-   */
-  private $entities = [];
+	/**
+	 * Group of entity instances
+	 *
+	 * @since 0.9.2
+	 * @access private
+	 * @var array
+	 */
+	private $entities = [];
 
 
 	/**
@@ -51,38 +51,37 @@ class Form {
 	 * @param callable $callback
 	 */
 	public function render( $entity, $value, callable $callback = null ) {
-    $callback = ( null === $callback ) ? 'esc_html' : $callback;
-
+		$callback = ( null === $callback ) ? 'esc_html' : $callback;
 		return $this->employ( $entity )
-      ->render( $value, $callback );
+			->render( $value, $callback );
 	}
 
-  /**
-   * Assign group of entities
-   *
-   * @since 0.9.2
-   * @access private
-   *
-   * @param array $components
-   */
-  private function assign( $components ) {
-    foreach( $components as $name => $entity ) {
-      $this->add_entity( $name, $entity );
-    }
-  }
+	/**
+	 * Assign group of entities
+	 *
+	 * @since 0.9.2
+	 * @access private
+	 *
+	 * @param array $components
+	 */
+	private function assign( $components ) {
+		foreach( $components as $name => $entity ) {
+			$this->add_entity( $name, $entity );
+		}
+	}
 
-  /**
-   * Add an entity
-   *
-   * @since 0.9.2
-   * @access private
-   *
-   * @param string $key
-   * @param class $entity
-   */
-  private function add_entity( $key, $entity ) {
-    $this->entities[ $key ] = $entity;
-  }
+	/**
+	 * Add an entity
+	 *
+	 * @since 0.9.2
+	 * @access private
+	 *
+	 * @param string $key
+	 * @param class $entity
+	 */
+	private function add_entity( $key, $entity ) {
+		$this->entities[ $key ] = $entity;
+	}
 
 	/**
 	 * Return entity instance
