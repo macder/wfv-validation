@@ -25,18 +25,6 @@ class Input implements ValidationInterface {
 	}
 
 	/**
-	 * Check if property exists
-	 *
-	 * @since 0.8.0
-	 *
-	 * @param string $property
-	 * @return bool
-	 */
-	private function has( $property ) {
-		return ( true === property_exists( $this, $property ) ) ? true : false;
-	}
-
-	/**
 	 *
 	 *
 	 * @since 0.9.0
@@ -94,6 +82,34 @@ class Input implements ValidationInterface {
 	}
 
 	/**
+	 * Assign input properties
+	 *
+	 * @since 0.9.0
+	 * @access private
+	 */
+	private function copy_input() {
+		// WIP reduce responsibility
+		$input = $this->transform_array_leafs( $_POST, 'stripslashes' );
+		// $input = $_POST;
+
+		foreach( $input as $field => $value ) {
+			$this->$field = $value;
+		}
+	}
+
+	/**
+	 * Check if property exists
+	 *
+	 * @since 0.8.0
+	 *
+	 * @param string $property
+	 * @return bool
+	 */
+	private function has( $property ) {
+		return ( true === property_exists( $this, $property ) ) ? true : false;
+	}
+
+	/**
 	 * Transform the $array leafs, traversing infinite dimensions
 	 *
 	 * @since 0.9.0
@@ -120,21 +136,5 @@ class Input implements ValidationInterface {
 	 */
 	private function is_submit( $action ) {
 		return ( $_POST && $_POST['action'] === $action ) ? true : false;
-	}
-
-	/**
-	 * Assign input properties
-	 *
-	 * @since 0.9.0
-	 * @access private
-	 */
-	private function copy_input() {
-		// WIP reduce responsibility
-		$input = $this->transform_array_leafs( $_POST, 'stripslashes' );
-		// $input = $_POST;
-
-		foreach( $input as $field => $value ) {
-			$this->$field = $value;
-		}
 	}
 }
