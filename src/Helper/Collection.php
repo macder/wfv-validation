@@ -29,6 +29,17 @@ abstract class Collection implements CollectionInterface {
 	/**
 	 *
 	 *
+	 * @since 0.10.0
+	 *
+	 * @return bool
+	 */
+	public function is_not_empty() {
+		return ( count( $this->data ) > 0 ) ? true : false;
+	}
+
+	/**
+	 *
+	 *
 	 * @since 0.9.0
 	 *
 	 * @param string $field
