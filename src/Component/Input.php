@@ -40,7 +40,6 @@ class Input extends Collection {
 	 * @access private
 	 */
 	protected function assign_input() {
-		// WIP reduce responsibility
 		$input = $this->transform_array_leafs( $_POST, 'stripslashes' );
 		foreach( $input as $field => $value ) {
 			$this->data[ $field ] = $value;
