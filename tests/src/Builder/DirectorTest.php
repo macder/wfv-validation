@@ -57,7 +57,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * When using FormBuilder, does invoke return an instance of Form?
 	 *
 	 */
-	public function testDirectorProdiceReturnInstanceOfForm() {
+	public function testDirectorProduceReturnInstanceOfForm() {
 		$builder = new FormBuilder();
 
 		$result = self::$director
