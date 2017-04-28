@@ -39,7 +39,7 @@ class Rules {
 	 * @return bool
 	 */
 	public function is_custom( $rule ) {
-		return ( false !== strpos( $rule, 'custom:' ) ) ? true: false;
+		// return ( false !== strpos( $rule, 'custom:' ) ) ? true: false;
 	}
 
 	/**
