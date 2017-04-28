@@ -108,8 +108,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function testFormErrorsReturnsInstanceOfErrors() {
-	  $form = self::$form;
-	  $result = $form->errors();
+		$form = self::$form;
+		$result = $form->errors();
 		$this->assertInstanceOf( Errors::class, $result );
 	}
 
@@ -118,8 +118,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function testFormInputReturnsInstanceOfInput() {
-	  $form = self::$form;
-	  $result = $form->Input();
+		$form = self::$form;
+		$result = $form->Input();
 		$this->assertInstanceOf( Input::class, $result );
 	}
 }
