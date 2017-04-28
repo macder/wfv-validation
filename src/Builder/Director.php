@@ -62,8 +62,7 @@ class Director {
 	}
 
 	/**
-	 * Assign a components arguments to use when
-	 *	creating an entity.
+	 * Add attributes to concieve an entity.
 	 *
 	 * @since 0.10.0
 	 *
