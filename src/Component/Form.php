@@ -25,7 +25,7 @@ class Form {
 	 * @access private
 	 * @var array
 	 */
-	private $entities = array();
+	private $entity = array();
 
 
 	/**
@@ -42,6 +42,18 @@ class Form {
 	}
 
 	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $action
+	 * @return WFV\Component\Input
+	 */
+	public function input( $field = null ) {
+		return $this->entity['input'];
+	}
+
+	/**
 	 * Render an entity value returned from a callback.
 	 *
 	 * @since 0.10.0
@@ -50,11 +62,11 @@ class Form {
 	 * @param string $value
 	 * @param callable $callback
 	 */
-	public function render( $entity, $value, callable $callback = null ) {
+	/*public function render( $entity, $value, callable $callback = null ) {
 		$callback = ( null === $callback ) ? 'esc_html' : $callback;
 		return $this->employ( $entity )
 			->render( $value, $callback );
-	}
+	}*/
 
 	/**
 	 * Add an entity
@@ -66,11 +78,11 @@ class Form {
 	 * @param class $entity
 	 */
 	private function add_entity( $key, $entity ) {
-		$this->entities[ $key ] = $entity;
+		$this->entity[ $key ] = $entity;
 	}
 
 	/**
-	 * Assign group of entities.
+	 * Assign group of entity.
 	 *
 	 * @since 0.10.0
 	 * @access private
@@ -92,6 +104,6 @@ class Form {
 	 * @param string $entity Key indentifier.
 	 */
 	private function employ( $entity ) {
-		return $this->entities[ $entity ];
+		return $this->entity[ $entity ];
 	}
 }
