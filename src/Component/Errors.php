@@ -2,12 +2,14 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
+use WFV\Helper\Collection;
+
 /**
  *
  *
  * @since 0.8.0
  */
-class Errors {
+class Errors extends Collection {
 
 	/**
 	 * Convienience method to get first error on field.
