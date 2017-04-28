@@ -11,12 +11,12 @@ defined( 'ABSPATH' ) or die();
 interface BuilderInterface {
 
 	/**
-	 * @return mixed
+	 * @return
 	 */
 	public function create( $action );
 
 	/**
-	 * @return mixed
+	 * @return
 	 */
 	public function deliver();
 }
