@@ -45,8 +45,7 @@ class Director {
 	}
 
 	/**
-	 * The Entity of Creation
-	 * To bring into existence
+	 * To bring into existence, an entity
 	 *
 	 * @since 0.10.0
 	 *
@@ -55,7 +54,6 @@ class Director {
 	 */
 	public function produce( BuilderInterface $builder ) {
 		$this->integrate( $this->components, $builder );
-
 		return $builder
 			->create( $this->config['action'] )
 			->deliver();
@@ -67,7 +65,7 @@ class Director {
 	 * @since 0.10.0
 	 *
 	 * @param string $entity
-	 * @param string|array $attributes
+	 * @param string|array (optional) $attributes
 	 * @return WFV\Builder\Director
 	 */
 	public function compose( $entity, $attributes = null ) {
