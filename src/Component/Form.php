@@ -54,21 +54,6 @@ class Form {
 	}
 
 	/**
-	 * Render an entity value returned from a callback.
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $entity
-	 * @param string $value
-	 * @param callable $callback
-	 */
-	/*public function render( $entity, $value, callable $callback = null ) {
-		$callback = ( null === $callback ) ? 'esc_html' : $callback;
-		return $this->employ( $entity )
-			->render( $value, $callback );
-	}*/
-
-	/**
 	 * Add an entity
 	 *
 	 * @since 0.10.0
