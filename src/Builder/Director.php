@@ -39,7 +39,7 @@ class Director {
 	 * @param string $attribute
 	 * @return WFV\Builder\Director
 	 */
-	public function attribute( $type, $attribute ) {
+	public function describe( $type, $attribute ) {
 		$this->config[ $type ] = $attribute;
 		return $this;
 	}
@@ -53,7 +53,7 @@ class Director {
 	 * @param BuilderInterface $builder
 	 * @return class
 	 */
-	public function invoke( BuilderInterface $builder ) {
+	public function produce( BuilderInterface $builder ) {
 		$this->integrate( $this->components, $builder );
 
 		return $builder
@@ -71,7 +71,7 @@ class Director {
 	 * @param string|array $attributes
 	 * @return WFV\Builder\Director
 	 */
-	public function install( $entity, $attributes ) {
+	public function compose( $entity, $attributes ) {
 		$this->components[ $entity ] = $attributes;
 		return $this;
 	}

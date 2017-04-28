@@ -34,10 +34,10 @@ use WFV\Builder\Director;
 function wfv_create( $action, array &$form ) {
   $builder = new FormBuilder();
   $form = ( new Director() )
-    ->attribute( 'action', $action )
-    ->install( 'rules', $form['rules'] )
-    ->install( 'input', $action )
-    ->invoke( $builder );
+    ->describe( 'action', $action )
+    ->compose( 'rules', $form['rules'] )
+    ->compose( 'input', $action )
+    ->produce( $builder ); // actualize
 }
 
 /**

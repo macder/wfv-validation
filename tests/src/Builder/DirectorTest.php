@@ -1,8 +1,8 @@
 <?php
 namespace WFV\Builder;
 
-use WFV\Builder\FormBuilder;
 use WFV\Builder\Director;
+use WFV\Builder\FormBuilder;
 use WFV\Component\Form;
 
 class DirectorTest extends \PHPUnit_Framework_TestCase {
@@ -35,9 +35,9 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * Does give_attribute method return an instance of this director?
 	 *
 	 */
-	public function testDirectorAttributeReturnSelfInstance() {
+	public function testDirectorDescribeReturnSelfInstance() {
 		$result = self::$director
-			->attribute( 'phpunit', 'tested' );
+			->describe( 'phpunit', 'tested' );
 
 		$this->assertInstanceOf( Director::class, $result );
 	}
@@ -46,9 +46,9 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * Does with_entity method return an instance of this director?
 	 *
 	 */
-	public function testDirectorInstallReturnSelfInstance() {
+	public function testDirectorComposeReturnSelfInstance() {
 		$result = self::$director
-			->install( 'phpunit', array('lorem', 'ipsum') );
+			->compose( 'phpunit', array('lorem', 'ipsum') );
 
 		$this->assertInstanceOf( Director::class, $result );
 	}
@@ -57,12 +57,12 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * When using FormBuilder, does invoke return an instance of Form?
 	 *
 	 */
-	public function testDirectorInvokeReturnInstanceOfForm() {
+	public function testDirectorProdiceReturnInstanceOfForm() {
 		$builder = new FormBuilder();
 
 		$result = self::$director
-			->attribute( 'action', 'phpunit' )
-			->invoke($builder);
+			->describe( 'action', 'phpunit' )
+			->produce( $builder );
 
 		$this->assertInstanceOf( Form::class, $result );
 	}

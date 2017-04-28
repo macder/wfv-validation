@@ -55,7 +55,7 @@ class FormBuilder implements BuilderInterface {
 	}
 
 	/**
-	 *
+	 * Return the final Form instance
 	 *
 	 * @since 0.10.0
 	 *
