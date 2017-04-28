@@ -34,6 +34,19 @@ class Input extends Collection {
 	}
 
 	/**
+	 * Convenience method to repopulate checkbox or radio.
+	 *
+	 * @since 0.8.5
+	 *
+	 * @param string $field Field name.
+	 * @param string $value Value to compare against.
+	 * @return string|null
+	 */
+	public function checked_if( $field, $value ) {
+		return ( $this->contains( $field, $value ) ) ? 'checked' : null;
+	}
+
+	/**
 	 * Assign input properties
 	 *
 	 * @since 0.9.0
