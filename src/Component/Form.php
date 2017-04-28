@@ -46,11 +46,23 @@ class Form {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $action
+	 * @param string $field
+	 * @return WFV\Component\Errors
+	 */
+	public function errors( $field = null ) {
+		return $this->employ('errors');
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $field
 	 * @return WFV\Component\Input
 	 */
 	public function input( $field = null ) {
-		return $this->entity['input'];
+		return $this->employ('input');
 	}
 
 	/**
@@ -67,7 +79,7 @@ class Form {
 	}
 
 	/**
-	 * Assign group of entity.
+	 * Assign group of entities.
 	 *
 	 * @since 0.10.0
 	 * @access private
