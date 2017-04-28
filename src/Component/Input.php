@@ -46,6 +46,19 @@ class Input extends Collection {
 		return ( $this->contains( $field, $value ) ) ? 'checked' : null;
 	}
 
+  /**
+   * Convenience method to repopulate select dropdown.
+   *
+   * @since 0.8.6
+   *
+   * @param string $field Field name.
+   * @param string $value Value to compare against.
+   * @return string|null
+   */
+  public function selected_if( $field, $value ) {
+    return ( $this->contains( $field, $value ) ) ? 'selected' : null;
+  }
+
 	/**
 	 * Assign input properties
 	 *
