@@ -19,6 +19,15 @@ class Director {
 	 * @access private
 	 * @var array
 	 */
+	private $action;
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var array
+	 */
 	private $config = array();
 
 	/**
@@ -29,6 +38,18 @@ class Director {
 	 * @var array
 	 */
 	private $components = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $action
+	 * @param array $components
+	 */
+	function __construct( $action = null ) {
+		$this->action = ( $action ) ? $action : null;
+	}
 
 	/**
 	 * Give an attribute
@@ -55,7 +76,7 @@ class Director {
 	public function compose( BuilderInterface $builder ) {
 		$this->integrate( $this->components, $builder );
 		return $builder
-			->create( $this->config['action'] )
+			->create( $this->action )
 			->deliver();
 	}
 
