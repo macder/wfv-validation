@@ -10,6 +10,15 @@ defined( 'ABSPATH' ) or die();
 class Rules {
 
 	/**
+	 * The array of rules for this instance
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var array
+	 */
+	protected $data = array();
+
+	/**
 	 *
 	 *
 	 * @since 0.10.0
@@ -43,7 +52,7 @@ class Rules {
 	 */
 	private function assign( $rules ) {
 		foreach( $rules as $field => $ruleset ) {
-			$this->$field = $ruleset;
+			$this->data[ $field ] = $ruleset;
 		}
 	}
 }
