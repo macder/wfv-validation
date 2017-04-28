@@ -3,6 +3,7 @@ namespace WFV\Builder;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Contract\BuilderInterface;
+use WFV\Component\Errors;
 use WFV\Component\Form;
 use WFV\Component\Input;
 use WFV\Component\Rules;
@@ -62,6 +63,18 @@ class FormBuilder implements BuilderInterface {
 	 * @return WFV\Component\Form
 	 */
 	public function deliver() {
+		return $this->form;
+	}
+
+	/**
+	 * Return the final Form instance
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return WFV\Component\Form
+	 */
+	public function errors() {
+		$this->components['errors'] = new Errors();
 		return $this->form;
 	}
 
