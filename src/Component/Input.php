@@ -23,9 +23,8 @@ class Input extends Collection {
 	/**
 	 * __construct
 	 *
-	 * @since 0.8.0
-	 * @since 0.9.0 Sanitize $_POST moved
 	 *
+	 * @since 0.8.0
 	 */
 	function __construct( $action ) {
 		if( $this->is_submit( $action ) ) {
