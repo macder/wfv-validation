@@ -3,7 +3,9 @@ namespace WFV\Component;
 
 use WFV\Builder\Director;
 use WFV\Builder\FormBuilder;
+use WFV\Component\Errors;
 use WFV\Component\Form;
+use WFV\Component\Input;
 
 class FormTest extends \PHPUnit_Framework_TestCase {
 
@@ -14,6 +16,14 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 * @var
 	 */
 	protected static $action;
+
+	/**
+	 *
+	 *
+	 * @access protected
+	 * @var
+	 */
+	protected static $form;
 
 	/**
 	 *
@@ -56,6 +66,15 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		    ),
 		  ]
 		);
+
+		$builder = new FormBuilder();
+	  self::$form = ( new Director() )
+	    ->describe( 'action', 'phpunit' )
+	    ->compose( 'rules', self::$config['rules'] )
+	    ->compose( 'input', 'phpunit' )
+	    ->compose( 'errors' )
+	    ->produce( $builder );
+
 	}
 
 	/**
@@ -63,6 +82,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function tearDown() {
+		self::$form = null;
 	}
 
 	/**
@@ -81,5 +101,25 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	public function testFormInstantiateWithComponentsMakesInstanceOfForm() {
 		$result = new Form('phpunit', self::$config );
 		$this->assertInstanceOf( Form::class, $result );
+	}
+
+	/**
+	 *
+	 *
+	 */
+	public function testFormErrorsReturnsInstanceOfErrors() {
+	  $form = self::$form;
+	  $result = $form->errors();
+		$this->assertInstanceOf( Errors::class, $result );
+	}
+
+	/**
+	 *
+	 *
+	 */
+	public function testFormInputReturnsInstanceOfInput() {
+	  $form = self::$form;
+	  $result = $form->Input();
+		$this->assertInstanceOf( Input::class, $result );
 	}
 }
