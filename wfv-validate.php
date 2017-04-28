@@ -37,6 +37,7 @@ function wfv_create( $action, array &$form ) {
     ->describe( 'action', $action )
     ->compose( 'rules', $form['rules'] )
     ->compose( 'input', $action )
+    ->compose( 'errors' )
     ->produce( $builder ); // actualize
 }
 
