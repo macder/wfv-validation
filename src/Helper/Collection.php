@@ -36,14 +36,9 @@ abstract class Collection implements CollectionInterface {
 	 * @return string|null
 	 */
 	public function render( $field, callable $callback = null ) {
-
 		if( is_string( $field ) ) {
-
 			$callback = ( null === $callback ) ? 'esc_html' : $callback;
-
-			return ( $this->has( $field ) ) ? $this->call_func( $callback, $this->data[ $field ] ) : null;
-
-			// return ( $this->has( $field ) ) ? $this->call_func( $callback, $this->$field ) : null;
+			return ( true === $this->has( $field ) ) ? $this->call_func( $callback, $this->data[ $field ] ) : null;
 		}
 		return null;
 	}
