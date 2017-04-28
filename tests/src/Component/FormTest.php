@@ -70,10 +70,10 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		$builder = new FormBuilder();
 		self::$form = ( new Director() )
 			->describe( 'action', 'phpunit' )
-			->compose( 'rules', self::$config['rules'] )
-			->compose( 'input', 'phpunit' )
-			->compose( 'errors' )
-			->produce( $builder );
+			->with( 'rules', self::$config['rules'] )
+			->with( 'input', 'phpunit' )
+			->with( 'errors' )
+			->compose( $builder );
 
 	}
 

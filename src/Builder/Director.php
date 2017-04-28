@@ -52,7 +52,7 @@ class Director {
 	 * @param BuilderInterface $builder
 	 * @return class
 	 */
-	public function produce( BuilderInterface $builder ) {
+	public function compose( BuilderInterface $builder ) {
 		$this->integrate( $this->components, $builder );
 		return $builder
 			->create( $this->config['action'] )
@@ -68,7 +68,7 @@ class Director {
 	 * @param string|array (optional) $attributes
 	 * @return WFV\Builder\Director
 	 */
-	public function compose( $entity, $attributes = null ) {
+	public function with( $entity, $attributes = null ) {
 		$this->components[ $entity ] = $attributes;
 		return $this;
 	}

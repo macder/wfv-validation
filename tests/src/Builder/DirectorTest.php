@@ -46,9 +46,9 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * Does with_entity method return an instance of this director?
 	 *
 	 */
-	public function testDirectorComposeReturnSelfInstance() {
+	public function testDirectorIntegrateReturnSelfInstance() {
 		$result = self::$director
-			->compose( 'phpunit', array('lorem', 'ipsum') );
+			->with( 'phpunit', array('lorem', 'ipsum') );
 
 		$this->assertInstanceOf( Director::class, $result );
 	}
@@ -62,7 +62,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 
 		$result = self::$director
 			->describe( 'action', 'phpunit' )
-			->produce( $builder );
+			->compose( $builder );
 
 		$this->assertInstanceOf( Form::class, $result );
 	}

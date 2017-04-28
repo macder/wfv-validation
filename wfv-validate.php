@@ -35,10 +35,12 @@ function wfv_create( $action, array &$form ) {
   $builder = new FormBuilder();
   $form = ( new Director() )
     ->describe( 'action', $action )
-    ->compose( 'rules', $form['rules'] )
-    ->compose( 'input', $action )
-    ->compose( 'errors' )
-    ->produce( $builder );
+    ->with( 'rules', $form['rules'] )
+    ->with( 'input', $action )
+    ->with( 'errors' )
+    ->compose( $builder );
+
+
 }
 
 /**
