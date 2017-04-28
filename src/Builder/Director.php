@@ -70,7 +70,7 @@ class Director {
 	 * @param string|array $attributes
 	 * @return WFV\Builder\Director
 	 */
-	public function compose( $entity, $attributes ) {
+	public function compose( $entity, $attributes = null ) {
 		$this->components[ $entity ] = $attributes;
 		return $this;
 	}
