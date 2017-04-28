@@ -45,7 +45,8 @@ class Director {
 	}
 
 	/**
-	 * Build and deliver a finished entity
+	 * The Entity of Creation
+	 * To bring into existence
 	 *
 	 * @since 0.10.0
 	 *
