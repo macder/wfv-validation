@@ -65,10 +65,7 @@ class Director {
   }
 
   /**
-   * Invoke new Creation.
-   *
-   * Bring into existence,
-   *   entity from void.
+   * Evoke maiden /ɪgˈzɪstəns/
    *
    * @since 0.10.0
    *
