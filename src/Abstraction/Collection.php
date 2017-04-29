@@ -11,21 +11,21 @@ use WFV\Contract\CollectionInterface;
  */
 abstract class Collection implements CollectionInterface {
 
-  /**
-   *
-   *
-   * @since 0.8.6
-   *
-   * @return bool
-   */
-  public function contains( $key, $value = null ) {
-    // WIP
-    // TODO: do a 'has' check
-    if ( is_array( $this->data[ $key ] ) ) {
-      return ( in_array( $value, $this->data[ $key ] ) ) ? true : false;
-    }
-    return ( $this->data[ $key ] === $value ) ? true : false;
-  }
+	/**
+	 *
+	 *
+	 * @since 0.8.6
+	 *
+	 * @return bool
+	 */
+	public function contains( $key, $value = null ) {
+		// WIP
+		// TODO: do a 'has' check
+		if ( is_array( $this->data[ $key ] ) ) {
+		return ( in_array( $value, $this->data[ $key ] ) ) ? true : false;
+		}
+		return ( $this->data[ $key ] === $value ) ? true : false;
+	}
 
 	/**
 	 *
