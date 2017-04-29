@@ -1,11 +1,11 @@
 <?php
 namespace WFV\Artisan;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) or die( 'envois' );
 
 use WFV\Contract\ArtisanInterface;
 
 /**
- *
+ * Genesis
  *
  * @since 0.10.0
  *
@@ -13,25 +13,25 @@ use WFV\Contract\ArtisanInterface;
 class Director {
 
 	/**
-	 *
+	 * Visible features
 	 *
 	 * @since 0.10.0
-	 * @access private
+	 * @access protected
 	 * @var array
 	 */
 	protected $aspect = array();
 
 	/**
-	 *
+	 * Identity
 	 *
 	 * @since 0.10.0
-	 * @access private
-	 * @var array
+	 * @access protected
+	 * @var string
 	 */
 	protected $unique;
 
 	/**
-	 *
+	 * Record of qualities
 	 *
 	 * @since 0.10.0
 	 * @access private
@@ -40,14 +40,14 @@ class Director {
 	private $scribe = array();
 
 	/**
-	 *
+	 * Introduce
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $entity
+	 * @param string $identity
 	 */
-	function __construct( $entity = null ) {
-		$this->unique = $entity;
+	function __construct( $identity = null ) {
+		$this->unique = $identity;
 	}
 
 	/**
@@ -65,14 +65,15 @@ class Director {
 	}
 
 	/**
-	 * Invoke of Creation
-	 * To bring into existence,
-	 *   an entity from void
+	 * Invoke of Creation.
+	 *
+	 * Bring into existence,
+	 *   an entity from the void
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param ArtisanInterface $Artisan
-	 * @return class
+	 * @param ArtisanInterface $artisan
+	 * @return WFV\Composite
 	 */
 	public function compose( ArtisanInterface $artisan ) {
 		$this->orchestrate( $this->aspect, $artisan );
@@ -82,7 +83,7 @@ class Director {
 	}
 
 	/**
-	 * Encapsulate an attribute into the composite once invoked.
+	 *
 	 *
 	 * @since 0.10.0
 	 *
@@ -96,8 +97,7 @@ class Director {
 	}
 
 	/**
-	 * Invokes Artisan methods to create entities
-	 *	for the object under realization.
+	 *
 	 *
 	 * @since 0.10.0
 	 * @access private
