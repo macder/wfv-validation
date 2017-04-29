@@ -39,7 +39,6 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	public function testDirectorDescribeReturnSelfInstance() {
 		$result = self::$director
 			->describe( 'phpunit', 'tested' );
-
 		$this->assertInstanceOf( 'WFV\Builder\Director', $result );
 	}
 
@@ -50,7 +49,6 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	public function testDirectorWithReturnSelfInstance() {
 		$result = self::$director
 			->with( 'phpunit', array('lorem', 'ipsum') );
-
 		$this->assertInstanceOf( 'WFV\Builder\Director', $result );
 	}
 
@@ -60,7 +58,6 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testDirectorComposeReturnInstanceOfForm() {
 		$builder = new FormBuilder();
-
 		$result = self::$director
 			->describe( 'action', 'phpunit' )
 			->compose( $builder );
