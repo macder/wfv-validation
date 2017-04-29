@@ -13,7 +13,7 @@ use WFV\Contract\ArtisanInterface;
 class Director {
 
   /**
-   * Nature
+   * nātūra
    *
    * @since 0.10.0
    * @access protected
@@ -22,7 +22,7 @@ class Director {
   protected $aspect = array();
 
   /**
-   * Identity
+   * identitās
    *
    * @since 0.10.0
    * @access protected
@@ -31,7 +31,7 @@ class Director {
   protected $unique;
 
   /**
-   * Chronicle
+   * chronica
    *
    * @since 0.10.0
    * @access private
@@ -80,7 +80,7 @@ class Director {
   }
 
   /**
-   *
+   * Harmonize
    *
    * @since 0.10.0
    *
@@ -94,7 +94,7 @@ class Director {
   }
 
   /**
-   *
+   * Unify
    *
    * @since 0.10.0
    * @access private
