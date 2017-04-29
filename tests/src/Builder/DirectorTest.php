@@ -36,7 +36,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * Does describe method return an instance of this director?
 	 *
 	 */
-	public function testDirectorDescribeReturnSelfInstance() {
+	public function test_director_describe_return_self_instance() {
 		$result = self::$director
 			->describe( 'phpunit', 'tested' );
 		$this->assertInstanceOf( 'WFV\Builder\Director', $result );
@@ -46,7 +46,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * Does with method return an instance of this director?
 	 *
 	 */
-	public function testDirectorWithReturnSelfInstance() {
+	public function test_director_with_return_self_instance() {
 		$result = self::$director
 			->with( 'phpunit', array('lorem', 'ipsum') );
 		$this->assertInstanceOf( 'WFV\Builder\Director', $result );
@@ -56,7 +56,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * When using FormBuilder, does compose return an instance of Form?
 	 *
 	 */
-	public function testDirectorComposeReturnInstanceOfForm() {
+	public function test_director_compose_return_instance_of_form() {
 		$builder = new FormBuilder();
 		$result = self::$director
 			->describe( 'action', 'phpunit' )
@@ -69,7 +69,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * When using GuardBuilder, does compose return an instance of Guard?
 	 *
 	 */
-	public function testDirectorComposeReturnInstanceOfGuard() {
+	public function test_director_compose_return_instance_of_guard() {
 		$builder = new GuardBuilder();
 		$result = self::$director
 			->describe( 'action', 'phpunit' )
