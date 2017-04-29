@@ -68,6 +68,47 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
+	public function test_form_does_checked_if_return_checked() {
+		$_POST = self::$http_post;
+		$result = new Input('phpunit');
+		$this->assertEquals( 'checked', $result->checked_if( 'shades', 'dark' ) );
+	}
+
+	/**
+	 *
+	 *
+	 */
+	public function test_form_does_checked_if_return_null() {
+		$_POST = self::$http_post;
+		$result = new Input('phpunit');
+		$this->assertEquals( null, $result->checked_if( 'shades', 'void' ) );
+	}
+
+	/**
+	 *
+	 *
+	 */
+	public function test_form_does_selected_if_return_selected() {
+		$_POST = self::$http_post;
+		$result = new Input('phpunit');
+		$this->assertEquals( 'selected', $result->selected_if( 'shades', 'dark' ) );
+	}
+
+	/**
+	 *
+	 *
+	 */
+	public function test_form_does_selected_if_return_null() {
+		$_POST = self::$http_post;
+		$result = new Input('phpunit');
+		$this->assertEquals( null, $result->selected_if( 'shades', 'void' ) );
+	}
+
+
+	/**
+	 *
+	 *
+	 */
 	public function testInputIsEmptyBeforePost() {
 		$result = new Input('phpunit');
 		$this->assertFalse( $result->is_not_empty() );
