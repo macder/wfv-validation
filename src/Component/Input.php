@@ -28,7 +28,7 @@ class Input extends Collection {
 	 */
 	function __construct( $action ) {
 		if( $this->is_submit( $action ) ) {
-			$this->assign_input();
+			$this->store();
 		}
 	}
 
@@ -64,7 +64,7 @@ class Input extends Collection {
 	 * @since 0.9.0
 	 * @access private
 	 */
-	protected function assign_input() {
+	protected function store() {
 		$input = $this->transform_array_leafs( $_POST, 'stripslashes' );
 		foreach( $input as $field => $value ) {
 			$this->data[ $field ] = $value;
