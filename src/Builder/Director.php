@@ -83,7 +83,7 @@ class Director {
 	}
 
 	/**
-	 * Encapsulate an entity into the composite at creation
+	 * Encapsulate an entity into the composite once invoked.
 	 *
 	 * @since 0.10.0
 	 *
