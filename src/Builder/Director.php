@@ -81,7 +81,7 @@ class Director {
 	}
 
 	/**
-	 * Add attributes to concieve an entity.
+	 * Encapsulate an entity into the composite at creation
 	 *
 	 * @since 0.10.0
 	 *
