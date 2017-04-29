@@ -22,7 +22,7 @@ abstract class Collection implements CollectionInterface {
 		// WIP
 		// TODO: do a 'has' check
 		if ( is_array( $this->data[ $key ] ) ) {
-		return ( in_array( $value, $this->data[ $key ] ) ) ? true : false;
+			return ( in_array( $value, $this->data[ $key ] ) ) ? true : false;
 		}
 		return ( $this->data[ $key ] === $value ) ? true : false;
 	}
