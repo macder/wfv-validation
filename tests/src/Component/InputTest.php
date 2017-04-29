@@ -51,7 +51,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testInputIsInstanceOfInputBeforePost() {
 		$result = new Input('phpunit');
-		$this->assertInstanceOf( Input::class, $result );
+		$this->assertInstanceOf( 'WFV\Component\Input', $result );
 	}
 
 	/**
@@ -61,7 +61,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	public function testInputIsInstanceOfInputAfterPost() {
 		$_POST = self::$http_post;
 		$result = new Input('phpunit');
-		$this->assertInstanceOf( Input::class, $result );
+		$this->assertInstanceOf( 'WFV\Component\Input', $result );
 	}
 
 	/**
