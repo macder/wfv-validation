@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Helper;
+namespace WFV\Abstraction;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Contract\CollectionInterface;
@@ -7,7 +7,7 @@ use WFV\Contract\CollectionInterface;
 /**
  *
  *
- * @since 0.8.0
+ * @since 0.10.0
  */
 abstract class Collection implements CollectionInterface {
 
