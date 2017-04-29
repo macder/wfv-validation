@@ -37,14 +37,11 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * 32 built-in [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) rules
 * Custom rules
 * Custom error messages
-* Output escaping
-* [Helper methods](#user-input) for input data rendering
-* Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
-* Supports multi-form pages
-* Action hooks for validation pass and fail
+* [Helper methods](#user-input) for safe output
+* Auto populate
+* Multiple forms
+* Validation Hooks
 * Self POST - no redirects, no GET vars, no sessions, no cookies
-* Predictable, encapsulated, and immutable
-* Fluent method chains
 * Lightweight - Only one dependency (WordPress aside)
 * [Unit tested core](https://github.com/macder/wp-form-validation/tree/master/tests) - More stable, quicker fixes, less bugs, more happy
 * No rendered markup
