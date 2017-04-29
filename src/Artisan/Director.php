@@ -57,7 +57,7 @@ class Director {
    *
    * @param string $attribute
    * @param mixed $characteristic
-   * @return WFV\Artisan\Director
+   * @return self
    */
   public function describe( $attribute, $characteristic ) {
     $this->scribe[ $attribute ] = $characteristic;
@@ -86,7 +86,7 @@ class Director {
    *
    * @param string $quality
    * @param string|array (optional) $attributes
-   * @return WFV\Artisan\Director
+   * @return self
    */
   public function with( $quality, $attributes = null ) {
     $this->aspect[ $quality ] = $attributes;
