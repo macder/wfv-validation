@@ -59,7 +59,7 @@ class Input extends Collection {
 	}
 
 	/**
-	 * Assign input properties
+	 * Lock the data in the 'vault'
 	 *
 	 * @since 0.9.0
 	 * @access private
