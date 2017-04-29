@@ -67,15 +67,15 @@ class FormBuilder implements BuilderInterface {
 	}
 
 	/**
-	 * Return the final Form instance
+	 *
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\Form
+	 * @return WFV\Builder\FormBuilder
 	 */
 	public function errors() {
 		$this->components['errors'] = new Errors();
-		return $this->form;
+		return $this;
 	}
 
 	/**
