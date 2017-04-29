@@ -2,7 +2,7 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Helper\Collection;
+use WFV\Abstraction\Collection;
 
 /**
  *

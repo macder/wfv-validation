@@ -2,12 +2,14 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
+use WFV\Abstraction\Admission;
+
 /**
  *
  *
  * @since 0.10.0
  */
-class Form {
+class Form extends Admission {
 
 	/**
 	 * Action name
