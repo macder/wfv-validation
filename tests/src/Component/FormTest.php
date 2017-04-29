@@ -89,7 +89,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 * Does Form instantiation with no component parameter produce instance of Form?
 	 *
 	 */
-	public function testFormInstantiateWithNoComponentsMakesInstanceOfForm() {
+	public function test_form_instantiate_with_no_components_makes_instance_of_form() {
 		$result = new Form('phpunit');
 		$this->assertInstanceOf( 'WFV\Component\Form', $result );
 	}
@@ -98,7 +98,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 * Does Form instantiation with components produce instance of Form?
 	 *
 	 */
-	public function testFormInstantiateWithComponentsMakesInstanceOfForm() {
+	public function test_form_instantiate_with_components_makes_instance_of_form() {
 		$result = new Form('phpunit', self::$config );
 		$this->assertInstanceOf( 'WFV\Component\Form', $result );
 	}
@@ -107,7 +107,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	public function testFormErrorsReturnsInstanceOfErrors() {
+	public function test_form_errors_returns_instance_of_errors() {
 		$form = self::$form;
 		$result = $form->errors();
 		$this->assertInstanceOf( 'WFV\Component\Errors', $result );
@@ -117,7 +117,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	public function testFormInputReturnsInstanceOfInput() {
+	public function test_form_input_returns_instance_of_input() {
 		$form = self::$form;
 		$result = $form->Input();
 		$this->assertInstanceOf( 'WFV\Component\Input', $result );
