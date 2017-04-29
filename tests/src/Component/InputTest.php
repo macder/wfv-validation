@@ -49,7 +49,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	public function testInputIsInstanceOfInputBeforePost() {
+	public function test_input_is_instance_of_input_before_post() {
 		$result = new Input('phpunit');
 		$this->assertInstanceOf( 'WFV\Component\Input', $result );
 	}
@@ -58,7 +58,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	public function testInputIsInstanceOfInputAfterPost() {
+	public function test_input_is_instance_of_input_after_post() {
 		$_POST = self::$http_post;
 		$result = new Input('phpunit');
 		$this->assertInstanceOf( 'WFV\Component\Input', $result );
@@ -109,7 +109,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	public function testInputIsEmptyBeforePost() {
+	public function test_input_is_empty_before_post() {
 		$result = new Input('phpunit');
 		$this->assertFalse( $result->is_not_empty() );
 	}
@@ -118,7 +118,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	public function testInputIsNotEmptyAfterPost() {
+	public function input_is_empty_before_post() {
 		$_POST = self::$http_post;
 		$result = new Input('phpunit');
 		$this->assertTrue( $result->is_not_empty() );
