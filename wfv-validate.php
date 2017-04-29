@@ -34,7 +34,6 @@ use WFV\Builder\Director;
  * @param array $form Form arguments
  */
 function wfv_create( $action, array &$form ) {
-
 	wfv_guard( $action );
 	$builder = new FormBuilder();
 	$form = ( new Director( $action ) )
