@@ -20,7 +20,9 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
 use WFV\Builder\FormBuilder;
+use WFV\Builder\GuardBuilder;
 use WFV\Builder\Director;
+
 
 /**
  *
@@ -32,15 +34,31 @@ use WFV\Builder\Director;
  * @param array $form Form arguments
  */
 function wfv_create( $action, array &$form ) {
-  $builder = new FormBuilder();
-  $form = ( new Director() )
-    ->describe( 'action', $action )
-    ->with( 'rules', $form['rules'] )
-    ->with( 'input', $action )
-    ->with( 'errors' )
-    ->compose( $builder );
 
+	wfv_guard( $action );
+	$builder = new FormBuilder();
+	$form = ( new Director( $action ) )
+		//->with( 'rules', $form['rules'] )
+		->with( 'input', $action )
+		->with( 'errors' )
+		->compose( $builder );
+}
 
+/**
+ *
+ *
+ *
+ * @since 0.10.0
+ *
+ * @param
+ * @param
+ * @return
+ */
+function wfv_guard( $action ) {
+	$builder = new GuardBuilder();
+	$guard = ( new Director( $action ) )
+		->with( 'input' )
+		->compose( $builder );
 }
 
 /**
