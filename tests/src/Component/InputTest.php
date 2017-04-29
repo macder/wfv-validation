@@ -17,23 +17,23 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	protected function setUp() {
-		self::$http_post = array(
-				'action' => 'phpunit',
-				'name' => 'Foo Bar',
-				'email' => 'foo@bar.com',
-			'shades' => array(
-				'lightest',
-				'light',
-				'dark',
-				'darkest',
-			),
-			'color' => array(
-				'red',
-				'green',
-				'blue',
-			)
-		);
+  protected function setUp() {
+    self::$http_post = array(
+      'action' => 'phpunit',
+      'name' => 'Foo Bar',
+      'email' => 'foo@bar.com',
+      'shades' => array(
+        'lightest',
+        'light',
+        'dark',
+        'darkest',
+      ),
+      'color' => array(
+        'red',
+        'green',
+        'blue',
+      )
+    );
 	}
 
 	/**
