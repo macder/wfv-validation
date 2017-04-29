@@ -44,7 +44,7 @@ class Director {
    *
    * @since 0.10.0
    *
-   * @param string $identity
+   * @param string (optional) $identity
    */
   function __construct( $identity = null ) {
     $this->unique = $identity;
