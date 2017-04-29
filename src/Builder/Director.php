@@ -48,7 +48,7 @@ class Director {
 	 * @param array $components
 	 */
 	function __construct( $action = null ) {
-		$this->action = ( $action ) ? $action : null;
+		$this->action = $action;
 	}
 
 	/**
