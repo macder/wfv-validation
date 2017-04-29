@@ -38,7 +38,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	public function testFormBuilderInputReturnSelfInstance() {
 		$result = self::$form_builder
 			->input( 'phpunit' );
-		$this->assertInstanceOf( FormBuilder::class, $result );
+		$this->assertInstanceOf('WFV\Builder\FormBuilder', $result );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 
 		$result = self::$form_builder
 			->rules( $rules );
-		$this->assertInstanceOf( FormBuilder::class, $result, 'FormBuilder rules() must return Self' );
+		$this->assertInstanceOf( 'WFV\Builder\FormBuilder', $result, 'FormBuilder rules() must return Self' );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	public function testFormBuilderCreateReturnSelfInstance() {
 		$result = self::$form_builder
 			->create( 'phpunit' );
-		$this->assertInstanceOf( FormBuilder::class, $result, 'FormBuilder create() must return Self' );
+		$this->assertInstanceOf( 'WFV\Builder\FormBuilder', $result, 'FormBuilder create() must return Self' );
 	}
 
 	/**
@@ -82,6 +82,6 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 			->create('phpunit')
 			->deliver();
 
-		$this->assertInstanceOf( Form::class, $result, 'FormBuilder deliver() must return Form' );
+		$this->assertInstanceOf( 'WFV\Component\Form', $result, 'FormBuilder deliver() must return Form' );
 	}
 }
