@@ -37,5 +37,4 @@ class Guard {
 	function __construct( $action ) {
 		$this->action = $action;
 	}
-
 }
