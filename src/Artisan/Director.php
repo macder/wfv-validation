@@ -31,7 +31,7 @@ class Director {
 	protected $unique;
 
 	/**
-	 * Record of qualities
+	 * Internal record
 	 *
 	 * @since 0.10.0
 	 * @access private
