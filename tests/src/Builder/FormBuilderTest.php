@@ -35,7 +35,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Does input method return instance of this builder?
 	 *
 	 */
-	public function testFormBuilderInputReturnSelfInstance() {
+	public function test_form_builder_input_return_self_instance() {
 		$result = self::$form_builder
 			->input( 'phpunit' );
 		$this->assertInstanceOf('WFV\Builder\FormBuilder', $result );
@@ -45,7 +45,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Does rules method return instance of this builder?
 	 *
 	 */
-	public function testFormBuilderRulesReturnSelfInstance() {
+	public function test_form_builder_rules_return_self_instance() {
 		$rules = array(
 			'fname' => ['required', 'custom:phone'],
 			'email'=> ['required', 'email'],
@@ -60,7 +60,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Does input create return instance of this builder?
 	 *
 	 */
-	public function testFormBuilderCreateReturnSelfInstance() {
+	public function test_form_builder_create_return_self_instance() {
 		$result = self::$form_builder
 			->create( 'phpunit' );
 		$this->assertInstanceOf( 'WFV\Builder\FormBuilder', $result, 'FormBuilder create() must return Self' );
@@ -70,7 +70,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Does deliver method return instance Form?
 	 *
 	 */
-	public function testFormBuilderDeliverReturnFormInstance() {
+	public function test_form_builder_deliver_return_form_instance() {
 		$rules = array(
 			'fname' => ['required', 'custom:phone'],
 			'email'=> ['required', 'email'],
