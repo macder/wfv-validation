@@ -66,7 +66,9 @@ class Director {
 	}
 
 	/**
-	 * To bring into existence, an entity
+	 * Invoke of Creation
+	 * To bring into existence,
+	 *   a composite of entities.
 	 *
 	 * @since 0.10.0
 	 *
