@@ -118,7 +118,7 @@ class InputTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	public function input_is_empty_before_post() {
+	public function test_input_is_empty_after_post() {
 		$_POST = self::$http_post;
 		$result = new Input('phpunit');
 		$this->assertTrue( $result->is_not_empty() );
