@@ -3,6 +3,7 @@ namespace WFV\Builder;
 
 use WFV\Builder\Director;
 use WFV\Builder\FormBuilder;
+use WFV\Component\Guard;
 use WFV\Component\Form;
 
 class DirectorTest extends \PHPUnit_Framework_TestCase {
@@ -32,38 +33,50 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does give_attribute method return an instance of this director?
+	 * Does describe method return an instance of this director?
 	 *
 	 */
 	public function testDirectorDescribeReturnSelfInstance() {
 		$result = self::$director
 			->describe( 'phpunit', 'tested' );
 
-		$this->assertInstanceOf( Director::class, $result );
+		$this->assertInstanceOf( 'WFV\Builder\Director', $result );
 	}
 
 	/**
-	 * Does with_entity method return an instance of this director?
+	 * Does with method return an instance of this director?
 	 *
 	 */
-	public function testDirectorIntegrateReturnSelfInstance() {
+	public function testDirectorWithReturnSelfInstance() {
 		$result = self::$director
 			->with( 'phpunit', array('lorem', 'ipsum') );
 
-		$this->assertInstanceOf( Director::class, $result );
+		$this->assertInstanceOf( 'WFV\Builder\Director', $result );
 	}
 
 	/**
-	 * When using FormBuilder, does invoke return an instance of Form?
+	 * When using FormBuilder, does compose return an instance of Form?
 	 *
 	 */
-	public function testDirectorProduceReturnInstanceOfForm() {
+	public function testDirectorComposeReturnInstanceOfForm() {
 		$builder = new FormBuilder();
 
 		$result = self::$director
 			->describe( 'action', 'phpunit' )
 			->compose( $builder );
 
-		$this->assertInstanceOf( Form::class, $result );
+		$this->assertInstanceOf( 'WFV\Component\Form', $result );
+	}
+
+	/**
+	 * When using GuardBuilder, does compose return an instance of Guard?
+	 *
+	 */
+	public function testDirectorComposeReturnInstanceOfGuard() {
+		$builder = new GuardBuilder();
+		$result = self::$director
+			->describe( 'action', 'phpunit' )
+			->compose( $builder );
+		$this->assertInstanceOf( 'WFV\Component\Guard', $result );
 	}
 }
