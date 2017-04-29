@@ -87,12 +87,12 @@ class Director {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $attribute
+	 * @param string $feature
 	 * @param string|array (optional) $attributes
 	 * @return WFV\Artisan\Director
 	 */
-	public function with( $aspect, $attributes = null ) {
-		$this->aspect[ $aspect ] = $attributes;
+	public function with( $feature, $attributes = null ) {
+		$this->aspect[ $feature ] = $attributes;
 		return $this;
 	}
 
