@@ -1,8 +1,8 @@
 <?php
-namespace WFV\Builder;
+namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Contract\BuilderInterface;
+use WFV\Contract\ArtisanInterface;
 
 /**
  *
@@ -19,7 +19,7 @@ class Director {
 	 * @access private
 	 * @var array
 	 */
-	private $action;
+	protected $aspect = array();
 
 	/**
 	 *
@@ -28,7 +28,7 @@ class Director {
 	 * @access private
 	 * @var array
 	 */
-	private $config = array();
+	protected $unique;
 
 	/**
 	 *
@@ -37,78 +37,77 @@ class Director {
 	 * @access private
 	 * @var array
 	 */
-	private $components = array();
+	private $scribe = array();
 
 	/**
 	 *
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $action
-	 * @param array $components
+	 * @param string $entity
 	 */
-	function __construct( $action = null ) {
-		$this->action = $action;
+	function __construct( $entity = null ) {
+		$this->unique = $entity;
 	}
 
 	/**
-	 * Give an attribute
+	 * Inscribe attribute
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $type
 	 * @param string $attribute
-	 * @return WFV\Builder\Director
+	 * @param mixed $characteristic
+	 * @return WFV\Artisan\Director
 	 */
-	public function describe( $type, $attribute ) {
-		$this->config[ $type ] = $attribute;
+	public function describe( $attribute, $characteristic ) {
+		$this->scribe[ $attribute ] = $characteristic;
 		return $this;
 	}
 
 	/**
 	 * Invoke of Creation
 	 * To bring into existence,
-	 *   a composite of entities.
+	 *   an entity from void
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param BuilderInterface $builder
+	 * @param ArtisanInterface $Artisan
 	 * @return class
 	 */
-	public function compose( BuilderInterface $builder ) {
-		$this->integrate( $this->components, $builder );
-		return $builder
-			->create( $this->action )
-			->deliver();
+	public function compose( ArtisanInterface $artisan ) {
+		$this->orchestrate( $this->aspect, $artisan );
+		return $artisan
+			->create( $this->unique )
+			->actualize();
 	}
 
 	/**
-	 * Encapsulate an entity into the composite once invoked.
+	 * Encapsulate an attribute into the composite once invoked.
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $entity
+	 * @param string $attribute
 	 * @param string|array (optional) $attributes
-	 * @return WFV\Builder\Director
+	 * @return WFV\Artisan\Director
 	 */
-	public function with( $entity, $attributes = null ) {
-		$this->components[ $entity ] = $attributes;
+	public function with( $aspect, $attributes = null ) {
+		$this->aspect[ $aspect ] = $attributes;
 		return $this;
 	}
 
 	/**
-	 * Invokes builder methods to create entities
+	 * Invokes Artisan methods to create entities
 	 *	for the object under realization.
 	 *
 	 * @since 0.10.0
 	 * @access private
 	 *
-	 * @param array $components
-	 * @param BuilderInterface $builder
+	 * @param array $aspect
+	 * @param ArtisanInterface $artisan
 	 */
-	private function integrate( array $components, BuilderInterface &$builder ) {
-		foreach( $components as $entity => $attributes ) {
-			$builder->$entity( $attributes );
+	private function orchestrate( array $aspect, ArtisanInterface &$artisan ) {
+		foreach( $aspect as $attribute => $characteristic ) {
+			$artisan->$attribute( $characteristic );
 		}
 	}
 }

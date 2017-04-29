@@ -19,10 +19,9 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
-use WFV\Builder\FormBuilder;
-use WFV\Builder\GuardBuilder;
-use WFV\Builder\Director;
-
+use WFV\Artisan\FormArtisan;
+use WFV\Artisan\GuardArtisan;
+use WFV\Artisan\Director;
 
 /**
  *
@@ -34,13 +33,15 @@ use WFV\Builder\Director;
  * @param array $form Form arguments
  */
 function wfv_create( $action, array &$form ) {
-	wfv_guard( $action );
-	$builder = new FormBuilder();
+
+	// wfv_guard( $action );
+
+	$artisan = new FormArtisan();
 	$form = ( new Director( $action ) )
 		//->with( 'rules', $form['rules'] )
-		->with( 'input', $action )
+		->with( 'input' )
 		->with( 'errors' )
-		->compose( $builder );
+		->compose( $artisan );
 }
 
 /**
@@ -54,10 +55,10 @@ function wfv_create( $action, array &$form ) {
  * @return
  */
 function wfv_guard( $action ) {
-	$builder = new GuardBuilder();
+	$artisan = new GuardArtisan();
 	$guard = ( new Director( $action ) )
 		->with( 'input' )
-		->compose( $builder );
+		->compose( $artisan );
 }
 
 /**

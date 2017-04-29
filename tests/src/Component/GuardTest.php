@@ -1,8 +1,8 @@
 <?php
 namespace WFV\Component;
 
-use WFV\Builder\Director;
-use WFV\Builder\GuardBuilder;
+use WFV\Artisan\Director;
+use WFV\Artisan\GuardArtisan;
 use WFV\Component\Guard;
 
 class GuardTest extends \PHPUnit_Framework_TestCase {

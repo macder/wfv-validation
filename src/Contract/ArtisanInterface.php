@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) or die();
  * @since 0.10.0
  *
  */
-interface BuilderInterface {
+interface ArtisanInterface {
 
 	/**
 	 * @return
@@ -18,5 +18,5 @@ interface BuilderInterface {
 	/**
 	 * @return
 	 */
-	public function deliver();
+	public function actualize();
 }

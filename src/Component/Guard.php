@@ -2,6 +2,7 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
+use WFV\Abstraction\Admission;
 
 /**
  *
@@ -26,7 +27,16 @@ class Guard {
 	 * @access private
 	 * @var array
 	 */
-	private $entity = array();
+	protected $entity = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var array
+	 */
+	private $token;
 
 	/**
 	 * __construct
@@ -36,5 +46,16 @@ class Guard {
 	 */
 	function __construct( $action ) {
 		$this->action = $action;
+		$this->make_nonce();
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 */
+	private function make_nonce() {
+		$this->token = wp_create_nonce( $this->action );
 	}
 }

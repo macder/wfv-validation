@@ -1,18 +1,18 @@
 <?php
-namespace WFV\Builder;
+namespace WFV\Artisan;
 
-use WFV\Builder\Director;
-use WFV\Builder\FormBuilder;
-use WFV\Component\Guard;
+use WFV\Artisan\Director;
+use WFV\Artisan\FormArtisan;
+# use WFV\Component\Guard;
 use WFV\Component\Form;
 
 class DirectorTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * Instance of WFV\Builder\Director.
+	 * Instance of WFV\Artisan\Director.
 	 *
 	 * @access protected
-	 * @var WFV\Builder\Director $director
+	 * @var WFV\Artisan\Director $director
 	 */
 	protected static $director;
 
@@ -21,7 +21,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$director = new Director();
+		self::$director = new Director( 'entity' );
 	}
 
 	/**
@@ -39,7 +39,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	public function test_director_describe_return_self_instance() {
 		$result = self::$director
 			->describe( 'phpunit', 'tested' );
-		$this->assertInstanceOf( 'WFV\Builder\Director', $result );
+		$this->assertInstanceOf( 'WFV\Artisan\Director', $result );
 	}
 
 	/**
@@ -49,31 +49,28 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	public function test_director_with_return_self_instance() {
 		$result = self::$director
 			->with( 'phpunit', array('lorem', 'ipsum') );
-		$this->assertInstanceOf( 'WFV\Builder\Director', $result );
+		$this->assertInstanceOf( 'WFV\Artisan\Director', $result );
 	}
 
 	/**
-	 * When using FormBuilder, does compose return an instance of Form?
+	 * When using FormArtisan, does compose return an instance of Form?
 	 *
 	 */
 	public function test_director_compose_return_instance_of_form() {
-		$builder = new FormBuilder();
+		$artisan = new FormArtisan();
 		$result = self::$director
-			->describe( 'action', 'phpunit' )
-			->compose( $builder );
-
+			->compose( $artisan );
 		$this->assertInstanceOf( 'WFV\Component\Form', $result );
 	}
 
 	/**
-	 * When using GuardBuilder, does compose return an instance of Guard?
+	 * When using GuardArtisan, does compose return an instance of Guard?
 	 *
 	 */
 	public function test_director_compose_return_instance_of_guard() {
-		$builder = new GuardBuilder();
+		$artisan = new GuardArtisan();
 		$result = self::$director
-			->describe( 'action', 'phpunit' )
-			->compose( $builder );
+			->compose( $artisan );
 		$this->assertInstanceOf( 'WFV\Component\Guard', $result );
 	}
 }

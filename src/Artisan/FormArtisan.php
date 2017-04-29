@@ -1,8 +1,8 @@
 <?php
-namespace WFV\Builder;
+namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Contract\BuilderInterface;
+use WFV\Contract\ArtisanInterface;
 use WFV\Component\Errors;
 use WFV\Component\Form;
 use WFV\Component\Input;
@@ -13,7 +13,7 @@ use WFV\Component\Rules;
  *
  * @since 0.10.0
  */
-class FormBuilder implements BuilderInterface {
+class FormArtisan implements ArtisanInterface {
 
 	/**
 	 *
@@ -48,7 +48,7 @@ class FormBuilder implements BuilderInterface {
 	 * @since 0.10.0
 	 *
 	 * @param string $action
-	 * @return WFV\Builder\FormBuilder
+	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function create( $action ) {
 		$this->form = new Form( $action, $this->components );
@@ -62,7 +62,7 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @return WFV\Component\Form
 	 */
-	public function deliver() {
+	public function actualize() {
 		return $this->form;
 	}
 
@@ -71,7 +71,7 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Builder\FormBuilder
+	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function errors() {
 		$this->components['errors'] = new Errors();
@@ -84,7 +84,7 @@ class FormBuilder implements BuilderInterface {
 	 * @since 0.10.0
 	 *
 	 * @param string $action
-	 * @return WFV\Builder\FormBuilder
+	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function input( $action ) {
 		$this->components['input'] = new Input( $action );
@@ -96,7 +96,7 @@ class FormBuilder implements BuilderInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Builder\FormBuilder
+	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function messages() {
 		return $this;
@@ -108,7 +108,7 @@ class FormBuilder implements BuilderInterface {
 	 * @since 0.10.0
 	 *
 	 * @param array $rules
-	 * @return WFV\Builder\FormBuilder
+	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function rules( array $rules ) {
 		$this->components['rules'] = new Rules( $rules );

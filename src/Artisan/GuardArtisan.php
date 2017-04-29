@@ -1,16 +1,17 @@
 <?php
-namespace WFV\Builder;
+namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Contract\BuilderInterface;
+use WFV\Contract\ArtisanInterface;
 use WFV\Component\Guard;
 use WFV\Component\Input;
+
 /**
  *
  *
  * @since 0.10.0
  */
-class GuardBuilder implements BuilderInterface {
+class GuardArtisan implements ArtisanInterface {
 
 	/**
 	 *
@@ -36,7 +37,7 @@ class GuardBuilder implements BuilderInterface {
 	 * @since 0.10.0
 	 *
 	 * @param string $action
-	 * @return WFV\Builder\GuardBuilder
+	 * @return WFV\Artisan\GuardArtisan
 	 */
 	public function create( $action ) {
 		$this->guard = new Guard( $action );
@@ -50,7 +51,7 @@ class GuardBuilder implements BuilderInterface {
 	 *
 	 * @return WFV\Component\Guard
 	 */
-	public function deliver() {
+	public function actualize() {
 		return $this->guard;
 	}
 
@@ -60,7 +61,7 @@ class GuardBuilder implements BuilderInterface {
 	 * @since 0.10.0
 	 *
 	 * @param string $action
-	 * @return WFV\Builder\GuardBuilder
+	 * @return WFV\Artisan\GuardArtisan
 	 */
 	public function input() {
 		$this->components['input'] = new Input( $this->action );

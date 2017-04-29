@@ -1,8 +1,8 @@
 <?php
 namespace WFV\Component;
 
-use WFV\Builder\Director;
-use WFV\Builder\FormBuilder;
+use WFV\Artisan\Director;
+use WFV\Artisan\FormArtisan;
 use WFV\Component\Errors;
 use WFV\Component\Form;
 use WFV\Component\Input;
@@ -67,13 +67,13 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		  ]
 		);
 
-		$builder = new FormBuilder();
+		$artisan = new FormArtisan();
 		self::$form = ( new Director() )
 			->describe( 'action', 'phpunit' )
 			->with( 'rules', self::$config['rules'] )
 			->with( 'input', 'phpunit' )
 			->with( 'errors' )
-			->compose( $builder );
+			->compose( $artisan );
 
 	}
 

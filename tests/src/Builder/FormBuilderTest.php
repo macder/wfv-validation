@@ -1,26 +1,26 @@
 <?php
-namespace WFV\Builder;
+namespace WFV\Artisan;
 
-use WFV\Builder\Director;
-use WFV\Builder\FormBuilder;
+use WFV\Artisan\Director;
+use WFV\Artisan\FormArtisan;
 use WFV\Component\Form;
 
-class FormBuilderTest extends \PHPUnit_Framework_TestCase {
+class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * Instance of WFV\Builder\FormBuilder.
+	 * Instance of WFV\Artisan\FormArtisan.
 	 *
 	 * @access protected
-	 * @var WFV\Builder\FormBuilder $form_builder
+	 * @var WFV\Artisan\FormArtisan $form_Artisan
 	 */
-	protected static $form_builder;
+	protected static $form_artisan;
 
 	/**
-	 * Instantiate FormBuilder
+	 * Instantiate FormArtisan
 	 *
 	 */
 	protected function setUp() {
-		self::$form_builder = new FormBuilder();
+		self::$form_artisan = new FormArtisan();
 	}
 
 	/**
@@ -28,60 +28,60 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function tearDown() {
-		self::$form_builder = null;
+		self::$form_artisan = null;
 	}
 
 	/**
-	 * Does input method return instance of this builder?
+	 * Does input method return instance of this Artisan?
 	 *
 	 */
-	public function test_form_builder_input_return_self_instance() {
-		$result = self::$form_builder
+	public function test_form_artisan_input_return_self_instance() {
+		$result = self::$form_artisan
 			->input( 'phpunit' );
-		$this->assertInstanceOf('WFV\Builder\FormBuilder', $result );
+		$this->assertInstanceOf('WFV\Artisan\FormArtisan', $result );
 	}
 
 	/**
-	 * Does rules method return instance of this builder?
+	 * Does rules method return instance of this Artisan?
 	 *
 	 */
-	public function test_form_builder_rules_return_self_instance() {
+	public function test_form_artisan_rules_return_self_instance() {
 		$rules = array(
 			'fname' => ['required', 'custom:phone'],
 			'email'=> ['required', 'email'],
 		);
 
-		$result = self::$form_builder
+		$result = self::$form_artisan
 			->rules( $rules );
-		$this->assertInstanceOf( 'WFV\Builder\FormBuilder', $result, 'FormBuilder rules() must return Self' );
+		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan rules() must return Self' );
 	}
 
 	/**
-	 * Does input create return instance of this builder?
+	 * Does input create return instance of this Artisan?
 	 *
 	 */
-	public function test_form_builder_create_return_self_instance() {
-		$result = self::$form_builder
+	public function test_form_artisan_create_return_self_instance() {
+		$result = self::$form_artisan
 			->create( 'phpunit' );
-		$this->assertInstanceOf( 'WFV\Builder\FormBuilder', $result, 'FormBuilder create() must return Self' );
+		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan create() must return Self' );
 	}
 
 	/**
-	 * Does deliver method return instance Form?
+	 * Does actualize method return instance Form?
 	 *
 	 */
-	public function test_form_builder_deliver_return_form_instance() {
+	public function test_form_artisan_actualize_return_form_instance() {
 		$rules = array(
 			'fname' => ['required', 'custom:phone'],
 			'email'=> ['required', 'email'],
 		);
 
-		$result = self::$form_builder
+		$result = self::$form_artisan
 			->input('phpunit')
 			->rules( $rules )
 			->create('phpunit')
-			->deliver();
+			->actualize();
 
-		$this->assertInstanceOf( 'WFV\Component\Form', $result, 'FormBuilder deliver() must return Form' );
+		$this->assertInstanceOf( 'WFV\Component\Form', $result, 'FormArtisan actualize() must return Form' );
 	}
 }
