@@ -23,12 +23,12 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * [TODO](#todo)
 * [Install](#install)
 * [Usage](#usage)
-  * [Rules](#configure-validation-rules)
-  * [Custom Rules](#custom-validation-rules)
-  * [Custom Error Messages](#custom-error-messages)
-  * [Action Hooks](#validation-action-hooks)
+  * [Rules](#rules)
+  * [Custom Rules](#custom-rules)
+  * [Custom Feedback](#custom-feedback)
+  * [Validation Hooks](#validation-hooks)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
-  * [Form Instance](#create-the-form-instance)
+  * [Form Entity](#form-entity)
   * [User Input](#user-input)
   * [Auto Populate](#auto-populate)
   * [Errors](#validation-errors)
@@ -37,12 +37,14 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 * 32 built-in [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) rules
 * Custom rules
 * Custom error messages
-* [No escape-on-input](#no-escape-on-input)
-* [Helper methods](#user-input) for working with input data
+* Output escaping
+* [Helper methods](#user-input) for input data rendering
 * Auto populate fields, including [checkboxes, radio](#checkboxes-and-radio) and [multi-selects](#select-and-multi-select)
+* Supports multi-form pages
 * Action hooks for validation pass and fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
-* Declarative and object oriented API
+* Predictable, encapsulated, and immutable
+* Fluent method chains
 * Lightweight - Only one dependency (WordPress aside)
 * [Unit tested core](https://github.com/macder/wp-form-validation/tree/master/tests) - More stable, quicker fixes, less bugs, more happy
 * No rendered markup
@@ -56,7 +58,6 @@ For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation
 
 // declare the rules
 $my_form = array(
-  'action'  => 'contact_form',
   'rules'   => array(
     'first_name' => ['required'],
     'email'      => ['required', 'email']
@@ -76,14 +77,9 @@ function my_form_invalid( $form ) {
 }
 
 // create the instance
-wfv_create( $my_form );
+wfv_create( 'contact_form', $my_form );
 
-// $my_form is now an instance of WFV\Form:
-$my_form             // WFV\Form
-$my_form->input;     // WFV\Input
-$my_form->errors;    // WFV\Errors
-$my_form->rules;     // WFV\Rules
-$my_form->messages;  // WFV\Messages
+// $my_form is now an instance of WFV\Component\Form:
 
 ```
 
@@ -122,12 +118,11 @@ Theme template:
 
 # Usage
 
-## Configure validation rules
+## Rules
 
 ```php
 <?php
 $my_form = array(
-  'action'  => 'contact_form', // unique identifier
   'rules'   => array(
     'first_name' => ['required'],
     'email'      => ['required', 'email'],
@@ -137,13 +132,12 @@ $my_form = array(
 
 For available validation rules, reference the [Valitron](https://github.com/vlucas/valitron#built-in-validation-rules) doc.
 
-## Custom validation rules
+## Custom Rules
 
 Prepend `custom:` to rule, name of rule is the callback.
 ```php
 <?php
 $my_form = array(
-  'action'  => 'contact_form', // unique identifier
   'rules'   => array(
     'phone'      => ['required', 'custom:phone'],
   )
@@ -158,12 +152,11 @@ function wfv__phone( $value ) {
 }
 ```
 
-## Custom error messages
+## Custom Feedback
 
 ```php
 <?php
 $my_form = array(
-  'action'  => 'contact_form', // unique identifier
   'rules'   => array(
     'email'     => ['required', 'email']
   ),
@@ -177,11 +170,9 @@ $my_form = array(
 );
 ```
 
-## Validation action hooks
+## Validation Hooks
 
-When the input validates, i.e. passes all the constraints, the action hook defined in `$my_form['action']` is triggered. When it fails, the action hook appended with `_fail` triggers.
-
-**Validation Pass:**
+**Pass:**
 
 ```php
 <?php // action hook and callback for validation pass
@@ -189,24 +180,20 @@ When the input validates, i.e. passes all the constraints, the action hook defin
 add_action( 'contact_form', 'contact_form_valid' );
 function contact_form_valid( $form ) {
   // form input valid, do something...
-  echo $form->input->name;
-  echo $form->input->email;
 }
 ```
 
-**Validation Fail:**
+**Fail:**
 ```php
 <?php // action hook and callback for validation fail
 
 add_action( 'contact_form_fail', 'contact_form_invalid' );
 function contact_form_invalid( $form ) {
   // form input NOT valid, do something...
-  echo $form->input->name;
-  echo $form->input->email;
 }
 ```
 
-## Create a form somewhere in your theme
+## Markup a Form
 
 ```html
 <form name="contact_form" method="post">
@@ -224,77 +211,57 @@ The form must have the required token tag:
 ```
 This adds 2 hidden fields, nonce and action. The generated action field identifies the form to a validation instance.
 
-## Create the form instance
-### `wfv_create( array $form )`
-Creates an instance of 'WFV\Form' and assigns it by reference to array parameter.
+## Form Entity
+### `wfv_create( string $action, array $form )`
+
+Create an instance of `WFV\Component\Form`.
 
 Example:
 ```php
 <?php
-// $my_form becomes an instance of WFV\Form
-wfv_create( $my_form );
+// $my_form becomes an instance of WFV\Component\Form
+wfv_create( 'contact_form', $my_form );
 ```
 
-`$my_form` can now access properties and methods available to `WFV\Form`
 
-```php
-<?php
-$my_form->input;     // Instance of WFV\Input
-$my_form->errors;    // Instance of WFV\Errors
-$my_form->rules;     // Instance of WFV\Rules
-$my_form->messages;  // Instance of WFV\Messages
-```
-
-## User input
-### `WFV\Input`
-Instance holding form input data as properties, and input helper methods.
+## User Input
+### `WFV\Component\Input`
+Immutable Collection Entity
 
 Available methods:
-* [render()](#render)
-* [get_array()](#get-array)
-* [has()](#has-input)
 * [contains()](#input-contains)
+* [has()](#has-input)
+* [is_not_empty()](#is-not-empty)
+* [render()](#render)
 * [transform()](#transform)
 
-*Plus methods from Mutator and Accessor traits*
 
-The `input` property on `WFV\Form` is an instance of `WFV\Input`
+* [checked_if()](#)
+* [selected_if()](#)
 
-```php
-<?php // $input becomes instance of WFV\Input
 
-$input = $my_form->input;
-```
 
-After a form submission, the input data is populated as properties. The property names will be the forms field names
-
-e.g:
 ```php
 <?php
-$my_form->input->name;  // Foo
-$my_form->input->email; // foo@bar.com
+
+$input = $my_form->input();
 ```
-### **No escape-on-input**
 
-**Caution**
+### Contains
+#### `contains( string $key, string $value )`
+Check if `$key` contains `$value`, return `bool`
 
-Input properties hold raw `$_POST` values.<br>
+```php
+<?php // Did the user enter foo@bar.com into the email field?
 
-For output to external systems make sure to encode the data to the appropriate context. If storing input to a database, make use of a WordPress API, eg. [wpdb](https://codex.wordpress.org/Class_Reference/wpdb).<br>
+$my_form->input()->contains( 'email', 'foo@bar.com');  // true
+```
+```php
+<?php // Did the user enter bar@foo.com into the email field?
 
-WFV adheres to ***filter but don't escape on input.***
+$my_form->input()->contains( 'email', 'bar@foo.com');  // false
+```
 
-The responsibility of form validation is filtering input as defined by a set of rules and constraints. Deciding how that data will be used and its path through the system is outside the scope of filtering input.
-
-Encoding should happen at the time when some context requires it, e.g output to external systems - database, API endpoint, etc. What use is `mysqli_real_escape_string` when rendered in a markup template? Context dictates the encoding, validation filters.
-
-Manipulating data without context is not useful and introduces more problems than it's trying to solve. Remember [Magic Quotes](http://php.net/manual/en/security.magicquotes.php)?
-
-For more info on the subject, read ["Why escape-on-input is a bad idea"](https://lukeplant.me.uk/blog/posts/why-escape-on-input-is-a-bad-idea/)
-
-**Note:** WFV strips magic quotes if they're enabled in the environment. You're welcome.
-
-That being said, WFV does provide useful (perhaps powerful?) helpers to work with input data:
 
 ### Render
 #### `render( string $field, string|array $callback = 'htmlspecialchars' )`
@@ -377,20 +344,7 @@ Check if `$field` has value, return `bool`
 $my_form->input->has('email');  // true
 ```
 
-### Input contains
-#### `contains( string $field, string $value )`
-Check if `$field` contains `$value`, return `bool`
 
-```php
-<?php // Did the user enter foo@bar.com into the email field?
-
-$my_form->input->contains( 'email', 'foo@bar.com');  // true
-```
-```php
-<?php // Did the user enter bar@foo.com into the email field?
-
-$my_form->input->contains( 'email', 'bar@foo.com');  // false
-```
 
 ### Transform
 #### `transform( string|array $input, string|array $callback )`
