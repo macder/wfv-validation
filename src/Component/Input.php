@@ -5,17 +5,17 @@ defined( 'ABSPATH' ) or die();
 use WFV\Abstraction\Collection;
 
 /**
- *
+ * Keeper of the input data
  *
  * @since 0.8.0
  */
 class Input extends Collection {
 
 	/**
-	 * Input data from a form
+	 * Data vault
 	 *
 	 * @since 0.10.0
-	 * @access private
+	 * @access protected
 	 * @var array
 	 */
 	protected $data = array();
@@ -23,7 +23,7 @@ class Input extends Collection {
 	/**
 	 * __construct
 	 *
-	 *
+	 * @param string $action
 	 * @since 0.8.0
 	 */
 	function __construct( $action ) {
@@ -59,12 +59,12 @@ class Input extends Collection {
 	}
 
 	/**
-	 * Lock the data in the 'vault'
+	 * Data in to the vault
 	 *
 	 * @since 0.9.0
 	 * @access private
 	 */
-	protected function store() {
+	private function store() {
 		$input = $this->transform_array_leafs( $_POST, 'stripslashes' );
 		foreach( $input as $field => $value ) {
 			$this->data[ $field ] = $value;
@@ -72,7 +72,7 @@ class Input extends Collection {
 	}
 
 	/**
-	 * Check if there was a $_POST for this action
+	 * Does the $_POST concern this instance?
 	 *
 	 * @since 0.7.2
 	 *
