@@ -80,7 +80,7 @@ class Director {
   }
 
   /**
-   * Harmonize
+   * Accord
    *
    * @since 0.10.0
    *
@@ -94,7 +94,7 @@ class Director {
   }
 
   /**
-   * Unify
+   * Amalgamate
    *
    * @since 0.10.0
    * @access private
