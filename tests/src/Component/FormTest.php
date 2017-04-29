@@ -91,7 +91,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testFormInstantiateWithNoComponentsMakesInstanceOfForm() {
 		$result = new Form('phpunit');
-		$this->assertInstanceOf( Form::class, $result );
+		$this->assertInstanceOf( 'WFV\Component\Form', $result );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testFormInstantiateWithComponentsMakesInstanceOfForm() {
 		$result = new Form('phpunit', self::$config );
-		$this->assertInstanceOf( Form::class, $result );
+		$this->assertInstanceOf( 'WFV\Component\Form', $result );
 	}
 
 	/**
@@ -110,7 +110,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	public function testFormErrorsReturnsInstanceOfErrors() {
 		$form = self::$form;
 		$result = $form->errors();
-		$this->assertInstanceOf( Errors::class, $result );
+		$this->assertInstanceOf( 'WFV\Component\Errors', $result );
 	}
 
 	/**
@@ -120,6 +120,6 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	public function testFormInputReturnsInstanceOfInput() {
 		$form = self::$form;
 		$result = $form->Input();
-		$this->assertInstanceOf( Input::class, $result );
+		$this->assertInstanceOf( 'WFV\Component\Input', $result );
 	}
 }
