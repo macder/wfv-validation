@@ -12,7 +12,7 @@
 			<exclude>./tests/old/</exclude>
 		</testsuite>
 		<testsuite name="builder">
-			<directory>./tests/src/Builder</directory>
+			<directory>./tests/src/Artisan</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
