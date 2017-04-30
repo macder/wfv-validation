@@ -28,7 +28,7 @@ class Director {
    * @access protected
    * @var string
    */
-  protected $unique;
+  protected $entity;
 
   /**
    * chronica
@@ -47,7 +47,7 @@ class Director {
    * @param string (optional) $identity
    */
   function __construct( $identity = null ) {
-    $this->unique = $identity;
+    $this->entity = $identity;
   }
 
   /**
@@ -75,7 +75,7 @@ class Director {
   public function compose( ArtisanInterface $artisan ) {
     $this->orchestrate( $this->aspect, $artisan );
     return $artisan
-      ->create( $this->unique )
+      ->create( $this->entity )
       ->actualize();
   }
 
