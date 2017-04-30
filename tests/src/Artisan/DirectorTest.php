@@ -62,15 +62,4 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 			->compose( $artisan );
 		$this->assertInstanceOf( 'WFV\Component\Form', $result );
 	}
-
-	/**
-	 * When using GuardArtisan, does compose return an instance of Guard?
-	 *
-	 */
-	public function test_director_compose_return_instance_of_guard() {
-		$artisan = new GuardArtisan();
-		$result = self::$director
-			->compose( $artisan );
-		$this->assertInstanceOf( 'WFV\Component\Guard', $result );
-	}
 }
