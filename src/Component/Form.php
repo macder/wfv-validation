@@ -11,15 +11,14 @@ use WFV\Abstraction\Composable;
  */
 class Form extends Composable {
 
+
 	/**
-	 * Action name
+	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
-	 * @var string
+	 * @access protected
+	 * @var array
 	 */
-	protected $action;
-
 	protected $component;
 
 	/**
@@ -27,11 +26,11 @@ class Form extends Composable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $action
+	 * @param string $alias
 	 * @param array $components
 	 */
-	function __construct( $action, array $components = [] ) {
-		$this->action = $action;
+	function __construct( $alias, array $components = [] ) {
+		$this->alias = $alias;
 		$this->install( $components );
 	}
 

@@ -13,6 +13,15 @@ abstract class Composable {
 	 *
 	 *
 	 * @since 0.10.0
+	 * @access private
+	 * @var string
+	 */
+	protected $alias;
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
 	 * @access protected
 	 *
 	 * @param string $name
