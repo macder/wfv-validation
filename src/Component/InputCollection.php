@@ -5,20 +5,22 @@ defined( 'ABSPATH' ) or die();
 use WFV\Abstraction\Collectable;
 
 /**
- * Keeper of the input data
+ *
  *
  * @since 0.8.0
  */
-class Input extends Collectable {
+class InputCollection extends Collectable {
+
 
 	/**
-	 * Data vault
+	 *
 	 *
 	 * @since 0.10.0
-	 * @access protected
-	 * @var array
+	 *
+	 * @param
 	 */
-	protected $data = array();
-
+	function __construct( $data ) {
+		$this->data = $data;
+	}
 
 }
