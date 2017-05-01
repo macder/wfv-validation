@@ -32,14 +32,14 @@ abstract class Composable {
 	}
 
 	/**
-	 * Get an component to make use of.
+	 * Use a component.
 	 *
 	 * @since 0.10.0
 	 * @access protected
 	 *
 	 * @param string $component Key indentifier.
 	 */
-	protected function employ( $component ) {
+	protected function use( $component ) {
 		return $this->component[ $component ];
 	}
 
@@ -56,5 +56,4 @@ abstract class Composable {
 			$this->add_component( $name, $component );
 		}
 	}
-
 }

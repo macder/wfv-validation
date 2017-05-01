@@ -43,7 +43,7 @@ class Form extends Composable {
 	 * @return WFV\Component\Errors
 	 */
 	public function errors( $field = null ) {
-		return $this->employ('errors');
+		return $this->use('errors');
 	}
 
 	/**
@@ -55,12 +55,7 @@ class Form extends Composable {
 	 * @return WFV\Component\Input
 	 */
 	public function input( $field = null ) {
-		return $this->employ('input');
+		return $this->use('input');
 	}
-
-
-
-
-
 
 }
