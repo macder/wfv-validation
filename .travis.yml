@@ -9,7 +9,6 @@ notifications:
 
 branches:
   only:
-    - feature/builder
     - feature/travis
     - master
 
