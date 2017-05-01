@@ -2,14 +2,14 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Abstraction\Admission;
+use WFV\Abstraction\Composable;
 
 /**
  *
  *
  * @since 0.10.0
  */
-class Form {
+class Form extends Composable {
 
 	/**
 	 * Action name
@@ -19,6 +19,8 @@ class Form {
 	 * @var string
 	 */
 	protected $action;
+
+	protected $component;
 
 	/**
 	 *
@@ -57,42 +59,9 @@ class Form {
 		return $this->employ('input');
 	}
 
-	/**
-	 * Get an component to make use of.
-	 *
-	 * @since 0.10.0
-	 * @access private
-	 *
-	 * @param string $trait Key indentifier.
-	 */
-	private function employ( $component ) {
-		return $this->component[ $component ];
-	}
 
-	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 * @access protected
-	 *
-	 * @param string $key
-	 * @param class $entity
-	 */
-	protected function add_component( $name, $component ) {
-		$this->component[ $name ] = $component;
-	}
 
-	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 * @access protected
-	 *
-	 * @param array $components
-	 */
-	protected function install( array $components ) {
-		foreach( $components as $name => $component ) {
-			$this->add_component( $name, $component );
-		}
-	}
+
+
+
 }
