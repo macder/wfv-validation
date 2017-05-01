@@ -10,7 +10,22 @@ defined( 'ABSPATH' ) or die();
  */
 class InspectionAgent {
 
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var string
+	 */
 	private $action;
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var string
+	 */
 	private $token;
 
 	/**
@@ -39,6 +54,13 @@ class InspectionAgent {
 		return false;
 	}
 
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return bool
+	 */
 	private function submit_has_action() {
 		return isset( $_POST['action'] );
 	}
