@@ -10,22 +10,27 @@ defined( 'ABSPATH' ) or die();
 interface CollectionInterface {
 
 	/**
-	 * @return
+	 * @return bool
 	 */
-	public function has( $key );
+	public function contains( $key = null, $value = null );
+
+	/**
+	 * @return bool
+	 */
+	public function has( $key = null );
 
 	/**
 	 * @return
 	 */
-	public function is_not_empty();
+	// public function is_not_empty();
 
 	/**
 	 * @return
 	 */
-	public function render( $value, callable $callback );
+	// public function render( $value, callable $callback );
 
 	/**
 	 * @return
 	 */
-	public function transform( $value, callable $callback );
+	// public function transform( $value, callable $callback );
 }

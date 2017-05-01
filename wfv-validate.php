@@ -20,8 +20,11 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
 use WFV\Artisan\FormArtisan;
-use WFV\Artisan\GuardArtisan;
 use WFV\Artisan\Director;
+
+use WFV\Agent\InspectionAgent;
+
+use WFV\Component\InputCollection;
 
 /**
  *
@@ -34,14 +37,28 @@ use WFV\Artisan\Director;
  */
 function wfv_create( $action, array &$form ) {
 
+	$inspect = new InspectionAgent( $action );
+
+	if( $inspect->safe_submit() ) {
+
+		$input = new InputCollection( $_POST );
+
+		print_r($input);
+	}
+	else {
+		echo 'no submit';
+	}
+
+
+	// print_r($inspect);
+
 	// wfv_guard( $action );
 
-	$artisan = new FormArtisan();
+	/*$artisan = new FormArtisan();
 	$form = ( new Director( $action ) )->describe('action', $action)
 		->with( 'rules', $form['rules'] )
 		->with( 'input' )
-		//->with( 'errors' )
-		->compose( $artisan );
+		->compose( $artisan );*/
 }
 
 /**
