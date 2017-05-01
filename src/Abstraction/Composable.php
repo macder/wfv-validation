@@ -39,7 +39,7 @@ abstract class Composable {
 	 *
 	 * @param string $component Key indentifier.
 	 */
-	protected function use( $component ) {
+	protected function utilize( $component ) {
 		return $this->component[ $component ];
 	}
 
