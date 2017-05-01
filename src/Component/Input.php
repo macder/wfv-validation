@@ -2,14 +2,14 @@
 namespace WFV\Component;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Abstraction\Collection;
+use WFV\Abstraction\Collectable;
 
 /**
  * Keeper of the input data
  *
  * @since 0.8.0
  */
-class Input extends Collection {
+class Input extends Collectable {
 
 	/**
 	 * Data vault
@@ -27,9 +27,10 @@ class Input extends Collection {
 	 * @since 0.8.0
 	 */
 	function __construct( $action ) {
-		if( $this->is_submit( $action ) ) {
-			$this->store();
-		}
+		echo $action;
+		//if( $this->is_submit( $action ) ) {
+			$this->store( $action );
+		//}
 	}
 
 	/**

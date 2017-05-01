@@ -9,7 +9,7 @@ use WFV\Abstraction\Admission;
  *
  * @since 0.10.0
  */
-class Form extends Admission {
+class Form {
 
 	/**
 	 * Action name
@@ -18,7 +18,7 @@ class Form extends Admission {
 	 * @access private
 	 * @var string
 	 */
-	private $action;
+	protected $action;
 
 	/**
 	 *
@@ -30,7 +30,7 @@ class Form extends Admission {
 	 */
 	function __construct( $action, array $components = [] ) {
 		$this->action = $action;
-		$this->congregate( $components );
+		$this->install( $components );
 	}
 
 	/**
@@ -58,7 +58,7 @@ class Form extends Admission {
 	}
 
 	/**
-	 * Get an trait to make use of.
+	 * Get an component to make use of.
 	 *
 	 * @since 0.10.0
 	 * @access private
@@ -67,5 +67,32 @@ class Form extends Admission {
 	 */
 	private function employ( $component ) {
 		return $this->component[ $component ];
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 *
+	 * @param string $key
+	 * @param class $entity
+	 */
+	protected function add_component( $name, $component ) {
+		$this->component[ $name ] = $component;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 *
+	 * @param array $components
+	 */
+	protected function install( array $components ) {
+		foreach( $components as $name => $component ) {
+			$this->add_component( $name, $component );
+		}
 	}
 }

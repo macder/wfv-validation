@@ -31,7 +31,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @access private
 	 * @var array
 	 */
-	private $config = array();
+	// private $config = array();
 
 	/**
 	 *
@@ -86,8 +86,8 @@ class FormArtisan implements ArtisanInterface {
 	 * @param string $action
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function input( $action ) {
-		$this->components['input'] = new Input( $action );
+	public function input() {
+		$this->components['input'] = new Input( 'contact_form' );
 		return $this;
 	}
 

@@ -47,6 +47,8 @@ class Director {
    * @param string (optional) $identity
    */
   function __construct( $identity = null ) {
+    // echo 'hi';
+    // echo $identity;
     $this->entity = $identity;
   }
 
@@ -104,6 +106,8 @@ class Director {
    */
   private function orchestrate( array $aspect, ArtisanInterface &$artisan ) {
     foreach( $aspect as $attribute => $characteristic ) {
+      //echo 'attribute: '.$attribute;
+      //print_r($characteristic); //.' characteristic: '.$characteristic.'   ';
       $artisan->$attribute( $characteristic );
     }
   }

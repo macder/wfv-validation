@@ -37,10 +37,10 @@ function wfv_create( $action, array &$form ) {
 	// wfv_guard( $action );
 
 	$artisan = new FormArtisan();
-	$form = ( new Director( $action ) )
-		//->with( 'rules', $form['rules'] )
+	$form = ( new Director( $action ) )->describe('action', $action)
+		->with( 'rules', $form['rules'] )
 		->with( 'input' )
-		->with( 'errors' )
+		//->with( 'errors' )
 		->compose( $artisan );
 }
 

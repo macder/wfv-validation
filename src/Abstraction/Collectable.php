@@ -9,7 +9,7 @@ use WFV\Contract\CollectionInterface;
  *
  * @since 0.10.0
  */
-abstract class Collection implements CollectionInterface {
+abstract class Collectable implements CollectionInterface {
 
 	/**
 	 *
