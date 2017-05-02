@@ -3,7 +3,7 @@ namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Contract\ArtisanInterface;
-use WFV\Component\Errors;
+use WFV\Component\ErrorCollection;
 use WFV\Component\InputCollection;
 use WFV\Component\RuleCollection;
 
@@ -75,7 +75,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function errors() {
-		$this->components['errors'] = new Errors();
+		$this->components['errors'] = new ErrorCollection();
 		return $this;
 	}
 

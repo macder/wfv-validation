@@ -36,9 +36,10 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_artisan_input_return_self_instance() {
-		$result = self::$form_artisan->input();
+		$expected = 'WFV\Artisan\FormArtisan';
 
-		$this->assertInstanceOf('WFV\Artisan\FormArtisan', $result );
+		$result = self::$form_artisan->input();
+		$this->assertInstanceOf( $expected, $result );
 	}
 
 	/**
@@ -64,6 +65,26 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 		$result = self::$form_artisan->create( 'phpunit' );
 
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan create() must return Self' );
+	}
+
+	/**
+	 * Does input create return instance of this Artisan?
+	 *
+	 */
+	public function test_form_artisan_errors_return_self_instance() {
+		$result = self::$form_artisan->errors();
+
+		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan errors() must return Self' );
+	}
+
+	/**
+	 * Does errors create return instance of this Artisan?
+	 *
+	 */
+	public function test_form_artisan_messages_return_self_instance() {
+		$result = self::$form_artisan->messages();
+
+		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan messages() must return Self' );
 	}
 
 	/**
