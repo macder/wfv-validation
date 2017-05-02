@@ -77,7 +77,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_has_returns_true() {
-		$result = self::$collection->has( 'name' );
+		$collection = self::$collection;
+
+		$result = $collection->has('name');
 		$this->assertTrue( $result );
 	}
 
@@ -86,8 +88,10 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_has_returns_false() {
-		$result = self::$collection->has( 'this_key_is_not_there' );
-		$this->assertFalse( $result );
+		$collection = self::$collection;
+
+		$result = $collection->has( 'this_key_is_not_there' );
+		$this->assertFalse( $result);
 	}
 
 	/**
@@ -95,7 +99,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_has_returns_false_when_key_null() {
-		$result = self::$collection->has( null );
+		$collection = self::$collection;
+		$result = $collection->has(null);
+
 		$this->assertFalse( $result );
 	}
 
@@ -104,7 +110,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_true_when_string() {
-		$result = self::$collection->contains( 'email', 'foo@bar.com' );
+		$collection = self::$collection;
+
+		$result = $collection->contains( 'email', 'foo@bar.com' );
 		$this->assertTrue( $result );
 	}
 
@@ -113,7 +121,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_true_when_array() {
-		$result = self::$collection->contains( 'color', 'green' );
+		$collection = self::$collection;
+
+		$result = $collection->contains( 'color', 'green' );
 		$this->assertTrue( $result );
 	}
 
@@ -122,7 +132,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_false_when_string() {
-		$result = self::$collection->contains( 'email', 'im_not_there' );
+		$collection = self::$collection->contains( 'email', 'im_not_there' );
+
+		$result = $collection->contains( 'email', 'im_not_there' );
 		$this->assertFalse( $result );
 	}
 
