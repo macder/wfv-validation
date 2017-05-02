@@ -23,7 +23,7 @@ abstract class Collectable implements CollectionInterface {
 	/**
 	 *
 	 *
-	 * @since 0.8.6
+	 * @since 0.10.0
 	 *
 	 * @return bool
 	 */
@@ -64,7 +64,7 @@ abstract class Collectable implements CollectionInterface {
 	/**
 	 *
 	 *
-	 * @since 0.9.0
+	 * @since 0.10.0
 	 *
 	 * @param string $field
 	 * @param string|array (optional) $callback
@@ -81,7 +81,7 @@ abstract class Collectable implements CollectionInterface {
 	/**
 	 * WIP
 	 *
-	 * @since 0.9.0
+	 * @since 0.10.0
 	 *
 	 * @param string|array $value
 	 * @param string $callback
@@ -101,7 +101,7 @@ abstract class Collectable implements CollectionInterface {
 	 *
 	 * WIP
 	 *
-	 * @since 0.9.0
+	 * @since 0.10.0
 	 * @access private
 	 *
 	 * @param array $array
@@ -118,7 +118,7 @@ abstract class Collectable implements CollectionInterface {
 	/**
 	 * Trigger a callback function
 	 *
-	 * @since 0.9.0
+	 * @since 0.10.0
 	 * @access private
 	 *
 	 * @param string|array $callback

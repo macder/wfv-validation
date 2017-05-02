@@ -27,7 +27,6 @@ use WFV\Agent\InspectionAgent;
 /**
  *
  *
- * @since 0.3.0
  * @since 0.10.0
  *
  * @param string $action

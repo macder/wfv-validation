@@ -5,18 +5,18 @@ defined( 'ABSPATH' ) or die();
 /**
  *
  *
- * @since 0.8.0
+ * @since 0.10.0
  */
 class Messages {
 
 	/**
 	 * __construct
 	 *
-	 * @since 0.8.0
+	 * @since 0.10.0
 	 *
-	 * @param array (optional) $messages
+	 * @param
 	 */
-	function __construct( $messages = null ) {
+	function __construct() {
 
 	}
 }

@@ -7,13 +7,13 @@ use WFV\Abstraction\Collectable;
 /**
  *
  *
- * @since 0.8.0
+ * @since 0.10.0
  */
 class InputCollection extends Collectable {
 
 
 	/**
-	 *
+	 * __construct
 	 *
 	 * @since 0.10.0
 	 *
