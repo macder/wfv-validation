@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) or die();
 class InspectionAgent {
 
 	/**
-	 *
+	 * Action to inspect
 	 *
 	 * @since 0.10.0
 	 * @access private
@@ -20,7 +20,7 @@ class InspectionAgent {
 	private $action;
 
 	/**
-	 *
+	 * nonce
 	 *
 	 * @since 0.10.0
 	 * @access private
@@ -41,7 +41,9 @@ class InspectionAgent {
 	}
 
 	/**
-	 *
+	 * Should we take further action with this $_POST data?
+	 * Checks if action in post matches $this->action,
+	 *  if so, verifies the nonce.
 	 *
 	 * @since 0.10.0
 	 *
@@ -55,7 +57,7 @@ class InspectionAgent {
 	}
 
 	/**
-	 *
+	 * Does $_POST have an action key?
 	 *
 	 * @since 0.10.0
 	 *
