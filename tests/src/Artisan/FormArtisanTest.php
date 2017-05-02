@@ -58,7 +58,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does input create return instance of this Artisan?
+	 * Does create return instance of this Artisan?
 	 *
 	 */
 	public function test_form_artisan_create_return_self_instance() {
@@ -68,7 +68,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does input create return instance of this Artisan?
+	 * Does errors return instance of this Artisan?
 	 *
 	 */
 	public function test_form_artisan_errors_return_self_instance() {
@@ -78,7 +78,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does errors create return instance of this Artisan?
+	 * Does messages return instance of this Artisan?
 	 *
 	 */
 	public function test_form_artisan_messages_return_self_instance() {
