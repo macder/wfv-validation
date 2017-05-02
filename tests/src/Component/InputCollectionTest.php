@@ -11,18 +11,18 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	 * @access protected
 	 * @var
 	 */
-	protected static $http_post;
+	protected static $data;
 
 	/**
 	 *
 	 *
 	 */
-  protected function setUp() {
-    self::$http_post = array(
-      'action' => 'phpunit',
-      'name' => 'Foo Bar',
-      'email' => 'foo@bar.com',
-    );
+	protected function setUp() {
+		self::$data = array(
+			'action' => 'phpunit',
+			'name' => 'Foo Bar',
+			'email' => 'foo@bar.com',
+		);
 	}
 
 	/**
@@ -30,7 +30,16 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function tearDown() {
-		self::$http_post = null;
-		$_POST = null;
+		self::$data = null;
+	}
+
+	/**
+	 *
+	 *
+	 */
+	public function test_input_collection_is_instance() {
+		$expected = 'WFV\Component\InputCollection';
+		$result = new InputCollection( self::$data );
+		$this->assertInstanceOf( $expected, $result );
 	}
 }
