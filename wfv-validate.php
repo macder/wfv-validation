@@ -24,8 +24,6 @@ use WFV\Artisan\Director;
 
 use WFV\Agent\InspectionAgent;
 
-use WFV\Component\InputCollection;
-
 /**
  *
  *
@@ -36,58 +34,12 @@ use WFV\Component\InputCollection;
  * @param array $form Form arguments
  */
 function wfv_create( $action, array &$form ) {
-
 	$inspect = new InspectionAgent( $action );
+	$input_data = ( true === $inspect->safe_submit() ) ? $_POST : array();
 
-	if( $inspect->safe_submit() ) {
-
-		$input = new InputCollection( $_POST );
-
-		print_r($input);
-	}
-	else {
-		echo 'no submit';
-	}
-
-
-	// print_r($inspect);
-
-	// wfv_guard( $action );
-
-	/*$artisan = new FormArtisan();
-	$form = ( new Director( $action ) )->describe('action', $action)
+	$artisan = new FormArtisan();
+	$form = ( new Director( $action ) )
 		->with( 'rules', $form['rules'] )
-		->with( 'input' )
-		->compose( $artisan );*/
-}
-
-/**
- *
- *
- *
- * @since 0.10.0
- *
- * @param
- * @param
- * @return
- */
-function wfv_guard( $action ) {
-	$artisan = new GuardArtisan();
-	$guard = ( new Director( $action ) )
-		->with( 'input' )
+		->with( 'input', $input_data )
 		->compose( $artisan );
-}
-
-/**
- *
- *
- *
- * @since 0.9.2
- *
- * @param
- * @param
- * @return
- */
-function wfv_validate() {
-
 }
