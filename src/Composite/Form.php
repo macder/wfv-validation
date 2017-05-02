@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Component;
+namespace WFV\Composite;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Composable;
