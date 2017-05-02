@@ -49,6 +49,12 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 				'red',
 				'green',
 				'blue',
+				'premium' => array(
+					'platinum',
+					'gold',
+					'silver',
+					'<script>alert("xss pwned?!~");</script>',
+				),
 			),
 			'html_input' => '<h1>Im a H1</h1><p>This is a paragraph</p>'
 		);
@@ -239,4 +245,33 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertEquals( $expected, $result );
 	}
+
+	/**
+	 * transform() returns nested array with all leafs as result from callable
+	 *
+	 */
+	/*public function test_collection_transform_returns_nested_array_transformed() {
+		$expected = self::$data['color'];
+		array_walk_recursive( $expected, function( &$item, $key ) {
+			$item = strip_tags( $item );
+		});
+
+		$result = self::$collection->transform( 'color', 'strip_tags' );
+		$this->assertEquals( $expected, $result );
+	}*/
+
+	/**
+	 * transform() returns
+	 *
+	 */
+	/*public function test_collection_transform() {
+		$expected = self::$data;
+		array_walk_recursive( $expected, function( &$item, $key ) {
+			$item = strip_tags( $item );
+		});
+
+		$result = self::$collection->transform( false, 'strip_tags' );
+
+		$this->assertEquals( $expected, $result );
+	}*/
 }
