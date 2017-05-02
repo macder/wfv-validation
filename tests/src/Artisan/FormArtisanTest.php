@@ -3,7 +3,7 @@ namespace WFV\Artisan;
 
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
-use WFV\Component\Form;
+use WFV\Composite\Form;
 
 class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 
@@ -36,8 +36,8 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_artisan_input_return_self_instance() {
-		$result = self::$form_artisan
-			->input( 'phpunit' );
+		$result = self::$form_artisan->input();
+
 		$this->assertInstanceOf('WFV\Artisan\FormArtisan', $result );
 	}
 
@@ -51,8 +51,8 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 			'email'=> ['required', 'email'],
 		);
 
-		$result = self::$form_artisan
-			->rules( $rules );
+		$result = self::$form_artisan ->rules( $rules );
+
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan rules() must return Self' );
 	}
 
@@ -61,8 +61,8 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_artisan_create_return_self_instance() {
-		$result = self::$form_artisan
-			->create( 'phpunit' );
+		$result = self::$form_artisan->create( 'phpunit' );
+
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan create() must return Self' );
 	}
 
@@ -77,11 +77,11 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$result = self::$form_artisan
-			->input('phpunit')
+			->input()
 			->rules( $rules )
 			->create('phpunit')
 			->actualize();
 
-		$this->assertInstanceOf( 'WFV\Component\Form', $result, 'FormArtisan actualize() must return Form' );
+		$this->assertInstanceOf( 'WFV\Composite\Form', $result, 'FormArtisan actualize() must return Form' );
 	}
 }
