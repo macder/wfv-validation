@@ -132,7 +132,7 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_false_when_string() {
-		$collection = self::$collection->contains( 'email', 'im_not_there' );
+		$collection = self::$collection;
 
 		$result = $collection->contains( 'email', 'im_not_there' );
 		$this->assertFalse( $result );
@@ -143,7 +143,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_false_when_array() {
-		$result = self::$collection->contains( 'color', 'im_not_there' );
+		$collection = self::$collection;
+
+		$result = $collection->contains( 'color', 'im_not_there' );
 		$this->assertFalse( $result );
 	}
 
@@ -152,7 +154,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_false_when_key_is_empty_string() {
-		$result = self::$collection->contains( '', 'im_not_there' );
+		$collection = self::$collection;
+
+		$result = $collection->contains( '', 'im_not_there' );
 		$this->assertFalse( $result );
 	}
 
@@ -161,7 +165,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_false_when_key_is_not_there() {
-		$result = self::$collection->contains( 'im_not_there', 'red' );
+		$collection = self::$collection;
+
+		$result = $collection->contains( 'im_not_there', 'red' );
 		$this->assertFalse( $result );
 	}
 
@@ -170,7 +176,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_false_when_key_is_null() {
-		$result = self::$collection->contains( null, 'red' );
+		$collection = self::$collection;
+
+		$result = $collection->contains( null, 'red' );
 		$this->assertFalse( $result );
 	}
 
@@ -179,7 +187,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_false_when_key_exists_but_value_null() {
-		$result = self::$collection->contains( 'color', null );
+		$collection = self::$collection;
+
+		$result = $collection->contains( 'color', null );
 		$this->assertFalse( $result );
 	}
 
@@ -188,7 +198,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_contains_returns_false_when_key_value_nulls() {
-		$result = self::$collection->contains( null, null );
+		$collection = self::$collection;
+
+		$result = $collection->contains( null, null );
 		$this->assertFalse( $result );
 	}
 
@@ -197,7 +209,9 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_is_populated_returns_true() {
-		$result = self::$collection->is_populated();
+		$collection = self::$collection;
+
+		$result = $collection->is_populated();
 		$this->assertTrue( $result );
 	}
 
@@ -206,8 +220,10 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_collection_is_populated_returns_false() {
-		$result = new Collection( $data = array() );
-		$this->assertFalse( $result->is_populated() );
+		$collection = new Collection( $data = array() );
+
+		$result = $collection->is_populated();
+		$this->assertFalse( $result );
 	}
 
 	/**
