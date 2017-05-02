@@ -20,14 +20,14 @@ interface CollectionInterface {
 	public function has( $key = null );
 
 	/**
-	 * @return
+	 * @return bool
 	 */
-	// public function is_not_empty();
+	public function is_populated();
 
 	/**
-	 * @return
+	 * @return string|null
 	 */
-	// public function render( $value, callable $callback );
+	public function render( $key, callable $callback = null );
 
 	/**
 	 * @return
