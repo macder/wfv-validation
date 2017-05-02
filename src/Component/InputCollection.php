@@ -17,10 +17,9 @@ class InputCollection extends Collectable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param
+	 * @param array $data
 	 */
 	function __construct( $data ) {
-		$this->data = $data;
+		$this->data = $this->transform_array_leafs( $data, 'stripslashes' );
 	}
-
 }
