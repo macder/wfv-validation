@@ -97,6 +97,25 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
+	 * Transform the $array leafs, traversing infinite dimensions
+	 *
+	 * WIP
+	 *
+	 * @since 0.9.0
+	 * @access private
+	 *
+	 * @param array $array
+	 * @param string|array $callback
+	 * @return array
+	 */
+	protected function transform_array_leafs( array $array, $callback ) {
+		array_walk_recursive( $array, function( &$item, $key ) use( $callback ) {
+			$item = $this->call_func( $callback, $item );
+		} );
+		return $array;
+	}
+
+	/**
 	 * Trigger a callback function
 	 *
 	 * @since 0.9.0
@@ -117,24 +136,5 @@ abstract class Collectable implements CollectionInterface {
 			return call_user_func_array( $method, $args );
 		}
 		return $callback( $input );
-	}
-
-	/**
-	 * Transform the $array leafs, traversing infinite dimensions
-	 *
-	 * WIP
-	 *
-	 * @since 0.9.0
-	 * @access private
-	 *
-	 * @param array $array
-	 * @param string|array $callback
-	 * @return array
-	 */
-	private function transform_array_leafs( array $array, $callback ) {
-		array_walk_recursive( $array, function( &$item, $key ) use( $callback ) {
-			$item = $this->call_func( $callback, $item );
-		} );
-		return $array;
 	}
 }
