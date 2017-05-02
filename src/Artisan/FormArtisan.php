@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or die();
 use WFV\Contract\ArtisanInterface;
 use WFV\Component\Errors;
 use WFV\Component\InputCollection;
-use WFV\Component\Rules;
+use WFV\Component\RuleCollection;
 
 use WFV\Composite\Form;
 
@@ -112,7 +112,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function rules( array $rules ) {
-		$this->components['rules'] = new Rules( $rules );
+		$this->components['rules'] = new RuleCollection( $rules );
 		return $this;
 	}
 }
