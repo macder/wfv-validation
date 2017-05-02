@@ -4,9 +4,10 @@ defined( 'ABSPATH' ) or die();
 
 use WFV\Contract\ArtisanInterface;
 use WFV\Component\Errors;
-use WFV\Component\Form;
-use WFV\Component\Input;
+use WFV\Component\InputCollection;
 use WFV\Component\Rules;
+
+use WFV\Composite\Form;
 
 /**
  *
@@ -86,8 +87,8 @@ class FormArtisan implements ArtisanInterface {
 	 * @param string $action
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function input() {
-		$this->components['input'] = new Input( 'contact_form' );
+	public function input( $data = array() ) {
+		$this->components['input'] = new InputCollection( $data );
 		return $this;
 	}
 
