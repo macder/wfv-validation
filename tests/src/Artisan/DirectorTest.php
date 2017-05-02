@@ -3,8 +3,7 @@ namespace WFV\Artisan;
 
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
-# use WFV\Component\Guard;
-use WFV\Component\Form;
+use WFV\Composite\Form;
 
 class DirectorTest extends \PHPUnit_Framework_TestCase {
 
@@ -60,6 +59,6 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 		$artisan = new FormArtisan();
 		$result = self::$director
 			->compose( $artisan );
-		$this->assertInstanceOf( 'WFV\Component\Form', $result );
+		$this->assertInstanceOf( 'WFV\Composite\Form', $result );
 	}
 }
