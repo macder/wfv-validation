@@ -40,5 +40,7 @@ function wfv_create( $action, array &$form ) {
 	$form = ( new Director( $action ) )
 		->with( 'rules', $form['rules'] )
 		->with( 'input', $input_data )
+		->with( 'errors' )
 		->compose( $artisan );
+
 }

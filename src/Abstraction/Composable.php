@@ -23,6 +23,15 @@ abstract class Composable {
 	 *
 	 * @since 0.10.0
 	 * @access protected
+	 * @var array
+	 */
+	protected $component;
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
 	 *
 	 * @param string $name
 	 * @param class $component
