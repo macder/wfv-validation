@@ -11,16 +11,6 @@ use WFV\Abstraction\Composable;
  */
 class Form extends Composable {
 
-
-	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 * @access protected
-	 * @var array
-	 */
-	protected $component;
-
 	/**
 	 *
 	 *
@@ -57,5 +47,4 @@ class Form extends Composable {
 	public function input( $field = null ) {
 		return $this->utilize('input');
 	}
-
 }
