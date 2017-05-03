@@ -6,6 +6,10 @@
 
 **NOTE - WFV is being re-factored to something awesome. The new architecture uses a builder pattern to create a fully encapsulated composite that is acted up with a validation visitor. The resulting composite is a fluent API giving the client a powerful and pleasant experience to work with user input**
 
+**Check out the [builder branch](https://github.com/macder/wp-form-validation/tree/feature/builder)
+
+
+# LEGACY BELOW
 
 Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 
