@@ -51,6 +51,7 @@ class Form extends Composable {
 	 */
 	public function constrain() {
 		$rules = $this->utilize('rules');
+		$messages = $this->utilize('messages');
 
 		// WIP - array_map could be more useful here..
 		// loop the field
@@ -60,6 +61,9 @@ class Form extends Composable {
 				if( $rules->is_custom( $rule ) ) {
 					$this->add_custom_rule( $rule );
 				}
+
+				// TODO: check if this field/rule has a custom error message
+
 				$this->add_rule( $rule, $field );
 			}
 		}
@@ -133,8 +137,8 @@ class Form extends Composable {
 	 * @param string $rule
 	 * @param string $field
 	 */
-	private function add_rule( $rule, $field ) {
-		$this->adapter('validator')->add_rule( $rule, $field );
+	private function add_rule( $rule, $field, $message = null ) {
+		$this->adapter('validator')->add_rule( $rule, $field, $message );
 	}
 
 	/**
