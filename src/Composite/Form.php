@@ -19,7 +19,7 @@ class Form extends Composable {
 	 * @param string $alias
 	 * @param array $components
 	 */
-	function __construct( $alias, array $components = [], ValidationInterface $adapter) {
+	function __construct( $alias, array $components = [], ValidationInterface $adapter ) {
 		$this->alias = $alias;
 		$this->adapter = $adapter;
 		$this->install( $components );
