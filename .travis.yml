@@ -9,7 +9,7 @@ notifications:
 
 branches:
   only:
-    - featyre/tests
+    - feature/tests
     - feature/travis
     - master
 
