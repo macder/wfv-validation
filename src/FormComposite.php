@@ -18,13 +18,13 @@ class FormComposite extends Composable {
 	 * @since 0.10.0
 	 *
 	 * @param string $alias
-	 * @param array $components
+	 * @param array $collected
 	 * @param ValidationInterface $adapter
 	 */
-	function __construct( $alias, array $components = [], ValidationInterface $adapter ) {
+	function __construct( $alias, array $collected = [], ValidationInterface $adapter ) {
 		$this->alias = $alias;
+		$this->install( $collected );
 		$this->adapter = $adapter;
-		$this->install( $components );
 	}
 
 	/**

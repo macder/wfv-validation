@@ -25,7 +25,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @access private
 	 * @var array
 	 */
-	private $components = array();
+	private $collection = array();
 
 	/**
 	 *
@@ -47,7 +47,7 @@ class FormArtisan implements ArtisanInterface {
 	public function create( $action, $validator ) {
 		$adapter = new ValidatorAdapter( $validator );
 
-		$this->form = new FormComposite( $action, $this->components, $adapter );
+		$this->form = new FormComposite( $action, $this->collection, $adapter );
 		return $this;
 	}
 
@@ -70,7 +70,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function errors() {
-		$this->components['errors'] = new ErrorCollection();
+		$this->collection['errors'] = new ErrorCollection();
 		return $this;
 	}
 
@@ -83,7 +83,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function input( array $data = [] ) {
-		$this->components['input'] = new InputCollection( $data );
+		$this->collection['input'] = new InputCollection( $data );
 		return $this;
 	}
 
@@ -95,7 +95,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function messages( array $messages = [] ) {
-		$this->components['messages'] = new MessageCollection( $messages );
+		$this->collection['messages'] = new MessageCollection( $messages );
 		return $this;
 	}
 
@@ -108,7 +108,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function rules( array $rules = [] ) {
-		$this->components['rules'] = new RuleCollection( $rules );
+		$this->collection['rules'] = new RuleCollection( $rules );
 		return $this;
 	}
 }

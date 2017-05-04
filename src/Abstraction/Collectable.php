@@ -68,7 +68,7 @@ abstract class Collectable implements CollectionInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $field
+	 * @param string $key
 	 * @param string|array (optional) $callback
 	 * @return string|null
 	 */

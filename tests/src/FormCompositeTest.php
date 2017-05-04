@@ -87,7 +87,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 * Does the form construct when $component parameter is an empty array?
 	 *
 	 */
-	public function test_form_is_instante_when_component_array_is_empty() {
+	public function test_form_is_instante_when_collection_array_is_empty() {
 		$expected = 'WFV\FormComposite';
 		$result = new FormComposite( 'phpunit', array(), self::$validator );
 		$this->assertInstanceOf( $expected, $result );
@@ -123,7 +123,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 * Does checked_if() return 'checked' string?
 	 *
 	 */
-	public function test_form_check_if_returns_checked_string() {
+	public function test_form_checked_if_returns_checked_string() {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
@@ -138,7 +138,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 * Does checked_if() return null?
 	 *
 	 */
-	public function test_form_check_if_returns_null() {
+	public function test_form_checked_if_returns_null() {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
@@ -153,7 +153,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 * Does checked_if() return null?
 	 *
 	 */
-	public function test_form_check_if_returns_null_when_no_params() {
+	public function test_form_checked_if_returns_null_when_no_params() {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
@@ -168,7 +168,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 * Does checked_if() return null when $field param is null?
 	 *
 	 */
-	public function test_form_check_if_returns_null_when_field_null() {
+	public function test_form_checked_if_returns_null_when_field_null() {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
@@ -183,7 +183,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 * Does checked_if() return null when $field param is null?
 	 *
 	 */
-	public function test_form_check_if_returns_null_when_value_null() {
+	public function test_form_checked_if_returns_null_when_value_null() {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 

@@ -39,8 +39,12 @@ class ValidatorAdapter implements ValidationInterface {
 	 * @param string $rule
 	 * @param string $field
 	 */
-	public function add_rule( $rule, $field ) {
-		$this->validator->rule( $rule, $field );
+	public function add_rule( $rule, $field, $message = null ) {
+		if( $message ){
+			$this->validator->rule( $rule, $field )->message( $message[ $rule ] );
+		} else{
+			$this->validator->rule( $rule, $field );
+		}
 	}
 
 	/**
