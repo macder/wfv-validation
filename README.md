@@ -18,26 +18,25 @@ $form = [
 ];
 ```
 
-Safe:<br>
+**Safe:**<br>
 `$form->input()->render('email');`
 
-Adaptable:<br>
+**Adaptable:**<br>
 `$form->input()->render('email', 'strip_tags')`
 
-Extensible:<br>
+**Extensible:**<br>
 `$form->input()->render('email', function( $input ) {
   return strip_tags( $input );
 });`
 
-Smart:<br>
+**Smart:**<br>
 `$form->input()->contains( 'email', 'foo@bar.com' );`
 
-Simple:<br>
+**Simple:**<br>
 `$form->errors->first('email');`
 
-Powerful:<br>
+**Powerful:**<br>
 `$form->constrain()->validate();`
-
 
 
 # Table of Contents
