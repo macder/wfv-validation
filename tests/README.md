@@ -13,7 +13,6 @@
 
 ## Architecture
 
-### Patterns
 **Creation**<br>
 Builder
 
