@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
-**NOTE - WFV is being re-factored to something awesome. The new architecture uses a builder pattern to create a fully encapsulated composite that is acted up with a validation visitor. The resulting composite is a fluent API giving the client a powerful and pleasant experience to work with user input**
+**NOTE - WFV is being re-factored to something awesome. The new architecture uses a builder pattern to create a fully encapsulated composite with adaptable validation. The resulting composite is a fluent API giving the client a powerful and pleasant experience to work with user input**
 
 **Check out the [builder branch](https://github.com/macder/wp-form-validation/tree/feature/builder)
 
