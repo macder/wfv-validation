@@ -1,7 +1,9 @@
 # WFV Unit Testing
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
+
 # Table of Contents
+* [Architecture](#architecture)
 * [Prerequisites](#prerequisites)
 * Setup
   * [Interactive](#interactive-setup)
@@ -9,6 +11,17 @@
 * [Support](#support)
 * [External Resources](#external-resources)
 
+## Architecture
+
+### Patterns
+**Creation**<br>
+Builder
+
+**Structure**<br>
+Composite
+
+**Behavioural**<br>
+Adapter
 
 ## Prerequisites
 
