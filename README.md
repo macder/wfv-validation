@@ -24,7 +24,7 @@ $form = [
 **Adaptable:**<br>
 `$form->input()->render('email', 'strip_tags')`
 
-**Extensible:**<br>
+**Flexible:**<br>
 `$form->input()->render('email', function( $input ) {
   return strip_tags( $input );
 });`
@@ -32,8 +32,14 @@ $form = [
 **Smart:**<br>
 `$form->input()->contains( 'email', 'foo@bar.com' );`
 
-**Simple:**<br>
+**Helpful:**<br>
 `$form->errors->first('email');`
+
+**Pragmatic:**<br>
+`$form->selected_if('color', 'green');`
+
+**Simple:**<br>
+`$form->input()->has('email');`
 
 **Powerful:**<br>
 `$form->constrain()->validate();`
