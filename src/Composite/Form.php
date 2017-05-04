@@ -19,6 +19,7 @@ class Form extends Composable {
 	 *
 	 * @param string $alias
 	 * @param array $components
+	 * @param ValidationInterface $adapter
 	 */
 	function __construct( $alias, array $components = [], ValidationInterface $adapter ) {
 		$this->alias = $alias;
@@ -51,6 +52,7 @@ class Form extends Composable {
 	public function constrain() {
 		$rules = $this->utilize('rules');
 
+		// WIP - array_map could be more useful here..
 		// loop the field
 		foreach( $rules->get_array() as $field => $ruleset ) {
 			// loop this field rules - a field can have many rules
