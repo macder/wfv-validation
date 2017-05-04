@@ -9,6 +9,7 @@ notifications:
 
 branches:
   only:
+    - feature/tests
     - feature/travis
     - master
 
@@ -16,11 +17,10 @@ php:
   - 5.4
   - 5.5
   - 5.6
-  - 7.0
 
 env:
-  - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=latest WP_MULTISITE=1
+  - WP_VERSION=3.7 WP_MULTISITE=0
+  - WP_VERSION=3.7 WP_MULTISITE=1
 
 matrix:
 
