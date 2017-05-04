@@ -54,9 +54,9 @@ class Form extends Composable {
 		foreach( $rules->get_array() as $field => $ruleset ) {
 			// loop this field rules - a field can have many rules
 			foreach( $ruleset as $rule ) {
-        if( $rules->is_custom( $rule ) ) {
-          $this->add_custom_rule( $rule );
-        }
+				if( $rules->is_custom( $rule ) ) {
+					$this->add_custom_rule( $rule );
+				}
 				$this->add_rule( $rule, $field );
 			}
 		}
