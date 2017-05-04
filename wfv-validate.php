@@ -41,7 +41,7 @@ function wfv_create( $action, array &$form ) {
 		->with( 'rules', $form['rules'] )
 		->with( 'input', $input_data )
 		->with( 'errors' )
-		->compose( $artisan, new Validator() );
+		->compose( $artisan, new Validator( $input_data ) );
 
-	$form->constrain();
+	$form->constrain()->validate();
 }

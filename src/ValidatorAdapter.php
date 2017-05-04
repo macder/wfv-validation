@@ -59,4 +59,16 @@ class ValidatorAdapter implements ValidationInterface {
 			return ( function_exists( $callback ) ) ? $callback( $value ) : false;
 		});
 	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $rule
+	 * @param string $field
+	 */
+	public function validate() {
+		$this->validator->validate();
+	}
 }

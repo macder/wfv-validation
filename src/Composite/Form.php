@@ -27,15 +27,16 @@ class Form extends Composable {
 	}
 
 	/**
-	 *
+	 * Convenience method to repopulate checkbox input
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $rule
-	 * @param string $field
+	 * @param string $field Field name.
+	 * @param string $value Value to compare against.
+	 * @return string|null
 	 */
-	private function add_rule( $rule, $field ) {
-		$this->adapter('validator')->add_rule( $rule, $field );
+	public function checked_if( $field = null, $value = null ) {
+		return $this->string_or_null( 'checked', $field, $value );
 	}
 
 	/**
@@ -59,31 +60,7 @@ class Form extends Composable {
 				$this->add_rule( $rule, $field );
 			}
 		}
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 * @access private
-	 *
-	 * @param string $rule
-	 */
-	private function add_custom_rule( $custom_rule ) {
-		$this->adapter('validator')->add_custom_rule( $custom_rule );
-	}
-
-	/**
-	 * Convenience method to repopulate checkbox input
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $field Field name.
-	 * @param string $value Value to compare against.
-	 * @return string|null
-	 */
-	public function checked_if( $field = null, $value = null ) {
-		return $this->string_or_null( 'checked', $field, $value );
+		return $this;
 	}
 
 	/**
@@ -119,6 +96,40 @@ class Form extends Composable {
 	 */
 	public function selected_if( $field = null, $value = null ) {
 		return $this->string_or_null( 'selected', $field, $value );
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 */
+	public function validate() {
+		$this->adapter('validator')->validate();
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 *
+	 * @param string $rule
+	 */
+	private function add_custom_rule( $custom_rule ) {
+		$this->adapter('validator')->add_custom_rule( $custom_rule );
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $rule
+	 * @param string $field
+	 */
+	private function add_rule( $rule, $field ) {
+		$this->adapter('validator')->add_rule( $rule, $field );
 	}
 
 	/**
