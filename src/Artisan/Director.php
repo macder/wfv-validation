@@ -72,7 +72,7 @@ class Director {
    * @param ArtisanInterface $artisan
    * @return Composite
    */
-  public function compose( ArtisanInterface $artisan, $purpose ) {
+  public function compose( ArtisanInterface $artisan, $purpose = null ) {
     $this->orchestrate( $this->aspect, $artisan );
     return $artisan
       ->create( $this->entity, $purpose )
