@@ -4,7 +4,7 @@ namespace WFV\Artisan;
 use \Valitron\Validator;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
-use WFV\Composite\Form;
+use WFV\FormComposite;
 
 class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 
@@ -104,6 +104,6 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 			->create('phpunit', new Validator() )
 			->actualize();
 
-		$this->assertInstanceOf( 'WFV\Composite\Form', $result, 'FormArtisan actualize() must return Form' );
+		$this->assertInstanceOf( 'WFV\FormComposite', $result, 'FormArtisan actualize() must return Form' );
 	}
 }

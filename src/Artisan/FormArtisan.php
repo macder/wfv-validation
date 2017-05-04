@@ -4,12 +4,12 @@ defined( 'ABSPATH' ) or die();
 
 use WFV\ValidatorAdapter;
 use WFV\Contract\ArtisanInterface;
-use WFV\Component\ErrorCollection;
-use WFV\Component\MessageCollection;
-use WFV\Component\InputCollection;
-use WFV\Component\RuleCollection;
+use WFV\Collection\ErrorCollection;
+use WFV\Collection\MessageCollection;
+use WFV\Collection\InputCollection;
+use WFV\Collection\RuleCollection;
 
-use WFV\Composite\Form;
+use WFV\FormComposite;
 
 /**
  *
@@ -47,7 +47,7 @@ class FormArtisan implements ArtisanInterface {
 	public function create( $action, $validator ) {
 		$adapter = new ValidatorAdapter( $validator );
 
-		$this->form = new Form( $action, $this->components, $adapter );
+		$this->form = new FormComposite( $action, $this->components, $adapter );
 		return $this;
 	}
 
@@ -56,7 +56,7 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\Form
+	 * @return WFV\Component\FormComposite
 	 */
 	public function actualize() {
 		return $this->form;

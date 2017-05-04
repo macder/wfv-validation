@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Component;
+namespace WFV\Collection;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Collectable;
@@ -21,4 +21,6 @@ class MessageCollection extends Collectable {
 	function __construct( array $messages = [] ) {
 		$this->data = $messages;
 	}
+
+	// public function
 }

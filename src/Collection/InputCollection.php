@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Component;
+namespace WFV\Collection;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Collectable;

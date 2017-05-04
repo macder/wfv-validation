@@ -1,15 +1,15 @@
 <?php
-namespace WFV\Artisan;
+namespace WFV;
 
 use \Valitron\Validator;
 use WFV\ValidatorAdapter;
 
-use WFV\Component\ErrorCollection;
-use WFV\Component\InputCollection;
-use WFV\Component\RuleCollection;
-use WFV\Composite\Form;
+use WFV\Collection\ErrorCollection;
+use WFV\Collection\InputCollection;
+use WFV\Collection\RuleCollection;
+use WFV\FormComposite;
 
-class FormTest extends \PHPUnit_Framework_TestCase {
+class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -88,8 +88,8 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_is_instante_when_component_array_is_empty() {
-		$expected = 'WFV\Composite\Form';
-		$result = new Form( 'phpunit', array(), self::$validator );
+		$expected = 'WFV\FormComposite';
+		$result = new FormComposite( 'phpunit', array(), self::$validator );
 		$this->assertInstanceOf( $expected, $result );
 	}
 
@@ -99,9 +99,9 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_errors_returns_error_collection() {
 		$errors = array( 'errors' => new ErrorCollection() );
-		$form = new Form( 'phpunit', $errors, self::$validator );
+		$form = new FormComposite( 'phpunit', $errors, self::$validator );
 
-		$expected = 'WFV\Component\ErrorCollection';
+		$expected = 'WFV\Collection\ErrorCollection';
 		$result = $form->errors();
 		$this->assertInstanceOf( $expected, $result );
 	}
@@ -112,9 +112,9 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_input_returns_input_collection() {
 		$input = array( 'input' => new InputCollection() );
-		$form = new Form( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
 
-		$expected = 'WFV\Component\InputCollection';
+		$expected = 'WFV\Collection\InputCollection';
 		$result = $form->input();
 		$this->assertInstanceOf( $expected, $result );
 	}
@@ -127,7 +127,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new Form( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
 
 		$expected = 'checked';
 		$result = $form->checked_if('color', 'green');
@@ -142,7 +142,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new Form( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
 
 		$expected = null;
 		$result = $form->checked_if('color', 'is_not_there');
@@ -157,7 +157,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new Form( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
 
 		$expected = null;
 		$result = $form->checked_if();
@@ -172,7 +172,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new Form( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
 
 		$expected = null;
 		$result = $form->checked_if(null, 'wait.. huh?!');
@@ -187,7 +187,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new Form( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
 
 		$expected = null;
 		$result = $form->checked_if('name', null);

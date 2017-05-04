@@ -47,6 +47,8 @@ abstract class Collectable implements CollectionInterface {
 	 * @return bool
 	 */
 	public function has( $key = null ) {
+		/*array_walk( $this->data, function( $item, $key ) {
+		});*/
 		return array_key_exists( $key, $this->data );
 	}
 

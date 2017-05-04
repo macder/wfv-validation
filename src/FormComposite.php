@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Composite;
+namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Composable;
@@ -10,7 +10,7 @@ use WFV\Contract\ValidationInterface;
  *
  * @since 0.10.0
  */
-class Form extends Composable {
+class FormComposite extends Composable {
 
 	/**
 	 *
