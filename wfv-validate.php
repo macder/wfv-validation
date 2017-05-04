@@ -41,8 +41,7 @@ function wfv_create( $action, array &$form ) {
 		->with( 'rules', $form['rules'] )
 		->with( 'input', $input_data )
 		->with( 'errors' )
-		->with( 'validator', new Validator() )
-		->compose( $artisan );
+		->compose( $artisan, new Validator() );
 
 	$form->add_rule( 'required', 'email' );
 }

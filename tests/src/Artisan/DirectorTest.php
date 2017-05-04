@@ -55,10 +55,10 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 * When using FormArtisan, does compose return an instance of Form?
 	 *
 	 */
-	public function test_director_compose_return_instance_of_form() {
+	/*public function test_director_compose_return_instance_of_form() {
 		$artisan = new FormArtisan();
 		$result = self::$director
 			->compose( $artisan );
 		$this->assertInstanceOf( 'WFV\Composite\Form', $result );
-	}
+	}*/
 }
