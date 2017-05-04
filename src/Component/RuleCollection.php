@@ -31,6 +31,5 @@ class RuleCollection extends Collectable {
 	 * @return bool
 	 */
 	public function is_custom( $rule ) {
-		// return ( false !== strpos( $rule, 'custom:' ) ) ? true: false;
 	}
 }

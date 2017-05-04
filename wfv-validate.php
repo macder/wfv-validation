@@ -19,10 +19,10 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
-use WFV\Artisan\FormArtisan;
-use WFV\Artisan\Director;
-
+use \Valitron\Validator;
 use WFV\Agent\InspectionAgent;
+use WFV\Artisan\Director;
+use WFV\Artisan\FormArtisan;
 
 /**
  *
@@ -41,6 +41,8 @@ function wfv_create( $action, array &$form ) {
 		->with( 'rules', $form['rules'] )
 		->with( 'input', $input_data )
 		->with( 'errors' )
+		->with( 'validator', new Validator() )
 		->compose( $artisan );
 
+	$form->add_rule( 'required', 'email' );
 }

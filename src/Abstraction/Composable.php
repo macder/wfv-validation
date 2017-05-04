@@ -22,10 +22,32 @@ abstract class Composable {
 	 *
 	 *
 	 * @since 0.10.0
+	 * @access private
+	 * @var string
+	 */
+	protected $adapter;
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
 	 * @access protected
 	 * @var array
 	 */
 	protected $component;
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 *
+	 * @param string $name
+	 * @param class $component
+	 */
+	protected function adapter( $adapter ) {
+		return $this->adapter;
+	}
 
 	/**
 	 *
