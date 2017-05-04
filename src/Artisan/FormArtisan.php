@@ -2,6 +2,7 @@
 namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
+use WFV\ValidatorAdapter;
 use WFV\Contract\ArtisanInterface;
 use WFV\Component\ErrorCollection;
 use WFV\Component\InputCollection;
@@ -23,7 +24,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @access private
 	 * @var array
 	 */
-	private $components = array();
+	private $adapter;
 
 	/**
 	 *
@@ -32,7 +33,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @access private
 	 * @var array
 	 */
-	// private $config = array();
+	private $components = array();
 
 	/**
 	 *
@@ -52,7 +53,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function create( $action ) {
-		$this->form = new Form( $action, $this->components );
+		$this->form = new Form( $action, $this->components, $this->adapter );
 		return $this;
 	}
 
@@ -65,6 +66,18 @@ class FormArtisan implements ArtisanInterface {
 	 */
 	public function actualize() {
 		return $this->form;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return WFV\Artisan\FormArtisan
+	 */
+	public function validator( $validator ) {
+		$this->adapter = new ValidatorAdapter( $validator );
+		return $this;
 	}
 
 	/**
