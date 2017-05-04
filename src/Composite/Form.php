@@ -6,7 +6,7 @@ use WFV\Abstraction\Composable;
 use WFV\Contract\ValidationInterface;
 
 /**
- *
+ * Form Composition
  *
  * @since 0.10.0
  */
@@ -40,7 +40,8 @@ class Form extends Composable {
 	}
 
 	/**
-	 *
+	 * Activate validator with the rules and messages
+	 *  via adapter
 	 *
 	 * @since 0.10.0
 	 *
@@ -109,21 +110,23 @@ class Form extends Composable {
 	}
 
 	/**
-	 *
+	 * Loads a custom rule into a validator via adapter
 	 *
 	 * @since 0.10.0
 	 * @access private
 	 *
-	 * @param string $rule
+	 * @param string $custom_rule
 	 */
 	private function add_custom_rule( $custom_rule ) {
 		$this->adapter('validator')->add_custom_rule( $custom_rule );
 	}
 
 	/**
-	 *
+	 * Add a rule to a field
+	 *  Only for built-in rules
 	 *
 	 * @since 0.10.0
+	 * @access private
 	 *
 	 * @param string $rule
 	 * @param string $field
