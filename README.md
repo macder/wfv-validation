@@ -252,7 +252,7 @@ $my_form->input()->contains( 'email', 'bar@foo.com');  // false
 
 
 ### Render
-#### `render( string $field, string|array $callback = 'htmlspecialchars' )`
+#### `render( string $field, string|array $callback = 'esc_html' )`
 Passes an input value through a callback and returns the new string.
 
 Use this method to output encoded input values, eg. in markup templates
@@ -309,17 +309,6 @@ echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
 function wfv_example( $value, $arg2, $arg3 ) {
   return $arg2 .'-'. $value .'-'. $arg3;
 }
-```
-
-### Get array
-#### `get_array()`
-
-Get input members as an array:
-```php
-<?php // get users input as an associative array
-
-$input = $my_form->input->get_array();
-echo $input['email']; // foo@bar.com
 ```
 
 ### Has input
@@ -537,19 +526,6 @@ Multi-select:
   <option value="blue"<?= $my_form->selected_if('color', 'blue'); ?>>Blue</option>
   <option value="green"<?= $my_form->selected_if('color', 'green'); ?>>Green</option>
 </select>
-```
-
-### Pre populate
-#### `put( string $field, string $value )`
-Pre-populate a field before `$_POST`
-
-```php
-<?php // the email field will always be pre populated with foo@bar.com
-
-$my_form->input->put('email', 'foo@bar.com');
-```
-```html
-<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
 ```
 
 ## Validation Errors
