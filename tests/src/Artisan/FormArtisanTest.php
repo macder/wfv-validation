@@ -1,6 +1,7 @@
 <?php
 namespace WFV\Artisan;
 
+use \Valitron\Validator;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
 use WFV\Composite\Form;
@@ -32,7 +33,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does input method return instance of this Artisan?
+	 * Does input method return instance of this FormArtisan?
 	 *
 	 */
 	public function test_form_artisan_input_return_self_instance() {
@@ -43,7 +44,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does rules method return instance of this Artisan?
+	 * Does rules method return instance of this FormArtisan?
 	 *
 	 */
 	public function test_form_artisan_rules_return_self_instance() {
@@ -58,17 +59,17 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does create return instance of this Artisan?
+	 * Does create return instance of this FormArtisan?
 	 *
 	 */
 	public function test_form_artisan_create_return_self_instance() {
-		$result = self::$form_artisan->create( 'phpunit' );
+		$result = self::$form_artisan->create( 'phpunit', new Validator() );
 
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan create() must return Self' );
 	}
 
 	/**
-	 * Does errors return instance of this Artisan?
+	 * Does errors return instance of this FormArtisan?
 	 *
 	 */
 	public function test_form_artisan_errors_return_self_instance() {
@@ -78,7 +79,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does messages return instance of this Artisan?
+	 * Does messages return instance of this FormArtisan?
 	 *
 	 */
 	public function test_form_artisan_messages_return_self_instance() {
@@ -100,7 +101,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 		$result = self::$form_artisan
 			->input()
 			->rules( $rules )
-			->create('phpunit')
+			->create('phpunit', new Validator() )
 			->actualize();
 
 		$this->assertInstanceOf( 'WFV\Composite\Form', $result, 'FormArtisan actualize() must return Form' );

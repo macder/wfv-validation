@@ -24,15 +24,6 @@ class FormArtisan implements ArtisanInterface {
 	 * @access private
 	 * @var array
 	 */
-	private $adapter;
-
-	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 * @access private
-	 * @var array
-	 */
 	private $components = array();
 
 	/**
@@ -52,8 +43,10 @@ class FormArtisan implements ArtisanInterface {
 	 * @param string $action
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function create( $action ) {
-		$this->form = new Form( $action, $this->components, $this->adapter );
+	public function create( $action, $validator ) {
+		$adapter = new ValidatorAdapter( $validator );
+
+		$this->form = new Form( $action, $this->components, $adapter );
 		return $this;
 	}
 
@@ -66,18 +59,6 @@ class FormArtisan implements ArtisanInterface {
 	 */
 	public function actualize() {
 		return $this->form;
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 *
-	 * @return WFV\Artisan\FormArtisan
-	 */
-	public function validator( $validator ) {
-		$this->adapter = new ValidatorAdapter( $validator );
-		return $this;
 	}
 
 	/**

@@ -18,7 +18,7 @@ class RuleCollection extends Collectable {
 	 *
 	 * @param array $rules
 	 */
-	public function __construct( array $rules ) {
+	public function __construct( array $rules = [] ) {
 		$this->data = $rules;
 	}
 
