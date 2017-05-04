@@ -1,22 +1,48 @@
 # WFV - WordPress Form Validation
 
-#### Input Validation API
+#### User Input API - *Simple. Concise. Safe*.
+
+[Development & Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
-WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
+Elegant form validation for WordPress.
 
-Markup a form in a template and define its constraints in `functions.php`, a plugin, or wherever. Everything is up to you, the developer.
+```php
+<?php // 32 built-in and custom rules
 
-WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight library without dependencies, to validate input constraints.
+$form = [
+  'rules' => [
+    'email' => ['required', 'email']
+  ]
+];
+```
 
-For testing, see [WFV Unit Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
+Safe:<br>
+`$form->input()->render('email');`
+
+Adaptable:<br>
+`$form->input()->render('email', 'strip_tags')`
+
+Extensible:<br>
+`$form->input()->render('email', function( $input ) {
+  return strip_tags( $input );
+});`
+
+Smart:<br>
+`$form->input()->contains( 'email', 'foo@bar.com' );`
+
+Simple:<br>
+`$form->errors->first('email');`
+
+Powerful:<br>
+`$form->constrain()->validate();`
+
 
 
 # Table of Contents
 * [Features](#features)
 * [Basic Example](#basic-example)
-* [TODO](#todo)
 * [Install](#install)
 * [Usage](#usage)
   * [Rules](#rules)
@@ -252,7 +278,7 @@ $my_form->input()->contains( 'email', 'bar@foo.com');  // false
 
 
 ### Render
-#### `render( string $field, string|array $callback = 'esc_html' )`
+#### `render( string $key, callable $callback = null )`
 Passes an input value through a callback and returns the new string.
 
 Use this method to output encoded input values, eg. in markup templates
