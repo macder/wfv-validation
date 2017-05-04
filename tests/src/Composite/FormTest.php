@@ -23,6 +23,14 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 * @access protected
+	 * @var array
+	 */
+	protected static $http_post;
+
+	/**
+	 *
+	 *
+	 * @access protected
 	 * @var ValidationInterface $validator
 	 */
 	protected static $validator;
@@ -47,6 +55,23 @@ class FormTest extends \PHPUnit_Framework_TestCase {
         ),
       ]
     );
+
+    self::$http_post = array(
+      'action' => 'phpunit',
+      'name' => 'Foo Bar',
+      'email' => 'foo@bar.com',
+      'shades' => array(
+        'lightest',
+        'light',
+        'dark',
+        'darkest',
+      ),
+      'color' => array(
+        'red',
+        'green',
+        'blue',
+      )
+    );
 	}
 
 	/**
@@ -54,6 +79,7 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function tearDown() {
+		$_POST = null;
 		self::$validator = null;
 	}
 
@@ -91,5 +117,80 @@ class FormTest extends \PHPUnit_Framework_TestCase {
 		$expected = 'WFV\Component\InputCollection';
 		$result = $form->input();
 		$this->assertInstanceOf( $expected, $result );
+	}
+
+	/**
+	 * Does checked_if() return 'checked' string?
+	 *
+	 */
+	public function test_form_check_if_returns_checked_string() {
+		$_POST = self::$http_post;
+		$input = array( 'input' => new InputCollection( $_POST ) );
+
+		$form = new Form( 'phpunit', $input, self::$validator );
+
+		$expected = 'checked';
+		$result = $form->checked_if('color', 'green');
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does checked_if() return null?
+	 *
+	 */
+	public function test_form_check_if_returns_null() {
+		$_POST = self::$http_post;
+		$input = array( 'input' => new InputCollection( $_POST ) );
+
+		$form = new Form( 'phpunit', $input, self::$validator );
+
+		$expected = null;
+		$result = $form->checked_if('color', 'is_not_there');
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does checked_if() return null?
+	 *
+	 */
+	public function test_form_check_if_returns_null_when_no_params() {
+		$_POST = self::$http_post;
+		$input = array( 'input' => new InputCollection( $_POST ) );
+
+		$form = new Form( 'phpunit', $input, self::$validator );
+
+		$expected = null;
+		$result = $form->checked_if();
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does checked_if() return null when $field param is null?
+	 *
+	 */
+	public function test_form_check_if_returns_null_when_field_null() {
+		$_POST = self::$http_post;
+		$input = array( 'input' => new InputCollection( $_POST ) );
+
+		$form = new Form( 'phpunit', $input, self::$validator );
+
+		$expected = null;
+		$result = $form->checked_if(null, 'wait.. huh?!');
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does checked_if() return null when $field param is null?
+	 *
+	 */
+	public function test_form_check_if_returns_null_when_value_null() {
+		$_POST = self::$http_post;
+		$input = array( 'input' => new InputCollection( $_POST ) );
+
+		$form = new Form( 'phpunit', $input, self::$validator );
+
+		$expected = null;
+		$result = $form->checked_if('name', null);
+		$this->assertEquals( $expected, $result );
 	}
 }
