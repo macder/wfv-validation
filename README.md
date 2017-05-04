@@ -29,7 +29,7 @@ $form = [
   return strip_tags( $input );
 });`
 
-**Smart:**<br>
+**Aware:**<br>
 `$form->input()->contains( 'email', 'foo@bar.com' );`
 
 **Helpful:**<br>
@@ -55,7 +55,7 @@ $form = [
   * [Custom Feedback](#custom-feedback)
   * [Validation Hooks](#validation-hooks)
   * [Markup a Form](#create-a-form-somewhere-in-your-theme)
-  * [Form Entity](#form-entity)
+  * [Form Composite](#form-composite)
   * [User Input](#user-input)
   * [Auto Populate](#auto-populate)
   * [Errors](#validation-errors)
@@ -233,18 +233,18 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 ## Form Entity
 ### `wfv_create( string $action, array $form )`
 
-Create an instance of `WFV\Composite\Form`.
+Pass by reference an instance of `WFV\FormComposite`.
 
 Example:
 ```php
 <?php
-// $my_form becomes an instance of WFV\Composite\Form
+// $my_form becomes an instance of WFV\FormComposite
 wfv_create( 'contact_form', $my_form );
 ```
 
 
 ## User Input
-### `WFV\Component\InputCollection`
+### `WFV\Collection\InputCollection`
 Immutable Collection
 
 Available methods:
