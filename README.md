@@ -1,20 +1,12 @@
 # WFV - WordPress Form Validation
 
-####  Fluent API for elegant input validation with WordPress.
+#### Input Validation API
 
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
-
-**This documentation contains primarily legacy content**
-
-**WIP - Content undergoing major changes**
-
-Intended for developers who want to build forms in a theme using custom markup and validate the input in a declarative way.
 
 WFV gives you the ability to declare form validation constraints in a similar way found in MVC frameworks such as [Laravel](https://laravel.com/).
 
 Markup a form in a template and define its constraints in `functions.php`, a plugin, or wherever. Everything is up to you, the developer.
-
-You get a fully encapsulated and declarative API that helps you work with forms and input in an elegant way.
 
 WFV uses [Valitron](https://github.com/vlucas/valitron), a lightweight library without dependencies, to validate input constraints.
 
@@ -80,7 +72,7 @@ function my_form_invalid( $form ) {
 // create the instance
 wfv_create( 'contact_form', $my_form );
 
-// $my_form is now an instance of WFV\Component\Form:
+// $my_form is now an instance of WFV\Composite\Form:
 
 ```
 
@@ -92,10 +84,6 @@ Theme template:
   <input type="submit" value="Send">
 </form>
 ```
-
-
-## TODO
-- API endpoint for front end - support single configuration.
 
 # Install
 
@@ -114,7 +102,6 @@ Theme template:
 `$ git clone` or download `master` to `./wp-content/plugins`
 
 `$ composer install`
-
 
 
 # Usage
@@ -215,19 +202,19 @@ This adds 2 hidden fields, nonce and action. The generated action field identifi
 ## Form Entity
 ### `wfv_create( string $action, array $form )`
 
-Create an instance of `WFV\Component\Form`.
+Create an instance of `WFV\Composite\Form`.
 
 Example:
 ```php
 <?php
-// $my_form becomes an instance of WFV\Component\Form
+// $my_form becomes an instance of WFV\Composite\Form
 wfv_create( 'contact_form', $my_form );
 ```
 
 
 ## User Input
-### `WFV\Component\Input`
-Immutable Collection Entity
+### `WFV\Component\InputCollection`
+Immutable Collection
 
 Available methods:
 * [contains()](#input-contains)
@@ -265,7 +252,7 @@ $my_form->input()->contains( 'email', 'bar@foo.com');  // false
 
 
 ### Render
-#### `render( string $field, string|array $callback = 'htmlspecialchars' )`
+#### `render( string $field, string|array $callback = 'esc_html' )`
 Passes an input value through a callback and returns the new string.
 
 Use this method to output encoded input values, eg. in markup templates
@@ -322,17 +309,6 @@ echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
 function wfv_example( $value, $arg2, $arg3 ) {
   return $arg2 .'-'. $value .'-'. $arg3;
 }
-```
-
-### Get array
-#### `get_array()`
-
-Get input members as an array:
-```php
-<?php // get users input as an associative array
-
-$input = $my_form->input->get_array();
-echo $input['email']; // foo@bar.com
 ```
 
 ### Has input
@@ -550,19 +526,6 @@ Multi-select:
   <option value="blue"<?= $my_form->selected_if('color', 'blue'); ?>>Blue</option>
   <option value="green"<?= $my_form->selected_if('color', 'green'); ?>>Green</option>
 </select>
-```
-
-### Pre populate
-#### `put( string $field, string $value )`
-Pre-populate a field before `$_POST`
-
-```php
-<?php // the email field will always be pre populated with foo@bar.com
-
-$my_form->input->put('email', 'foo@bar.com');
-```
-```html
-<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
 ```
 
 ## Validation Errors
