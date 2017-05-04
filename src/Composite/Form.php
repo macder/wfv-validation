@@ -25,7 +25,6 @@ class Form extends Composable {
 		$this->install( $components );
 	}
 
-
 	/**
 	 *
 	 *
