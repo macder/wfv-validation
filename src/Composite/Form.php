@@ -34,8 +34,43 @@ class Form extends Composable {
 	 * @param string $rule
 	 * @param string $field
 	 */
-	public function add_rule( $rule, $field ) {
+	private function add_rule( $rule, $field ) {
 		$this->adapter('validator')->add_rule( $rule, $field );
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $rule
+	 * @param string $field
+	 */
+	public function constrain() {
+		$rules = $this->utilize('rules');
+
+		// loop the field
+		foreach( $rules->get_array() as $field => $ruleset ) {
+			// loop this field rules - a field can have many rules
+			foreach( $ruleset as $rule ) {
+        if( $rules->is_custom( $rule ) ) {
+          $this->add_custom_rule( $rule );
+        }
+				$this->add_rule( $rule, $field );
+			}
+		}
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 *
+	 * @param string $rule
+	 */
+	private function add_custom_rule( $custom_rule ) {
+		$this->adapter('validator')->add_custom_rule( $custom_rule );
 	}
 
 	/**

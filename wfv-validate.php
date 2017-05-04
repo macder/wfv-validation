@@ -43,5 +43,5 @@ function wfv_create( $action, array &$form ) {
 		->with( 'errors' )
 		->compose( $artisan, new Validator() );
 
-	$form->add_rule( 'required', 'email' );
+	$form->constrain();
 }

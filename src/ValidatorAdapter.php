@@ -16,7 +16,7 @@ class ValidatorAdapter implements ValidationInterface {
 	 *
 	 * @since 0.10.0
 	 * @access private
-	 * @var array
+	 * @var
 	 */
 	private $validator;
 
@@ -25,7 +25,7 @@ class ValidatorAdapter implements ValidationInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param
+	 * @param Validator $validator
 	 */
 	function __construct( Validator $validator ) {
 		$this->validator = $validator;
@@ -36,10 +36,27 @@ class ValidatorAdapter implements ValidationInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param
-	 * @param
+	 * @param string $rule
+	 * @param string $field
 	 */
 	public function add_rule( $rule, $field ) {
 		$this->validator->rule( $rule, $field );
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $rule
+	 */
+	public function add_custom_rule( $rule ) {
+		$this->validator->addRule( $rule, function( $field, $value, array $params, array $fields ) use ( $rule ) {
+			echo $rule;
+			$rule = explode( ':', $rule );
+			$callback = 'wfv__'. $rule[1];
+			// TODO: throw exception if no callback, or warning?
+			return ( function_exists( $callback ) ) ? $callback( $value ) : false;
+		});
 	}
 }
