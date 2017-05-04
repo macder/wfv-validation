@@ -6,7 +6,7 @@
 
 **NOTE - WFV is being re-factored to something awesome. The new architecture uses a builder pattern to create a fully encapsulated composite with adaptable validation. The resulting composite is a fluent API giving the client a powerful and pleasant experience to work with user input**
 
-**Check out the [builder branch](https://github.com/macder/wp-form-validation/tree/feature/builder)
+**Check out the [develop branch](https://github.com/macder/wp-form-validation/tree/develop)
 
 
 # LEGACY BELOW
