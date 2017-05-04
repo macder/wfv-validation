@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) or die();
 use WFV\ValidatorAdapter;
 use WFV\Contract\ArtisanInterface;
 use WFV\Component\ErrorCollection;
+use WFV\Component\MessageCollection;
 use WFV\Component\InputCollection;
 use WFV\Component\RuleCollection;
 
@@ -81,7 +82,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @param string $action
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function input( $data = array() ) {
+	public function input( array $data = [] ) {
 		$this->components['input'] = new InputCollection( $data );
 		return $this;
 	}
@@ -93,7 +94,8 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function messages() {
+	public function messages( array $messages = [] ) {
+		$this->components['messages'] = new MessageCollection( $messages );
 		return $this;
 	}
 
@@ -105,7 +107,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @param array $rules
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function rules( array $rules ) {
+	public function rules( array $rules = [] ) {
 		$this->components['rules'] = new RuleCollection( $rules );
 		return $this;
 	}
