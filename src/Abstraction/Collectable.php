@@ -64,12 +64,12 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 *
+	 * Returns escaped input value
 	 *
 	 * @since 0.10.0
 	 *
 	 * @param string $key
-	 * @param string|array (optional) $callback
+	 * @param string|array (optional) $callback Context appropriate callable
 	 * @return string|null
 	 */
 	public function render( $key, callable $callback = null ) {
@@ -81,7 +81,8 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 * WIP
+	 * Returns a new array of this collection
+	 *  after passing each leaf through a callback
 	 *
 	 * @since 0.10.0
 	 *
