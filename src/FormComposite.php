@@ -78,7 +78,8 @@ class FormComposite extends Composable {
 	 * @return WFV\Component\ErrorCollection
 	 */
 	public function errors() {
-		return $this->utilize('errors');
+		$errors = $this->adapter('validator')->errors();
+		return $this->utilize('errors')->set_errors( $errors );
 	}
 
 	/**
@@ -112,7 +113,11 @@ class FormComposite extends Composable {
 	 *
 	 */
 	public function validate() {
-		$this->adapter('validator')->validate();
+		// WIP
+		if ( false === $this->adapter('validator')->validate() ) {
+			$errors = $this->adapter('validator')->errors();
+			$this->utilize('errors')->set_errors( $errors );
+		}
 	}
 
 	/**
