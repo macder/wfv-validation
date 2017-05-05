@@ -7,8 +7,12 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
+		<testsuite name="full">
 			<directory>./tests/</directory>
+			<exclude>./tests/old/</exclude>
+		</testsuite>
+		<testsuite name="builder">
+			<directory>./tests/src/Artisan</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
