@@ -66,9 +66,7 @@ class FormComposite extends Composable {
 	 * @return WFV\Component\ErrorCollection
 	 */
 	public function errors() {
-		$errors = $this->adapter('validator')
-			->errors();
-
+		$errors = $this->adapter('validator')->errors();
 		return $this->utilize('errors')
 			->set_errors( $errors );
 	}
@@ -109,17 +107,35 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 *
+	 * Validate the input
 	 *
 	 * @since 0.10.0
 	 *
+	 * @return bool
 	 */
 	public function validate() {
-		// WIP
-		if ( false === $this->adapter('validator')->validate() ) {
+		$is_valid = $this->adapter('validator')->validate();
+
+		if ( false === $is_valid ) {
 			$errors = $this->adapter('validator')->errors();
 			$this->utilize('errors')->set_errors( $errors );
 		}
+		$this->trigger_post_validate_action( $is_valid );
+		return $is_valid;
+	}
+
+	/**
+	 * Trigger action hook for validation pass or fail
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 *
+	 * @param
+	 * @param
+	 */
+	private function trigger_post_validate_action( $is_valid = false ) {
+		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
+		do_action( $action, $this );
 	}
 
 	/**
