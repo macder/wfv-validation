@@ -43,7 +43,7 @@ class ValidatorAdapter implements ValidationInterface {
 	 */
 	public function add_rule( $rule, $field, $message = null ) {
 		if( $message ){
-			$this->validator->rule( $rule, $field )->message( $message[ $rule ] );
+			$this->validator->rule( $rule, $field )->message( $message );
 		} else {
 			$this->validator->rule( $rule, $field );
 		}
@@ -68,16 +68,15 @@ class ValidatorAdapter implements ValidationInterface {
 
 
 	/**
-	 *
+	 * Loads the rules and custom messages into Validator
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param
-	 * @param
-	 * @return
+	 * @param RuleCollection $rules
+	 * @param MessageCollection $messages
 	 */
 	public function constrain( RuleCollection $rules, MessageCollection $messages ) {
-		// WIP - array_map could be more useful here..
+		// WIP
 		// loop the field
 		foreach( $rules->get_array() as $field => $ruleset ) {
 			// loop this field rules - a field can have many rules
@@ -85,10 +84,9 @@ class ValidatorAdapter implements ValidationInterface {
 				if( $rules->is_custom( $rule ) ) {
 					$this->add_custom_rule( $rule );
 				}
+				$message = ( $messages->has( $field ) ) ? $messages->get( $field, $rule ) : null;
 
-				// TODO: check if this field/rule has a custom error message
-
-				$this->add_rule( $rule, $field );
+				$this->add_rule( $rule, $field, $message );
 			}
 		}
 	}
