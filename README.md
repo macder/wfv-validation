@@ -1,12 +1,13 @@
 # WFV - WordPress Form Validation
 
+[![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
+
 #### Input Validation API
 
 *Safe - Simple - Concise*
 
 [Development & Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
-[![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
 Elegant form validation for WordPress.
 
