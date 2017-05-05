@@ -498,7 +498,7 @@ $colors = $my_form->input()->transform( $colors, function( $value ) use ( $origi
 
 If validation fails, these fields would populate using the submitted values:
 ```html
-<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
+<input name="email" type="text" value="<?= $my_form->input()->render('email') ?>">
 ```
 
 ```html
