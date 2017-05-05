@@ -23,7 +23,7 @@ interface ValidationInterface {
 	/**
 	 * @return
 	 */
-	//public function input( $data );
+	public function add_custom_rule( $rule );
 
 	/**
 	 * @return

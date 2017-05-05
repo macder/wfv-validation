@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Component;
+namespace WFV\Collection;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Collectable;
@@ -30,6 +30,19 @@ class RuleCollection extends Collectable {
 	 * @param string $rule
 	 * @return bool
 	 */
+	public function get_array() {
+		return $this->data;
+	}
+
+	/**
+	 * Check if rule is custom
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $rule
+	 * @return bool
+	 */
 	public function is_custom( $rule ) {
+		return ( false !== strpos( $rule, 'custom:' ) ) ? true : false;
 	}
 }

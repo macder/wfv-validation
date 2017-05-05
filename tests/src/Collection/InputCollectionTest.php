@@ -1,7 +1,7 @@
 <?php
-namespace WFV\Component;
+namespace WFV\Collection;
 
-use WFV\Component\InputCollection;
+use WFV\Collection\InputCollection;
 
 class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 
@@ -38,7 +38,7 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_input_collection_is_instance() {
-		$expected = 'WFV\Component\InputCollection';
+		$expected = 'WFV\Collection\InputCollection';
 		$result = new InputCollection( self::$data );
 		$this->assertInstanceOf( $expected, $result );
 	}

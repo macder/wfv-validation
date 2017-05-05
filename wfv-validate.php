@@ -34,14 +34,17 @@ use WFV\Artisan\FormArtisan;
  */
 function wfv_create( $action, array &$form ) {
 	$inspect = new InspectionAgent( $action );
-	$input_data = ( true === $inspect->safe_submit() ) ? $_POST : array();
+	$input = ( true === $inspect->safe_submit() ) ? $_POST : array();
 
 	$artisan = new FormArtisan();
 	$form = ( new Director( $action ) )
 		->with( 'rules', $form['rules'] )
-		->with( 'input', $input_data )
+		->with( 'input', $input )
+		->with( 'messages',  $form['messages'] )
 		->with( 'errors' )
-		->compose( $artisan, new Validator() );
+		->compose( $artisan, new Validator( $input ) );
 
-	$form->add_rule( 'required', 'email' );
+	if( $input ) {
+		$form->constrain()->validate();
+	}
 }

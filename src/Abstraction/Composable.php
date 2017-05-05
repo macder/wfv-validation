@@ -22,19 +22,19 @@ abstract class Composable {
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
-	 * @var string
+	 * @access protected
+	 * @var array
 	 */
-	protected $adapter;
+	protected $collection;
 
 	/**
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access protected
-	 * @var array
+	 * @access private
+	 * @var string
 	 */
-	protected $component;
+	protected $adapter;
 
 	/**
 	 *
@@ -59,7 +59,7 @@ abstract class Composable {
 	 * @param class $component
 	 */
 	protected function add_component( $name, $component ) {
-		$this->component[ $name ] = $component;
+		$this->collection[ $name ] = $component;
 	}
 
 	/**
@@ -71,7 +71,7 @@ abstract class Composable {
 	 * @param string $component Key indentifier.
 	 */
 	protected function utilize( $component ) {
-		return $this->component[ $component ];
+		return $this->collection[ $component ];
 	}
 
 	/**

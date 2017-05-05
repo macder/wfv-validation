@@ -1,16 +1,30 @@
 # WFV Unit Testing
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
+
 # Table of Contents
-* [Prerequisites](#prerequisites)
-* Setup
-  * [Interactive](#interactive-setup)
-  * [Manual](#manual-setup)
+* [Architecture](#architecture)
+* [Testing]()
+  * [Prerequisites](#prerequisites)
+  * [Setup]()
 * [Support](#support)
 * [External Resources](#external-resources)
 
+## Architecture
 
-## Prerequisites
+**Creation**<br>
+Builder
+
+**Structure**<br>
+Composite<br>
+Adapter
+
+**Behavioural**<br>
+
+
+## Testing
+
+### Prerequisites
 
 A working [wp-cli](http://wp-cli.org) install.
 
@@ -19,7 +33,7 @@ Install PHPunit dependency by running `bin/lib/install_phpunit.sh`.
 This will `composer require` the correct package for your local PHP version. The install is isolated to the project.
 
 
-## Interactive Setup
+### Interactive Setup
 The easiest way to get setup and test is using the interactive bash script `bin/start_tests`
 
 It's menu driven, with the hope of making more of the process self explanatory.
@@ -95,7 +109,7 @@ $: ./start_tests test
 
 ```
 
-## Manual Setup
+### Manual Setup
 The nuts and bolts of what `./start_tests` is doing
 
 **Create the testing instance**
