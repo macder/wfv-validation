@@ -3,6 +3,8 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 use \Valitron\Validator;
+use WFV\Collection\MessageCollection;
+use WFV\Collection\RuleCollection;
 use WFV\Contract\ValidationInterface;
 /**
  *
@@ -61,6 +63,34 @@ class ValidatorAdapter implements ValidationInterface {
 			// TODO: throw exception if no callback, or warning?
 			return ( function_exists( $callback ) ) ? $callback( $value ) : false;
 		});
+	}
+
+
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param
+	 * @param
+	 * @return
+	 */
+	public function constrain( RuleCollection $rules, MessageCollection $messages ) {
+		// WIP - array_map could be more useful here..
+		// loop the field
+		foreach( $rules->get_array() as $field => $ruleset ) {
+			// loop this field rules - a field can have many rules
+			foreach( $ruleset as $rule ) {
+				if( $rules->is_custom( $rule ) ) {
+					$this->add_custom_rule( $rule );
+				}
+
+				// TODO: check if this field/rule has a custom error message
+
+				$this->add_rule( $rule, $field );
+			}
+		}
 	}
 
 	/**

@@ -53,9 +53,16 @@ class FormComposite extends Composable {
 		$rules = $this->utilize('rules');
 		$messages = $this->utilize('messages');
 
+		$this->adapter('validator')
+			->constrain( $rules, $messages );
+
+		//echo 'hi';
+
+		// print_r($messages);
+
 		// WIP - array_map could be more useful here..
 		// loop the field
-		foreach( $rules->get_array() as $field => $ruleset ) {
+		/*foreach( $rules->get_array() as $field => $ruleset ) {
 			// loop this field rules - a field can have many rules
 			foreach( $ruleset as $rule ) {
 				if( $rules->is_custom( $rule ) ) {
@@ -66,24 +73,27 @@ class FormComposite extends Composable {
 
 				$this->add_rule( $rule, $field );
 			}
-		}
+		}*/
 		return $this;
 	}
 
 	/**
-	 * Get input instance
+	 * Use error collection
 	 *
 	 * @since 0.10.0
 	 *
 	 * @return WFV\Component\ErrorCollection
 	 */
 	public function errors() {
-		$errors = $this->adapter('validator')->errors();
-		return $this->utilize('errors')->set_errors( $errors );
+		$errors = $this->adapter('validator')
+			->errors();
+
+		return $this->utilize('errors')
+			->set_errors( $errors );
 	}
 
 	/**
-	 * Get input instance
+	 * Use input collection
 	 *
 	 * @since 0.10.0
 	 *
@@ -91,6 +101,17 @@ class FormComposite extends Composable {
 	 */
 	public function input() {
 		return $this->utilize('input');
+	}
+
+	/**
+	 * Use message collection
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return WFV\Component\InputCollection
+	 */
+	public function messages() {
+		return $this->utilize('messages');
 	}
 
 	/**
@@ -118,32 +139,6 @@ class FormComposite extends Composable {
 			$errors = $this->adapter('validator')->errors();
 			$this->utilize('errors')->set_errors( $errors );
 		}
-	}
-
-	/**
-	 * Loads a custom rule into a validator via adapter
-	 *
-	 * @since 0.10.0
-	 * @access private
-	 *
-	 * @param string $custom_rule
-	 */
-	private function add_custom_rule( $custom_rule ) {
-		$this->adapter('validator')->add_custom_rule( $custom_rule );
-	}
-
-	/**
-	 * Add a rule to a field
-	 *  Only for built-in rules
-	 *
-	 * @since 0.10.0
-	 * @access private
-	 *
-	 * @param string $rule
-	 * @param string $field
-	 */
-	private function add_rule( $rule, $field, $message = null ) {
-		$this->adapter('validator')->add_rule( $rule, $field, $message );
 	}
 
 	/**
