@@ -42,13 +42,13 @@ class ValidatorAdapter implements ValidationInterface {
 	public function add_rule( $rule, $field, $message = null ) {
 		if( $message ){
 			$this->validator->rule( $rule, $field )->message( $message[ $rule ] );
-		} else{
+		} else {
 			$this->validator->rule( $rule, $field );
 		}
 	}
 
 	/**
-	 *
+	 * Add a custom rule, triggers callable
 	 *
 	 * @since 0.10.0
 	 *
@@ -70,8 +70,20 @@ class ValidatorAdapter implements ValidationInterface {
 	 *
 	 * @param string $rule
 	 * @param string $field
+	 * @return array
+	 */
+	public function errors() {
+		return $this->validator->errors();
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return bool
 	 */
 	public function validate() {
-		$this->validator->validate();
+		return $this->validator->validate();
 	}
 }
