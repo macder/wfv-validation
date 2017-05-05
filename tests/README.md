@@ -16,10 +16,11 @@
 Builder
 
 **Structure**<br>
-Composite
+Composite<br>
+Adapter
 
 **Behavioural**<br>
-Adapter
+
 
 ## Testing
 
