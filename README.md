@@ -1,6 +1,8 @@
 # WFV - WordPress Form Validation
 
-#### User Input API - *Simple. Concise. Safe*.
+#### Input Validation API
+
+*Safe - Simple - Concise*
 
 [Development & Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
