@@ -55,25 +55,6 @@ class FormComposite extends Composable {
 
 		$this->adapter('validator')
 			->constrain( $rules, $messages );
-
-		//echo 'hi';
-
-		// print_r($messages);
-
-		// WIP - array_map could be more useful here..
-		// loop the field
-		/*foreach( $rules->get_array() as $field => $ruleset ) {
-			// loop this field rules - a field can have many rules
-			foreach( $ruleset as $rule ) {
-				if( $rules->is_custom( $rule ) ) {
-					$this->add_custom_rule( $rule );
-				}
-
-				// TODO: check if this field/rule has a custom error message
-
-				$this->add_rule( $rule, $field );
-			}
-		}*/
 		return $this;
 	}
 
