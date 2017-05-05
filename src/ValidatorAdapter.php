@@ -6,8 +6,10 @@ use \Valitron\Validator;
 use WFV\Collection\MessageCollection;
 use WFV\Collection\RuleCollection;
 use WFV\Contract\ValidationInterface;
+
 /**
- *
+ * Adapter for 3rd party validator
+ * Prevents API changes if different library is used
  *
  * @since 0.10.0
  */
@@ -40,6 +42,7 @@ class ValidatorAdapter implements ValidationInterface {
 	 *
 	 * @param string $rule
 	 * @param string $field
+	 * @param string (optional) $message
 	 */
 	public function add_rule( $rule, $field, $message = null ) {
 		if( $message ){
@@ -96,8 +99,6 @@ class ValidatorAdapter implements ValidationInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $rule
-	 * @param string $field
 	 * @return array
 	 */
 	public function errors() {
