@@ -94,6 +94,19 @@ class FormComposite extends Composable {
 	}
 
 	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 */
+	public function render_token_field() {
+    // TODO - Move markup into a view
+		$token_name = $this->alias . '_token';
+		echo $nonce_field = wp_nonce_field( $this->alias, $token_name, false, false );
+		echo $action_field = '<input type="hidden" name="action" value="'. $this->alias .'">';
+	}
+
+	/**
 	 * Convenience method to repopulate select input
 	 *
 	 * @since 0.10.0
