@@ -184,7 +184,7 @@ function contact_form_invalid( $form ) {
   <input name="email" type="text">
   <textarea name="msg"></textarea>
 
-  <?php $my_form->get_token_fields(); ?>
+  <?php $my_form->token_field(); ?>
   <input type="submit" value="Submit">
 </form>
 ```
