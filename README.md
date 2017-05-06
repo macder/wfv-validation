@@ -8,13 +8,44 @@ This documentation is for development and testing.
 
 For usage, refer to the [User Documentation](https://macder.github.io/wfv/)
 
+WIP - Content migration in progress
+
 # Table of Contents
+* [Devlopment](#development)
 * [Architecture](#architecture)
 * [Testing]()
   * [Prerequisites](#prerequisites)
   * [Setup]()
 * [Support](#support)
 * [External Resources](#external-resources)
+
+## Development
+
+`$ git clone` inside `./wp-content/plugins`
+
+`$ composer install`
+
+Checkout the `develop` branch
+
+`$ git checkout develop`
+
+Create new feature branch
+
+`$ git checkout -b feature/[name]`
+
+`$ git push origin feature/[name]`
+
+When your feature is ready and tested
+
+`$ git fetch origin develop`
+
+`$ git merge origin/develop`
+
+`$ git push origin feature/[name]`
+
+Now test to ensure your code works on `develop`
+
+Create a pull request to merge your feature branch into `develop`
 
 ## Architecture
 
@@ -184,33 +215,3 @@ $: vendor/bin/phpunit --report-useless-tests --verbose
 * [The command line interface for WordPress](http://wp-cli.org/)
 * [Introduction To Wordpress Unit Testing](https://carlalexander.ca/introduction-wordpress-unit-testing/)
 * [Unit Testing in WordPress – PHPUnit](https://neliosoftware.com/blog/introduction-to-unit-testing-in-wordpress-phpunit/)
-
-
-
-## Development
-
-`$ git clone` inside `./wp-content/plugins`
-
-`$ composer install`
-
-Checkout the `develop` branch
-
-`$ git checkout develop`
-
-Create new feature branch
-
-`$ git checkout -b feature/[name]`
-
-`$ git push origin feature/[name]`
-
-When your feature is ready and tested
-
-`$ git fetch origin develop`
-
-`$ git merge origin/develop`
-
-`$ git push origin feature/[name]`
-
-Now test to ensure your code works on `develop`
-
-Create a pull request to merge your feature branch into `develop`
