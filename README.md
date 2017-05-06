@@ -1,48 +1,12 @@
 # WFV - WordPress Form Validation
-
-#### User Input API - *Simple. Concise. Safe*.
-
-[Development & Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
-
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
-Elegant form validation for WordPress.
+Elegant input & validation API.
 
-```php
-<?php // 32 built-in and custom rules
+**NOTICE:**<br>
+User documentation is being moved to [https://macder.github.io/wfv/](https://macder.github.io/wfv/)
 
-$form = [
-  'rules' => [
-    'email' => ['required', 'email']
-  ]
-];
-```
-
-**Safe:**<br>
-`$form->input()->render('email');`
-
-**Adaptable:**<br>
-`$form->input()->render('email', 'strip_tags')`
-
-**Flexible:**<br>
-`$form->input()->render('email', function( $input ) {
-  return strip_tags( $input );
-});`
-
-**Aware:**<br>
-`$form->input()->contains( 'email', 'foo@bar.com' );`
-
-**Helpful:**<br>
-`$form->errors->first('email');`
-
-**Pragmatic:**<br>
-`$form->selected_if('color', 'green');`
-
-**Simple:**<br>
-`$form->input()->has('email');`
-
-**Powerful:**<br>
-`$form->constrain()->validate();`
+Info on [Development & Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
 
 # Table of Contents
@@ -292,14 +256,14 @@ Default callback is `htmlspecialchars`:
 ```php
 <?php // eg. user entered <h1>John</h1>
 
-echo $my_form->input->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
+echo $my_form->input()->render('name');  // &lt;h1&gt;John&lt;/h1&gt;
 ```
 
 Using a native PHP callback:
 ```php
 <?php // eg. user entered <h1>John</h1>
 
-echo $my_form->input->render('name', 'strip_tags');  // John
+echo $my_form->input()->render('name', 'strip_tags');  // John
 
 // You can call any function that returns a string
 // For multiple parameter callbacks, see 'Advanced usage'
@@ -311,7 +275,7 @@ Custom callback:
 <?php // over-engineered string concatenation
 
 // user entered foo@bar.com
-echo $my_form->input->render('email', 'append_to_string'); // foo@bar.com_lorem
+echo $my_form->input()->render('email', 'append_to_string'); // foo@bar.com_lorem
 
 function append_to_string( $string ) {
   return $string .'_lorem';
@@ -322,7 +286,7 @@ Closure:
 ```php
 <?php
 
-echo $my_form->input->render('email', function( $string ){
+echo $my_form->input()->render('email', function( $string ){
   return $string .'_lorem';
 });
 
@@ -335,7 +299,7 @@ Callback with multiple parameters:
 
 $callback = array( 'wfv_example', array( 'second', 'third' ) );
 
-echo $my_form->input->render( 'email', $callback ); // second-foo@bar.com-third
+echo $my_form->input()->render( 'email', $callback ); // second-foo@bar.com-third
 
 function wfv_example( $value, $arg2, $arg3 ) {
   return $arg2 .'-'. $value .'-'. $arg3;
@@ -349,7 +313,7 @@ Check if `$field` has value, return `bool`
 ```php
 <?php // was something entered into the email field?
 
-$my_form->input->has('email');  // true
+$my_form->input()->has('email');  // true
 ```
 
 
@@ -370,7 +334,7 @@ The catch is it only transforms the leafs and DOES NOT touch the keys.
 <?php
 
 $colors = array('red', 'blue', 'green');
-$colors = $my_form->input->transform( $colors, 'strtoupper' );
+$colors = $my_form->input()->transform( $colors, 'strtoupper' );
 
 print_r( $colors );
 /*
@@ -403,7 +367,7 @@ $options = array(
   ),
 );
 
-$options = $my_form->input->transform( $options, 'strtoupper' );
+$options = $my_form->input()->transform( $options, 'strtoupper' );
 
 print_r( $options );
 /*
@@ -436,7 +400,7 @@ Custom callback:
 <?php
 
 $colors = array('red', 'blue', 'green');
-$colors = $my_form->input->transform( $colors, 'everything_green' );
+$colors = $my_form->input()->transform( $colors, 'everything_green' );
 
 function everything_green( $value ) {
   return 'GREEN';
@@ -460,7 +424,7 @@ Callback with multiple parameters:
 $colors = array('red', 'blue', 'green');
 $callback = array( 'change_color', array( 'red', 'green' ) );
 
-$colors = $my_form->input->transform( $colors, $callback );
+$colors = $my_form->input()->transform( $colors, $callback );
 
 function change_color( $value, $original, $new ) {
   return ( $value === $original ) ? $new : $value;
@@ -487,7 +451,7 @@ $colors = array('red', 'blue', 'green');
 $original = 'red';
 $new = 'green';
 
-$colors = $my_form->input->transform( $colors, function( $value ) use ( $original, $new ) {
+$colors = $my_form->input()->transform( $colors, function( $value ) use ( $original, $new ) {
   return ( $value === $original ) ? $new : $value;
 });
 ```
@@ -498,11 +462,11 @@ $colors = $my_form->input->transform( $colors, function( $value ) use ( $origina
 
 If validation fails, these fields would populate using the submitted values:
 ```html
-<input name="email" type="text" value="<?= $my_form->input->render('email') ?>">
+<input name="email" type="text" value="<?= $my_form->input()->render('email') ?>">
 ```
 
 ```html
-<textarea name="msg"><?= $my_form->input->render('msg') ?></textarea>
+<textarea name="msg"><?= $my_form->input()->render('msg') ?></textarea>
 ```
 
 ### Checkboxes and Radio
@@ -560,14 +524,12 @@ Multi-select:
 ```
 
 ## Validation Errors
-### `WFV\Errors`
-Class instance that holds validation errors.
+### `WFV\Collection\ErrorCollection`
 
-The `errors` property on `WFV\Form` is an instance of `WFV\Errors`
 ```php
-<?php // $errors becomes instance of WFV\Errors
+<?php // $errors becomes instance of WFV\Collection\ErrorCollection
 
-$errors = $my_form->errors;
+$errors = $my_form->errors();
 ```
 ### Has error
 #### `has( string $field )`
@@ -575,14 +537,14 @@ Check if `$field` has error, return `bool`
 ```php
 <?php // does the email field have an error?
 
-$my_form->errors->has('email'); // true or false
+$my_form->errors()->has('email'); // true or false
 ```
 
 ### Get field errors:
 ```php
 <?php // get the error bag for a field
 
-$email_errors = $my_form->errors->email;
+// $email_errors = $my_form->errors()->email;
 
 foreach( $email_errors as $error ) {
   echo $error;
@@ -596,7 +558,7 @@ Convienience method to get first error on field.
 ```php
 <?php // get the first email error message
 
-echo $my_form->errors->first('email'); // Email is required
+echo $my_form->errors()->first('email'); // Email is required
 ```
 First error message is the first declared rule.
 
