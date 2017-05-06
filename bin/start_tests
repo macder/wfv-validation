@@ -94,11 +94,15 @@ menu_tests() {
   local declare MENU_TESTS=(
     "UNIT TESTS"
     "ALL"
-    "Accessor"
-    "Input"
-    "Form"
-    "Mutator"
-    "Guard"
+    "Collectable"
+    "Inspection Agent"
+    "Director"
+    "Form Artisan"
+    "Error Collection"
+    "Input Collection"
+    "Message Collection"
+    "Rule Collection"
+    "Form Composite"
   )
 
   MENU=("${MENU_TESTS[@]}")
@@ -108,12 +112,16 @@ menu_tests() {
 
   case $choice in
     1) run_test ;;
-    2) run_test "AccessorTest" ;;
-    3) run_test "InputTest" ;;
-    4) run_test "FormTest" ;;
-    5) run_test "MutatorTest" ;;
-    6) run_test "GuardTest" ;;
-    7) exit 0 ;;
+    2) run_test "Abstraction/CollectableTest" ;;
+    3) run_test "Agent/InspectionAgentTest" ;;
+    4) run_test "Artisan/DirectorTest" ;;
+    5) run_test "Artisan/FormArtisanTest" ;;
+    6) run_test "Collection/ErrorCollectionTest" ;;
+    7) run_test "Collection/InputCollectionTest" ;;
+    8) run_test "Collection/MessageCollectionTest" ;;
+    9) run_test "Collection/RuleCollectionTest" ;;
+    10) run_test "FormCompositeTest" ;;
+    11) exit 0 ;;
     0) menu_main ;;
     *) invalid_choice
   esac
