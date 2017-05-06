@@ -92,10 +92,9 @@ class ValidatorAdapter implements ValidationInterface {
 	 * @param string (optional) $message
 	 */
 	private function add_rule( $rule, $field, $message = null ) {
+		$validator = $this->validator->rule( $rule, $field );
 		if( $message ){
-			$this->validator->rule( $rule, $field )->message( $message );
-		} else {
-			$this->validator->rule( $rule, $field );
+			$validator->message( $message );
 		}
 	}
 
