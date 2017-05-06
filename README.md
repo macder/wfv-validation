@@ -1,51 +1,12 @@
 # WFV - WordPress Form Validation
-
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 
-#### Input Validation API
+Elegant input & validation API.
 
-*Safe - Simple - Concise*
+**NOTICE:**<br>
+User documentation is being moved to [https://macder.github.io/wfv/](https://macder.github.io/wfv/)
 
-[Development & Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
-
-
-Elegant form validation for WordPress.
-
-```php
-<?php // 32 built-in and custom rules
-
-$form = [
-  'rules' => [
-    'email' => ['required', 'email']
-  ]
-];
-```
-
-**Safe:**<br>
-`$form->input()->render('email');`
-
-**Adaptable:**<br>
-`$form->input()->render('email', 'strip_tags')`
-
-**Flexible:**<br>
-`$form->input()->render('email', function( $input ) {
-  return strip_tags( $input );
-});`
-
-**Aware:**<br>
-`$form->input()->contains( 'email', 'foo@bar.com' );`
-
-**Helpful:**<br>
-`$form->errors->first('email');`
-
-**Pragmatic:**<br>
-`$form->selected_if('color', 'green');`
-
-**Simple:**<br>
-`$form->input()->has('email');`
-
-**Powerful:**<br>
-`$form->constrain()->validate();`
+Info on [Development & Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
 
 
 # Table of Contents
