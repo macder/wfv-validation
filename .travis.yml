@@ -9,7 +9,6 @@ notifications:
 
 branches:
   only:
-    - release/0.10.0
     - feature/travis
     - master
 

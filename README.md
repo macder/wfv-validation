@@ -205,10 +205,10 @@ $: vendor/bin/phpunit --report-useless-tests --verbose
 **PHP:** 5.4+<br>
 **WordPress:** 4.x.x including multisite
 
-[0.9.1](https://github.com/macder/wp-form-validation/tree/0.9.1) is passing on: [WordPress 4.7.4 + multisite / PHP 5.4, 5.5, 5.6, 7.0](https://travis-ci.org/macder/wp-form-validation/builds/225493740)
+[0.10.0](https://github.com/macder/wp-form-validation/tree/0.10.0) is passing on: [WordPress 4.7.4 + multisite / PHP 5.4, 5.5, 5.6, 7.0](https://travis-ci.org/macder/wp-form-validation/builds/229557138)
 
 **Minimum un-supported version:**<br>
-[0.9.1](https://github.com/macder/wp-form-validation/tree/0.9.1) is passing on: [WordPress 3.7 + multisite / PHP 5.4, 5.5, 5.6](https://travis-ci.org/macder/wp-form-validation/builds/225493342)
+[0.10.0](https://github.com/macder/wp-form-validation/tree/0.10.0) is passing on: [WordPress 3.7 + multisite / PHP 5.4, 5.5, 5.6](https://travis-ci.org/macder/wp-form-validation/builds/229553426)
 
 ## External Resources
 
