@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEST_NAME=$1
-TEST_PATH="tests/"$TEST_NAME
+TEST_PATH="tests/src/"$TEST_NAME
 
 if [ "" == "$TEST_NAME" ] ; then
   TEST_NAME="All"
