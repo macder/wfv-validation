@@ -21,7 +21,7 @@ abstract class Collectable implements CollectionInterface {
 	protected $data = array();
 
 	/**
-	 *
+	 * Check if the collection contains a key / value pair
 	 *
 	 * @since 0.10.0
 	 *
@@ -39,11 +39,11 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 *
+	 * Check if the collection has a given key
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $property
+	 * @param string $key
 	 * @return bool
 	 */
 	public function has( $key = null ) {
@@ -53,7 +53,7 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 *
+	 * Checks if the collection has data
 	 *
 	 * @since 0.10.0
 	 *
@@ -64,12 +64,12 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 * Returns escaped input value
+	 * Returns escaped input value.
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $key
-	 * @param string|array (optional) $callback Context appropriate callable
+	 * @param string $key Index
+	 * @param string|array (optional) $callback Context appropriate callable.
 	 * @return string|null
 	 */
 	public function render( $key, callable $callback = null ) {
@@ -82,7 +82,7 @@ abstract class Collectable implements CollectionInterface {
 
 	/**
 	 * Returns a new array of this collection
-	 *  after passing each leaf through a callback
+	 *  after passing each leaf through a callback.
 	 *
 	 * @since 0.10.0
 	 *
@@ -100,7 +100,7 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 * Transform the $array leafs, traversing infinite dimensions
+	 * Transform $array leafs
 	 *
 	 * WIP
 	 *

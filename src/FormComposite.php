@@ -53,25 +53,13 @@ class FormComposite extends Composable {
 		$rules = $this->utilize('rules');
 		$messages = $this->utilize('messages');
 
-		// WIP - array_map could be more useful here..
-		// loop the field
-		foreach( $rules->get_array() as $field => $ruleset ) {
-			// loop this field rules - a field can have many rules
-			foreach( $ruleset as $rule ) {
-				if( $rules->is_custom( $rule ) ) {
-					$this->add_custom_rule( $rule );
-				}
-
-				// TODO: check if this field/rule has a custom error message
-
-				$this->add_rule( $rule, $field );
-			}
-		}
+		$this->adapter('validator')
+			->constrain( $rules, $messages );
 		return $this;
 	}
 
 	/**
-	 * Get input instance
+	 * Use error collection
 	 *
 	 * @since 0.10.0
 	 *
@@ -79,11 +67,12 @@ class FormComposite extends Composable {
 	 */
 	public function errors() {
 		$errors = $this->adapter('validator')->errors();
-		return $this->utilize('errors')->set_errors( $errors );
+		return $this->utilize('errors')
+			->set_errors( $errors );
 	}
 
 	/**
-	 * Get input instance
+	 * Use input collection
 	 *
 	 * @since 0.10.0
 	 *
@@ -91,6 +80,30 @@ class FormComposite extends Composable {
 	 */
 	public function input() {
 		return $this->utilize('input');
+	}
+
+	/**
+	 * Use message collection
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return WFV\Component\InputCollection
+	 */
+	public function messages() {
+		return $this->utilize('messages');
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 */
+	public function render_token_field() {
+    // TODO - Move markup into a view
+		$token_name = $this->alias . '_token';
+		echo $nonce_field = wp_nonce_field( $this->alias, $token_name, false, false );
+		echo $action_field = '<input type="hidden" name="action" value="'. $this->alias .'">';
 	}
 
 	/**
@@ -107,43 +120,35 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 *
+	 * Validate the input
 	 *
 	 * @since 0.10.0
 	 *
+	 * @return bool
 	 */
 	public function validate() {
-		// WIP
-		if ( false === $this->adapter('validator')->validate() ) {
+		$is_valid = $this->adapter('validator')->validate();
+
+		if ( false === $is_valid ) {
 			$errors = $this->adapter('validator')->errors();
 			$this->utilize('errors')->set_errors( $errors );
 		}
+		$this->trigger_post_validate_action( $is_valid );
+		return $is_valid;
 	}
 
 	/**
-	 * Loads a custom rule into a validator via adapter
+	 * Trigger action hook for validation pass or fail
 	 *
 	 * @since 0.10.0
 	 * @access private
 	 *
-	 * @param string $custom_rule
+	 * @param
+	 * @param
 	 */
-	private function add_custom_rule( $custom_rule ) {
-		$this->adapter('validator')->add_custom_rule( $custom_rule );
-	}
-
-	/**
-	 * Add a rule to a field
-	 *  Only for built-in rules
-	 *
-	 * @since 0.10.0
-	 * @access private
-	 *
-	 * @param string $rule
-	 * @param string $field
-	 */
-	private function add_rule( $rule, $field, $message = null ) {
-		$this->adapter('validator')->add_rule( $rule, $field, $message );
+	private function trigger_post_validate_action( $is_valid = false ) {
+		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
+		do_action( $action, $this );
 	}
 
 	/**

@@ -22,5 +22,15 @@ class MessageCollection extends Collectable {
 		$this->data = $messages;
 	}
 
-	// public function
+	/**
+	 * Retrieve a custom error message
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $field
+	 * @param string $rule
+	 */
+	public function get( $field, $rule ) {
+		return $this->data[ $field ][ $rule ];
+	}
 }

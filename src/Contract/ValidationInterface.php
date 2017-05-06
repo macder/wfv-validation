@@ -2,6 +2,9 @@
 namespace WFV\Contract;
 defined( 'ABSPATH' ) or die();
 
+use WFV\Collection\MessageCollection;
+use WFV\Collection\RuleCollection;
+
 /**
  *
  *
@@ -13,21 +16,15 @@ interface ValidationInterface {
 	/**
 	 * @return
 	 */
-	//public function add_message( $response );
+	public function constrain( RuleCollection $rules, MessageCollection $messages );
 
 	/**
-	 * @return
+	 * @return array
 	 */
-	public function add_rule( $rule, $field );
+	public function errors();
 
 	/**
-	 * @return
+	 * @return bool
 	 */
-	public function add_custom_rule( $rule );
-
-	/**
-	 * @return
-	 */
-	//public function validate();
-
+	public function validate();
 }
