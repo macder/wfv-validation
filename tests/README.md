@@ -88,15 +88,19 @@ Creates and starts the wp-tests instance.
   0. Back
 
   1. ALL
-  2. Accessor
-  3. Input
-  4. Form
-  5. Mutator
-  6. Guard
+  2. Collectable
+  3. Inspection Agent
+  4. Director
+  5. Form Artisan
+  6. Error Collection
+  7. Input Collection
+  8. Message Collection
+  9. Rule Collection
+  10. Form Composite
 
-  7. Exit
+  11. Exit
 
-Enter choice [ 1 - 7 ]
+Enter choice [ 1 - 11 ]
 
 ```
 
@@ -149,7 +153,7 @@ $: bash bin/lib/install_wp_tests.sh wordpress_test db_user db_pass 127.0.0.1:555
 
 # Individual
 
-$: vendor/bin/phpunit tests/InputTest --report-useless-tests --verbose
+$: vendor/bin/phpunit tests/Collection/InputCollectionTest --report-useless-tests --verbose
 ```
 
 ```sh
