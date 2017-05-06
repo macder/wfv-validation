@@ -21,7 +21,7 @@ abstract class Collectable implements CollectionInterface {
 	protected $data = array();
 
 	/**
-	 *
+	 * Check if the collection contains a key / value pair
 	 *
 	 * @since 0.10.0
 	 *
@@ -39,11 +39,11 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 *
+	 * Check if the collection has a given key
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $property
+	 * @param string $key
 	 * @return bool
 	 */
 	public function has( $key = null ) {
@@ -53,7 +53,7 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 *
+	 * Checks if the collection has data
 	 *
 	 * @since 0.10.0
 	 *
