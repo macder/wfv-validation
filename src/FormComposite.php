@@ -48,6 +48,7 @@ class FormComposite extends Composable {
 	 *
 	 * @param string $rule
 	 * @param string $field
+	 * @return self
 	 */
 	public function constrain() {
 		$rules = $this->utilize('rules');
@@ -63,7 +64,7 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\ErrorCollection
+	 * @return WFV\Collection\ErrorCollection
 	 */
 	public function errors() {
 		$errors = $this->adapter('validator')->errors();
@@ -76,7 +77,7 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\InputCollection
+	 * @return WFV\Collection\InputCollection
 	 */
 	public function input() {
 		return $this->utilize('input');
@@ -87,7 +88,7 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\InputCollection
+	 * @return WFV\Collection\InputCollection
 	 */
 	public function messages() {
 		return $this->utilize('messages');
