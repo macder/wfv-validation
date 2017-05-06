@@ -3,7 +3,7 @@
 
 Elegant input & validation API.
 
-** NOTICE:**<br>
+**NOTICE:**<br>
 User documentation is being moved to [https://macder.github.io/wfv/](https://macder.github.io/wfv/)
 
 Info on [Development & Testing](https://github.com/macder/wp-form-validation/tree/master/tests)
