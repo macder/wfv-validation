@@ -23,12 +23,11 @@ class RuleCollection extends Collectable {
 	}
 
 	/**
-	 * Check if rule is custom
+	 * Get rules array
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $rule
-	 * @return bool
+	 * @return array
 	 */
 	public function get_array() {
 		return $this->data;
