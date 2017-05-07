@@ -6,6 +6,7 @@ use WFV\ValidatorAdapter;
 
 use WFV\Collection\ErrorCollection;
 use WFV\Collection\InputCollection;
+use WFV\Collection\MessageCollection;
 use WFV\Collection\RuleCollection;
 use WFV\FormComposite;
 
@@ -91,32 +92,6 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	public function test_form_is_instante_when_collection_array_is_empty() {
 		$expected = 'WFV\FormComposite';
 		$result = new FormComposite( 'phpunit', array(), self::$validator );
-		$this->assertInstanceOf( $expected, $result );
-	}
-
-	/**
-	 * Does errors() return an instance of ErrorCollection?
-	 *
-	 */
-	public function test_form_errors_returns_error_collection() {
-		$errors = array( 'errors' => new ErrorCollection() );
-		$form = new FormComposite( 'phpunit', $errors, self::$validator );
-
-		$expected = 'WFV\Collection\ErrorCollection';
-		$result = $form->errors();
-		$this->assertInstanceOf( $expected, $result );
-	}
-
-	/**
-	 * Does input() return an instance of InputCollection?
-	 *
-	 */
-	public function test_form_input_returns_input_collection() {
-		$input = array( 'input' => new InputCollection() );
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
-
-		$expected = 'WFV\Collection\InputCollection';
-		$result = $form->input();
 		$this->assertInstanceOf( $expected, $result );
 	}
 
@@ -241,5 +216,31 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$result = $form->display();
 
 		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does errors() return an instance of ErrorCollection?
+	 *
+	 */
+	public function test_form_errors_returns_error_collection() {
+		$errors = array( 'errors' => new ErrorCollection() );
+		$form = new FormComposite( 'phpunit', $errors, self::$validator );
+
+		$expected = 'WFV\Collection\ErrorCollection';
+		$result = $form->errors();
+		$this->assertInstanceOf( $expected, $result );
+	}
+
+	/**
+	 * Does input() return an instance of InputCollection?
+	 *
+	 */
+	public function test_form_input_returns_input_collection() {
+		$input = array( 'input' => new InputCollection() );
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
+
+		$expected = 'WFV\Collection\InputCollection';
+		$result = $form->input();
+		$this->assertInstanceOf( $expected, $result );
 	}
 }
