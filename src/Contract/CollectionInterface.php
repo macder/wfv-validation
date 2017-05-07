@@ -27,7 +27,7 @@ interface CollectionInterface {
 	/**
 	 * @return string|null
 	 */
-	public function render( $key, callable $callback = null );
+	public function escape( $key, callable $callback = null );
 
 	/**
 	 * @return

@@ -39,6 +39,23 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
+	 * Returns escaped input value.
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $key Index
+	 * @param string|array (optional) $callback Context appropriate callable.
+	 * @return string|null
+	 */
+	public function escape( $key, callable $callback = null ) {
+		if( is_string( $key ) ) {
+			$callback = ( null === $callback ) ? 'esc_html' : $callback;
+			return ( true === $this->has( $key ) ) ? $this->call_func( $callback, $this->data[ $key ] ) : null;
+		}
+		return null;
+	}
+
+	/**
 	 * Check if the collection has a given key
 	 *
 	 * @since 0.10.0
@@ -61,23 +78,6 @@ abstract class Collectable implements CollectionInterface {
 	 */
 	public function is_populated() {
 		return ( count( $this->data ) > 0 ) ? true : false;
-	}
-
-	/**
-	 * Returns escaped input value.
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $key Index
-	 * @param string|array (optional) $callback Context appropriate callable.
-	 * @return string|null
-	 */
-	public function render( $key, callable $callback = null ) {
-		if( is_string( $key ) ) {
-			$callback = ( null === $callback ) ? 'esc_html' : $callback;
-			return ( true === $this->has( $key ) ) ? $this->call_func( $callback, $this->data[ $key ] ) : null;
-		}
-		return null;
 	}
 
 	/**
