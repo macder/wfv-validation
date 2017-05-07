@@ -60,8 +60,7 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Echo the encoded value of given field
-	 *  from a callback
+	 * Echo the encoded value of given field from a callback
 	 * Default callback is esc_html()
 	 * Also returns the encoded string for assignment
 	 *
