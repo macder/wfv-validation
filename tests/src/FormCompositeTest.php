@@ -70,7 +70,8 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
         'red',
         'green',
         'blue',
-      )
+      ),
+    	'html_input' => '<h1>Im a H1</h1><p>This is a paragraph</p>',
     );
 	}
 
@@ -191,6 +192,54 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 
 		$expected = null;
 		$result = $form->checked_if('name', null);
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does display() return an encoded string using default callback ( esc_html() )
+	 *
+	 */
+	public function test_form_display_returns_default_encoded_string() {
+		$_POST = self::$http_post;
+		$input = array( 'input' => new InputCollection( $_POST ) );
+
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
+
+		$expected = esc_html( $_POST['html_input'] );
+		$result = $form->display('html_input');
+
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does display() return null when the provided key does NOT exist?
+	 *
+	 */
+	public function test_form_display_returns_null_when_no_field() {
+		$_POST = self::$http_post;
+		$input = array( 'input' => new InputCollection( $_POST ) );
+
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
+
+		$expected = null;
+		$result = $form->display('this_is_not_a_field');
+
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does display() return null no parameters are given?
+	 *
+	 */
+	public function test_form_display_returns_null_when_no_arguments_given() {
+		$_POST = self::$http_post;
+		$input = array( 'input' => new InputCollection( $_POST ) );
+
+		$form = new FormComposite( 'phpunit', $input, self::$validator );
+
+		$expected = null;
+		$result = $form->display();
+
 		$this->assertEquals( $expected, $result );
 	}
 }

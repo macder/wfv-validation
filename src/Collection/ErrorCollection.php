@@ -11,21 +11,19 @@ use WFV\Abstraction\Collectable;
  */
 class ErrorCollection extends Collectable {
 
-	protected $data = array();
-
 	/**
 	 *
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param
+	 * @param array $errors
 	 */
 	function __construct( array $errors = [] ) {
 		$this->data = $errors;
 	}
 
 	/**
-	 *
+	 * Returns the first error message for a field
 	 *
 	 * @since 0.10.0
 	 *
@@ -37,7 +35,8 @@ class ErrorCollection extends Collectable {
 	}
 
 	/**
-	 *
+	 * Populates the collection if it's empty with given errors
+	 * Does nothing if collection is populated
 	 *
 	 * @since 0.10.0
 	 *

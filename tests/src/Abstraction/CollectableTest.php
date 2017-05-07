@@ -60,8 +60,6 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		self::$collection = new Collection( self::$data );
-
-		// print_r(self::$collection);
 	}
 
 	/**
@@ -227,12 +225,12 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * render() returns escaped html
+	 * escape() returns escaped html
 	 *
 	 */
-	public function test_collection_render_default_returns_encoded_string() {
+	public function test_collection_escape_default_returns_encoded_string() {
 		$expected = esc_html( self::$data['html_input'] );
-		$result = self::$collection->render('html_input');
+		$result = self::$collection->escape('html_input');
 
 		// $result = ( $expected === $result ) ? true : false;
 
@@ -240,23 +238,23 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * render() returns encoded string from a callable
+	 * escape() returns encoded string from a callable
 	 *
 	 */
-	public function test_collection_render_returns_encoded_string_from_callable() {
+	public function test_collection_escape_returns_encoded_string_from_callable() {
 		$expected = strip_tags( self::$data['html_input'] );
-		$result = self::$collection->render('html_input', 'strip_tags');
+		$result = self::$collection->escape('html_input', 'strip_tags');
 
 		$this->assertEquals( $expected, $result );
 	}
 
 	/**
-	 * render() returns result from closure
+	 * escape() returns result from closure
 	 *
 	 */
-	public function test_collection_render_returns_string_from_closure() {
+	public function test_collection_escape_returns_string_from_closure() {
 		$expected = 'phpunit';
-		$result = self::$collection->render('name', function( $input ) {
+		$result = self::$collection->escape('name', function( $input ) {
 			return 'phpunit';
 		});
 
@@ -264,12 +262,12 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * render() returns null when key is not found
+	 * escape() returns null when key is not found
 	 *
 	 */
-	public function test_collection_render_returns_null_when_key_not_there() {
+	public function test_collection_escape_returns_null_when_key_not_there() {
 		$expected = null;
-		$result = self::$collection->render('im_not_there');
+		$result = self::$collection->escape('im_not_there');
 
 		$this->assertEquals( $expected, $result );
 	}
