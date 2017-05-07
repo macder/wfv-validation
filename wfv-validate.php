@@ -2,11 +2,11 @@
 defined( 'ABSPATH' ) or die();
 /*
 Plugin Name: WFV - Form Validation
-Plugin URI:  https://github.com/macder/wp-form-validation
-Description: Fluent, immutable, and declarative API for elegant input validation
+Plugin URI:  https://macder.github.io/wfv/
+Description: A simple fluid and concise API to manage user input, validation, feedback, and safe output.
 Version:     0.10.1
 Author:      Maciej Derulski
-Author URI:  https://derulski.com
+Author URI:  https://github.com/macder
 License:     GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 */
