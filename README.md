@@ -11,7 +11,7 @@ This documentation is for development and testing.
 WIP - Content migration in progress
 
 # Table of Contents
-* [Devlopment](#development)
+* [Development](#development)
 * [Architecture](#architecture)
 * [Testing]()
   * [Prerequisites](#prerequisites)
