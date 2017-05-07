@@ -16,16 +16,16 @@ use WFV\Contract\ValidationInterface;
 class ValidatorAdapter implements ValidationInterface {
 
 	/**
-	 *
+	 * Valitron Validator
 	 *
 	 * @since 0.10.0
 	 * @access private
-	 * @var
+	 * @var \Valitron\Validator
 	 */
 	private $validator;
 
 	/**
-	 *
+	 * Assign a validator to $validator property
 	 *
 	 * @since 0.10.0
 	 *
@@ -60,7 +60,7 @@ class ValidatorAdapter implements ValidationInterface {
 	}
 
 	/**
-	 *
+	 * Return array of error messages from validator
 	 *
 	 * @since 0.10.0
 	 *
@@ -71,7 +71,7 @@ class ValidatorAdapter implements ValidationInterface {
 	}
 
 	/**
-	 *
+	 * Run the validation and return bool result
 	 *
 	 * @since 0.10.0
 	 *
@@ -82,7 +82,7 @@ class ValidatorAdapter implements ValidationInterface {
 	}
 
 	/**
-	 *
+	 * Assigns a single rule/field pair to the validator
 	 *
 	 * @since 0.10.0
 	 * @access private
