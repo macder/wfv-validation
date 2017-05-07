@@ -48,6 +48,7 @@ class FormComposite extends Composable {
 	 *
 	 * @param string $rule
 	 * @param string $field
+	 * @return self
 	 */
 	public function constrain() {
 		$rules = $this->utilize('rules');
@@ -63,7 +64,7 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\ErrorCollection
+	 * @return WFV\Collection\ErrorCollection
 	 */
 	public function errors() {
 		$errors = $this->adapter('validator')->errors();
@@ -76,7 +77,7 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\InputCollection
+	 * @return WFV\Collection\InputCollection
 	 */
 	public function input() {
 		return $this->utilize('input');
@@ -87,7 +88,7 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\InputCollection
+	 * @return WFV\Collection\InputCollection
 	 */
 	public function messages() {
 		return $this->utilize('messages');
@@ -99,8 +100,8 @@ class FormComposite extends Composable {
 	 * @since 0.10.0
 	 *
 	 */
-	public function render_token_field() {
-    // TODO - Move markup into a view
+	public function token_field() {
+		// TODO - Move markup into something - perhaps a renderable interface?
 		$token_name = $this->alias . '_token';
 		echo $nonce_field = wp_nonce_field( $this->alias, $token_name, false, false );
 		echo $action_field = '<input type="hidden" name="action" value="'. $this->alias .'">';

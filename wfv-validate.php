@@ -1,5 +1,4 @@
 <?php
-// namespace WFV;
 defined( 'ABSPATH' ) or die();
 /*
 Plugin Name: WFV - Form Validation
