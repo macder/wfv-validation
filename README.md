@@ -6,7 +6,7 @@ Elegant input & validation API.
 **NOTICE:**<br>
 This documentation is for development and testing.
 
-**For Usage, refer to [user documentation](https://macder.github.io/wfv/)**
+**For usage, refer to [user documentation](https://macder.github.io/wfv/)**
 
 WIP - Content migration in progress
 
