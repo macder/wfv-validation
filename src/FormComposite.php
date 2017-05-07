@@ -60,13 +60,16 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 *
+	 * Echo the encoded value of given field
+	 *  from a callback
+	 * Default callback is esc_html()
+	 * Also returns the encoded string for assignment
 	 *
 	 * @since 0.10.1
 	 *
-	 * @param
-	 * @param
-	 * @return
+	 * @param string (optional) $field
+	 * @param callable (optional) $callback
+	 * @return string
 	 */
 	public function display( $field = null, callable $callback = null ) {
 		echo $input = $this->utilize('input')->escape( $field );
@@ -75,6 +78,7 @@ class FormComposite extends Composable {
 
 	/**
 	 * Use error collection
+	 * Populates error collection if there are validation errors
 	 *
 	 * @since 0.10.0
 	 *
@@ -159,8 +163,7 @@ class FormComposite extends Composable {
 	 * @since 0.10.0
 	 * @access private
 	 *
-	 * @param
-	 * @param
+	 * @param bool $is_valid
 	 */
 	private function trigger_post_validate_action( $is_valid = false ) {
 		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
