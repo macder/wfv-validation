@@ -60,6 +60,20 @@ class FormComposite extends Composable {
 	}
 
 	/**
+	 *
+	 *
+	 * @since 0.10.1
+	 *
+	 * @param
+	 * @param
+	 * @return
+	 */
+	public function display( $field = null, callable $callback = null ) {
+		echo $input = $this->utilize('input')->escape( $field );
+		return $input;
+	}
+
+	/**
 	 * Use error collection
 	 *
 	 * @since 0.10.0
