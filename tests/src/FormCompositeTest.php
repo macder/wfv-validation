@@ -243,4 +243,17 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$result = $form->input();
 		$this->assertInstanceOf( $expected, $result );
 	}
+
+	/**
+	 * Does messages() return an instance of MessageCollection?
+	 *
+	 */
+	public function test_form_messages_returns_message_collection() {
+		$messages = array( 'messages' => new MessageCollection() );
+		$form = new FormComposite( 'phpunit', $messages, self::$validator );
+
+		$expected = 'WFV\Collection\MessageCollection';
+		$result = $form->messages();
+		$this->assertInstanceOf( $expected, $result );
+	}
 }
