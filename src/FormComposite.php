@@ -101,7 +101,7 @@ class FormComposite extends Composable {
 	 *
 	 */
 	public function token_field() {
-    // TODO - Move markup into a view
+		// TODO - Move markup into something - perhaps a renderable interface?
 		$token_name = $this->alias . '_token';
 		echo $nonce_field = wp_nonce_field( $this->alias, $token_name, false, false );
 		echo $action_field = '<input type="hidden" name="action" value="'. $this->alias .'">';
