@@ -11,8 +11,6 @@ use WFV\Abstraction\Collectable;
  */
 class ErrorCollection extends Collectable {
 
-	protected $data = array();
-
 	/**
 	 *
 	 *
