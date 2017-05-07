@@ -60,8 +60,6 @@ class CollectableTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		self::$collection = new Collection( self::$data );
-
-		// print_r(self::$collection);
 	}
 
 	/**
