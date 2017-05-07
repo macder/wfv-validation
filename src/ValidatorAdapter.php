@@ -53,7 +53,6 @@ class ValidatorAdapter implements ValidationInterface {
 					$this->add_custom_rule( $rule );
 				}
 				$message = ( $messages->has( $field ) ) ? $messages->get( $field, $rule ) : null;
-
 				$this->add_rule( $rule, $field, $message );
 			}
 		}
@@ -87,12 +86,17 @@ class ValidatorAdapter implements ValidationInterface {
 	 * @since 0.10.0
 	 * @access private
 	 *
-	 * @param string $rule
+	 * @param string|array $rule
 	 * @param string $field
 	 * @param string (optional) $message
 	 */
 	private function add_rule( $rule, $field, $message = null ) {
-		$validator = $this->validator->rule( $rule, $field );
+		$params = ( is_array( $rule ) )
+			? array( $rule[0], $field, $rule[1] )
+			: array( $rule, $field );
+
+		$validator = call_user_func_array( array( $this->validator, "rule"), $params );
+
 		if( $message ){
 			$validator->message( $message );
 		}
