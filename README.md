@@ -11,7 +11,7 @@ This documentation is for development and testing.
 WIP - Content migration in progress
 
 # Table of Contents
-* [Development](#development)
+* [Install](#install)
 * [Architecture](#architecture)
 * [Testing]()
   * [Prerequisites](#prerequisites)
@@ -19,7 +19,9 @@ WIP - Content migration in progress
 * [Support](#support)
 * [External Resources](#external-resources)
 
-## Install for Local Dev
+---
+
+## Install
 
 Have a working instance of WordPress
 
@@ -33,34 +35,9 @@ $ cd wp-form-validation
 $ composer install
 ```
 
+Activate the plugin in the admin dashboard
 
-## Development
-
-`$ git clone` inside `./wp-content/plugins`
-
-`$ composer install`
-
-Checkout the `develop` branch
-
-`$ git checkout develop`
-
-Create new feature branch
-
-`$ git checkout -b feature/[name]`
-
-`$ git push origin feature/[name]`
-
-When your feature is ready and tested
-
-`$ git fetch origin develop`
-
-`$ git merge origin/develop`
-
-`$ git push origin feature/[name]`
-
-Now test to ensure your code works on `develop`
-
-Create a pull request to merge your feature branch into `develop`
+---
 
 ## Architecture
 
