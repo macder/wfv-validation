@@ -109,12 +109,13 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 *
+	 * Convienience method to print the hidden fields
+	 *  for token and action
 	 *
 	 * @since 0.10.0
 	 *
 	 */
-	public function token_field() {
+	public function token_fields() {
 		// TODO - Move markup into something - perhaps a renderable interface?
 		$token_name = $this->alias . '_token';
 		echo $nonce_field = wp_nonce_field( $this->alias, $token_name, false, false );
