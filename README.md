@@ -19,6 +19,18 @@ WIP - Content migration in progress
 * [Support](#support)
 * [External Resources](#external-resources)
 
+## Install for Local Dev
+
+Have a working instance of WordPress
+
+```sh
+$ cd ./wp-content/plugins
+$ git clone https://github.com/macder/wp-form-validation.git
+$ cd wp-form-validation
+$ composer install
+```
+
+
 ## Development
 
 `$ git clone` inside `./wp-content/plugins`
