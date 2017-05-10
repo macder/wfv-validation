@@ -3,7 +3,7 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Composable;
-use WFV\Contract\ValidationInterface;
+use WFV\Contract\ValidateInterface;
 
 /**
  * Form Composition
@@ -21,10 +21,26 @@ class FormComposite extends Composable {
 	 * @param array $collected
 	 * @param ValidationInterface $adapter
 	 */
-	function __construct( $alias, array $collected = [], ValidationInterface $adapter ) {
+	function __construct( $alias, array $collected = [], ValidateInterface $adapter ) {
 		$this->alias = $alias;
 		$this->install( $collected );
 		$this->adapter = $adapter;
+	}
+
+	/**
+	 * Convenience method to repopulate checkbox input
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $field Field name.
+	 * @param string $value Value to compare against.
+	 * @return string|null
+	 */
+	public function add_rule( $rule ) {
+		$this->adapter('validator')
+			->add_rule( $rule );
+
+		return $this;
 	}
 
 	/**
