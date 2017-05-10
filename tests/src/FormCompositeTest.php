@@ -1,7 +1,8 @@
 <?php
 namespace WFV;
 
-use \Valitron\Validator;
+// use \Valitron\Validator;
+use \Respect\Validation\Validator;
 use WFV\ValidatorAdapter;
 
 use WFV\Collection\ErrorCollection;
@@ -222,14 +223,14 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 * Does errors() return an instance of ErrorCollection?
 	 *
 	 */
-	public function test_form_errors_returns_error_collection() {
+	/*public function test_form_errors_returns_error_collection() {
 		$errors = array( 'errors' => new ErrorCollection() );
 		$form = new FormComposite( 'phpunit', $errors, self::$validator );
 
 		$expected = 'WFV\Collection\ErrorCollection';
 		$result = $form->errors();
 		$this->assertInstanceOf( $expected, $result );
-	}
+	}*/
 
 	/**
 	 * Does input() return an instance of InputCollection?

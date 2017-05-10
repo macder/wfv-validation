@@ -1,7 +1,8 @@
 <?php
 namespace WFV\Artisan;
 
-use \Valitron\Validator;
+use \Respect\Validation\Validator;
+// use \Valitron\Validator;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
 use WFV\FormComposite;
