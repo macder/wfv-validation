@@ -2,10 +2,11 @@
 namespace WFV;
 defined( 'ABSPATH' ) or die();
 
-use \Valitron\Validator;
+// use \Valitron\Validator;
+use \Respect\Validation\Validator;
 use WFV\Collection\MessageCollection;
 use WFV\Collection\RuleCollection;
-use WFV\Contract\ValidationInterface;
+use WFV\Contract\ValidateInterface;
 
 /**
  * Adapter for 3rd party validator
@@ -13,7 +14,7 @@ use WFV\Contract\ValidationInterface;
  *
  * @since 0.10.0
  */
-class ValidatorAdapter implements ValidationInterface {
+class ValidatorAdapter implements ValidateInterface {
 
 	/**
 	 * Valitron Validator
@@ -44,18 +45,7 @@ class ValidatorAdapter implements ValidationInterface {
 	 * @param MessageCollection $messages
 	 */
 	public function constrain( RuleCollection $rules, MessageCollection $messages ) {
-		// WIP
-		// loop the field
-		foreach( $rules->get_array() as $field => $ruleset ) {
-			// loop this field rules - a field can have many rules
-			foreach( $ruleset as $rule ) {
-				if( $rules->is_custom( $rule ) ) {
-					$this->add_custom_rule( $rule );
-				}
-				$message = ( $messages->has( $field ) ) ? $messages->get( $field, $rule ) : null;
-				$this->add_rule( $rule, $field, $message );
-			}
-		}
+
 	}
 
 	/**
@@ -66,7 +56,7 @@ class ValidatorAdapter implements ValidationInterface {
 	 * @return array
 	 */
 	public function errors() {
-		return $this->validator->errors();
+		// return $this->validator->errors();
 	}
 
 	/**
@@ -77,7 +67,7 @@ class ValidatorAdapter implements ValidationInterface {
 	 * @return bool
 	 */
 	public function validate() {
-		return $this->validator->validate();
+		// return $this->validator->validate();
 	}
 
 	/**
@@ -86,20 +76,11 @@ class ValidatorAdapter implements ValidationInterface {
 	 * @since 0.10.0
 	 * @access private
 	 *
-	 * @param string|array $rule
-	 * @param string $field
-	 * @param string (optional) $message
+	 * @param
 	 */
-	private function add_rule( $rule, $field, $message = null ) {
-		$params = ( is_array( $rule ) )
-			? array( $rule[0], $field, $rule[1] )
-			: array( $rule, $field );
-
-		$validator = call_user_func_array( array( $this->validator, "rule"), $params );
-
-		if( $message ){
-			$validator->message( $message );
-		}
+	// public function add_rule( Validation $rule ) {
+	public function add_rule( $rule ) {
+		$this->validator->NotOptional()->NotEmpty();
 	}
 
 	/**
@@ -110,12 +91,7 @@ class ValidatorAdapter implements ValidationInterface {
 	 *
 	 * @param string $rule
 	 */
-	private function add_custom_rule( $rule ) {
-		$this->validator->addRule( $rule, function( $field, $value, array $params, array $fields ) use ( $rule ) {
-			$rule = explode( ':', $rule );
-			$callback = 'wfv__'. $rule[1];
-			// TODO: throw exception if no callback, or warning?
-			return ( function_exists( $callback ) ) ? $callback( $value ) : false;
-		});
+	private function add_custom_rule() {
+
 	}
 }
