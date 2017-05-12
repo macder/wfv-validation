@@ -2,3 +2,4 @@ sand/*
 vendor/*
 docs/*
 bin/tests.conf
+composer.lock
