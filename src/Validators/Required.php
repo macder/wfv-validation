@@ -2,19 +2,25 @@
 namespace WFV\Validators;
 defined( 'ABSPATH' ) or die();
 
-use Respect\Validation\Validator as v;
-use Respect\Validation\Rules;
+use WFV\Contract\ValidateInterface;
 
-class Required {
+/**
+ *
+ *
+ * @since 0.11.0
+ */
+class Required implements ValidateInterface {
+
+	const CONSTANT = 'required';
 
 	/**
-	 * The arrangment of rules
+	 *
 	 *
 	 * @since 0.11.0
-	 * @access private
+	 * @access protected
 	 * @var
 	 */
-	private $policy;
+	protected $validator;
 
 	/**
 	 *
@@ -23,12 +29,43 @@ class Required {
 	 *
 	 * @param
 	 */
-	function __construct() {
+	function __construct( $validator ) {
+		$this->validator = $validator;
+		$this->set_policy();
+	}
 
-		$this->policy = new Rules\AllOf(
-			new Rules\NotOptional()
-		);
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param
+	 */
+	public function errors() {
 
 	}
 
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param string|array $input
+	 * @return bool
+	 */
+	public function validate( $input ) {
+		return $this->validator->validate( $input );
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access private
+	 *
+	 * @param
+	 */
+	private function set_policy() {
+		$this->validator->notOptional();
+	}
 }
