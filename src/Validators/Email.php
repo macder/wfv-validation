@@ -22,6 +22,6 @@ class Email extends AbstractValidator {
 	 * @param
 	 */
 	protected function set_policy() {
-		$this->validator->email();
+		$this->validator->email()->setName( $this->field );
 	}
 }
