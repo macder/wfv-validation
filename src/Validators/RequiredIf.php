@@ -34,7 +34,7 @@ class RequiredIf extends AbstractValidator {
 
 		$this->validator->when(
 			v::key( $other_field, v::equals( $other_value ) ),
-			v::key( $this->field, v::NotOptional() ),
+			v::key( $this->field, v::notEmpty() ),
 			v::key( $this->field, v::alwaysValid() )
 		);
 	}
