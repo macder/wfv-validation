@@ -7,8 +7,8 @@ Description: A simple fluid and concise API to manage user input, validation, fe
 Version:     0.10.1
 Author:      Maciej Derulski
 Author URI:  https://github.com/macder
-License:     GPL3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+License:     BSD 3-Clause
+License URI: https://github.com/macder/wp-form-validation/blob/master/LICENSE
 */
 
 define( 'WFV_VALIDATE_VERSION', '0.10.1' );
@@ -45,16 +45,7 @@ function wfv_create( $action, array &$form ) {
 		->with( 'errors' )
 		->compose( $artisan );
 
-	// WIP - temporary test/experimental doodle zone....
-	$required = new Validators\Required( new Validator() );
-	$email = new Validators\Email( new Validator() );
-
-	$form->add_validator( $required );
-	$form->add_validator( $email );
-
-	$form->validate();
-
 	if( $input ) {
-		// $form->validate();
+		$form->validate();
 	}
 }
