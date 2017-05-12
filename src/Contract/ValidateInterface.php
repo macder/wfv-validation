@@ -12,11 +12,6 @@ defined( 'ABSPATH' ) or die();
 interface ValidateInterface {
 
 	/**
-	 * @return
-	 */
-	// public function constrain();
-
-	/**
 	 * @return array
 	 */
 	public function errors();
@@ -24,5 +19,5 @@ interface ValidateInterface {
 	/**
 	 * @return bool
 	 */
-	public function validate();
+	public function validate( $input );
 }
