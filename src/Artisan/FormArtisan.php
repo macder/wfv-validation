@@ -2,6 +2,7 @@
 namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
+use \Respect\Validation\Validator;
 
 use WFV\Contract\ArtisanInterface;
 use WFV\Collection\ErrorCollection;
@@ -10,6 +11,7 @@ use WFV\Collection\InputCollection;
 use WFV\Collection\RuleCollection;
 
 use WFV\FormComposite;
+use WFV\Validators;
 
 /**
  *
@@ -45,7 +47,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function create( $action ) {
-		$this->form = new FormComposite( $action, $this->collection );
+		$this->form = new FormComposite( $action, $this->collection, $this->validators );
 		return $this;
 	}
 
@@ -107,6 +109,32 @@ class FormArtisan implements ArtisanInterface {
 	 */
 	public function rules( array $rules = [] ) {
 		$this->collection['rules'] = new RuleCollection( $rules );
+		$this->resolve_validators();
 		return $this;
+	}
+
+	/**
+	 * Creates a validator for each rule
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 */
+	protected function resolve_validators() {
+		// WIP - simplify and maybe move some of this logic elsewhere
+
+		$rules = $this->collection['rules']->get_array();
+		foreach( $rules as $field => $ruleset ) {
+			foreach( $ruleset as $rule ) {
+				$rule_name = ( is_string( $rule ) ) ? $rule : $rule['rule'];
+				$class = str_replace(' ', '', ucwords( str_replace('_', ' ', $rule_name ) ) );
+				$class = 'WFV\Validators\\'.$class;
+
+				$validators[ $field ][] = ( is_string( $rule ) )
+					? new $class( new Validator(), $field )
+					: new $class( new Validator(), $field, $rule['params'] );
+			}
+		}
+		$this->validators = $validators;
 	}
 }
