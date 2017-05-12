@@ -15,6 +15,15 @@ class FormComposite extends Composable {
 	/**
 	 *
 	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $validators = array();
+
+	/**
+	 *
+	 *
 	 * @since 0.10.0
 	 *
 	 * @param string $alias
@@ -33,6 +42,8 @@ class FormComposite extends Composable {
 	 * @param ValidationInterface $validator
 	 *
 	 */
+	public function add_validator( ValidateInterface $validator ) {
+		$this->validators[] = $validator;
 	}
 
 	/**
