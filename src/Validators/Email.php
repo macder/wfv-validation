@@ -2,55 +2,16 @@
 namespace WFV\Validators;
 defined( 'ABSPATH' ) or die();
 
-use WFV\Contract\ValidateInterface;
+use WFV\Validators\AbstractValidator;
 
-class Email implements ValidateInterface {
+/**
+ *
+ *
+ * @since 0.11.0
+ */
+class Email extends AbstractValidator {
 
 	const CONSTANT = 'email';
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @access protected
-	 * @var
-	 */
-	protected $validator;
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 *
-	 * @param
-	 */
-	function __construct( $validator ) {
-		$this->validator = $validator;
-		$this->set_policy();
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 *
-	 * @param
-	 */
-	public function errors() {
-
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 *
-	 * @param string|array $input
-	 * @return bool
-	 */
-	public function validate( $input ) {
-		return $this->validator->validate( $input );
-	}
 
 	/**
 	 *
@@ -60,7 +21,7 @@ class Email implements ValidateInterface {
 	 *
 	 * @param
 	 */
-	private function set_policy() {
+	protected function set_policy() {
 		$this->validator->email();
 	}
 }
