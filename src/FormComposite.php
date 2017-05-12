@@ -99,6 +99,19 @@ class FormComposite extends Composable {
 	}
 
 	/**
+	 * Convenience method to repopulate select input
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $field Field name.
+	 * @param string $value Value to compare against.
+	 * @return string|null
+	 */
+	public function selected_if( $field = null, $value = null ) {
+		return $this->string_or_null( 'selected', $field, $value );
+	}
+
+	/**
 	 * Convienience method to print the hidden fields
 	 *  for token and action
 	 *
@@ -110,19 +123,6 @@ class FormComposite extends Composable {
 		$token_name = $this->alias . '_token';
 		echo $nonce_field = wp_nonce_field( $this->alias, $token_name, false, false );
 		echo $action_field = '<input type="hidden" name="action" value="'. $this->alias .'">';
-	}
-
-	/**
-	 * Convenience method to repopulate select input
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $field Field name.
-	 * @param string $value Value to compare against.
-	 * @return string|null
-	 */
-	public function selected_if( $field = null, $value = null ) {
-		return $this->string_or_null( 'selected', $field, $value );
 	}
 
 	/**
