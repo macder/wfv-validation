@@ -39,6 +39,15 @@ class FormArtisan implements ArtisanInterface {
 	private $form;
 
 	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var
+	 */
+	private $validators = array();
+
+	/**
 	 * Return the final Form instance
 	 *
 	 * @since 0.10.0

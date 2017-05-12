@@ -50,8 +50,8 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_artisan_rules_return_self_instance() {
 		$rules = array(
-			'fname' => ['required', 'custom:phone'],
-			'email'=> ['required', 'email'],
+			'fname' => 'required',
+			'email'=> 'required|email',
 		);
 
 		$result = self::$form_artisan ->rules( $rules );
@@ -64,7 +64,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_artisan_create_return_self_instance() {
-		$result = self::$form_artisan->create( 'phpunit', new Validator() );
+		$result = self::$form_artisan->create( 'phpunit' );
 
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan create() must return Self' );
 	}
@@ -95,14 +95,14 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_artisan_actualize_return_form_instance() {
 		$rules = array(
-			'fname' => ['required', 'custom:phone'],
-			'email'=> ['required', 'email'],
+			'fname' => 'required',
+			'email'=> 'required|email',
 		);
 
 		$result = self::$form_artisan
 			->input()
 			->rules( $rules )
-			->create('phpunit', new Validator() )
+			->create('phpunit')
 			->actualize();
 
 		$this->assertInstanceOf( 'WFV\FormComposite', $result, 'FormArtisan actualize() must return Form' );
