@@ -23,6 +23,6 @@ class Required extends AbstractValidator {
 	 * @param
 	 */
 	protected function set_policy() {
-		$this->validator->notOptional()->setName( $this->field );
+		$this->validator->notEmpty()->setName( $this->field );
 	}
 }
