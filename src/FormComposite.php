@@ -29,21 +29,10 @@ class FormComposite extends Composable {
 	 * @param string $alias
 	 * @param array $collected
 	 */
-	function __construct( $alias, array $collected = [] ) {
+	function __construct( $alias, array $collected = [], array $validators = [] ) {
 		$this->alias = $alias;
 		$this->install( $collected );
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 *
-	 * @param ValidationInterface $validator
-	 *
-	 */
-	public function add_validator( ValidateInterface $validator ) {
-		$this->validators[] = $validator;
+		$this->set_validators( $validators );
 	}
 
 	/**
@@ -144,37 +133,59 @@ class FormComposite extends Composable {
 	 * @return bool
 	 */
 	public function validate() {
-		// WIP - reworking for strategy pattern
-		$test = $this->validators[0];
-		$result = $test->validate( 'test' );
-		echo ( $result ) ? 'required VALID<br><br>' : 'required FAIL<br><br>';
+		// WIP - incomplete
+
+		$input = $this->utilize('input')->get_array();
+
+		unset( $input['action'] );
+		unset( $input[ $this->alias .'_token'] );
+
+		foreach( $input as $field => $value ) {
+			if( $this->validators[ $field ] ) {
+				foreach( $this->validators[ $field ] as $validator ) {
+					echo $validator->validate( $value );
+				}
+			}
+		}
 	}
 
 	/**
-	 * Trigger action hook for validation pass or fail
 	 *
-	 * @since 0.10.0
-	 * @access private
 	 *
-	 * @param bool $is_valid
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @param array $validators
 	 */
-	private function trigger_post_validate_action( $is_valid = false ) {
-		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
-		do_action( $action, $this );
+	protected function set_validators( array $validators ) {
+		$this->validators = $validators;
 	}
 
 	/**
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
+	 * @access protected
 	 *
 	 * @param string $response
 	 * @param string (optional) $field
 	 * @param string (optional) $value
 	 * @return string|null
 	 */
-	private function string_or_null( $response, $field = null, $value = null ) {
+	protected function string_or_null( $response, $field = null, $value = null ) {
 		return ( $this->input( $field )->contains( $field, $value ) ) ? $response : null;
+	}
+
+	/**
+	 * Trigger action hook for validation pass or fail
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 *
+	 * @param bool $is_valid
+	 */
+	protected function trigger_post_validate_action( $is_valid = false ) {
+		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
+		do_action( $action, $this );
 	}
 }
