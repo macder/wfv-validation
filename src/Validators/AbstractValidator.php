@@ -17,7 +17,25 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var
+	 * @var string
+	 */
+	protected $field;
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $params;
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var Validator
 	 */
 	protected $validator;
 
@@ -26,7 +44,6 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param
 	 */
 	abstract protected function set_policy();
 
@@ -35,10 +52,13 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param
+	 * @param Validator $validator
 	 */
-	function __construct( Validator $validator ) {
+	function __construct( Validator $validator, $field ) {
 		$this->validator = $validator;
+		$this->field = $field;
+		$args = func_get_args();
+		$this->params = ( isset( $args[2] ) ) ? $args[2] : null;
 		$this->set_policy();
 	}
 
