@@ -19,28 +19,20 @@ class FormComposite extends Composable {
 	 *
 	 * @param string $alias
 	 * @param array $collected
-	 * @param ValidationInterface $adapter
 	 */
-	function __construct( $alias, array $collected = [], ValidateInterface $adapter ) {
+	function __construct( $alias, array $collected = [] ) {
 		$this->alias = $alias;
 		$this->install( $collected );
-		$this->adapter = $adapter;
 	}
 
 	/**
-	 * Convenience method to repopulate checkbox input
 	 *
-	 * @since 0.10.0
 	 *
-	 * @param string $field Field name.
-	 * @param string $value Value to compare against.
-	 * @return string|null
+	 * @since 0.11.0
+	 *
+	 * @param ValidationInterface $validator
+	 *
 	 */
-	public function add_rule( $rule ) {
-		$this->adapter('validator')
-			->add_rule( $rule );
-
-		return $this;
 	}
 
 	/**
@@ -54,25 +46,6 @@ class FormComposite extends Composable {
 	 */
 	public function checked_if( $field = null, $value = null ) {
 		return $this->string_or_null( 'checked', $field, $value );
-	}
-
-	/**
-	 * Activate validator with the rules and messages
-	 *  via adapter
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $rule
-	 * @param string $field
-	 * @return self
-	 */
-	public function constrain() {
-		$rules = $this->utilize('rules');
-		$messages = $this->utilize('messages');
-
-		$this->adapter('validator')
-			->constrain( $rules, $messages );
-		return $this;
 	}
 
 	/**
@@ -93,16 +66,14 @@ class FormComposite extends Composable {
 
 	/**
 	 * Use error collection
-	 * Populates error collection if there are validation errors
+	 *
 	 *
 	 * @since 0.10.0
 	 *
 	 * @return WFV\Collection\ErrorCollection
 	 */
 	public function errors() {
-		$errors = $this->adapter('validator')->errors();
-		return $this->utilize('errors')
-			->set_errors( $errors );
+		return $this->utilize('errors');
 	}
 
 	/**
@@ -162,14 +133,10 @@ class FormComposite extends Composable {
 	 * @return bool
 	 */
 	public function validate() {
-		$is_valid = $this->adapter('validator')->validate();
-
-		if ( false === $is_valid ) {
-			$errors = $this->adapter('validator')->errors();
-			$this->utilize('errors')->set_errors( $errors );
-		}
-		$this->trigger_post_validate_action( $is_valid );
-		return $is_valid;
+		// WIP - reworking for strategy pattern
+		$test = $this->validators[0];
+		$result = $test->validate( 'test' );
+		echo ( $result ) ? 'required VALID<br><br>' : 'required FAIL<br><br>';
 	}
 
 	/**

@@ -2,7 +2,7 @@
 namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
-use WFV\ValidatorAdapter;
+
 use WFV\Contract\ArtisanInterface;
 use WFV\Collection\ErrorCollection;
 use WFV\Collection\MessageCollection;
@@ -44,10 +44,8 @@ class FormArtisan implements ArtisanInterface {
 	 * @param string $action
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function create( $action, $validator ) {
-		$adapter = new ValidatorAdapter( $validator );
-
-		$this->form = new FormComposite( $action, $this->collection, $adapter );
+	public function create( $action ) {
+		$this->form = new FormComposite( $action, $this->collection );
 		return $this;
 	}
 

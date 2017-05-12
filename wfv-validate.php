@@ -19,10 +19,12 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
 use \Respect\Validation\Validator;
-// use \Valitron\Validator;
 use WFV\Agent\InspectionAgent;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
+
+use WFV\Validators;
+
 
 /**
  *
@@ -38,16 +40,21 @@ function wfv_create( $action, array &$form ) {
 
 	$artisan = new FormArtisan();
 	$form = ( new Director( $action ) )
-		->with( 'rules', $form['rules'] )
 		->with( 'input', $input )
-		->with( 'messages',  $form['messages'] )
+		->with( 'rules', $form['rules'] )
 		->with( 'errors' )
-		->compose( $artisan, new Validator( ) );
-		//->compose( $artisan, new Validator( $input ) );
+		->compose( $artisan );
 
-	$form->add_rule('required');
+	// WIP - temporary test/experimental doodle zone....
+	$required = new Validators\Required( new Validator() );
+	$email = new Validators\Email( new Validator() );
+
+	$form->add_validator( $required );
+	$form->add_validator( $email );
+
+	$form->validate();
 
 	if( $input ) {
-		// $form->constrain()->validate();
+		// $form->validate();
 	}
 }
