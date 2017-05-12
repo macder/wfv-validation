@@ -32,7 +32,7 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 * @access private
-	 * @var WFV\Component\Form
+	 * @var WFV\FormComposite
 	 */
 	private $form;
 
@@ -54,7 +54,7 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Component\FormComposite
+	 * @return WFV\FormComposite
 	 */
 	public function actualize() {
 		return $this->form;
@@ -93,7 +93,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function messages( array $messages = [] ) {
-		$this->collection['messages'] = new MessageCollection( $messages );
+		// $this->collection['messages'] = new MessageCollection( $messages );
 		return $this;
 	}
 
