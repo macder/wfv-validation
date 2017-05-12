@@ -39,6 +39,17 @@ class FormArtisan implements ArtisanInterface {
 	private $form;
 
 	/**
+	 * Return the final Form instance
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return WFV\FormComposite
+	 */
+	public function actualize() {
+		return $this->form;
+	}
+
+	/**
 	 *
 	 *
 	 * @since 0.10.0
@@ -49,17 +60,6 @@ class FormArtisan implements ArtisanInterface {
 	public function create( $action ) {
 		$this->form = new FormComposite( $action, $this->collection, $this->validators );
 		return $this;
-	}
-
-	/**
-	 * Return the final Form instance
-	 *
-	 * @since 0.10.0
-	 *
-	 * @return WFV\FormComposite
-	 */
-	public function actualize() {
-		return $this->form;
 	}
 
 	/**
