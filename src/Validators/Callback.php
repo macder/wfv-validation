@@ -2,7 +2,6 @@
 namespace WFV\Validators;
 defined( 'ABSPATH' ) or die();
 
-use \Respect\Validation\Validator as v;
 use WFV\Validators\AbstractValidator;
 
 /**

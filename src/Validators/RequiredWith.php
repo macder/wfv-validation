@@ -2,7 +2,6 @@
 namespace WFV\Validators;
 defined( 'ABSPATH' ) or die();
 
-use \Respect\Validation\Validator as v;
 use WFV\Validators\AbstractValidator;
 
 /**
@@ -31,11 +30,12 @@ class RequiredWith extends AbstractValidator {
 	 */
 	protected function set_policy() {
 		$other_field = $this->params[0];
+		$v = $this->validator;
 
-		$this->validator->when(
-			v::key( $other_field, v::notEmpty() ),
-			v::key( $this->field, v::notEmpty() ),
-			v::key( $this->field, v::alwaysValid() )
+		$v->when(
+			$v->create()->key( $other_field, $v->create()->notEmpty() ),
+			$v->create()->key( $this->field, $v->create()->notEmpty() ),
+			$v->create()->key( $this->field, $v->create()->alwaysValid() )
 		);
 	}
 

@@ -2,7 +2,6 @@
 namespace WFV\Validators;
 defined( 'ABSPATH' ) or die();
 
-use \Respect\Validation\Validator as v;
 use WFV\Validators\AbstractValidator;
 
 /**
@@ -24,6 +23,7 @@ class Email extends AbstractValidator {
 	 *
 	 */
 	protected function set_policy() {
-		$this->validator->optional( v::email() );
+		$v = $this->validator;
+		$v->optional( $v->create()->email() );
 	}
 }
