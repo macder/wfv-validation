@@ -46,9 +46,9 @@ Builder
 
 **Structure**<br>
 Composite<br>
-Adapter
 
 **Behavioural**<br>
+Strategy<br>
 
 
 ## Testing

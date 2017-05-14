@@ -19,15 +19,15 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp() {
 		self::$rules = array(
-			'name'      => ['required'],
-			'title'     => ['required'],
-			'phone'     => ['required', 'custom:phone'],
-			'email'     => ['required', 'email'],
-			'gender'    => ['required'],
-			'skills'    => ['required'],
-			'postal'    => ['custom:postal_code'],
-			'website'   => ['required', 'url'],
-			'msg'       => ['required']
+			'name'      => 'required',
+			'title'     => 'required',
+			'phone'     => 'required',
+			'email'     => 'required|email',
+			'gender'    => 'required',
+			'skills'    => 'required',
+			'postal'    => 'required',
+			'website'   => 'required',
+			'msg'       => 'required'
 		);
 	}
 
@@ -42,11 +42,10 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 *
 	 */
-	public function test_rules_is_instance_when_null_parameter() {
-		$expected = 'WFV\Collection\RuleCollection';
-		$result = new RuleCollection();
+	public function test_rules_() {
 
-		$this->assertInstanceOf( $expected, $result );
+		// WIP -
+		$this->assertTrue(true);
 	}
 
 }

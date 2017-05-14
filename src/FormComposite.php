@@ -3,7 +3,7 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Composable;
-use WFV\Contract\ValidationInterface;
+use WFV\Contract\ValidateInterface;
 
 /**
  * Form Composition
@@ -15,16 +15,24 @@ class FormComposite extends Composable {
 	/**
 	 *
 	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $validators = array();
+
+	/**
+	 *
+	 *
 	 * @since 0.10.0
 	 *
 	 * @param string $alias
 	 * @param array $collected
-	 * @param ValidationInterface $adapter
 	 */
-	function __construct( $alias, array $collected = [], ValidationInterface $adapter ) {
+	function __construct( $alias, array $collected = [], array $validators = [] ) {
 		$this->alias = $alias;
 		$this->install( $collected );
-		$this->adapter = $adapter;
+		$this->strategies( $validators );
 	}
 
 	/**
@@ -38,25 +46,6 @@ class FormComposite extends Composable {
 	 */
 	public function checked_if( $field = null, $value = null ) {
 		return $this->string_or_null( 'checked', $field, $value );
-	}
-
-	/**
-	 * Activate validator with the rules and messages
-	 *  via adapter
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $rule
-	 * @param string $field
-	 * @return self
-	 */
-	public function constrain() {
-		$rules = $this->utilize('rules');
-		$messages = $this->utilize('messages');
-
-		$this->adapter('validator')
-			->constrain( $rules, $messages );
-		return $this;
 	}
 
 	/**
@@ -77,16 +66,14 @@ class FormComposite extends Composable {
 
 	/**
 	 * Use error collection
-	 * Populates error collection if there are validation errors
+	 *
 	 *
 	 * @since 0.10.0
 	 *
 	 * @return WFV\Collection\ErrorCollection
 	 */
 	public function errors() {
-		$errors = $this->adapter('validator')->errors();
-		return $this->utilize('errors')
-			->set_errors( $errors );
+		return $this->utilize('errors');
 	}
 
 	/**
@@ -112,6 +99,19 @@ class FormComposite extends Composable {
 	}
 
 	/**
+	 * Convenience method to repopulate select input
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $field Field name.
+	 * @param string $value Value to compare against.
+	 * @return string|null
+	 */
+	public function selected_if( $field = null, $value = null ) {
+		return $this->string_or_null( 'selected', $field, $value );
+	}
+
+	/**
 	 * Convienience method to print the hidden fields
 	 *  for token and action
 	 *
@@ -126,19 +126,6 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Convenience method to repopulate select input
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $field Field name.
-	 * @param string $value Value to compare against.
-	 * @return string|null
-	 */
-	public function selected_if( $field = null, $value = null ) {
-		return $this->string_or_null( 'selected', $field, $value );
-	}
-
-	/**
 	 * Validate the input
 	 *
 	 * @since 0.10.0
@@ -146,41 +133,74 @@ class FormComposite extends Composable {
 	 * @return bool
 	 */
 	public function validate() {
-		$is_valid = $this->adapter('validator')->validate();
+		// WIP - incomplete
 
-		if ( false === $is_valid ) {
-			$errors = $this->adapter('validator')->errors();
-			$this->utilize('errors')->set_errors( $errors );
+		$input = $this->utilize('input')->get_array( false );
+
+		foreach( $input as $field => $value ) {
+			if( $this->validators[ $field ] ) {
+				foreach( $this->validators[ $field ] as $validator ) {
+					echo $validator->validate( $value );
+				}
+			}
 		}
-		$this->trigger_post_validate_action( $is_valid );
-		return $is_valid;
 	}
 
 	/**
-	 * Trigger action hook for validation pass or fail
 	 *
-	 * @since 0.10.0
-	 * @access private
 	 *
-	 * @param bool $is_valid
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @param array $validators
 	 */
-	private function trigger_post_validate_action( $is_valid = false ) {
-		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
-		do_action( $action, $this );
+	protected function strategies( array $validators ) {
+		foreach( $validators as $field => $validator ) {
+			foreach( $validator as $strategy ) {
+				$this->validate_strategy( $field, $strategy );
+			}
+		}
 	}
 
 	/**
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
+	 * @access protected
 	 *
 	 * @param string $response
 	 * @param string (optional) $field
 	 * @param string (optional) $value
 	 * @return string|null
 	 */
-	private function string_or_null( $response, $field = null, $value = null ) {
+	protected function string_or_null( $response, $field = null, $value = null ) {
 		return ( $this->input( $field )->contains( $field, $value ) ) ? $response : null;
+	}
+
+	/**
+	 * Trigger action hook for validation pass or fail
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 *
+	 * @param bool $is_valid
+	 */
+	protected function trigger_post_validate_action( $is_valid = false ) {
+		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
+		do_action( $action, $this );
+	}
+
+	/**
+	 * Set a single validation strategy for a field.
+	 *  Ensures each strategy in array is a ValidateInterface
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @param string $field
+	 * @param ValidateInterface $validator
+	 */
+	protected function validate_strategy( $field, ValidateInterface $validator ) {
+		$this->validators[ $field ][] = $validator;
 	}
 }

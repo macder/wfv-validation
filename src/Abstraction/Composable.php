@@ -31,35 +31,13 @@ abstract class Composable {
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
-	 * @var string
-	 */
-	protected $adapter;
-
-	/**
-	 *
-	 *
-	 * @since 0.10.0
 	 * @access protected
 	 *
 	 * @param string $name
-	 * @param class $component
+	 * @param class $collection
 	 */
-	protected function adapter( $adapter ) {
-		return $this->adapter;
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 * @access protected
-	 *
-	 * @param string $name
-	 * @param class $component
-	 */
-	protected function add_component( $name, $component ) {
-		$this->collection[ $name ] = $component;
+	protected function add_collection( $name, $collection ) {
+		$this->collection[ $name ] = $collection;
 	}
 
 	/**
@@ -80,11 +58,11 @@ abstract class Composable {
 	 * @since 0.10.0
 	 * @access protected
 	 *
-	 * @param array $components
+	 * @param array $collections
 	 */
-	protected function install( array $components ) {
-		foreach( $components as $name => $component ) {
-			$this->add_component( $name, $component );
+	protected function install( array $collections ) {
+		foreach( $collections as $name => $collection ) {
+			$this->add_collection( $name, $collection );
 		}
 	}
 }
