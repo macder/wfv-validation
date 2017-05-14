@@ -135,10 +135,7 @@ class FormComposite extends Composable {
 	public function validate() {
 		// WIP - incomplete
 
-		$input = $this->utilize('input')->get_array();
-
-		unset( $input['action'] );
-		unset( $input[ $this->alias .'_token'] );
+		$input = $this->utilize('input')->get_array( false );
 
 		foreach( $input as $field => $value ) {
 			if( $this->validators[ $field ] ) {
