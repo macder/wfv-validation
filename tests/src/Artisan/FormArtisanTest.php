@@ -64,6 +64,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_artisan_create_return_self_instance() {
+		self::$form_artisan->validator();
 		$result = self::$form_artisan->create( 'phpunit' );
 
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan create() must return Self' );
@@ -102,6 +103,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 		$result = self::$form_artisan
 			->input()
 			->rules( $rules )
+			->validator()
 			->create('phpunit')
 			->actualize();
 
