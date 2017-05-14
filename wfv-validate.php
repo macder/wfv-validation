@@ -39,6 +39,7 @@ function wfv_create( $action, array &$form ) {
 		->with( 'input', $input )
 		->with( 'rules', $form['rules'] )
 		->with( 'errors' )
+		->with( 'validator' )
 		->compose( $artisan );
 
 	if( $input ) {
