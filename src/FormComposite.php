@@ -32,7 +32,7 @@ class FormComposite extends Composable {
 	function __construct( $alias, array $collected = [], array $validators = [] ) {
 		$this->alias = $alias;
 		$this->install( $collected );
-		$this->set_validators( $validators );
+		$this->strategies( $validators );
 	}
 
 	/**
@@ -157,8 +157,12 @@ class FormComposite extends Composable {
 	 *
 	 * @param array $validators
 	 */
-	protected function set_validators( array $validators ) {
-		$this->validators = $validators;
+	protected function strategies( array $validators ) {
+		foreach( $validators as $field => $validator ) {
+			foreach( $validator as $strategy ) {
+				$this->validate_strategy( $field, $strategy );
+			}
+		}
 	}
 
 	/**
@@ -187,5 +191,19 @@ class FormComposite extends Composable {
 	protected function trigger_post_validate_action( $is_valid = false ) {
 		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
 		do_action( $action, $this );
+	}
+
+	/**
+	 * Set a single validation strategy for a field.
+	 *  Ensures each strategy in array is a ValidateInterface
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @param string $field
+	 * @param ValidateInterface $validator
+	 */
+	protected function validate_strategy( $field, ValidateInterface $validator ) {
+		$this->validators[ $field ][] = $validator;
 	}
 }
