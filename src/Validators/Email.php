@@ -22,7 +22,6 @@ class Email extends AbstractValidator {
 	 */
 	protected function set_policy() {
 		$v = $this->validator;
-
 		$v = ( $this->optional )
 			? $v->optional( $v->create()->email() )
 			: $v->email();
