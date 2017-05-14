@@ -130,18 +130,27 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 */
 	protected function resolve_validators() {
-		// WIP - simplify and maybe move some of this logic elsewhere
+		// WIP - simplify/breakdown - perhaps a factory for this?
 
+		$optional = false;
 		$rules = $this->collection['rules']->get_array();
-		foreach( $rules as $field => $ruleset ) {
-			foreach( $ruleset as $rule ) {
-				$rule_name = ( is_string( $rule ) ) ? $rule : $rule['rule'];
-				$class = str_replace(' ', '', ucwords( str_replace('_', ' ', $rule_name ) ) );
-				$class = 'WFV\Validators\\'.$class;
 
-				$validators[ $field ][] = ( is_string( $rule ) )
-					? new $class( new Validator(), $field )
-					: new $class( new Validator(), $field, $rule['params'] );
+		foreach( $rules as $field => $ruleset ) {
+
+			$optional = in_array("optional", $ruleset);
+
+			foreach( $ruleset as $rule ) {
+
+				if( 'optional' !== $rule ){
+
+					$rule_name = ( is_string( $rule ) ) ? $rule : $rule['rule'];
+					$class = str_replace(' ', '', ucwords( str_replace('_', ' ', $rule_name ) ) );
+					$class = 'WFV\Validators\\'.$class;
+
+					$validators[ $field ][] = ( is_string( $rule ) )
+						? new $class( new Validator(), $field, $optional )
+						: new $class( new Validator(), $field, $optional, $rule['params'] );
+				}
 			}
 		}
 		$this->validators = $validators;

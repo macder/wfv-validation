@@ -3,6 +3,7 @@ namespace WFV\Validators;
 defined( 'ABSPATH' ) or die();
 
 use \Respect\Validation\Validator;
+use \Respect\Validation\Exceptions\NestedValidationException;
 use WFV\Contract\ValidateInterface;
 
 /**
@@ -20,6 +21,15 @@ abstract class AbstractValidator implements ValidateInterface {
 	 * @var string
 	 */
 	protected $field;
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var bool
+	 */
+	protected $optional;
 
 	/**
 	 *
@@ -54,11 +64,12 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @param Validator $validator
 	 */
-	function __construct( Validator $validator, $field ) {
+	function __construct( Validator $validator, $field, $optional = false ) {
+		$this->optional = $optional;
 		$this->validator = $validator;
 		$this->field = $field;
 		$args = func_get_args();
-		$this->params = ( isset( $args[2] ) ) ? $args[2] : null;
+		$this->params = ( isset( $args[3] ) ) ? $args[3] : null;
 		$this->set_policy();
 	}
 
@@ -70,7 +81,7 @@ abstract class AbstractValidator implements ValidateInterface {
 	 * @param
 	 */
 	public function errors() {
-
+		// WIP
 	}
 
 	/**
@@ -82,7 +93,12 @@ abstract class AbstractValidator implements ValidateInterface {
 	 * @return bool
 	 */
 	public function validate( $input ) {
-		return $this->validator->validate( $input );
+
+		$is_valid = $this->validator->validate( $input );
+
+		// WIP - set error msgs
+
+		return $is_valid;
 	}
 
 }
