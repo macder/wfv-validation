@@ -25,4 +25,26 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 		$result = $email->validate('foobarcom');
 		$this->assertFalse( $result );
 	}
+
+	/**
+	 * Does email validation return true when optional and is empty?
+	 *
+	 */
+	public function test_email_returns_true_when_optional_and_empty() {
+		$optional = true;
+		$email = new Email( new Validator(), 'test_field', $optional );
+		$result = $email->validate('');
+		$this->assertTrue( $result );
+	}
+
+	/**
+	 * Does email validation return false when NOT optional and is empty?
+	 *
+	 */
+	public function test_email_returns_false_when_not_optional_and_empty() {
+		$optional = false;
+		$email = new Email( new Validator(), 'test_field', $optional );
+		$result = $email->validate('');
+		$this->assertFalse( $result );
+	}
 }
