@@ -13,8 +13,6 @@ use WFV\Validators\AbstractValidator;
  */
 class Email extends AbstractValidator {
 
-	const CONSTANT = 'email';
-
 	/**
 	 * Set the validation constraints that make this rule
 	 *

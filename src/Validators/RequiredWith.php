@@ -14,14 +14,6 @@ use WFV\Validators\AbstractValidator;
 class RequiredWith extends AbstractValidator {
 
 	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 *
-	 */
-	const CONSTANT = 'required_with';
-
-	/**
 	 * Set the validation constraints that make this rule
 	 *
 	 * @since 0.11.0

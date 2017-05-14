@@ -13,14 +13,6 @@ use WFV\Validators\AbstractValidator;
 class RequiredIf extends AbstractValidator {
 
 	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 *
-	 */
-	const CONSTANT = 'required_if';
-
-	/**
 	 * Set the validation constraints that make this rule
 	 *
 	 * @since 0.11.0

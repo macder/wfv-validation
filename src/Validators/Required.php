@@ -12,8 +12,6 @@ use WFV\Validators\AbstractValidator;
  */
 class Required extends AbstractValidator {
 
-	const CONSTANT = 'required';
-
 	/**
 	 * Set the validation constraints that make this rule
 	 *
@@ -23,6 +21,7 @@ class Required extends AbstractValidator {
 	 * @param
 	 */
 	protected function set_policy() {
-		$this->validator->notEmpty()->setName( $this->field );
+		$this->validator->notEmpty()
+			->setName( $this->field );
 	}
 }
