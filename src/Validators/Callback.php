@@ -11,8 +11,6 @@ use WFV\Validators\AbstractValidator;
  */
 class Callback extends AbstractValidator {
 
-	const CONSTANT = 'callback';
-
 	/**
 	 * Set the validation constraints that make this rule
 	 *
