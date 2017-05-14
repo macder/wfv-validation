@@ -22,7 +22,7 @@ class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 			'other_field',
 			'is this value'
 		);
-		self::$required_if = new RequiredIf( new Validator(), 'test_field', $params );
+		self::$required_if = new RequiredIf( new Validator(), 'test_field', false, $params );
 	}
 
 	/**
