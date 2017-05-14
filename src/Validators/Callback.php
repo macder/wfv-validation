@@ -19,6 +19,9 @@ class Callback extends AbstractValidator {
 	 *
 	 */
 	protected function set_policy() {
-		$this->validator->callback( $this->params[0] );
+		$v = $this->validator;
+		$v = ( $this->optional )
+			? $v->optional( $v->create()->callback( $this->params[0] ) )
+			: $v->callback( $this->params[0] );
 	}
 }
