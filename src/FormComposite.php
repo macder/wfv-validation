@@ -19,7 +19,16 @@ class FormComposite extends Composable {
 	 * @access protected
 	 * @var array
 	 */
-	protected $validators = array();
+	protected $strategies = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $validator;
 
 	/**
 	 *
@@ -29,10 +38,21 @@ class FormComposite extends Composable {
 	 * @param string $alias
 	 * @param array $collected
 	 */
-	function __construct( $alias, array $collected = [], array $validators = [] ) {
+	function __construct( $alias, array $collected = [], array $strategies = [] ) {
 		$this->alias = $alias;
 		$this->install( $collected );
-		$this->strategies( $validators );
+		$this->strategies = $strategies;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param string $field Field name.
+	 */
+	public function add_validator( Validator $validator ) {
+		$this->validator = $validator;
 	}
 
 	/**
@@ -138,26 +158,11 @@ class FormComposite extends Composable {
 		$input = $this->utilize('input')->get_array( false );
 
 		foreach( $input as $field => $value ) {
-			if( $this->validators[ $field ] ) {
-				foreach( $this->validators[ $field ] as $validator ) {
-					echo $validator->validate( $value );
+			if( $this->strategies[ $field ] ) {
+				foreach( $this->strategies[ $field ] as $strategy ) {
+					// echo $validator->validate( $value );
+					$this->validator->validate( $strategy, $input );
 				}
-			}
-		}
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @access protected
-	 *
-	 * @param array $validators
-	 */
-	protected function strategies( array $validators ) {
-		foreach( $validators as $field => $validator ) {
-			foreach( $validator as $strategy ) {
-				$this->validate_strategy( $field, $strategy );
 			}
 		}
 	}
@@ -188,19 +193,5 @@ class FormComposite extends Composable {
 	protected function trigger_post_validate_action( $is_valid = false ) {
 		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
 		do_action( $action, $this );
-	}
-
-	/**
-	 * Set a single validation strategy for a field.
-	 *  Ensures each strategy in array is a ValidateInterface
-	 *
-	 * @since 0.11.0
-	 * @access protected
-	 *
-	 * @param string $field
-	 * @param ValidateInterface $validator
-	 */
-	protected function validate_strategy( $field, ValidateInterface $validator ) {
-		$this->validators[ $field ][] = $validator;
 	}
 }
