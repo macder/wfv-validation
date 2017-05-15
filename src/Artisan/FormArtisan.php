@@ -28,6 +28,15 @@ class FormArtisan implements ArtisanInterface {
 	 * @access private
 	 * @var array
 	 */
+	private $config = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var array
+	 */
 	private $collection = array();
 
 	/**
@@ -56,6 +65,17 @@ class FormArtisan implements ArtisanInterface {
 	 * @var
 	 */
 	private $strategies = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param array $config
+	 */
+	function __construct( array $config ) {
+		$this->config = $config;
+	}
 
 	/**
 	 * Return the final Form instance
@@ -114,8 +134,14 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function messages( array $messages = [] ) {
-		// $this->collection['messages'] = new MessageCollection( $messages );
+	public function messages() {
+		foreach( $this->config as $field => $options ) {
+			$messages[ $field ] = array_filter( $options, function( $value, $key ) {
+				return ( 'rules' !== $key ) ? $value : false;
+			}, ARRAY_FILTER_USE_BOTH );
+		}
+
+		$this->collection['messages'] = new MessageCollection( $messages );
 		return $this;
 	}
 
@@ -124,10 +150,12 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param array $rules
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function rules( array $rules = [] ) {
+	public function rules() {
+		foreach( $this->config as $field => $options ) {
+			$rules[ $field ] = $options['rules'];
+		}
 		$this->collection['rules'] = new RuleCollection( $rules );
 		$this->resolve_strategies();
 		return $this;
