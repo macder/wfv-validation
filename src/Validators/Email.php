@@ -14,6 +14,18 @@ use WFV\Validators\AbstractValidator;
 class Email extends AbstractValidator {
 
 	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var
+	 */
+	protected $template = [
+		'message' => '{label} is not a valid email address',
+		'name' => 'email',
+	];
+
+	/**
 	 * Set the validation constraints that make this rule
 	 *
 	 * @since 0.11.0

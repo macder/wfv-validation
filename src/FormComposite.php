@@ -126,25 +126,43 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Validate the input
+	 * Validate each field by providing the Validator
+	 *  a strategy for each rule/field pair
 	 *
-	 * @since 0.10.0
+	 * @since 0.11.0
 	 *
 	 * @return bool
 	 */
 	public function validate() {
-		// WIP - incomplete
-
 		$input = $this->utilize('input')->get_array( false );
-
 		foreach( $input as $field => $value ) {
 			if( $this->strategies[ $field ] ) {
-				foreach( $this->strategies[ $field ] as $strategy ) {
-					// echo $validator->validate( $value );
-					$this->validator->validate( $strategy, $input );
+				foreach( $this->strategies[ $field ] as $type => $rule ) {
+					$this->validator->validate( $rule, $value );
 				}
 			}
 		}
+		return $this->is_valid();
+	}
+
+	/**
+	 * Check if the validation failed or passed
+	 * Sets the error msgs if a fail
+	 * Trigger pass or fail action
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @return bool
+	 */
+	protected function is_valid() {
+
+		$is_valid = $this->validator->is_valid();
+		if( false === $is_valid ) {
+			$this->utilize('errors')->set_errors( $this->validator->errors() );
+		}
+		$this->trigger_post_validate_action( $is_valid );
+		return $is_valid;
 	}
 
 	/**

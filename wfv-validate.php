@@ -38,7 +38,6 @@ function wfv_create( $action, array &$form ) {
 	$form = ( new Director( $action ) )
 		->with( 'input', $input )
 		->with( 'rules' )
-		->with( 'messages' )
 		->with( 'errors' )
 		->with( 'validator' )
 		->compose( $builder );

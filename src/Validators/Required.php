@@ -13,15 +13,25 @@ use WFV\Validators\AbstractValidator;
 class Required extends AbstractValidator {
 
 	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var
+	 */
+	protected $template = [
+		'name' => 'required',
+		'message' => '{label} is required'
+	];
+
+	/**
 	 * Set the validation constraints that make this rule
 	 *
 	 * @since 0.11.0
 	 * @access protected
 	 *
-	 * @param
 	 */
 	protected function set_policy() {
-		$this->validator->notEmpty()
-			->setName( $this->field );
+		$this->validator->notEmpty();
 	}
 }

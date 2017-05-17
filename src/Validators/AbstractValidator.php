@@ -2,7 +2,7 @@
 namespace WFV\Validators;
 defined( 'ABSPATH' ) or die();
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 use \Respect\Validation\Exceptions\NestedValidationException;
 use WFV\Contract\ValidateInterface;
 
@@ -62,26 +62,60 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param Validator $validator
+	 * @param RespectValidator $validator
+	 * @param string $field
+	 * @param bool (optional) $optional
+	 * @param string (optional) $message
 	 */
-	function __construct( Validator $validator, $field, $optional = false ) {
+	function __construct( RespectValidator $validator, $field, $optional = false, $message = false ) {
+		// WIP - simplify - parameter overload...
+
 		$this->optional = $optional;
 		$this->validator = $validator;
 		$this->field = $field;
+
 		$args = func_get_args();
-		$this->params = ( isset( $args[3] ) ) ? $args[3] : null;
+
+		$this->params = ( isset( $args[4] ) ) ? $args[4] : null;
+
+		if( $message ) {
+			$this->set_message( $message );
+		}
+
 		$this->set_policy();
 	}
 
 	/**
-	 *
+	 * Returns the error message for the field/rule under validation
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param
+	 * @return string
 	 */
-	public function errors() {
-		// WIP
+	public function error_msg() {
+		return $this->template['message'];
+	}
+
+	/**
+	 * Return the name of the field under validation
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return string
+	 */
+	public function field_name() {
+		return $this->field;
+	}
+
+	/**
+	 * Returns the template array for the field under validation
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return array
+	 */
+	public function template() {
+		return $this->template;
 	}
 
 	/**
@@ -92,13 +126,19 @@ abstract class AbstractValidator implements ValidateInterface {
 	 * @param string|array $input
 	 * @return bool
 	 */
-	public function validate( $input ) {
-
-		$is_valid = $this->validator->validate( $input );
-
-		// WIP - set error msgs
-
+	public function validate( $value ) {
+		$is_valid = $this->validator->validate( $value );
 		return $is_valid;
 	}
 
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param
+	 */
+	protected function set_message( $message ) {
+		$this->template['message'] = $message;
+	}
 }

@@ -176,9 +176,13 @@ class FormArtisan implements ArtisanInterface {
 					$class = str_replace(' ', '', ucwords( str_replace('_', ' ', $rule_name ) ) );
 					$class = 'WFV\Validators\\'.$class;
 
+					$message = ( isset( $this->config[ $field ]['messages'][ $rule_name ] ) )
+						? $this->config[ $field ]['messages'][ $rule_name ]
+						: false;
+
 					$strategies[ $field ][ $rule_name ] = ( is_string( $rule ) )
-						? new $class( new RespectValidator(), $field, $optional )
-						: new $class( new RespectValidator(), $field, $optional, $rule['params'] );
+						? new $class( new RespectValidator(), $field, $optional, $message )
+						: new $class( new RespectValidator(), $field, $optional, $message, $rule['params'] );
 				}
 			}
 		}

@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die();
 /**
  *
  *
- * @since 0.10.0
+ * @since 0.11.0
  *
  */
 interface ValidateInterface {
@@ -14,7 +14,17 @@ interface ValidateInterface {
 	/**
 	 * @return array
 	 */
-	public function errors();
+	public function error_msg();
+
+	/**
+	 * @return string
+	 */
+	public function field_name();
+
+	/**
+	 * @return array
+	 */
+	public function template();
 
 	/**
 	 * @return bool
