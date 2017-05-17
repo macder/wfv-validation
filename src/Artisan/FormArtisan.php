@@ -6,7 +6,6 @@ use \Respect\Validation\Validator as RespectValidator;
 
 use WFV\Contract\ArtisanInterface;
 use WFV\Collection\ErrorCollection;
-use WFV\Collection\MessageCollection;
 use WFV\Collection\InputCollection;
 use WFV\Collection\RuleCollection;
 
@@ -120,24 +119,6 @@ class FormArtisan implements ArtisanInterface {
 	 */
 	public function input( array $data = [] ) {
 		$this->collection['input'] = new InputCollection( $data );
-		return $this;
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 *
-	 * @return WFV\Artisan\FormArtisan
-	 */
-	public function messages() {
-		foreach( $this->config as $field => $options ) {
-			$messages[ $field ] = array_filter( $options, function( $value, $key ) {
-				return ( 'rules' !== $key ) ? $value : false;
-			}, ARRAY_FILTER_USE_BOTH );
-		}
-
-		$this->collection['messages'] = new MessageCollection( $messages );
 		return $this;
 	}
 

@@ -99,17 +99,6 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Use message collection
-	 *
-	 * @since 0.10.0
-	 *
-	 * @return WFV\Collection\InputCollection
-	 */
-	public function messages() {
-		return $this->utilize('messages');
-	}
-
-	/**
 	 * Convenience method to repopulate select input
 	 *
 	 * @since 0.10.0
