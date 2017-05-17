@@ -99,6 +99,7 @@ class RuleCollection extends Collectable {
 	 * @return array
 	 */
 	protected function parse_rules( array $rules ) {
+		// WIP - works, but confusing - simplify or breakdown into small methods
 		$this->split_rules( $rules );
 		foreach( $rules as $field => $ruleset ) {
 			$parsed[ $field ] = array_map( function( $rule ) {
