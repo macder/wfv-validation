@@ -45,7 +45,7 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var Validator
+	 * @var RespectValidator
 	 */
 	protected $validator;
 
