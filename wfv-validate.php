@@ -34,12 +34,13 @@ function wfv_create( $action, array &$form ) {
 	$inspect = new InspectionAgent( $action );
 	$input = ( true === $inspect->safe_submit() ) ? $_POST : array();
 
-	$artisan = new FormArtisan();
+	$builder = new FormArtisan( $form );
 	$form = ( new Director( $action ) )
 		->with( 'input', $input )
-		->with( 'rules', $form['rules'] )
+		->with( 'rules' )
 		->with( 'errors' )
-		->compose( $artisan );
+		->with( 'validator' )
+		->compose( $builder );
 
 	if( $input ) {
 		$form->validate();

@@ -12,6 +12,18 @@ use WFV\Validators\AbstractValidator;
 class Boolean extends AbstractValidator {
 
 	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var
+	 */
+	protected $template = [
+		'message' => '{label} is not valid',
+		'name' => 'boolean',
+	];
+
+	/**
 	 * Set the validation constraints that make this rule
 	 *
 	 * @since 0.11.0

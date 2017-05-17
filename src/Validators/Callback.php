@@ -12,6 +12,18 @@ use WFV\Validators\AbstractValidator;
 class Callback extends AbstractValidator {
 
 	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var
+	 */
+	protected $template = [
+		'message' => '{label} is not valid',
+		'name' => 'callback',
+	];
+
+	/**
 	 * Set the validation constraints that make this rule
 	 *
 	 * @since 0.11.0

@@ -22,7 +22,22 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$form_artisan = new FormArtisan();
+		$form = array(
+		  'first_name' => [
+		    'label' => 'First Name',
+		    'rules' => 'required',
+		  ],
+		  'email' => [
+		    'label' => 'Email',
+		    'rules' => 'required|email',
+		    'messages' => [
+		      'required' => 'Custom required validation error msg',
+		      'email'    => 'No email? No soup for you!',
+		    ],
+		  ],
+		);
+
+		self::$form_artisan = new FormArtisan( $form );
 	}
 
 	/**
@@ -49,12 +64,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_artisan_rules_return_self_instance() {
-		$rules = array(
-			'fname' => 'required',
-			'email'=> 'required|email',
-		);
-
-		$result = self::$form_artisan ->rules( $rules );
+		$result = self::$form_artisan ->rules();
 
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan rules() must return Self' );
 	}
@@ -64,6 +74,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_artisan_create_return_self_instance() {
+		self::$form_artisan->validator();
 		$result = self::$form_artisan->create( 'phpunit' );
 
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan create() must return Self' );
@@ -80,28 +91,14 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does messages return instance of this FormArtisan?
-	 *
-	 */
-	public function test_form_artisan_messages_return_self_instance() {
-		$result = self::$form_artisan->messages();
-
-		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan messages() must return Self' );
-	}
-
-	/**
 	 * Does actualize method return instance Form?
 	 *
 	 */
 	public function test_form_artisan_actualize_return_form_instance() {
-		$rules = array(
-			'fname' => 'required',
-			'email'=> 'required|email',
-		);
-
 		$result = self::$form_artisan
 			->input()
-			->rules( $rules )
+			->rules()
+			->validator()
 			->create('phpunit')
 			->actualize();
 

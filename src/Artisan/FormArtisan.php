@@ -2,16 +2,16 @@
 namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 use WFV\Contract\ArtisanInterface;
 use WFV\Collection\ErrorCollection;
-use WFV\Collection\MessageCollection;
 use WFV\Collection\InputCollection;
 use WFV\Collection\RuleCollection;
 
 use WFV\FormComposite;
 use WFV\Validators;
+use WFV\Validator;
 
 /**
  *
@@ -24,28 +24,54 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
 	 * @var array
 	 */
-	private $collection = array();
+	public $collection = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @var array
+	 */
+	public $strategies = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @var WFV\Validator
+	 */
+	public $validator;
 
 	/**
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
+	 * @access protected
+	 * @var array
+	 */
+	protected $config = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
 	 * @var WFV\FormComposite
 	 */
-	private $form;
+	protected $form;
 
 	/**
 	 *
 	 *
-	 * @since 0.10.0
-	 * @access private
-	 * @var
+	 * @since 0.11.0
+	 *
+	 * @param array $config
 	 */
-	private $validators = array();
+	function __construct( array $config ) {
+		$this->config = $config;
+	}
 
 	/**
 	 * Return the final Form instance
@@ -67,7 +93,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function create( $action ) {
-		$this->form = new FormComposite( $action, $this->collection, $this->validators );
+		$this->form = new FormComposite( $this, $action );
 		return $this;
 	}
 
@@ -88,7 +114,7 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $action
+	 * @param array $data
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function input( array $data = [] ) {
@@ -103,22 +129,24 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function messages( array $messages = [] ) {
-		// $this->collection['messages'] = new MessageCollection( $messages );
+	public function rules() {
+		foreach( $this->config as $field => $options ) {
+			$rules[ $field ] = $options['rules'];
+		}
+		$this->collection['rules'] = new RuleCollection( $rules );
+		$this->resolve_strategies();
 		return $this;
 	}
 
 	/**
 	 *
 	 *
-	 * @since 0.10.0
+	 * @since 0.11.0
 	 *
-	 * @param array $rules
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function rules( array $rules = [] ) {
-		$this->collection['rules'] = new RuleCollection( $rules );
-		$this->resolve_validators();
+	public function validator() {
+		$this->validator = new Validator();
 		return $this;
 	}
 
@@ -129,8 +157,9 @@ class FormArtisan implements ArtisanInterface {
 	 * @access protected
 	 *
 	 */
-	protected function resolve_validators() {
-		// WIP - simplify/breakdown - perhaps a factory for this?
+	protected function resolve_strategies() {
+		// WIP - simplify/breakdown - perhaps a factory or another builder?
+		// Stopgap solution...
 
 		$optional = false;
 		$rules = $this->collection['rules']->get_array();
@@ -147,12 +176,16 @@ class FormArtisan implements ArtisanInterface {
 					$class = str_replace(' ', '', ucwords( str_replace('_', ' ', $rule_name ) ) );
 					$class = 'WFV\Validators\\'.$class;
 
-					$validators[ $field ][] = ( is_string( $rule ) )
-						? new $class( new Validator(), $field, $optional )
-						: new $class( new Validator(), $field, $optional, $rule['params'] );
+					$message = ( isset( $this->config[ $field ]['messages'][ $rule_name ] ) )
+						? $this->config[ $field ]['messages'][ $rule_name ]
+						: false;
+
+					$strategies[ $field ][ $rule_name ] = ( is_string( $rule ) )
+						? new $class( new RespectValidator(), $field, $optional, $message )
+						: new $class( new RespectValidator(), $field, $optional, $message, $rule['params'] );
 				}
 			}
 		}
-		$this->validators = $validators;
+		$this->strategies = $strategies;
 	}
 }

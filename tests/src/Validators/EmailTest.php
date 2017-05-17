@@ -40,7 +40,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_false_when_not_optional_and_empty() {
 		$optional = false;
-		$email = new Email( new Validator(), 'test_field', $optional );
+		$email = new Email( new Validator(),'test_field', $optional );
 		$result = $email->validate('');
 		$this->assertFalse( $result );
 	}
@@ -53,7 +53,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_true_when_optional_and_valid_email() {
 		$optional = true;
-		$email = new Email( new Validator(), 'test_field', $optional );
+		$email = new Email( new Validator(),'test_field', $optional );
 		$result = $email->validate('foo@bar.com');
 		$this->assertTrue( $result );
 	}
@@ -66,7 +66,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_true_when_optional_and_empty() {
 		$optional = true;
-		$email = new Email( new Validator(), 'test_field', $optional );
+		$email = new Email( new Validator(),'test_field', $optional );
 		$result = $email->validate('');
 		$this->assertTrue( $result );
 	}
@@ -79,7 +79,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_false_when_optional_and_invalid_email_string() {
 		$optional = true;
-		$email = new Email( new Validator(), 'test_field', $optional );
+		$email = new Email( new Validator(),'test_field', $optional );
 		$result = $email->validate('foobarcom');
 		$this->assertFalse( $result );
 	}
