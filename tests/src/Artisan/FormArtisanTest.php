@@ -91,16 +91,6 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does messages return instance of this FormArtisan?
-	 *
-	 */
-	public function test_form_artisan_messages_return_self_instance() {
-		$result = self::$form_artisan->messages();
-
-		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan messages() must return Self' );
-	}
-
-	/**
 	 * Does actualize method return instance Form?
 	 *
 	 */
