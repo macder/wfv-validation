@@ -25,46 +25,43 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
 	 * @var array
 	 */
-	private $config = array();
+	public $collection = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @var array
+	 */
+	public $strategies = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @var WFV\Validator
+	 */
+	public $validator;
 
 	/**
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
+	 * @access protected
 	 * @var array
 	 */
-	private $collection = array();
+	protected $config = array();
 
 	/**
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
+	 * @access protected
 	 * @var WFV\FormComposite
 	 */
-	private $form;
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @access private
-	 * @var
-	 */
-	private $validator;
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @access private
-	 * @var
-	 */
-	private $strategies = array();
+	protected $form;
 
 	/**
 	 *
@@ -97,8 +94,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function create( $action ) {
-		$this->form = new FormComposite( $action, $this->collection, $this->strategies );
-		$this->form->add_validator( $this->validator );
+		$this->form = new FormComposite( $this, $action );
 		return $this;
 	}
 
@@ -119,7 +115,7 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $action
+	 * @param array $data
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function input( array $data = [] ) {
@@ -166,7 +162,6 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param array $rules
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function validator() {
@@ -182,7 +177,8 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 */
 	protected function resolve_strategies() {
-		// WIP - simplify/breakdown - perhaps a factory for this?
+		// WIP - simplify/breakdown - perhaps a factory or another builder?
+		// Stopgap solution...
 
 		$optional = false;
 		$rules = $this->collection['rules']->get_array();

@@ -3,6 +3,7 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Composable;
+use WFV\Contract\ArtisanInterface;
 use WFV\Contract\ValidateInterface;
 
 /**
@@ -35,24 +36,14 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $alias
-	 * @param array $collected
+	 * @param ArtisanInterface $builder
+	 * @param string $action
 	 */
-	function __construct( $alias, array $collected = [], array $strategies = [] ) {
-		$this->alias = $alias;
-		$this->install( $collected );
-		$this->strategies = $strategies;
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 *
-	 * @param string $field Field name.
-	 */
-	public function add_validator( Validator $validator ) {
-		$this->validator = $validator;
+	function __construct( ArtisanInterface $builder, $action ) {
+		$this->alias = $action;
+		$this->install( $builder->collection );
+		$this->strategies = $builder->strategies;
+		$this->validator = $builder->validator;
 	}
 
 	/**
