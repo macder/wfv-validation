@@ -13,7 +13,7 @@ interface ArtisanInterface {
 	/**
 	 * @return
 	 */
-	public function create( $action, $adaptation );
+	public function create( $action );
 
 	/**
 	 * @return

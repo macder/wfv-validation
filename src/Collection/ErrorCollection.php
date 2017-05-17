@@ -28,10 +28,12 @@ class ErrorCollection extends Collectable {
 	 * @since 0.10.0
 	 *
 	 * @param string $field
-	 * @return string
+	 * @return string|null
 	 */
 	public function first( $field ) {
-		return $this->data[ $field ][0];
+		return ( $this->data[ $field ] )
+			? array_values( $this->data[ $field ] )[0]
+			: null;
 	}
 
 	/**
@@ -41,10 +43,8 @@ class ErrorCollection extends Collectable {
 	 * @since 0.10.0
 	 *
 	 * @param array $errors
-	 * @return self
 	 */
 	public function set_errors( array $errors = [] ) {
 		$this->data = ( $this->is_populated() ) ? $this->data : $errors;
-		return $this;
 	}
 }

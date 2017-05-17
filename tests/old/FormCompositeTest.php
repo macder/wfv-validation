@@ -1,11 +1,10 @@
 <?php
 namespace WFV;
 
-use \Valitron\Validator;
-use WFV\ValidatorAdapter;
-
+use \Respect\Validation\Validator;
 use WFV\Collection\ErrorCollection;
 use WFV\Collection\InputCollection;
+use WFV\Collection\MessageCollection;
 use WFV\Collection\RuleCollection;
 use WFV\FormComposite;
 
@@ -40,14 +39,14 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$validator = new ValidatorAdapter( new Validator() );
+		// self::$validator = new ValidatorAdapter( new Validator() );
 
     self::$form_array = array(
       'rules'   => array(
-        'name'      => ['required'],
-        'email'     => ['required', 'email'],
-        'shades'   => ['required'],
-        'colors'   => ['required'],
+        'name'     => 'required',
+        'email'    => 'required|email',
+        'shades'   => 'required',
+        'colors'   => 'required',
       ),
       'messages' => [
         'email' => array(
@@ -90,33 +89,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_is_instante_when_collection_array_is_empty() {
 		$expected = 'WFV\FormComposite';
-		$result = new FormComposite( 'phpunit', array(), self::$validator );
-		$this->assertInstanceOf( $expected, $result );
-	}
-
-	/**
-	 * Does errors() return an instance of ErrorCollection?
-	 *
-	 */
-	public function test_form_errors_returns_error_collection() {
-		$errors = array( 'errors' => new ErrorCollection() );
-		$form = new FormComposite( 'phpunit', $errors, self::$validator );
-
-		$expected = 'WFV\Collection\ErrorCollection';
-		$result = $form->errors();
-		$this->assertInstanceOf( $expected, $result );
-	}
-
-	/**
-	 * Does input() return an instance of InputCollection?
-	 *
-	 */
-	public function test_form_input_returns_input_collection() {
-		$input = array( 'input' => new InputCollection() );
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
-
-		$expected = 'WFV\Collection\InputCollection';
-		$result = $form->input();
+		$result = new FormComposite( 'phpunit', array() );
 		$this->assertInstanceOf( $expected, $result );
 	}
 
@@ -128,7 +101,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input );
 
 		$expected = 'checked';
 		$result = $form->checked_if('color', 'green');
@@ -143,7 +116,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input );
 
 		$expected = null;
 		$result = $form->checked_if('color', 'is_not_there');
@@ -158,7 +131,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input );
 
 		$expected = null;
 		$result = $form->checked_if();
@@ -173,7 +146,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input );
 
 		$expected = null;
 		$result = $form->checked_if(null, 'wait.. huh?!');
@@ -188,7 +161,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input );
 
 		$expected = null;
 		$result = $form->checked_if('name', null);
@@ -203,7 +176,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input );
 
 		$expected = esc_html( $_POST['html_input'] );
 		$result = $form->display('html_input');
@@ -219,7 +192,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input );
 
 		$expected = null;
 		$result = $form->display('this_is_not_a_field');
@@ -235,11 +208,50 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 		$input = array( 'input' => new InputCollection( $_POST ) );
 
-		$form = new FormComposite( 'phpunit', $input, self::$validator );
+		$form = new FormComposite( 'phpunit', $input );
 
 		$expected = null;
 		$result = $form->display();
 
 		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does errors() return an instance of ErrorCollection?
+	 *
+	 */
+	/*public function test_form_errors_returns_error_collection() {
+		$errors = array( 'errors' => new ErrorCollection() );
+		$form = new FormComposite( 'phpunit', $errors, self::$validator );
+
+		$expected = 'WFV\Collection\ErrorCollection';
+		$result = $form->errors();
+		$this->assertInstanceOf( $expected, $result );
+	}*/
+
+	/**
+	 * Does input() return an instance of InputCollection?
+	 *
+	 */
+	public function test_form_input_returns_input_collection() {
+		$input = array( 'input' => new InputCollection() );
+		$form = new FormComposite( 'phpunit', $input );
+
+		$expected = 'WFV\Collection\InputCollection';
+		$result = $form->input();
+		$this->assertInstanceOf( $expected, $result );
+	}
+
+	/**
+	 * Does messages() return an instance of MessageCollection?
+	 *
+	 */
+	public function test_form_messages_returns_message_collection() {
+		$messages = array( 'messages' => new MessageCollection() );
+		$form = new FormComposite( 'phpunit', $messages );
+
+		$expected = 'WFV\Collection\MessageCollection';
+		$result = $form->messages();
+		$this->assertInstanceOf( $expected, $result );
 	}
 }

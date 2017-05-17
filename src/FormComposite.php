@@ -3,7 +3,8 @@ namespace WFV;
 defined( 'ABSPATH' ) or die();
 
 use WFV\Abstraction\Composable;
-use WFV\Contract\ValidationInterface;
+use WFV\Contract\ArtisanInterface;
+use WFV\Contract\ValidateInterface;
 
 /**
  * Form Composition
@@ -15,16 +16,34 @@ class FormComposite extends Composable {
 	/**
 	 *
 	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $strategies = array();
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $validator;
+
+	/**
+	 *
+	 *
 	 * @since 0.10.0
 	 *
-	 * @param string $alias
-	 * @param array $collected
-	 * @param ValidationInterface $adapter
+	 * @param ArtisanInterface $builder
+	 * @param string $action
 	 */
-	function __construct( $alias, array $collected = [], ValidationInterface $adapter ) {
-		$this->alias = $alias;
-		$this->install( $collected );
-		$this->adapter = $adapter;
+	function __construct( ArtisanInterface $builder, $action ) {
+		$this->alias = $action;
+		$this->install( $builder->collection );
+		$this->strategies = $builder->strategies;
+		$this->validator = $builder->validator;
 	}
 
 	/**
@@ -38,25 +57,6 @@ class FormComposite extends Composable {
 	 */
 	public function checked_if( $field = null, $value = null ) {
 		return $this->string_or_null( 'checked', $field, $value );
-	}
-
-	/**
-	 * Activate validator with the rules and messages
-	 *  via adapter
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $rule
-	 * @param string $field
-	 * @return self
-	 */
-	public function constrain() {
-		$rules = $this->utilize('rules');
-		$messages = $this->utilize('messages');
-
-		$this->adapter('validator')
-			->constrain( $rules, $messages );
-		return $this;
 	}
 
 	/**
@@ -77,16 +77,14 @@ class FormComposite extends Composable {
 
 	/**
 	 * Use error collection
-	 * Populates error collection if there are validation errors
+	 *
 	 *
 	 * @since 0.10.0
 	 *
 	 * @return WFV\Collection\ErrorCollection
 	 */
 	public function errors() {
-		$errors = $this->adapter('validator')->errors();
-		return $this->utilize('errors')
-			->set_errors( $errors );
+		return $this->utilize('errors');
 	}
 
 	/**
@@ -101,14 +99,16 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Use message collection
+	 * Convenience method to repopulate select input
 	 *
 	 * @since 0.10.0
 	 *
-	 * @return WFV\Collection\InputCollection
+	 * @param string $field Field name.
+	 * @param string $value Value to compare against.
+	 * @return string|null
 	 */
-	public function messages() {
-		return $this->utilize('messages');
+	public function selected_if( $field = null, $value = null ) {
+		return $this->string_or_null( 'selected', $field, $value );
 	}
 
 	/**
@@ -126,61 +126,70 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Convenience method to repopulate select input
+	 * Validate each field by providing the Validator
+	 *  a strategy for each rule/field pair
 	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $field Field name.
-	 * @param string $value Value to compare against.
-	 * @return string|null
-	 */
-	public function selected_if( $field = null, $value = null ) {
-		return $this->string_or_null( 'selected', $field, $value );
-	}
-
-	/**
-	 * Validate the input
-	 *
-	 * @since 0.10.0
+	 * @since 0.11.0
 	 *
 	 * @return bool
 	 */
 	public function validate() {
-		$is_valid = $this->adapter('validator')->validate();
+		$input = $this->utilize('input')->get_array( false );
+		foreach( $input as $field => $value ) {
+			if( $this->strategies[ $field ] ) {
+				foreach( $this->strategies[ $field ] as $type => $rule ) {
+					$this->validator->validate( $rule, $value );
+				}
+			}
+		}
+		return $this->is_valid();
+	}
 
-		if ( false === $is_valid ) {
-			$errors = $this->adapter('validator')->errors();
-			$this->utilize('errors')->set_errors( $errors );
+	/**
+	 * Check if the validation failed or passed
+	 * Sets the error msgs if a fail
+	 * Trigger pass or fail action
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @return bool
+	 */
+	protected function is_valid() {
+
+		$is_valid = $this->validator->is_valid();
+		if( false === $is_valid ) {
+			$this->utilize('errors')->set_errors( $this->validator->errors() );
 		}
 		$this->trigger_post_validate_action( $is_valid );
 		return $is_valid;
 	}
 
 	/**
-	 * Trigger action hook for validation pass or fail
-	 *
-	 * @since 0.10.0
-	 * @access private
-	 *
-	 * @param bool $is_valid
-	 */
-	private function trigger_post_validate_action( $is_valid = false ) {
-		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
-		do_action( $action, $this );
-	}
-
-	/**
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access private
+	 * @access protected
 	 *
 	 * @param string $response
 	 * @param string (optional) $field
 	 * @param string (optional) $value
 	 * @return string|null
 	 */
-	private function string_or_null( $response, $field = null, $value = null ) {
+	protected function string_or_null( $response, $field = null, $value = null ) {
 		return ( $this->input( $field )->contains( $field, $value ) ) ? $response : null;
+	}
+
+	/**
+	 * Trigger action hook for validation pass or fail
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 *
+	 * @param bool $is_valid
+	 */
+	protected function trigger_post_validate_action( $is_valid = false ) {
+		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
+		do_action( $action, $this );
 	}
 }
