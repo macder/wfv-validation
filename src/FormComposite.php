@@ -135,9 +135,12 @@ class FormComposite extends Composable {
 	 */
 	public function validate() {
 		$input = $this->utilize('input')->get_array( false );
-		foreach( $input as $field => $value ) {
+		$rules = $this->utilize('rules')->get_array();
+
+		foreach( array_keys($rules) as $field ) {
 			if( $this->strategies[ $field ] ) {
-				foreach( $this->strategies[ $field ] as $type => $rule ) {
+				foreach( $this->strategies[ $field ] as $rule ) {
+					$value = ( isset( $input[ $field ] ) ) ? $input[ $field ] : null;
 					$this->validator->validate( $rule, $value );
 				}
 			}
