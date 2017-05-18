@@ -39,7 +39,7 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_input_collection_is_instance() {
 		$expected = 'WFV\Collection\InputCollection';
-		$result = new InputCollection( self::$data );
+		$result = new InputCollection( self::$data, true );
 		$this->assertInstanceOf( $expected, $result );
 	}
 
@@ -48,16 +48,7 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_input_collection_is_populated_returns_true() {
-		$result = new InputCollection( self::$data );
+		$result = new InputCollection( self::$data, true );
 		$this->assertTrue( $result->is_populated() );
-	}
-
-	/**
-	 * Is data empty when no param?
-	 *
-	 */
-	public function test_input_collection_is_populated_returns_false() {
-		$result = new InputCollection();
-		$this->assertFalse( $result->is_populated() );
 	}
 }

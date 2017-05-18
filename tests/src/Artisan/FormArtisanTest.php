@@ -55,7 +55,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	public function test_form_artisan_input_return_self_instance() {
 		$expected = 'WFV\Artisan\FormArtisan';
 
-		$result = self::$form_artisan->input();
+		$result = self::$form_artisan->input( array( [], true ) );
 		$this->assertInstanceOf( $expected, $result );
 	}
 
@@ -96,7 +96,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_artisan_actualize_return_form_instance() {
 		$result = self::$form_artisan
-			->input()
+			->input( array( [], true ) )
 			->rules()
 			->validator()
 			->create('phpunit')

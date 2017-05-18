@@ -118,7 +118,9 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function input( array $data = [] ) {
-		$this->collection['input'] = new InputCollection( $data );
+		$input = $data[0];
+		$trim = $data[1];
+		$this->collection['input'] = new InputCollection( $input, $trim );
 		return $this;
 	}
 
