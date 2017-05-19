@@ -85,7 +85,7 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
+	 * Creates the instance of FormComposite
 	 *
 	 * @since 0.10.0
 	 *
@@ -142,7 +142,8 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
+	 * Create instance of RuleCollection
+	 * Save it in $collection array property
 	 *
 	 * @since 0.10.0
 	 *
@@ -158,7 +159,8 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
+	 * Create instance of WFV\Validator
+	 * Save it in $validator property
 	 *
 	 * @since 0.11.0
 	 *
@@ -170,7 +172,8 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 * Creates a validator for each rule
+	 * Creates a validator (strategy) for each rule
+	 * Save it in $strategies property
 	 *
 	 * @since 0.11.0
 	 * @access protected
