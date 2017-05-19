@@ -9,7 +9,7 @@ use WFV\Validators\AbstractValidator;
  *
  * @since 0.11.0
  */
-class Alpha extends AbstractValidator {
+class ArrayType extends AbstractValidator {
 
 	/**
 	 *
@@ -19,8 +19,8 @@ class Alpha extends AbstractValidator {
 	 * @var
 	 */
 	protected $template = [
-		'message' => '{label} can only contain alphabetic characters',
-		'name' => 'alpha',
+		'message' => '{label} must be an array',
+		'name' => 'array_type',
 	];
 
 	/**
@@ -32,8 +32,8 @@ class Alpha extends AbstractValidator {
 	public function set_policy( $optional = false ) {
 		$v = $this->validator;
 		$v = ( $optional )
-			? $v->optional( $v->create()->alpha() )
-			: $v->alpha();
+			? $v->optional( $v->create()->arrayType() )
+			: $v->arrayType();
 		return $this;
 	}
 }

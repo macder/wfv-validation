@@ -2,15 +2,13 @@
 namespace WFV\Artisan;
 defined( 'ABSPATH' ) or die();
 
-use \Respect\Validation\Validator as RespectValidator;
-
 use WFV\Contract\ArtisanInterface;
 use WFV\Collection\ErrorCollection;
 use WFV\Collection\InputCollection;
+use WFV\Collection\MessageCollection;
 use WFV\Collection\RuleCollection;
 
 use WFV\FormComposite;
-use WFV\Validators;
 use WFV\Validator;
 
 /**
@@ -27,14 +25,6 @@ class FormArtisan implements ArtisanInterface {
 	 * @var array
 	 */
 	public $collection = array();
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @var array
-	 */
-	public $strategies = array();
 
 	/**
 	 *
@@ -111,21 +101,6 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 * Returns an array of human friendly field labels
-	 *  as defined in the config array
-	 *
-	 * @since 0.11.0
-	 * @access protected
-	 *
-	 * @return array
-	 */
-	protected function labels() {
-		return array_map( function( $item ) {
-			return $item['label'];
-		}, $this->config);
-	}
-
-	/**
 	 * Create instance of InputCollection
 	 * Save it in $collection array property
 	 *
@@ -142,6 +117,18 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return WFV\Artisan\FormArtisan
+	 */
+	public function messages() {
+		$this->collection['messages'] = new MessageCollection( $this->config );
+		return $this;
+	}
+
+	/**
 	 * Create instance of RuleCollection
 	 * Save it in $collection array property
 	 *
@@ -154,7 +141,6 @@ class FormArtisan implements ArtisanInterface {
 			$rules[ $field ] = $options['rules'];
 		}
 		$this->collection['rules'] = new RuleCollection( $rules );
-		$this->resolve_strategies();
 		return $this;
 	}
 
@@ -172,42 +158,17 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 * Creates a validator (strategy) for each rule
-	 * Save it in $strategies property
+	 * Returns an array of human friendly field labels
+	 *  as defined in the config array
 	 *
 	 * @since 0.11.0
 	 * @access protected
 	 *
+	 * @return array
 	 */
-	protected function resolve_strategies() {
-		// WIP - simplify/breakdown - perhaps a factory or another builder?
-		// Stopgap solution...
-
-		$optional = false;
-		$rules = $this->collection['rules']->get_array();
-
-		foreach( $rules as $field => $ruleset ) {
-
-			$optional = in_array("optional", $ruleset);
-
-			foreach( $ruleset as $rule ) {
-
-				if( 'optional' !== $rule ){
-
-					$rule_name = ( is_string( $rule ) ) ? $rule : $rule['rule'];
-					$class = str_replace(' ', '', ucwords( str_replace('_', ' ', $rule_name ) ) );
-					$class = 'WFV\Validators\\'.$class;
-
-					$message = ( isset( $this->config[ $field ]['messages'][ $rule_name ] ) )
-						? $this->config[ $field ]['messages'][ $rule_name ]
-						: false;
-
-					$strategies[ $field ][ $rule_name ] = ( is_string( $rule ) )
-						? new $class( new RespectValidator(), $field, $optional, $message )
-						: new $class( new RespectValidator(), $field, $optional, $message, $rule['params'] );
-				}
-			}
-		}
-		$this->strategies = $strategies;
+	protected function labels() {
+		return array_map( function( $item ) {
+			return $item['label'];
+		}, $this->config);
 	}
 }

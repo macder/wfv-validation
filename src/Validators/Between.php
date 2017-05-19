@@ -9,7 +9,7 @@ use WFV\Validators\AbstractValidator;
  *
  * @since 0.11.0
  */
-class Alpha extends AbstractValidator {
+class Between extends AbstractValidator {
 
 	/**
 	 *
@@ -19,8 +19,8 @@ class Alpha extends AbstractValidator {
 	 * @var
 	 */
 	protected $template = [
-		'message' => '{label} can only contain alphabetic characters',
-		'name' => 'alpha',
+		'message' => '{label} must be within a range',
+		'name' => 'between',
 	];
 
 	/**
@@ -30,10 +30,13 @@ class Alpha extends AbstractValidator {
 	 *
 	 */
 	public function set_policy( $optional = false ) {
+		$start = $this->params[0];
+		$end = $this->params[1];
+
 		$v = $this->validator;
 		$v = ( $optional )
-			? $v->optional( $v->create()->alpha() )
-			: $v->alpha();
+			? $v->optional( $v->create()->between( $start, $end ) )
+			: $v->between( $start, $end );
 		return $this;
 	}
 }

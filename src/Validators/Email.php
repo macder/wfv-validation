@@ -29,13 +29,13 @@ class Email extends AbstractValidator {
 	 * Set the validation constraints that make this rule
 	 *
 	 * @since 0.11.0
-	 * @access protected
 	 *
 	 */
-	protected function set_policy() {
+	public function set_policy( $optional = false ) {
 		$v = $this->validator;
-		$v = ( $this->optional )
+		$v = ( $optional )
 			? $v->optional( $v->create()->email() )
 			: $v->email();
+		return $this;
 	}
 }

@@ -27,15 +27,6 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var bool
-	 */
-	protected $optional;
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @access protected
 	 * @var array
 	 */
 	protected $params;
@@ -55,34 +46,19 @@ abstract class AbstractValidator implements ValidateInterface {
 	 * @since 0.11.0
 	 *
 	 */
-	abstract protected function set_policy();
+	abstract protected function set_policy( $optional = false );
 
 	/**
 	 *
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param RespectValidator $validator
-	 * @param string $field
-	 * @param bool (optional) $optional
-	 * @param string (optional) $message
 	 */
-	function __construct( RespectValidator $validator, $field, $optional = false, $message = false ) {
-		// WIP - simplify - parameter overload...
-
-		$this->optional = $optional;
-		$this->validator = $validator;
+	function __construct( $field ) {
+		$this->validator = new RespectValidator();
 		$this->field = $field;
-
 		$args = func_get_args();
-
-		$this->params = ( isset( $args[4] ) ) ? $args[4] : null;
-
-		if( $message ) {
-			$this->set_message( $message );
-		}
-
-		$this->set_policy();
+		$this->params = ( isset( $args[1] ) ) ? $args[1] : null;
 	}
 
 	/**
@@ -108,6 +84,17 @@ abstract class AbstractValidator implements ValidateInterface {
 	}
 
 	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param
+	 */
+	public function set_message( $message ) {
+		$this->template['message'] = $message;
+	}
+
+	/**
 	 * Returns the template array for the field under validation
 	 *
 	 * @since 0.11.0
@@ -129,16 +116,5 @@ abstract class AbstractValidator implements ValidateInterface {
 	public function validate( $value ) {
 		$is_valid = $this->validator->validate( $value );
 		return $is_valid;
-	}
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 *
-	 * @param
-	 */
-	protected function set_message( $message ) {
-		$this->template['message'] = $message;
 	}
 }

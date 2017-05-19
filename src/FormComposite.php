@@ -20,15 +20,6 @@ class FormComposite extends Composable {
 	 * @access protected
 	 * @var array
 	 */
-	protected $strategies = array();
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @access protected
-	 * @var array
-	 */
 	protected $validator;
 
 	/**
@@ -42,7 +33,6 @@ class FormComposite extends Composable {
 	function __construct( ArtisanInterface $builder, $action ) {
 		$this->alias = $action;
 		$this->install( $builder->collection );
-		$this->strategies = $builder->strategies;
 		$this->validator = $builder->validator;
 	}
 
@@ -99,6 +89,28 @@ class FormComposite extends Composable {
 	}
 
 	/**
+	 * Use message collection
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return WFV\Collection\MessageCollection
+	 */
+	public function messages() {
+		return $this->utilize('messages');
+	}
+
+	/**
+	 * Use rules collection
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return WFV\Collection\RuleCollection
+	 */
+	public function rules() {
+		return $this->utilize('rules');
+	}
+
+	/**
 	 * Convenience method to repopulate select input
 	 *
 	 * @since 0.10.0
@@ -126,40 +138,43 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Validate each field by providing the Validator
-	 *  a strategy for each rule/field pair
+	 * Validate a field's input/rule pair
 	 *
 	 * @since 0.11.0
 	 *
-	 * @return bool
 	 */
-	public function validate() {
-		$input = $this->utilize('input')->get_array( false );
-		$rules = $this->utilize('rules')->get_array();
-
-		foreach( array_keys($rules) as $field ) {
-			if( $this->strategies[ $field ] ) {
-				foreach( $this->strategies[ $field ] as $rule ) {
-					$value = ( isset( $input[ $field ] ) ) ? $input[ $field ] : null;
-					$this->validator->validate( $rule, $value );
-				}
-			}
-		}
-		return $this->is_valid();
+	public function validate( ValidateInterface $rule, $field ) {
+		$input = $this->field_value( $field );
+		$this->validator->validate( $rule, $field, $input );
 	}
 
 	/**
-	 * Check if the validation failed or passed
-	 * Sets the error msgs if a fail
-	 * Trigger pass or fail action
+	 *
 	 *
 	 * @since 0.11.0
 	 * @access protected
 	 *
+	 * @param string $field
+	 */
+	protected function field_value( $field ) {
+		$input = $this->utilize('input');
+		if( $input->has( $field ) ) {
+			$input = $input->get_array( false );
+			return $input[ $field ];
+		}
+		return null;
+	}
+
+	/**
+	 * Check if the validation passed or failed
+	 * Sets the error msgs if a fail
+	 * Trigger pass or fail action
+	 *
+	 * @since 0.11.0
+	 *
 	 * @return bool
 	 */
-	protected function is_valid() {
-
+	public function is_valid() {
 		$is_valid = $this->validator->is_valid();
 		if( false === $is_valid ) {
 			$this->utilize('errors')->set_errors( $this->validator->errors() );

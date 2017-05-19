@@ -10,7 +10,7 @@ class RequiredTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_required_returns_true_when_input_not_empty() {
-		$required = new Required( new Validator(), 'test_field' );
+		$required = ( new Required( 'test_field' ) )->set_policy();
 		$result = $required->validate('lorem ipsum');
 		$this->assertTrue( $result );
 	}
@@ -20,7 +20,7 @@ class RequiredTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_required_returns_false_when_input_is_empty() {
-		$required = new Required( new Validator(), 'test_field' );
+		$required = ( new Required( 'test_field' ) )->set_policy();
 		$result = $required->validate('');
 		$this->assertFalse( $result );
 	}
