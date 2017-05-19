@@ -21,7 +21,7 @@ class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 		$params = array(
 				'other_field',
 		);
-		self::$required_with = new RequiredWith( new Validator(), 'test_field', false, false, $params );
+		self::$required_with = ( new RequiredWith( 'test_field', $params ) )->set_policy();
 	}
 
 	/**
@@ -92,5 +92,4 @@ class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 		$result = self::$required_with->validate( $_POST );
 		$this->assertFalse( $result );
 	}
-
 }

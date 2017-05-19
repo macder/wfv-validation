@@ -14,7 +14,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase {
 	public function test_callback_returns_true_when_not_optional_and_input_string() {
 		$optional = false;
 		$params = ['is_string'];
-		$validator = new Callback( new Validator(), 'test_field', $optional, false, $params );
+		$validator = ( new Callback('test_field', $params) )->set_policy( $optional );
 
 		$result = $validator->validate('test_input');
 		$this->assertTrue( $result );
@@ -29,7 +29,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase {
 	public function test_callback_returns_true_when_optional_and_input_string() {
 		$optional = true;
 		$params = ['is_string'];
-		$validator = new Callback( new Validator(), 'test_field', $optional, false, $params );
+		$validator = ( new Callback('test_field', $params) )->set_policy( $optional );
 
 		$result = $validator->validate('test_input');
 		$this->assertTrue( $result );
@@ -44,7 +44,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase {
 	public function test_callback_returns_false_when_not_optional_and_input_null() {
 		$optional = false;
 		$params = ['is_string'];
-		$validator = new Callback( new Validator(), 'test_field', $optional, false, $params );
+		$validator = ( new Callback('test_field', $params) )->set_policy( $optional );
 
 		$result = $validator->validate( null );
 		$this->assertFalse( $result );
@@ -59,7 +59,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase {
 	public function test_callback_returns_true_when_optional_and_input_null() {
 		$optional = true;
 		$params = ['is_string'];
-		$validator = new Callback( new Validator(), 'test_field', $optional, false, $params );
+		$validator = ( new Callback('test_field', $params) )->set_policy( $optional );
 
 		$result = $validator->validate( null );
 		$this->assertTrue( $result );
