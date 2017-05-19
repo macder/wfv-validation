@@ -18,9 +18,11 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
+use WFV\FormComposite;
 use WFV\Agent\InspectionAgent;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
+use WFV\Factory\ValidatorFactory;
 
 /**
  *
@@ -40,10 +42,39 @@ function wfv_create( $action, array &$form, $trim = true ) {
 		->with( 'input', [ $input, $trim ] )
 		->with( 'rules' )
 		->with( 'errors' )
+		->with( 'messages' )
 		->with( 'validator' )
 		->compose( $builder );
 
 	if( $input ) {
-		$form->validate();
+		wfv_validate( $form );
 	}
+}
+
+/**
+ *
+ *
+ * @since 0.11.0
+ *
+ * @param FormComposite $form
+ * @return bool
+ */
+function wfv_validate( FormComposite $form ) {
+	$rules = $form->rules()->get_array();
+	$messages = $form->messages()->get_array();
+	$factory = new ValidatorFactory( $messages );
+
+	foreach( $rules as $field => $ruleset ) {
+		$optional = in_array('optional', $ruleset);
+		if( $optional ) {
+			array_shift( $ruleset );
+		}
+		foreach( $ruleset as $rule ) {
+			$params = ( is_array( $rule ) ) ? $rule['params'] : null;
+			$rule_name = ( is_string( $rule ) ) ? $rule : $rule['rule'];
+			$validator = $factory->create( $rule_name, $field, $params, $optional );
+			$form->validate( $validator, $field );
+		}
+	}
+	return $form->is_valid();
 }

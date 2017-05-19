@@ -51,10 +51,10 @@ class Validator {
 	 * @param ValidateInterface $rule
 	 * @param string|array $value
 	 */
-	public function validate( ValidateInterface $rule, $value ) {
+	public function validate( ValidateInterface $rule, $field, $value ) {
 		$valid = $rule->validate( $value );
 		if( !$valid ){
-			$this->add_error( $rule->field_name(), $rule->template() );
+			$this->add_error( $field, $rule->template() );
 		}
 	}
 

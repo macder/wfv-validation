@@ -29,10 +29,9 @@ class RequiredWith extends AbstractValidator {
 	 * Set the validation constraints that make this rule
 	 *
 	 * @since 0.11.0
-	 * @access protected
 	 *
 	 */
-	protected function set_policy() {
+	public function set_policy( $optional = false ) {
 		$other_field = $this->params[0];
 		$v = $this->validator;
 
@@ -41,6 +40,7 @@ class RequiredWith extends AbstractValidator {
 			$v->create()->key( $this->field, $v->create()->notEmpty() ),
 			$v->create()->key( $this->field, $v->create()->alwaysValid() )
 		);
+		return $this;
 	}
 
 	/**
