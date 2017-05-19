@@ -98,19 +98,36 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
+	 * Create instance of ErrorCollection
+	 * Save it in $collection array property
 	 *
 	 * @since 0.10.0
 	 *
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function errors() {
-		$this->collection['errors'] = new ErrorCollection();
+		$this->collection['errors'] = new ErrorCollection( $this->labels() );
 		return $this;
 	}
 
 	/**
+	 * Returns an array of human friendly field labels
+	 *  as defined in the config array
 	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @return array
+	 */
+	protected function labels() {
+		return array_map( function( $item ) {
+			return $item['label'];
+		}, $this->config);
+	}
+
+	/**
+	 * Create instance of InputCollection
+	 * Save it in $collection array property
 	 *
 	 * @since 0.10.0
 	 *
