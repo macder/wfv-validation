@@ -85,7 +85,7 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
+	 * Creates the instance of FormComposite
 	 *
 	 * @since 0.10.0
 	 *
@@ -98,19 +98,36 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
+	 * Create instance of ErrorCollection
+	 * Save it in $collection array property
 	 *
 	 * @since 0.10.0
 	 *
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function errors() {
-		$this->collection['errors'] = new ErrorCollection();
+		$this->collection['errors'] = new ErrorCollection( $this->labels() );
 		return $this;
 	}
 
 	/**
+	 * Returns an array of human friendly field labels
+	 *  as defined in the config array
 	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @return array
+	 */
+	protected function labels() {
+		return array_map( function( $item ) {
+			return $item['label'];
+		}, $this->config);
+	}
+
+	/**
+	 * Create instance of InputCollection
+	 * Save it in $collection array property
 	 *
 	 * @since 0.10.0
 	 *
@@ -118,12 +135,15 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function input( array $data = [] ) {
-		$this->collection['input'] = new InputCollection( $data );
+		$input = $data[0];
+		$trim = $data[1];
+		$this->collection['input'] = new InputCollection( $input, $trim );
 		return $this;
 	}
 
 	/**
-	 *
+	 * Create instance of RuleCollection
+	 * Save it in $collection array property
 	 *
 	 * @since 0.10.0
 	 *
@@ -139,7 +159,8 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
+	 * Create instance of WFV\Validator
+	 * Save it in $validator property
 	 *
 	 * @since 0.11.0
 	 *
@@ -151,7 +172,8 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 * Creates a validator for each rule
+	 * Creates a validator (strategy) for each rule
+	 * Save it in $strategies property
 	 *
 	 * @since 0.11.0
 	 * @access protected

@@ -197,10 +197,12 @@ $: vendor/bin/phpunit --report-useless-tests --verbose
 **PHP:** 5.4+<br>
 **WordPress:** 4.x.x including multisite
 
-[0.10.1](https://github.com/macder/wp-form-validation/tree/0.10.1) is passing on: [WordPress 4.7.4 + multisite / PHP 5.4, 5.5, 5.6, 7.0](https://travis-ci.org/macder/wp-form-validation/builds/229603246)
+**Unsupported Minimum:**<br>
+**PHP:** 5.4+<br>
+**WordPress:** 3.7 including multisite
 
-**Minimum un-supported version:**<br>
-[0.10.1](https://github.com/macder/wp-form-validation/tree/0.10.1) is passing on: [WordPress 3.7 + multisite / PHP 5.4, 5.5, 5.6](https://travis-ci.org/macder/wp-form-validation/builds/229602707)
+PHP 7.0+ with latest WordPress is recommended.
+
 
 ## External Resources
 

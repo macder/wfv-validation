@@ -29,14 +29,15 @@ use WFV\Artisan\FormArtisan;
  *
  * @param string $action
  * @param array $form Form arguments
+ * @param bool $trim Trim whitespace from beginning and end of string
  */
-function wfv_create( $action, array &$form ) {
+function wfv_create( $action, array &$form, $trim = true ) {
 	$inspect = new InspectionAgent( $action );
 	$input = ( true === $inspect->safe_submit() ) ? $_POST : array();
 
 	$builder = new FormArtisan( $form );
 	$form = ( new Director( $action ) )
-		->with( 'input', $input )
+		->with( 'input', [ $input, $trim ] )
 		->with( 'rules' )
 		->with( 'errors' )
 		->with( 'validator' )
