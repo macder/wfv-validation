@@ -27,15 +27,6 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var bool
-	 */
-	protected $optional;
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @access protected
 	 * @var array
 	 */
 	protected $params;
