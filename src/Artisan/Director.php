@@ -46,7 +46,7 @@ class Director {
    *
    * @param string (optional) $identity
    */
-  function __construct( $identity = null ) {
+  public function __construct( $identity = null ) {
     $this->entity = $identity;
   }
 

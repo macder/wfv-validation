@@ -11,41 +11,64 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 	 * @access protected
 	 * @var
 	 */
-	protected static $rules;
+	protected static $rule_collection;
 
 	/**
 	 *
 	 *
 	 */
 	protected function setUp() {
-		self::$rules = array(
-			'name'      => 'required',
-			'title'     => 'required',
-			'phone'     => 'required',
-			'email'     => 'required|email',
-			'gender'    => 'required',
-			'skills'    => 'required',
-			'postal'    => 'required',
-			'website'   => 'required',
-			'msg'       => 'required'
+		$rules = array(
+			'single'    => 'required',
+			'double'    => 'required|email',
+			'params'    => 'required_if:field,value',
 		);
+
+		self::$rule_collection = new RuleCollection( $rules );
 	}
 
 	/**
 	 *
 	 *
 	 */
-	protected function tearDown() {
+	public function test_rules_is_instance() {
+		$expected = 'WFV\Collection\RuleCollection';
+		$result = self::$rule_collection;
+
+		$this->assertInstanceOf( $expected, $result );
 	}
 
 	/**
-	 *
+	 * Do multiple rules from config string split into an array?
 	 *
 	 */
-	public function test_rules_() {
+	public function test_rules_splits_ruleset_from_string() {
+		$expected = array(
+			'required', 'email'
+		);
+		$rule_array = self::$rule_collection->get_array();
+		$result = $rule_array['double'];
 
-		// WIP -
-		$this->assertTrue(true);
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Do rules with parameters get split into array?
+	 *
+	 */
+	public function test_rules_splits_ruleset_with_params_from_string() {
+		$expected = array(
+			array(
+				'rule' => 'required_if',
+				'params' => array(
+					'field', 'value'
+				)
+			)
+		);
+
+		$rule_array = self::$rule_collection->get_array();
+		$result = $rule_array['params'];
+		$this->assertEquals( $expected, $result );
 	}
 
 }

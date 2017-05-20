@@ -54,7 +54,7 @@ abstract class AbstractValidator implements ValidateInterface {
 	 * @since 0.11.0
 	 *
 	 */
-	function __construct( $field ) {
+	public function __construct( $field ) {
 		$this->validator = new RespectValidator();
 		$this->field = $field;
 		$args = func_get_args();

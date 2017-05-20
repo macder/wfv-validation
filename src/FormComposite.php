@@ -30,7 +30,7 @@ class FormComposite extends Composable {
 	 * @param ArtisanInterface $builder
 	 * @param string $action
 	 */
-	function __construct( ArtisanInterface $builder, $action ) {
+	public function __construct( ArtisanInterface $builder, $action ) {
 		$this->alias = $action;
 		$this->install( $builder->collection );
 		$this->validator = $builder->validator;

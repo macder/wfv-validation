@@ -16,7 +16,7 @@ class MessageCollection extends Collectable {
 	 *
 	 * @param array $form Config array
 	 */
-	function __construct( array $form ) {
+	public function __construct( array $form ) {
 		$this->set_messages( $form );
 	}
 
