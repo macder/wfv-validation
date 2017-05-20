@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Artisan;
-defined( 'ABSPATH' ) or die( 'envois' );
+defined( 'ABSPATH' ) || die( 'envois' );
 
 use WFV\Contract\ArtisanInterface;
 

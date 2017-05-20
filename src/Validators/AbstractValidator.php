@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Validators;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use \Respect\Validation\Validator as RespectValidator;
 use \Respect\Validation\Exceptions\NestedValidationException;

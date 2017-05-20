@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 /*
 Plugin Name: WFV - Form Validation
 Plugin URI:  https://macder.github.io/wfv/

@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Contract;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 /**
  *
