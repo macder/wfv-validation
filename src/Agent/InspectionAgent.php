@@ -35,7 +35,7 @@ class InspectionAgent {
 	 *
 	 * @param string $action
 	 */
-	function __construct( $action ) {
+	public function __construct( $action ) {
 		$this->action = $action;
 		$this->token = wp_create_nonce( $action );
 	}
