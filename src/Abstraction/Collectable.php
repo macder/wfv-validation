@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Abstraction;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use WFV\Contract\CollectionInterface;
 
@@ -25,6 +25,8 @@ abstract class Collectable implements CollectionInterface {
 	 *
 	 * @since 0.10.0
 	 *
+	 * @param string $key
+	 * @param string $value
 	 * @return bool
 	 */
 	public function contains( $key = null, $value = null ) {
@@ -64,8 +66,6 @@ abstract class Collectable implements CollectionInterface {
 	 * @return bool
 	 */
 	public function has( $key = null ) {
-		/*array_walk( $this->data, function( $item, $key ) {
-		});*/
 		return array_key_exists( $key, $this->data );
 	}
 
@@ -112,7 +112,7 @@ abstract class Collectable implements CollectionInterface {
 	 * @return array
 	 */
 	protected function transform_array_leafs( array $array, $callback ) {
-		array_walk_recursive( $array, function( &$item, $key ) use( $callback ) {
+		array_walk_recursive( $array, function( &$item ) use( $callback ) {
 			$item = $this->call_func( $callback, $item );
 		} );
 		return $array;

@@ -9,7 +9,7 @@ use WFV\Validators\AbstractValidator;
  *
  * @since 0.11.0
  */
-class Callback extends AbstractValidator {
+class Digit extends AbstractValidator {
 
 	/**
 	 *
@@ -19,8 +19,8 @@ class Callback extends AbstractValidator {
 	 * @var array
 	 */
 	protected $template = [
-		'message' => '{label} is not valid',
-		'name' => 'callback',
+		'message' => '{label} must be a digit',
+		'name' => 'digit',
 	];
 
 	/**
@@ -34,8 +34,8 @@ class Callback extends AbstractValidator {
 	public function set_policy( $optional = false ) {
 		$v = $this->validator;
 		$v = ( $optional )
-			? $v->optional( $v->create()->callback( $this->params[0] ) )
-			: $v->callback( $this->params[0] );
+			? $v->optional( $v->create()->digit()->length(1,1) )
+			: $v->digit()->length(1,1);
 		return $this;
 	}
 }

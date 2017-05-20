@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Validators;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use WFV\Validators\AbstractValidator;
 
@@ -18,7 +18,7 @@ class RequiredWith extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var
+	 * @var array
 	 */
 	protected $template = [
 		'message' => '{label} is required',

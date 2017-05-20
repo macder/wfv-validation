@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Artisan;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use WFV\Contract\ArtisanInterface;
 use WFV\Collection\ErrorCollection;

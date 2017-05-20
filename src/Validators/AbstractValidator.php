@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Validators;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use \Respect\Validation\Validator as RespectValidator;
 use \Respect\Validation\Exceptions\NestedValidationException;
@@ -110,7 +110,7 @@ abstract class AbstractValidator implements ValidateInterface {
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param string|array $input
+	 * @param string|array $value
 	 * @return bool
 	 */
 	public function validate( $value ) {

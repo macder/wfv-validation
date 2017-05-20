@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Collection;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 use WFV\Abstraction\Collectable;
 /**
  *

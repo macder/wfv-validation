@@ -43,7 +43,8 @@ Activate the plugin in the admin dashboard
 ## Architecture
 
 **Creation**<br>
-Builder
+Builder - FormComposite<br>
+Abstract Factory - Validators
 
 **Structure**<br>
 Composite<br>

@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Factory;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use WFV\Factory\AbstractFactory;
 use WFV\Validators;

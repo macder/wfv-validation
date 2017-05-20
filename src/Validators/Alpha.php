@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Validators;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use WFV\Validators\AbstractValidator;
 
@@ -16,7 +16,7 @@ class Alpha extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var
+	 * @var array
 	 */
 	protected $template = [
 		'message' => '{label} can only contain alphabetic characters',
@@ -28,6 +28,8 @@ class Alpha extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param bool (optional) $optional
+	 * @return self
 	 */
 	public function set_policy( $optional = false ) {
 		$v = $this->validator;

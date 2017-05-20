@@ -1,6 +1,6 @@
 <?php
 namespace WFV;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use WFV\Abstraction\Composable;
 use WFV\Contract\ArtisanInterface;
