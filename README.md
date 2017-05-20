@@ -1,6 +1,6 @@
 # WFV - WordPress Form Validation
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wp-form-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wp-form-validation/?branch=master)
+[![Quality Score](https://img.shields.io/scrutinizer/g/macder/wp-form-validation.svg)](https://scrutinizer-ci.com/g/macder/wp-form-validation)
 
 Elegant input & validation API.
 
