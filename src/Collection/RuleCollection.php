@@ -35,21 +35,6 @@ class RuleCollection extends Collectable {
 	}
 
 	/**
-	 * Check if rule is custom
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $rule
-	 * @return bool
-	 */
-	public function is_custom( $rule ) {
-		// WIP - needs adjusting to new rule string format
-		if ( false === is_array( $rule ) ){
-			return ( false !== strpos( $rule, 'custom:' ) ) ? true : false;
-		}
-	}
-
-	/**
 	 * Extract rule name from a rule string
 	 *
 	 * @since 0.11.0
