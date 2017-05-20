@@ -89,6 +89,24 @@ class FormComposite extends Composable {
 	}
 
 	/**
+	 * Check if the validation passed or failed
+	 * Sets the error msgs if a fail
+	 * Trigger pass or fail action
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return bool
+	 */
+	public function is_valid() {
+		$is_valid = $this->validator->is_valid();
+		if( false === $is_valid ) {
+			$this->utilize('errors')->set_errors( $this->validator->errors() );
+		}
+		$this->trigger_post_validate_action( $is_valid );
+		return $is_valid;
+	}
+
+	/**
 	 * Use message collection
 	 *
 	 * @since 0.11.0
@@ -165,24 +183,6 @@ class FormComposite extends Composable {
 			return $input[ $field ];
 		}
 		return null;
-	}
-
-	/**
-	 * Check if the validation passed or failed
-	 * Sets the error msgs if a fail
-	 * Trigger pass or fail action
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return bool
-	 */
-	public function is_valid() {
-		$is_valid = $this->validator->is_valid();
-		if( false === $is_valid ) {
-			$this->utilize('errors')->set_errors( $this->validator->errors() );
-		}
-		$this->trigger_post_validate_action( $is_valid );
-		return $is_valid;
 	}
 
 	/**
