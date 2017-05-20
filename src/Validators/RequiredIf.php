@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Validators;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 use WFV\Validators\AbstractValidator;
 

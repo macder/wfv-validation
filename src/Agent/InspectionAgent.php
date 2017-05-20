@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Agent;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 
 /**

@@ -1,6 +1,6 @@
 <?php
 namespace WFV\Abstraction;
-defined( 'ABSPATH' ) or die();
+defined( 'ABSPATH' ) || die();
 
 /**
  *
