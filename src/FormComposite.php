@@ -18,7 +18,7 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var array
+	 * @var Validator
 	 */
 	protected $validator;
 
