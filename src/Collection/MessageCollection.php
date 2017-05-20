@@ -56,6 +56,7 @@ class MessageCollection extends Collectable {
 	 * @param array
 	 */
 	protected function make_array( array $filtered ) {
+		$messages = array();
 		foreach( $filtered as $field => $options ) {
 			$messages[ $field ] = $options['messages'];
 		}
