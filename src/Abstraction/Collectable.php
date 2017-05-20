@@ -75,7 +75,7 @@ abstract class Collectable implements CollectionInterface {
 	 * @return bool
 	 */
 	public function is_populated() {
-		return ( count( $this->data ) > 0 ) ? true : false;
+		return count( $this->data ) > 0;
 	}
 
 	/**
