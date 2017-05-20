@@ -17,7 +17,7 @@ class RequiredIf extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var
+	 * @var array
 	 */
 	protected $template = [
 		'message' => '{label} is required',

@@ -18,7 +18,7 @@ class Email extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var
+	 * @var array
 	 */
 	protected $template = [
 		'message' => '{label} is not a valid email address',
@@ -30,6 +30,8 @@ class Email extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param bool (optional) $optional
+	 * @return self
 	 */
 	public function set_policy( $optional = false ) {
 		$v = $this->validator;

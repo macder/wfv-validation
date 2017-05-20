@@ -16,7 +16,7 @@ class Date extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var
+	 * @var array
 	 */
 	protected $template = [
 		'message' => '{label} is not a valid date',
@@ -28,6 +28,8 @@ class Date extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param bool (optional) $optional
+	 * @return self
 	 */
 	public function set_policy( $optional = false ) {
 		$format = ( isset( $this->params[0] ) ) ? $this->params[0] : null;
