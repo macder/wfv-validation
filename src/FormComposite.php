@@ -3,7 +3,7 @@ namespace WFV;
 defined( 'ABSPATH' ) || die();
 
 use WFV\Abstraction\Composable;
-use WFV\Contract\ArtisanInterface;
+use WFV\Artisan\FormArtisan;
 use WFV\Contract\ValidateInterface;
 
 /**
@@ -30,7 +30,7 @@ class FormComposite extends Composable {
 	 * @param ArtisanInterface $builder
 	 * @param string $action
 	 */
-	public function __construct( ArtisanInterface $builder, $action ) {
+	public function __construct( FormArtisan $builder, $action ) {
 		$this->alias = $action;
 		$this->install( $builder->collection );
 		$this->validator = $builder->validator;
