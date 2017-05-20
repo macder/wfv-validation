@@ -9,7 +9,7 @@ use WFV\Validators\AbstractValidator;
  *
  * @since 0.11.0
  */
-class AlphaDash extends AbstractValidator {
+class Digit extends AbstractValidator {
 
 	/**
 	 *
@@ -19,8 +19,8 @@ class AlphaDash extends AbstractValidator {
 	 * @var array
 	 */
 	protected $template = [
-		'message' => '{label} can only contain alphabetic characters, dashes, and underscores',
-		'name' => 'alpha',
+		'message' => '{label} must be a digit',
+		'name' => 'digit',
 	];
 
 	/**
@@ -34,8 +34,8 @@ class AlphaDash extends AbstractValidator {
 	public function set_policy( $optional = false ) {
 		$v = $this->validator;
 		$v = ( $optional )
-			? $v->optional( $v->create()->alpha('-_') )
-			: $v->alpha('-_');
+			? $v->optional( $v->create()->digit()->length(1,1) )
+			: $v->digit()->length(1,1);
 		return $this;
 	}
 }

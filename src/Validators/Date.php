@@ -9,7 +9,7 @@ use WFV\Validators\AbstractValidator;
  *
  * @since 0.11.0
  */
-class AlphaDash extends AbstractValidator {
+class Date extends AbstractValidator {
 
 	/**
 	 *
@@ -19,8 +19,8 @@ class AlphaDash extends AbstractValidator {
 	 * @var array
 	 */
 	protected $template = [
-		'message' => '{label} can only contain alphabetic characters, dashes, and underscores',
-		'name' => 'alpha',
+		'message' => '{label} is not a valid date',
+		'name' => 'date',
 	];
 
 	/**
@@ -32,10 +32,12 @@ class AlphaDash extends AbstractValidator {
 	 * @return self
 	 */
 	public function set_policy( $optional = false ) {
+		$format = ( isset( $this->params[0] ) ) ? $this->params[0] : null;
+
 		$v = $this->validator;
 		$v = ( $optional )
-			? $v->optional( $v->create()->alpha('-_') )
-			: $v->alpha('-_');
+			? $v->optional( $v->create()->date( $format ) )
+			: $v->date( $format );
 		return $this;
 	}
 }

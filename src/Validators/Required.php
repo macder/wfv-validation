@@ -17,7 +17,7 @@ class Required extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var
+	 * @var array
 	 */
 	protected $template = [
 		'name' => 'required',
@@ -29,6 +29,8 @@ class Required extends AbstractValidator {
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param bool (optional) $optional
+	 * @return self
 	 */
 	public function set_policy( $optional = false ) {
 		$this->validator->notEmpty();
