@@ -35,28 +35,13 @@ class RuleCollection extends Collectable {
 	}
 
 	/**
-	 * Check if rule is custom
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $rule
-	 * @return bool
-	 */
-	public function is_custom( $rule ) {
-		// WIP - needs adjusting to new rule string format
-		if ( false === is_array( $rule ) ){
-			return ( false !== strpos( $rule, 'custom:' ) ) ? true : false;
-		}
-	}
-
-	/**
 	 * Extract rule name from a rule string
 	 *
 	 * @since 0.11.0
 	 * @access protected
 	 *
 	 * @param string $rule
-	 * @return bool
+	 * @return string
 	 */
 	protected function extract_name( $rule ) {
 		return strstr( $rule, ':', true );
@@ -69,7 +54,7 @@ class RuleCollection extends Collectable {
 	 * @access protected
 	 *
 	 * @param string $rule
-	 * @return bool
+	 * @return string
 	 */
 	protected function extract_params( $rule ) {
 		return ltrim( strstr($rule, ':'), ':');
@@ -100,6 +85,7 @@ class RuleCollection extends Collectable {
 	 */
 	protected function parse_rules( array $rules ) {
 		// WIP - works, but confusing - simplify or breakdown into small methods
+		$parsed = array();
 		$this->split_rules( $rules );
 		foreach( $rules as $field => $ruleset ) {
 			$parsed[ $field ] = array_map( function( $rule ) {
@@ -122,7 +108,6 @@ class RuleCollection extends Collectable {
 	 * @access protected
 	 *
 	 * @param array $rules
-	 * @return array
 	 */
 	protected function split_rules( array &$rules ) {
 		// perhaps the $rules array structure should be validated here?...

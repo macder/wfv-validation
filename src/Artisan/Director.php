@@ -46,7 +46,7 @@ class Director {
    *
    * @param string (optional) $identity
    */
-  function __construct( $identity = null ) {
+  public function __construct( $identity = null ) {
     $this->entity = $identity;
   }
 
@@ -106,17 +106,5 @@ class Director {
     foreach( $aspect as $component => $params ) {
       $artisan->$component( $params );
     }
-  }
-
-  /**
-   *
-   *
-   * @since 0.10.0
-   * @access private
-   *
-   * @param
-   */
-  private function adapt( $interface ) {
-
   }
 }

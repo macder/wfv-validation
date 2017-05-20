@@ -16,7 +16,7 @@ class MessageCollection extends Collectable {
 	 *
 	 * @param array $form Config array
 	 */
-	function __construct( array $form ) {
+	public function __construct( array $form ) {
 		$this->set_messages( $form );
 	}
 
@@ -56,6 +56,7 @@ class MessageCollection extends Collectable {
 	 * @param array
 	 */
 	protected function make_array( array $filtered ) {
+		$messages = array();
 		foreach( $filtered as $field => $options ) {
 			$messages[ $field ] = $options['messages'];
 		}

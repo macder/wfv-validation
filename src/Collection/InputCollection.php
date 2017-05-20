@@ -20,7 +20,7 @@ class InputCollection extends Collectable {
 	 * @param array $data
 	 * @param bool $trim
 	 */
-	function __construct( array $data = array(), $trim ) {
+	public function __construct( array $data = array(), $trim ) {
 		$data = $this->transform_array_leafs( $data, 'stripslashes' );
 		$this->data = ( $trim ) ? $this->transform_array_leafs( $data, 'trim' ) : $data;
 	}

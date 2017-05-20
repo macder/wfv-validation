@@ -18,7 +18,7 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var array
+	 * @var Validator
 	 */
 	protected $validator;
 
@@ -30,7 +30,7 @@ class FormComposite extends Composable {
 	 * @param ArtisanInterface $builder
 	 * @param string $action
 	 */
-	function __construct( ArtisanInterface $builder, $action ) {
+	public function __construct( ArtisanInterface $builder, $action ) {
 		$this->alias = $action;
 		$this->install( $builder->collection );
 		$this->validator = $builder->validator;
@@ -89,6 +89,24 @@ class FormComposite extends Composable {
 	}
 
 	/**
+	 * Check if the validation passed or failed
+	 * Sets the error msgs if a fail
+	 * Trigger pass or fail action
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return bool
+	 */
+	public function is_valid() {
+		$is_valid = $this->validator->is_valid();
+		if( false === $is_valid ) {
+			$this->utilize('errors')->set_errors( $this->validator->errors() );
+		}
+		$this->trigger_post_validate_action( $is_valid );
+		return $is_valid;
+	}
+
+	/**
 	 * Use message collection
 	 *
 	 * @since 0.11.0
@@ -142,6 +160,8 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param ValidateInterface $rule
+	 * @param string $field
 	 */
 	public function validate( ValidateInterface $rule, $field ) {
 		$input = $this->field_value( $field );
@@ -163,24 +183,6 @@ class FormComposite extends Composable {
 			return $input[ $field ];
 		}
 		return null;
-	}
-
-	/**
-	 * Check if the validation passed or failed
-	 * Sets the error msgs if a fail
-	 * Trigger pass or fail action
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return bool
-	 */
-	public function is_valid() {
-		$is_valid = $this->validator->is_valid();
-		if( false === $is_valid ) {
-			$this->utilize('errors')->set_errors( $this->validator->errors() );
-		}
-		$this->trigger_post_validate_action( $is_valid );
-		return $is_valid;
 	}
 
 	/**

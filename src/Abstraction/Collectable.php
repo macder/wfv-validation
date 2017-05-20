@@ -81,14 +81,14 @@ abstract class Collectable implements CollectionInterface {
 	}
 
 	/**
-	 * Returns a new array of this collection
-	 *  after passing each leaf through a callback.
+	 * If provided key is an array in this collection
+	 *  pass each leaf through a callback and return new array.
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param string|array $value
-	 * @param string $callback
-	 * @return string|array
+	 * @param string $key
+	 * @param callable $callback
+	 * @return array
 	 */
 	public function transform( $key = null, callable $callback ) {
 		// WIP

@@ -28,7 +28,7 @@ class ValidatorFactory extends AbstractFactory {
 	 *
 	 * @param array $messages Custom error messages
 	 */
-	function __construct( array $messages ) {
+	public function __construct( array $messages ) {
 		$this->messages = $messages;
 	}
 
