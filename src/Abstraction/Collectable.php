@@ -25,6 +25,8 @@ abstract class Collectable implements CollectionInterface {
 	 *
 	 * @since 0.10.0
 	 *
+	 * @param string $key
+	 * @param string $value
 	 * @return bool
 	 */
 	public function contains( $key = null, $value = null ) {
@@ -64,8 +66,6 @@ abstract class Collectable implements CollectionInterface {
 	 * @return bool
 	 */
 	public function has( $key = null ) {
-		/*array_walk( $this->data, function( $item, $key ) {
-		});*/
 		return array_key_exists( $key, $this->data );
 	}
 
