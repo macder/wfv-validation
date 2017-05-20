@@ -30,12 +30,10 @@ abstract class Collectable implements CollectionInterface {
 	 * @return bool
 	 */
 	public function contains( $key = null, $value = null ) {
-		// WIP
 		if( $this->has( $key ) ) {
-			if ( is_array( $this->data[ $key ] ) ) {
-				return ( in_array( $value, $this->data[ $key ] ) ) ? true : false;
-			}
-			return ( $this->data[ $key ] === $value ) ? true : false;
+			return ( is_array( $this->data[ $key ] ) )
+				? in_array( $value, $this->data[ $key ] )
+				: $this->data[ $key ] === $value;
 		}
 		return false;
 	}
@@ -77,7 +75,7 @@ abstract class Collectable implements CollectionInterface {
 	 * @return bool
 	 */
 	public function is_populated() {
-		return ( count( $this->data ) > 0 ) ? true : false;
+		return count( $this->data ) > 0;
 	}
 
 	/**
