@@ -112,7 +112,7 @@ abstract class Collectable implements CollectionInterface {
 	 * @return array
 	 */
 	protected function transform_array_leafs( array $array, $callback ) {
-		array_walk_recursive( $array, function( &$item, $key ) use( $callback ) {
+		array_walk_recursive( $array, function( &$item ) use( $callback ) {
 			$item = $this->call_func( $callback, $item );
 		} );
 		return $array;
