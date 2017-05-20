@@ -84,6 +84,7 @@ class ErrorCollection extends Collectable {
 	 * @return array
 	 */
 	protected function with_labels( $errors ) {
+		$labeled = array();
 		foreach( $errors as $field => $messages ) {
 			$label = $this->label( $field );
 			$labeled[ $field ] = str_replace( '{label}', $label, $errors[ $field ] );
