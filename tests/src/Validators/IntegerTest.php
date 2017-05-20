@@ -61,4 +61,33 @@ class IntegerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse( $result );
 	}
 
+
+	/**
+	 * Does integer validation return false when
+	 *  validation is NOT optional
+	 *  and input is float?
+	 *
+	 */
+	public function test_integer_returns_false_when_not_optional_and_input_float() {
+		$optional = false;
+		$validator = ( new Integer('test_field') )->set_policy( $optional );
+
+		$result = $validator->validate( 1.1 );
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * Does integer validation return false when
+	 *  validation is optional
+	 *  and input is float?
+	 *
+	 */
+	public function test_integer_returns_false_when_optional_and_input_float() {
+		$optional = true;
+		$validator = ( new Integer('test_field') )->set_policy( $optional );
+
+		$result = $validator->validate( 1.1 );
+		$this->assertFalse( $result );
+	}
+
 }
