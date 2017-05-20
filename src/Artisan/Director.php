@@ -107,16 +107,4 @@ class Director {
       $artisan->$component( $params );
     }
   }
-
-  /**
-   *
-   *
-   * @since 0.10.0
-   * @access private
-   *
-   * @param
-   */
-  private function adapt( $interface ) {
-
-  }
 }
