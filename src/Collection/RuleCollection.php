@@ -41,7 +41,7 @@ class RuleCollection extends Collectable {
 	 * @access protected
 	 *
 	 * @param string $rule
-	 * @return bool
+	 * @return string
 	 */
 	protected function extract_name( $rule ) {
 		return strstr( $rule, ':', true );
@@ -54,7 +54,7 @@ class RuleCollection extends Collectable {
 	 * @access protected
 	 *
 	 * @param string $rule
-	 * @return bool
+	 * @return string
 	 */
 	protected function extract_params( $rule ) {
 		return ltrim( strstr($rule, ':'), ':');
@@ -107,7 +107,6 @@ class RuleCollection extends Collectable {
 	 * @access protected
 	 *
 	 * @param array $rules
-	 * @return array
 	 */
 	protected function split_rules( array &$rules ) {
 		// perhaps the $rules array structure should be validated here?...
