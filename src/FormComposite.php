@@ -142,6 +142,8 @@ class FormComposite extends Composable {
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param ValidateInterface $rule
+	 * @param string $field
 	 */
 	public function validate( ValidateInterface $rule, $field ) {
 		$input = $this->field_value( $field );
