@@ -30,7 +30,7 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 *
 	 * @since 0.11.0
-	 * @var WFV\Validator
+	 * @var \WFV\Validator
 	 */
 	public $validator;
 
@@ -48,7 +48,7 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 * @access protected
-	 * @var WFV\FormComposite
+	 * @var \WFV\FormComposite
 	 */
 	protected $form;
 
@@ -137,6 +137,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function rules() {
+		$rules = array();
 		foreach( $this->config as $field => $options ) {
 			$rules[ $field ] = $options['rules'];
 		}
