@@ -26,32 +26,26 @@ class RequiredWith extends AbstractValidator {
 	];
 
 	/**
-	 * Set the validation constraints that make this rule
+	 * Validate an input value
 	 *
 	 * @since 0.11.0
 	 *
-	 */
-	public function set_policy( $optional = false ) {
-		$other_field = $this->params[0];
-		$v = $this->validator;
-
-		$v->when(
-			$v->create()->key( $other_field, $v->create()->notEmpty() ),
-			$v->create()->key( $this->field, $v->create()->notEmpty() ),
-			$v->create()->key( $this->field, $v->create()->alwaysValid() )
-		);
-		return $this;
-	}
-
-	/**
-	 * Override to use $_POST data so other field can be checked
-	 *
-	 * @since 0.11.0
-	 *
-	 * @param string|array $input
+	 * @param string|array (optional) $input
+	 * @param bool (optional) $optional
 	 * @return bool
 	 */
-	public function validate( $input ){
-		return $this->validator->validate( $_POST );
+	public function validate( $input = null, $optional = false ){
+		$args = func_get_args();
+		$params = $args[2];
+		$other_field = $params[0];
+		$field = $params[1];
+
+		$v = $this->validator->create();
+
+		return $v->when(
+			$v->create()->key( $other_field, $v->create()->notEmpty() ),
+			$v->create()->key( $field, $v->create()->notEmpty() ),
+			$v->create()->key( $field, $v->create()->alwaysValid() )
+		)->validate( $_POST );
 	}
 }

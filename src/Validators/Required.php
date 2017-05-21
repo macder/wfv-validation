@@ -25,15 +25,16 @@ class Required extends AbstractValidator {
 	];
 
 	/**
-	 * Set the validation constraints that make this rule
+	 * Validate an input value
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param string|array (optional) $input
 	 * @param bool (optional) $optional
-	 * @return self
+	 * @return bool
 	 */
-	public function set_policy( $optional = false ) {
-		$this->validator->notEmpty();
-		return $this;
+	public function validate( $input = null, $optional = false ) {
+		$v = $this->validator->create()->notEmpty();
+		return $v->validate( $input );
 	}
 }

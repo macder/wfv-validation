@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die();
 use WFV\Abstraction\Composable;
 use WFV\Artisan\FormArtisan;
 use WFV\Contract\ValidateInterface;
+use WFV\Factory\ValidatorFactory;
 
 /**
  * Form Composition
@@ -156,20 +157,30 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Validate a field's input/rule pair
+	 * Perform the validation cycle
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param ValidateInterface $rule
-	 * @param string $field
+	 * @param ValidatorFactory $factory
+	 * @return self
 	 */
-	public function validate( ValidateInterface $rule, $field ) {
-		$input = $this->field_value( $field );
-		$this->validator->validate( $rule, $field, $input );
+	public function validate( ValidatorFactory $factory ) {
+		$rule_collection = $this->utilize('rules');
+		$rules = $rule_collection->get_array( true );
+		foreach( $rules as $field => $ruleset ) {
+			$input = $this->field_value( $field );
+			$optional = $rule_collection->is_optional( $field );
+			foreach( $ruleset as $index => $rule ) {
+				$params = $rule_collection->get_params( $field, $index );
+				$this->validator->validate( $factory->get( $rule ), $field, $input, $optional, $params );
+			}
+		}
+		return $this;
 	}
 
 	/**
-	 *
+	 * Returns the input value for a field
+	 * When not present, returns null
 	 *
 	 * @since 0.11.0
 	 * @access protected

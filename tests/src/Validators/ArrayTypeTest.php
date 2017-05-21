@@ -6,6 +6,30 @@ use \Respect\Validation\Validator;
 class ArrayTypeTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 *
+	 *
+	 * @access protected
+	 * @var ValidateInterface
+	 */
+	protected static $validator;
+
+	/**
+	 *
+	 *
+	 */
+	protected function setUp() {
+		self::$validator = new ArrayType();
+	}
+
+	/**
+	 * Reset
+	 *
+	 */
+	protected function tearDown() {
+		self::$validator = null;
+	}
+
+	/**
 	 * Does array validation return true when
 	 *  validation is NOT optional
 	 *  and input is array?
@@ -13,9 +37,8 @@ class ArrayTypeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_array_returns_true_when_not_optional_and_input_array() {
 		$optional = false;
-		$validator = ( new ArrayType('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( array('test','test2') );
+		$result = self::$validator->validate( array('test','test2'), $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -27,9 +50,8 @@ class ArrayTypeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_array_returns_true_when_optional_and_input_array() {
 		$optional = true;
-		$validator = ( new ArrayType('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( array('test','test2') );
+		$result = self::$validator->validate( array('test','test2'), $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -41,9 +63,8 @@ class ArrayTypeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_array_returns_true_when_optional_and_input_empty() {
 		$optional = true;
-		$validator = ( new ArrayType('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -55,9 +76,8 @@ class ArrayTypeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_array_returns_false_when_not_optional_and_input_string() {
 		$optional = false;
-		$validator = ( new ArrayType('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 'string val' );
+		$result = self::$validator->validate( 'string val', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -69,9 +89,8 @@ class ArrayTypeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_array_returns_false_when_optional_and_input_string() {
 		$optional = true;
-		$validator = ( new ArrayType('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 'string val' );
+		$result = self::$validator->validate( 'string val', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -83,9 +102,8 @@ class ArrayTypeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_array_returns_false_when_not_optional_and_input_null() {
 		$optional = false;
-		$validator = ( new ArrayType('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional );
 		$this->assertFalse( $result );
 	}
 }

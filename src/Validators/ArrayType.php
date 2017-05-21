@@ -24,18 +24,18 @@ class ArrayType extends AbstractValidator {
 	];
 
 	/**
-	 * Set the validation constraints that make this rule
+	 * Validate an input value
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param string|array (optional) $input
 	 * @param bool (optional) $optional
-	 * @return self
+	 * @return bool
 	 */
-	public function set_policy( $optional = false ) {
-		$v = $this->validator;
-		$v = ( $optional )
-			? $v->optional( $v->create()->arrayType() )
-			: $v->arrayType();
-		return $this;
+	public function validate( $input = null, $optional = false ) {
+		$v = $this->validator->create();
+		return ( $optional )
+			? $v->optional( $v->create()->arrayType() )->validate( $input )
+			: $v->arrayType()->validate( $input );
 	}
 }

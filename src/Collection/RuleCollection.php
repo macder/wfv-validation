@@ -25,13 +25,42 @@ class RuleCollection extends Collectable {
 
 	/**
 	 * Get rules array
+	 * When $flat is true, returns array without params
 	 *
 	 * @since 0.10.0
 	 *
+	 * @param bool (optional) $flat
 	 * @return array
 	 */
-	public function get_array() {
-		return $this->data;
+	public function get_array( $flat = false ) {
+		return ( $flat ) ? $this->remove_params() : $this->data;
+	}
+
+	/**
+	 * Return a rule's parameters or false if none
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param string $field
+	 * @param int $index
+	 * @return array|bool
+	 */
+	public function get_params( $field, $index ) {
+		return ( $this-> has_params( $field, $index ) )
+			? $this->data[ $field ][ $index ]['params']
+			: false;
+	}
+
+	/**
+	 * Returns true if field is optional
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param string $field
+	 * @return bool
+	 */
+	public function is_optional( $field ) {
+		return in_array('optional', $this->data[ $field ] );
 	}
 
 	/**
@@ -43,9 +72,7 @@ class RuleCollection extends Collectable {
 	 */
 	public function unique() {
 		$flat = $this->flatten( $this->remove_params() );
-		return array_values( array_filter( array_unique( $flat ), function( $item ) {
-			return $item !== 'optional';
-		}));
+		return array_values( array_unique( $flat ) );
 	}
 
 	/**
@@ -75,7 +102,7 @@ class RuleCollection extends Collectable {
 	}
 
 	/**
-	 *
+	 * Returns a flat index array of rules
 	 *
 	 * @since 0.11.0
 	 * @access protected
@@ -96,6 +123,20 @@ class RuleCollection extends Collectable {
 	}
 
 	/**
+	 * Returns true when a rule has parameters
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @param string $field
+	 * @param int $index
+	 * @return bool
+	 */
+	protected function has_params( $field, $index ) {
+		return is_array( $this->data[ $field ][ $index ] );
+	}
+
+	/**
 	 * Checks if a rule string has parameters
 	 *
 	 * @since 0.11.0
@@ -104,7 +145,7 @@ class RuleCollection extends Collectable {
 	 * @param string $rule
 	 * @return bool
 	 */
-	protected function has_parameters( $rule ) {
+	protected function string_has_params( $rule ) {
 		return strpos( $rule, ':' );
 	}
 
@@ -124,7 +165,7 @@ class RuleCollection extends Collectable {
 		$this->split_rules( $rules );
 		foreach( $rules as $field => $ruleset ) {
 			$parsed[ $field ] = array_map( function( $rule ) {
-				if ( $this->has_parameters( $rule ) ) {
+				if ( $this->string_has_params( $rule ) ) {
 					return array(
 						'rule' => $this->extract_name( $rule ),
 						'params' => explode( ',', $this->extract_params( $rule ) )
@@ -148,7 +189,9 @@ class RuleCollection extends Collectable {
 	protected function remove_params() {
 		return array_map( function( $item ) {
 			foreach( $item as $rule ) {
-				$rules[] = ( is_string( $rule ) ) ? $rule : $rule['rule'];
+				if( $rule !== 'optional' ) {
+					$rules[] = ( is_string( $rule ) ) ? $rule : $rule['rule'];
+				}
 			}
 			return $rules;
 		}, $this->data );
