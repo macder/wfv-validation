@@ -117,18 +117,6 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
-	 *
-	 * @since 0.10.0
-	 *
-	 * @return WFV\Artisan\FormArtisan
-	 */
-	public function messages() {
-		$this->collection['messages'] = new MessageCollection( $this->config );
-		return $this;
-	}
-
-	/**
 	 * Create instance of RuleCollection
 	 * Save it in $collection array property
 	 *
@@ -154,7 +142,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function validator() {
-		$this->validator = new Validator();
+		$this->validator = new Validator( new MessageCollection( $this->config ) );
 		return $this;
 	}
 
