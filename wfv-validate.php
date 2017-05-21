@@ -42,7 +42,6 @@ function wfv_create( $action, array &$form, $trim = true ) {
 		->with( 'input', [ $input, $trim ] )
 		->with( 'rules' )
 		->with( 'errors' )
-		->with( 'messages' )
 		->with( 'validator' )
 		->compose( $builder );
 

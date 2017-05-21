@@ -9,7 +9,7 @@ use WFV\Validators\AbstractValidator;
  *
  * @since 0.11.0
  */
-class Alpha extends AbstractValidator {
+class Min extends AbstractValidator {
 
 	/**
 	 *
@@ -19,8 +19,8 @@ class Alpha extends AbstractValidator {
 	 * @var array
 	 */
 	protected $template = [
-		'message' => '{label} can only contain alphabetic characters',
-		'name' => 'alpha',
+		'message' => '{label} must exceed {value}',
+		'name' => 'min',
 	];
 
 	/**
@@ -33,10 +33,14 @@ class Alpha extends AbstractValidator {
 	 * @return bool
 	 */
 	public function validate( $input = null, $optional = false ) {
+		$args = func_get_args();
+		$params = $args[2];
+		$min_value = $params[0];
+
 		$v = $this->validator->create();
 
 		return ( $optional )
-			? $v->optional( $v->create()->alpha() )->validate( $input )
-			: $v->alpha()->validate( $input );
+			? $v->optional( $v->create()->min( $min_value ) )->validate( $input )
+			: $v->min( $min_value )->validate( $input );
 	}
 }

@@ -9,7 +9,7 @@ use WFV\Validators\AbstractValidator;
  *
  * @since 0.11.0
  */
-class Alpha extends AbstractValidator {
+class Ip extends AbstractValidator {
 
 	/**
 	 *
@@ -19,8 +19,8 @@ class Alpha extends AbstractValidator {
 	 * @var array
 	 */
 	protected $template = [
-		'message' => '{label} can only contain alphabetic characters',
-		'name' => 'alpha',
+		'message' => '{label} must be an IP address',
+		'name' => 'ip',
 	];
 
 	/**
@@ -36,7 +36,7 @@ class Alpha extends AbstractValidator {
 		$v = $this->validator->create();
 
 		return ( $optional )
-			? $v->optional( $v->create()->alpha() )->validate( $input )
-			: $v->alpha()->validate( $input );
+			? $v->optional( $v->create()->ip() )->validate( $input )
+			: $v->ip()->validate( $input );
 	}
 }
