@@ -133,7 +133,7 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 	 *  and input exceeds alpha max?
 	 *
 	 */
-	public function test_max_returns_true_when_optional_and_input_alpha_above() {
+	public function test_max_returns_false_when_optional_and_input_alpha_above() {
 		$optional = true;
 		$params = ['c'];
 
@@ -189,7 +189,7 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 	 *  and input exceeds date max?
 	 *
 	 */
-	public function test_max_returns_true_when_optional_and_input_date_above() {
+	public function test_max_returns_false_when_optional_and_input_date_above() {
 		$optional = true;
 		$params = ['2017-06-30'];
 
