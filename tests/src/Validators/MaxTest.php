@@ -32,7 +32,7 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Does max validation return true when
 	 *  validation is NOT optional
-	 *  and input is does NOT exceed int max?
+	 *  and input does NOT exceed int max?
 	 *
 	 */
 	public function test_max_returns_true_when_not_optional_and_input_int_beneath() {
@@ -44,9 +44,23 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Does max validation return false when
+	 *  validation is NOT optional
+	 *  and input exceeds int max?
+	 *
+	 */
+	public function test_max_returns_false_when_not_optional_and_input_int_above() {
+		$optional = false;
+		$params = [10];
+
+		$result = self::$validator->validate( 15, $optional, $params );
+		$this->assertFalse( $result );
+	}
+
+	/**
 	 * Does max validation return true when
 	 *  validation is optional
-	 *  and input is does NOT exceed int max?
+	 *  and input does NOT exceed int max?
 	 *
 	 */
 	public function test_max_returns_true_when_optional_and_input_int_beneath() {
@@ -57,11 +71,24 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * Does max validation return false when
+	 *  validation is optional
+	 *  and input exceeds int max?
+	 *
+	 */
+	public function test_max_returns_false_when_optional_and_input_int_above() {
+		$optional = false;
+		$params = [10];
+
+		$result = self::$validator->validate( 15, $optional, $params );
+		$this->assertFalse( $result );
+	}
 
 	/**
 	 * Does max validation return true when
 	 *  validation is NOT optional
-	 *  and input is does NOT exceed alpha max?
+	 *  and input does NOT exceed alpha max?
 	 *
 	 */
 	public function test_max_returns_true_when_not_optional_and_input_alpha_beneath() {
@@ -73,9 +100,23 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Does max validation return false when
+	 *  validation is NOT optional
+	 *  and input exceeds alpha max?
+	 *
+	 */
+	public function test_max_returns_false_when_not_optional_and_input_alpha_above() {
+		$optional = false;
+		$params = ['c'];
+
+		$result = self::$validator->validate( 'd', $optional, $params );
+		$this->assertFalse( $result );
+	}
+
+	/**
 	 * Does max validation return true when
 	 *  validation is optional
-	 *  and input is does NOT exceed alpha max?
+	 *  and input does NOT exceed alpha max?
 	 *
 	 */
 	public function test_max_returns_true_when_optional_and_input_alpha_beneath() {
@@ -87,9 +128,23 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Does max validation return false when
+	 *  validation is optional
+	 *  and input exceeds alpha max?
+	 *
+	 */
+	public function test_max_returns_true_when_optional_and_input_alpha_above() {
+		$optional = true;
+		$params = ['c'];
+
+		$result = self::$validator->validate( 'd', $optional, $params );
+		$this->assertFalse( $result );
+	}
+
+	/**
 	 * Does max validation return true when
 	 *  validation is NOT optional
-	 *  and input is does NOT exceed date max?
+	 *  and input does NOT exceed date max?
 	 *
 	 */
 	public function test_max_returns_true_when_not_optional_and_input_date_beneath() {
@@ -101,9 +156,23 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Does max validation return false when
+	 *  validation is NOT optional
+	 *  and input exceeds date max?
+	 *
+	 */
+	public function test_max_returns_false_when_not_optional_and_input_date_above() {
+		$optional = false;
+		$params = ['2017-06-30'];
+
+		$result = self::$validator->validate( '2017-07-29', $optional, $params );
+		$this->assertFalse( $result );
+	}
+
+	/**
 	 * Does max validation return true when
 	 *  validation is optional
-	 *  and input is does NOT exceed date max?
+	 *  and input does NOT exceed date max?
 	 *
 	 */
 	public function test_max_returns_true_when_optional_and_input_date_beneath() {
@@ -114,4 +183,17 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( $result );
 	}
 
+	/**
+	 * Does max validation return false when
+	 *  validation is optional
+	 *  and input exceeds date max?
+	 *
+	 */
+	public function test_max_returns_true_when_optional_and_input_date_above() {
+		$optional = true;
+		$params = ['2017-06-30'];
+
+		$result = self::$validator->validate( '2017-07-29', $optional, $params );
+		$this->assertFalse( $result );
+	}
 }
