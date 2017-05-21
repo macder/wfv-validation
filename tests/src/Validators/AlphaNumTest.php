@@ -6,6 +6,30 @@ use \Respect\Validation\Validator;
 class AlphaNumTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 *
+	 *
+	 * @access protected
+	 * @var ValidateInterface
+	 */
+	protected static $validator;
+
+	/**
+	 *
+	 *
+	 */
+	protected function setUp() {
+		self::$validator = new AlphaNum();
+	}
+
+	/**
+	 * Reset
+	 *
+	 */
+	protected function tearDown() {
+		self::$validator = null;
+	}
+
+	/**
 	 * Does alpha_num validation return true when
 	 *  validation is NOT optional
 	 *  and input is only alphanum chars?
@@ -13,9 +37,8 @@ class AlphaNumTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alphanum_returns_true_when_not_optional_and_input_alphanum() {
 		$optional = false;
-		$validator = ( new AlphaNum( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( 'abc 123' );
+		$result = self::$validator->validate( 'abc 123', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -27,9 +50,8 @@ class AlphaNumTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alphanum_returns_true_when_optional_and_input_alphanum() {
 		$optional = true;
-		$validator = ( new AlphaNum( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( 'abc 123' );
+		$result = self::$validator->validate( 'abc 123', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -41,9 +63,8 @@ class AlphaNumTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alphanum_returns_false_when_not_optional_and_input_not_alphanum() {
 		$optional = false;
-		$validator = ( new AlphaNum( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( '?!@' );
+		$result = self::$validator->validate( '?!@', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -55,9 +76,8 @@ class AlphaNumTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alphanum_returns_false_when_optional_and_input_not_alphanum() {
 		$optional = true;
-		$validator = ( new AlphaNum( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( '?!@' );
+		$result = self::$validator->validate( '?!@', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -69,9 +89,8 @@ class AlphaNumTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alphanum_returns_false_when_not_optional_and_input_null() {
 		$optional = false;
-		$validator = ( new AlphaNum( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -83,9 +102,8 @@ class AlphaNumTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alphanum_returns_true_when_optional_and_input_null() {
 		$optional = true;
-		$validator = ( new AlphaNum( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional );
 		$this->assertTrue( $result );
 	}
 }

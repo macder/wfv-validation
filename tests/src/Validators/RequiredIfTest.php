@@ -16,13 +16,23 @@ class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 *
 	 *
+	 * @access protected
+	 * @var
+	 */
+	protected static $params;
+
+	/**
+	 *
+	 *
 	 */
 	protected function setUp() {
-		$params = array(
+		self::$params = array(
 			'other_field',
-			'is this value'
+			'is this value',
+			'test_field'
+
 		);
-		self::$required_if = ( new RequiredIf( 'test_field', $params ) )->set_policy();
+		self::$required_if = new RequiredIf();
 	}
 
 	/**
@@ -45,7 +55,7 @@ class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => 'is now required',
 		);
 
-		$result = self::$required_if->validate( $_POST );
+		$result = self::$required_if->validate( 'null', false, self::$params );
 		$this->assertTrue( $result );
 	}
 
@@ -60,7 +70,7 @@ class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => '',
 		);
 
-		$result = self::$required_if->validate( $_POST );
+		$result = self::$required_if->validate( 'null', false, self::$params );
 		$this->assertTrue( $result );
 	}
 
@@ -75,7 +85,7 @@ class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => '',
 		);
 
-		$result = self::$required_if->validate( $_POST );
+		$result = self::$required_if->validate( 'null', false, self::$params );
 		$this->assertTrue( $result );
 	}
 
@@ -90,7 +100,7 @@ class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => 'is not required',
 		);
 
-		$result = self::$required_if->validate( $_POST );
+		$result = self::$required_if->validate( 'null', false, self::$params );
 		$this->assertTrue( $result );
 	}
 
@@ -105,7 +115,7 @@ class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => '',
 		);
 
-		$result = self::$required_if->validate( $_POST );
+		$result = self::$required_if->validate( 'null', false, self::$params );
 		$this->assertFalse( $result );
 	}
 }

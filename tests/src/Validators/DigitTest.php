@@ -6,6 +6,30 @@ use \Respect\Validation\Validator;
 class DigitTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 *
+	 *
+	 * @access protected
+	 * @var ValidateInterface
+	 */
+	protected static $validator;
+
+	/**
+	 *
+	 *
+	 */
+	protected function setUp() {
+		self::$validator = new Digit();
+	}
+
+	/**
+	 * Reset
+	 *
+	 */
+	protected function tearDown() {
+		self::$validator = null;
+	}
+
+	/**
 	 * Does digit validation return true when
 	 *  validation is NOT optional
 	 *  and input is int digit?
@@ -13,9 +37,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_true_when_not_optional_and_input_int_digit() {
 		$optional = false;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 1 );
+		$result = self::$validator->validate( 1, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -27,9 +50,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_true_when_optional_and_input_int_digit() {
 		$optional = true;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 1 );
+		$result = self::$validator->validate( 1, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -41,9 +63,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_true_when_not_optional_and_input_string_digit() {
 		$optional = false;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( '1' );
+		$result = self::$validator->validate( '1', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -55,9 +76,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_true_when_optional_and_input_string_digit() {
 		$optional = true;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( '1' );
+		$result = self::$validator->validate( '1', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -69,9 +89,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_true_when_optional_and_input_null() {
 		$optional = true;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -83,9 +102,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_false_when_not_optional_and_input_null() {
 		$optional = false;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -97,9 +115,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_false_when_not_optional_and_input_not_digit() {
 		$optional = false;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 'string is not digit' );
+		$result = self::$validator->validate( 'string is not digit', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -111,9 +128,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_false_when_optional_and_input_digit() {
 		$optional = true;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 'string is not digit' );
+		$result = self::$validator->validate( 'string is not digit', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -125,9 +141,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_false_when_not_optional_and_input_numeric() {
 		$optional = false;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 123 );
+		$result = self::$validator->validate( 123, $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -139,9 +154,8 @@ class DigitTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_digit_returns_false_when_optional_and_input_numeric() {
 		$optional = true;
-		$validator = ( new Digit('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 123 );
+		$result = self::$validator->validate( 123, $optional );
 		$this->assertFalse( $result );
 	}
 }

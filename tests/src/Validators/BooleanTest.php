@@ -6,6 +6,30 @@ use \Respect\Validation\Validator;
 class BooleanTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 *
+	 *
+	 * @access protected
+	 * @var ValidateInterface
+	 */
+	protected static $validator;
+
+	/**
+	 *
+	 *
+	 */
+	protected function setUp() {
+		self::$validator = new Boolean();
+	}
+
+	/**
+	 * Reset
+	 *
+	 */
+	protected function tearDown() {
+		self::$validator = null;
+	}
+
+	/**
 	 * Does boolean validation return true when
 	 *  validation is NOT optional
 	 *  and input is bool false?
@@ -13,9 +37,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_not_optional_and_input_bool_false() {
 		$optional = false;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( false );
+		$result = self::$validator->validate( false, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -27,9 +50,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_not_optional_and_input_bool_true() {
 		$optional = false;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( true );
+		$result = self::$validator->validate( true, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -41,9 +63,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_not_optional_and_input_int_1() {
 		$optional = false;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( 1 );
+		$result = self::$validator->validate( 1, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -55,9 +76,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_not_optional_and_input_string_1() {
 		$optional = false;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( '1' );
+		$result = self::$validator->validate( '1', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -69,9 +89,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_not_optional_and_input_int_0() {
 		$optional = false;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( 0 );
+		$result = self::$validator->validate( 0, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -83,9 +102,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_not_optional_and_input_string_0() {
 		$optional = false;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( '0' );
+		$result = self::$validator->validate( '0', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -97,9 +115,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_optional_and_input_bool_false() {
 		$optional = true;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( false );
+		$result = self::$validator->validate( false, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -111,9 +128,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_optional_and_input_bool_true() {
 		$optional = true;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( true );
+		$result = self::$validator->validate( true, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -125,9 +141,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_optional_and_input_int_1() {
 		$optional = true;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( 1 );
+		$result = self::$validator->validate( 1, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -139,9 +154,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_optional_and_input_string_1() {
 		$optional = true;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( '1' );
+		$result = self::$validator->validate( '1', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -153,9 +167,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_optional_and_input_int_0() {
 		$optional = true;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( 0 );
+		$result = self::$validator->validate( 0, $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -167,9 +180,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_boolean_returns_true_when_optional_and_input_string_0() {
 		$optional = true;
-		$validator = ( new Boolean( 'test_field' ) )->set_policy( $optional );
 
-		$result = $validator->validate( '0' );
+		$result = self::$validator->validate( '0', $optional );
 		$this->assertTrue( $result );
 	}
 }

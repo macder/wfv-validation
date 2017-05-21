@@ -6,6 +6,30 @@ use \Respect\Validation\Validator;
 class CallbackTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 *
+	 *
+	 * @access protected
+	 * @var ValidateInterface
+	 */
+	protected static $validator;
+
+	/**
+	 *
+	 *
+	 */
+	protected function setUp() {
+		self::$validator = new Callback();
+	}
+
+	/**
+	 * Reset
+	 *
+	 */
+	protected function tearDown() {
+		self::$validator = null;
+	}
+
+	/**
 	 * Does callback validation return true when
 	 *  validation is NOT optional
 	 *  and input is a string?
@@ -14,9 +38,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase {
 	public function test_callback_returns_true_when_not_optional_and_input_string() {
 		$optional = false;
 		$params = ['is_string'];
-		$validator = ( new Callback('test_field', $params) )->set_policy( $optional );
 
-		$result = $validator->validate('test_input');
+		$result = self::$validator->validate('test_input', $optional, $params);
 		$this->assertTrue( $result );
 	}
 
@@ -29,9 +52,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase {
 	public function test_callback_returns_true_when_optional_and_input_string() {
 		$optional = true;
 		$params = ['is_string'];
-		$validator = ( new Callback('test_field', $params) )->set_policy( $optional );
 
-		$result = $validator->validate('test_input');
+		$result = self::$validator->validate('test_input', $optional, $params);
 		$this->assertTrue( $result );
 	}
 
@@ -44,9 +66,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase {
 	public function test_callback_returns_false_when_not_optional_and_input_null() {
 		$optional = false;
 		$params = ['is_string'];
-		$validator = ( new Callback('test_field', $params) )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional, $params );
 		$this->assertFalse( $result );
 	}
 
@@ -59,9 +80,8 @@ class CallbackTest extends \PHPUnit_Framework_TestCase {
 	public function test_callback_returns_true_when_optional_and_input_null() {
 		$optional = true;
 		$params = ['is_string'];
-		$validator = ( new Callback('test_field', $params) )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional, $params );
 		$this->assertTrue( $result );
 	}
 }

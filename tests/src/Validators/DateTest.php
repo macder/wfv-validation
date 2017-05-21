@@ -6,6 +6,30 @@ use \Respect\Validation\Validator;
 class DateTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 *
+	 *
+	 * @access protected
+	 * @var ValidateInterface
+	 */
+	protected static $validator;
+
+	/**
+	 *
+	 *
+	 */
+	protected function setUp() {
+		self::$validator = new Date();
+	}
+
+	/**
+	 * Reset
+	 *
+	 */
+	protected function tearDown() {
+		self::$validator = null;
+	}
+
+	/**
 	 * Does date validation return true when
 	 *  validation is NOT optional
 	 *  and input is date string?
@@ -13,9 +37,8 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_true_when_not_optional_and_input_date_string() {
 		$optional = false;
-		$validator = ( new Date('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( '2017-06-31' );
+		$result = self::$validator->validate( '2017-06-31', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -27,9 +50,8 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_true_when_optional_and_input_date_string() {
 		$optional = true;
-		$validator = ( new Date('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( '2017-06-31' );
+		$result = self::$validator->validate( '2017-06-31', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -42,9 +64,8 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_true_when_not_optional_and_input_strtotime() {
 		$optional = false;
-		$validator = ( new Date('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 'now' );
+		$result = self::$validator->validate( 'now', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -56,9 +77,8 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_true_when_optional_and_input_strtotime() {
 		$optional = true;
-		$validator = ( new Date('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 'now' );
+		$result = self::$validator->validate( 'now', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -72,9 +92,9 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_true_when_not_optional_and_input_format_param() {
 		$optional = false;
-		$validator = ( new Date('test_field', ['Y-m-d']) )->set_policy( $optional );
+		$params = [ 'Y-m-d' ];
 
-		$result = $validator->validate( '2017-06-30' );
+		$result = self::$validator->validate( '2017-06-30', $optional, $params );
 		$this->assertTrue( $result );
 	}
 
@@ -86,9 +106,9 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_true_when_optional_and_input_format_param() {
 		$optional = true;
-		$validator = ( new Date('test_field', ['Y-m-d']) )->set_policy( $optional );
+		$params = [ 'Y-m-d' ];
 
-		$result = $validator->validate( '2017-06-30' );
+		$result = self::$validator->validate( '2017-06-30', $optional, $params );
 		$this->assertTrue( $result );
 	}
 
@@ -100,9 +120,8 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_false_when_not_optional_and_input_not_date() {
 		$optional = false;
-		$validator = ( new Date('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 'this is not a date' );
+		$result = self::$validator->validate( 'this is not a date', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -114,9 +133,8 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_false_when_optional_and_input_not_date() {
 		$optional = true;
-		$validator = ( new Date('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( 'this is not a date' );
+		$result = self::$validator->validate( 'this is not a date', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -128,9 +146,8 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_false_when_not_optional_and_input_null() {
 		$optional = false;
-		$validator = ( new Date('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -142,9 +159,8 @@ class DateTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_date_returns_true_when_optional_and_input_null() {
 		$optional = true;
-		$validator = ( new Date('test_field') )->set_policy( $optional );
 
-		$result = $validator->validate( null );
+		$result = self::$validator->validate( null, $optional );
 		$this->assertTrue( $result );
 	}
 }

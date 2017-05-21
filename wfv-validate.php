@@ -60,21 +60,7 @@ function wfv_create( $action, array &$form, $trim = true ) {
  * @return bool
  */
 function wfv_validate( FormComposite $form ) {
-	$rules = $form->rules()->get_array();
-	$messages = $form->messages()->get_array();
-	$factory = new ValidatorFactory( $messages );
-
-	foreach( $rules as $field => $ruleset ) {
-		$optional = in_array('optional', $ruleset);
-		if( $optional ) {
-			array_shift( $ruleset );
-		}
-		foreach( $ruleset as $rule ) {
-			$params = ( is_array( $rule ) ) ? $rule['params'] : null;
-			$rule_name = ( is_string( $rule ) ) ? $rule : $rule['rule'];
-			$validator = $factory->create( $rule_name, $field, $params, $optional );
-			$form->validate( $validator, $field );
-		}
-	}
-	return $form->is_valid();
+	$factory = ( new ValidatorFactory() )
+		->add( $form->rules()->unique() );
+	return $form->validate( $factory )->is_valid();
 }
