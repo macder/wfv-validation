@@ -1,6 +1,6 @@
 # WFV - WordPress Form Validation
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
-[![Quality Score](https://img.shields.io/scrutinizer/g/macder/wp-form-validation.svg)](https://scrutinizer-ci.com/g/macder/wp-form-validation)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wp-form-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wp-form-validation/?branch=master)
 
 Elegant input & validation API.
 
@@ -44,10 +44,11 @@ Activate the plugin in the admin dashboard
 
 **Creation**<br>
 Builder - FormComposite<br>
-Abstract Factory - Validators
+Simple Factory - Validators
 
 **Structure**<br>
 Composite<br>
+Flyweight
 
 **Behavioural**<br>
 Strategy<br>
