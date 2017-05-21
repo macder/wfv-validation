@@ -2,6 +2,7 @@
 namespace WFV;
 defined( 'ABSPATH' ) || die();
 
+use WFV\Collection\MessageCollection;
 use WFV\Contract\ValidateInterface;
 
 /**
@@ -20,6 +21,26 @@ class Validator {
 	 * @var array
 	 */
 	protected $errors = [];
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 * @var MessageCollection
+	 */
+	protected $messages;
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param
+	 */
+	public function __construct( MessageCollection $messages ) {
+		$this->messages = $messages;
+	}
 
 	/**
 	 * Returns the array of error messages
@@ -72,6 +93,9 @@ class Validator {
 	 * @param array $template
 	 */
 	protected function add_error( $field, array $template ) {
-		$this->errors[ $field ][ $template['name'] ] = $template['message'];
+		$message = ( $this->messages->has( $field ) )
+			? $this->messages->get_msg( $field, $template['name'] )
+			: $template['message'];
+		$this->errors[ $field ][ $template['name'] ] = $message;
 	}
 }

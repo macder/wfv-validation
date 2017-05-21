@@ -21,7 +21,7 @@ class MessageCollection extends Collectable {
 	}
 
 	/**
-	 *
+	 * Return the message array
 	 *
 	 * @since 0.11.0
 	 *
@@ -29,6 +29,21 @@ class MessageCollection extends Collectable {
 	 */
 	public function get_array() {
 		return $this->data;
+	}
+
+	/**
+	 * Return a custom error message for a field's rule
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param string $field
+	 * @param string $rule
+	 * @return array|null
+	 */
+	public function get_msg( $field, $rule ) {
+		return ( isset( $this->data[ $field ][ $rule ] ) )
+			? $this->data[ $field ][ $rule ]
+			: null;
 	}
 
 	/**

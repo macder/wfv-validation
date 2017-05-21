@@ -108,17 +108,6 @@ class FormComposite extends Composable {
 	}
 
 	/**
-	 * Use message collection
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return WFV\Collection\MessageCollection
-	 */
-	public function messages() {
-		return $this->utilize('messages');
-	}
-
-	/**
 	 * Use rules collection
 	 *
 	 * @since 0.11.0
@@ -167,9 +156,11 @@ class FormComposite extends Composable {
 	public function validate( ValidatorFactory $factory ) {
 		$rule_collection = $this->utilize('rules');
 		$rules = $rule_collection->get_array( true );
+
 		foreach( $rules as $field => $ruleset ) {
 			$input = $this->field_value( $field );
 			$optional = $rule_collection->is_optional( $field );
+
 			foreach( $ruleset as $index => $rule ) {
 				$params = $rule_collection->get_params( $field, $index );
 				$this->validator->validate( $factory->get( $rule ), $field, $input, $optional, $params );
