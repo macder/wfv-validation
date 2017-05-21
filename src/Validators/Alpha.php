@@ -38,6 +38,5 @@ class Alpha extends AbstractValidator {
 		return ( $optional )
 			? $v->optional( $v->create()->alpha() )->validate( $input )
 			: $v->alpha()->validate( $input );
-		return $this;
 	}
 }
