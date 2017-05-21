@@ -35,6 +35,20 @@ class RuleCollection extends Collectable {
 	}
 
 	/**
+	 * Get array of unique rule types
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return array
+	 */
+	public function unique() {
+		$flat = $this->flatten( $this->remove_params() );
+		return array_values( array_filter( array_unique( $flat ), function( $item ) {
+			return $item !== 'optional';
+		}));
+	}
+
+	/**
 	 * Extract rule name from a rule string
 	 *
 	 * @since 0.11.0
@@ -58,6 +72,27 @@ class RuleCollection extends Collectable {
 	 */
 	protected function extract_params( $rule ) {
 		return ltrim( strstr($rule, ':'), ':');
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @param array $array
+	 * @return array
+	 */
+	protected function flatten( array $array ) {
+		$flat = array();
+		foreach( $array as $rule ) {
+			if( is_array( $rule ) ){
+				$flat = array_merge( $flat, $this->flatten( $rule ) );
+			} else {
+				$flat[] = $rule;
+			}
+		}
+		return $flat;
 	}
 
 	/**
@@ -99,6 +134,24 @@ class RuleCollection extends Collectable {
 			}, $ruleset );
 		}
 		return $parsed;
+	}
+
+	/**
+	 * Flatens rules with parameters in the collection
+	 *  and returns the new array.
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @return array
+	 */
+	protected function remove_params() {
+		return array_map( function( $item ) {
+			foreach( $item as $rule ) {
+				$rules[] = ( is_string( $rule ) ) ? $rule : $rule['rule'];
+			}
+			return $rules;
+		}, $this->data );
 	}
 
 	/**
