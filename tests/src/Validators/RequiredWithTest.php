@@ -16,12 +16,21 @@ class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 *
 	 *
+	 * @access protected
+	 * @var
+	 */
+	protected static $params;
+
+	/**
+	 *
+	 *
 	 */
 	protected function setUp() {
-		$params = array(
+		self::$params = array(
 				'other_field',
+				'test_field'
 		);
-		self::$required_with = ( new RequiredWith( 'test_field', $params ) )->set_policy();
+		self::$required_with =new RequiredWith();
 	}
 
 	/**
@@ -44,7 +53,7 @@ class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => 'is now required',
 		);
 
-		$result = self::$required_with->validate( $_POST );
+		$result = self::$required_with->validate( 'null', false, self::$params );
 		$this->assertTrue( $result );
 	}
 
@@ -59,7 +68,7 @@ class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => 'is now optional',
 		);
 
-		$result = self::$required_with->validate( $_POST );
+		$result = self::$required_with->validate( 'null', false, self::$params);
 		$this->assertTrue( $result );
 	}
 
@@ -74,7 +83,7 @@ class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => '',
 		);
 
-		$result = self::$required_with->validate( $_POST );
+		$result = self::$required_with->validate( 'null', false, self::$params );
 		$this->assertTrue( $result );
 	}
 
@@ -89,7 +98,7 @@ class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 			'test_field' => '',
 		);
 
-		$result = self::$required_with->validate( $_POST );
+		$result = self::$required_with->validate( 'null', false, self::$params );
 		$this->assertFalse( $result );
 	}
 }

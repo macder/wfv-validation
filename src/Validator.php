@@ -49,10 +49,14 @@ class Validator {
 	 * @since 0.11.0
 	 *
 	 * @param ValidateInterface $rule
+	 * @param string $field
 	 * @param string|array $value
+	 * @param bool $optional
+	 * @param array (optional) $params
 	 */
-	public function validate( ValidateInterface $rule, $field, $value ) {
-		$valid = $rule->validate( $value );
+	public function validate( ValidateInterface $rule, $field, $value, $optional, $params = false ) {
+		$params[] = ( $params ) ? $field : false;
+		$valid = $rule->validate( $value, $optional, $params );
 		if( !$valid ){
 			$this->add_error( $field, $rule->template() );
 		}

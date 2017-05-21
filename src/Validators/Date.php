@@ -24,20 +24,22 @@ class Date extends AbstractValidator {
 	];
 
 	/**
-	 * Set the validation constraints that make this rule
+	 * Validate an input value
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param string|array (optional) $input
 	 * @param bool (optional) $optional
-	 * @return self
+	 * @return bool
 	 */
-	public function set_policy( $optional = false ) {
-		$format = ( isset( $this->params[0] ) ) ? $this->params[0] : null;
+	public function validate( $input = null, $optional = false ) {
+		$args = func_get_args();
+		$params = isset( $args[2] ) ? $args[2]: false;
+		$format = ( isset( $params[0] ) ) ? $params[0] : null;
 
-		$v = $this->validator;
-		$v = ( $optional )
-			? $v->optional( $v->create()->date( $format ) )
-			: $v->date( $format );
-		return $this;
+		$v = $this->validator->create();
+		return ( $optional )
+			? $v->optional( $v->create()->date( $format ) )->validate( $input )
+			: $v->date( $format )->validate( $input );
 	}
 }

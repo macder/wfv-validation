@@ -7,6 +7,30 @@ use \Respect\Validation\Validator;
 class EmailTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 *
+	 *
+	 * @access protected
+	 * @var ValidateInterface
+	 */
+	protected static $validator;
+
+	/**
+	 *
+	 *
+	 */
+	protected function setUp() {
+		self::$validator = new Email();
+	}
+
+	/**
+	 * Reset
+	 *
+	 */
+	protected function tearDown() {
+		self::$validator = null;
+	}
+
+	/**
 	 * Does email validation return true when
 	 *  validation is NOT optional and
 	 *  input is email format string?
@@ -14,8 +38,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_true_when_string_is_email_format() {
 		$optional = false;
-		$email = ( new Email('test_field') )->set_policy( $optional );
-		$result = $email->validate('foo@bar.com');
+		$result = self::$validator->validate('foo@bar.com', $optional);
 		$this->assertTrue( $result );
 	}
 
@@ -27,8 +50,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_false_when_string_not_email_format() {
 		$optional = false;
-		$email = ( new Email('test_field') )->set_policy( $optional );
-		$result = $email->validate('foobarcom');
+		$result = self::$validator->validate('foobarcom', $optional);
 		$this->assertFalse( $result );
 	}
 
@@ -40,8 +62,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_false_when_not_optional_and_empty() {
 		$optional = false;
-		$email = ( new Email('test_field') )->set_policy( $optional );
-		$result = $email->validate('');
+		$result = self::$validator->validate('', $optional);
 		$this->assertFalse( $result );
 	}
 
@@ -53,8 +74,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_true_when_optional_and_valid_email() {
 		$optional = true;
-		$email = ( new Email('test_field') )->set_policy( $optional );
-		$result = $email->validate('foo@bar.com');
+		$result = self::$validator->validate('foo@bar.com', $optional);
 		$this->assertTrue( $result );
 	}
 
@@ -66,8 +86,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_true_when_optional_and_empty() {
 		$optional = true;
-		$email = ( new Email('test_field') )->set_policy( $optional );
-		$result = $email->validate('');
+		$result = self::$validator->validate('', $optional);
 		$this->assertTrue( $result );
 	}
 
@@ -79,8 +98,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_email_returns_false_when_optional_and_invalid_email_string() {
 		$optional = true;
-		$email = ( new Email('test_field') )->set_policy( $optional );
-		$result = $email->validate('foobarcom');
+		$result = self::$validator->validate('foobarcom', $optional);
 		$this->assertFalse( $result );
 	}
 }

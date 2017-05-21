@@ -24,21 +24,23 @@ class Between extends AbstractValidator {
 	];
 
 	/**
-	 * Set the validation constraints that make this rule
+	 * Validate an input value
 	 *
 	 * @since 0.11.0
 	 *
+	 * @param string|array (optional) $input
 	 * @param bool (optional) $optional
-	 * @return self
+	 * @return bool
 	 */
-	public function set_policy( $optional = false ) {
-		$start = $this->params[0];
-		$end = $this->params[1];
+	public function validate( $input = null, $optional = false ) {
+		$args = func_get_args();
+		$params = $args[2];
+		$start = $params[0];
+		$end = $params[1];
 
-		$v = $this->validator;
-		$v = ( $optional )
-			? $v->optional( $v->create()->between( $start, $end ) )
-			: $v->between( $start, $end );
-		return $this;
+		$v = $this->validator->create();
+		return ( $optional )
+			? $v->optional( $v->create()->between( $start, $end ) )->validate( $input )
+			: $v->between( $start, $end )->validate( $input );
 	}
 }

@@ -13,9 +13,9 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_true_when_not_optional_and_input_alpha() {
 		$optional = false;
-		$validator = ( new Alpha( 'test_field' ) )->set_policy( $optional );
+		$validator = new Alpha();
 
-		$result = $validator->validate( 'abcdefghi' );
+		$result = $validator->validate( 'abcdefghi', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -27,9 +27,9 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_true_when_not_optional_and_input_alpha_spaces() {
 		$optional = false;
-		$validator = ( new Alpha( 'test_field' ) )->set_policy( $optional );
+		$validator = new Alpha();
 
-		$result = $validator->validate( 'abc def ghi' );
+		$result = $validator->validate( 'abc def ghi', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -41,9 +41,9 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_true_when_optional_and_input_empty() {
 		$optional = true;
-		$validator = ( new Alpha( 'test_field' ) )->set_policy( $optional );
+		$validator = new Alpha();
 
-		$result = $validator->validate( '' );
+		$result = $validator->validate('', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -55,9 +55,9 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_true_when_optional_and_input_alpha() {
 		$optional = true;
-		$validator = ( new Alpha( 'test_field' ) )->set_policy( $optional );
+		$validator = new Alpha();
 
-		$result = $validator->validate( 'abcdefghi' );
+		$result = $validator->validate( 'abcdefghi', $optional );
 		$this->assertTrue( $result );
 	}
 
@@ -69,9 +69,9 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_false_when_not_optional_and_input_alphanum() {
 		$optional = false;
-		$validator = ( new Alpha( 'test_field' ) )->set_policy( $optional );
+		$validator = new Alpha();
 
-		$result = $validator->validate( 'abcdefghi123' );
+		$result = $validator->validate( 'abcdefghi123', $optional );
 		$this->assertFalse( $result );
 	}
 
@@ -83,10 +83,9 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_false_when_optional_and_input_alphanum() {
 		$optional = true;
-		$validator = ( new Alpha( 'test_field' ) )->set_policy( $optional );
+		$validator = new Alpha();
 
-		$result = $validator->validate( 'abcdefghi123' );
+		$result = $validator->validate( 'abcdefghi123', $optional );
 		$this->assertFalse( $result );
 	}
-
 }

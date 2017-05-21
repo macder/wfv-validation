@@ -6,6 +6,30 @@ use \Respect\Validation\Validator;
 class BetweenTest extends \PHPUnit_Framework_TestCase {
 
 	/**
+	 *
+	 *
+	 * @access protected
+	 * @var ValidateInterface
+	 */
+	protected static $validator;
+
+	/**
+	 *
+	 *
+	 */
+	protected function setUp() {
+		self::$validator = new Between();
+	}
+
+	/**
+	 * Reset
+	 *
+	 */
+	protected function tearDown() {
+		self::$validator = null;
+	}
+
+	/**
 	 * Does between validation return true when
 	 *  validation is NOT optional,
 	 *  range is numeric, and input is within numeric range?
@@ -16,9 +40,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			0,5
 		];
-		$validator = ( new Between( 'test_field', $params ) )->set_policy( $optional );
 
-		$result = $validator->validate( 3 );
+		$result = self::$validator->validate( 3, $optional, $params );
 		$this->assertTrue( $result );
 	}
 
@@ -33,9 +56,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			0,5
 		];
-		$validator = ( new Between( 'test_field', $params ) )->set_policy( $optional );
 
-		$result = $validator->validate( 3 );
+		$result = self::$validator->validate( 3, $optional, $params );
 		$this->assertTrue( $result );
 	}
 
@@ -50,9 +72,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			0,5
 		];
-		$validator = ( new Between( 'test_field', $params ) )->set_policy( $optional );
 
-		$result = $validator->validate( 10 );
+		$result = self::$validator->validate( 10, $optional, $params );
 		$this->assertFalse( $result );
 	}
 
@@ -67,9 +88,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			0,5
 		];
-		$validator = ( new Between( 'test_field', $params ) )->set_policy( $optional );
 
-		$result = $validator->validate( 10 );
+		$result = self::$validator->validate( 10, $optional, $params );
 		$this->assertFalse( $result );
 	}
 
@@ -85,9 +105,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			'a', 'f'
 		];
-		$validator = ( new Between( 'test_field', $params ) )->set_policy( $optional );
 
-		$result = $validator->validate( 'c' );
+		$result = self::$validator->validate( 'c', $optional, $params );
 		$this->assertTrue( $result );
 	}
 
@@ -102,9 +121,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			'a', 'f'
 		];
-		$validator = ( new Between( 'test_field', $params ) )->set_policy( $optional );
 
-		$result = $validator->validate( 'c' );
+		$result = self::$validator->validate( 'c', $optional, $params );
 		$this->assertTrue( $result );
 	}
 
@@ -119,9 +137,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			'a', 'f'
 		];
-		$validator = ( new Between( 'test_field', $params ) )->set_policy( $optional );
 
-		$result = $validator->validate( 'z' );
+		$result = self::$validator->validate( 'z', $optional, $params );
 		$this->assertFalse( $result );
 	}
 
@@ -136,9 +153,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase {
 		$params = [
 			'a', 'f'
 		];
-		$validator = ( new Between( 'test_field', $params ) )->set_policy( $optional );
 
-		$result = $validator->validate( 'z' );
+		$result = self::$validator->validate( 'z', $optional, $params );
 		$this->assertFalse( $result );
 	}
 }

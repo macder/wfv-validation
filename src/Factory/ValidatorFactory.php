@@ -2,7 +2,6 @@
 namespace WFV\Factory;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Factory\AbstractFactory;
 use WFV\Validators;
 
 /**
@@ -10,7 +9,7 @@ use WFV\Validators;
  *
  * @since 0.11.0
  */
-class ValidatorFactory extends AbstractFactory {
+class ValidatorFactory {
 
 	/**
 	 *
@@ -19,41 +18,39 @@ class ValidatorFactory extends AbstractFactory {
 	 * @access protected
 	 * @var array
 	 */
-	protected $messages = array();
+	protected $pool = array();
 
 	/**
-	 * __construct
+	 * Adds the set of required validators to $pool property
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param array $messages Custom error messages
+	 * @param array $rules
 	 */
-	public function __construct( array $messages ) {
-		$this->messages = $messages;
+	public function add( $rules ) {
+		foreach( $rules as $rule ) {
+			if ( !isset( $this->pool[ $rule ] ) ) {
+				$class = $this->class_name( $rule );
+				$this->pool[ $rule ] = new $class();
+			}
+		}
+		return $this;
 	}
 
 	/**
-	 *
+	 * Returns the validator for given rule
 	 *
 	 * @since 0.11.0
 	 *
 	 * @param string $rule
-	 * @param string $field
-	 * @param array $params
-	 * @param bool (optional) $optional
-	 * @return ValidateInterface
+	 * @return ValidateInterface|bool
 	 */
-	public function create( $rule, $field, $params, $optional = false ) {
-		$class = $this->class_name( $rule );
-		$validator = ( new $class( $field, $params ) )->set_policy( $optional );
-		if( isset( $this->messages[ $field ][ $rule ] ) ) {
-			$validator->set_message( $this->messages[ $field ][ $rule ] );
-		}
-		return $validator;
+	public function get( $rule ) {
+		return ( isset( $this->pool[ $rule ] )) ? $this->pool[ $rule ] : false;
 	}
 
 	/**
-	 *
+	 * Returns the validator class name for given rule
 	 *
 	 * @since 0.11.0
 	 * @access protected

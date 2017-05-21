@@ -22,6 +22,7 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 			'single'    => 'required',
 			'double'    => 'required|email',
 			'params'    => 'required_if:field,value',
+			'optional'  => 'optional|alpha'
 		);
 
 		self::$rule_collection = new RuleCollection( $rules );
@@ -68,6 +69,19 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 
 		$rule_array = self::$rule_collection->get_array();
 		$result = $rule_array['params'];
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does unique() return flat index array of unique rule types?
+	 *
+	 */
+	public function test_rules_unique_return_flat_array_unique_types() {
+		$expected = array(
+			'required', 'email', 'required_if', 'alpha'
+		);
+
+		$result = self::$rule_collection->unique();
 		$this->assertEquals( $expected, $result );
 	}
 
