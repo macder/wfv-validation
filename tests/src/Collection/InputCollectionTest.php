@@ -16,13 +16,25 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 *
 	 *
+	 * @access protected
+	 * @var
+	 */
+	protected static $input_collection;
+
+	/**
+	 *
+	 *
 	 */
 	protected function setUp() {
 		self::$data = array(
-			'action' => 'phpunit',
 			'name' => 'Foo Bar',
 			'email' => 'foo@bar.com',
+			'trim' => ' should trim   ',
+			'action' => 'phpunit',
+			'phpunit_token' => 'f4f5ef563'
 		);
+
+		self::$input_collection = new InputCollection( self::$data, true );
 	}
 
 	/**
@@ -34,21 +46,32 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 *
+	 * Does get_array( false ) return array without action and token attr?
 	 *
 	 */
-	public function test_input_collection_is_instance() {
-		$expected = 'WFV\Collection\InputCollection';
-		$result = new InputCollection( self::$data, true );
-		$this->assertInstanceOf( $expected, $result );
+	public function test_input_collection_get_array_return_neat() {
+		$expected = array(
+			'name' => 'Foo Bar',
+			'email' => 'foo@bar.com',
+			'trim' => 'should trim',
+		);
+		$result = self::$input_collection->get_array( false );
+		$this->assertEquals( $expected, $result );
 	}
 
 	/**
-	 * Is data populated when array param is provided?
+	 * Does get_array() return array with action and token attr?
 	 *
 	 */
-	public function test_input_collection_is_populated_returns_true() {
-		$result = new InputCollection( self::$data, true );
-		$this->assertTrue( $result->is_populated() );
+	public function test_input_collection_get_array_return_with_action_token() {
+		$expected = array(
+			'name' => 'Foo Bar',
+			'email' => 'foo@bar.com',
+			'trim' => 'should trim',
+			'action' => 'phpunit',
+			'phpunit_token' => 'f4f5ef563'
+		);
+		$result = self::$input_collection->get_array();
+		$this->assertEquals( $expected, $result );
 	}
 }

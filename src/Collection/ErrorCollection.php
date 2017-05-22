@@ -39,8 +39,22 @@ class ErrorCollection extends Collectable {
 	 * @return string|null
 	 */
 	public function first( $field ) {
-		return ( $this->data[ $field ] )
+		return ( isset( $this->data[ $field ] ) )
 			? array_values( $this->data[ $field ] )[0]
+			: null;
+	}
+
+	/**
+	 * Returns all errors for given field
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param string $field
+	 * @return array|null
+	 */
+	public function get( $field ) {
+		return ( isset( $this->data[ $field ] ) )
+			? $this->data[ $field ]
 			: null;
 	}
 
