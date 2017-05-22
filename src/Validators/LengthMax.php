@@ -5,9 +5,7 @@ defined( 'ABSPATH' ) || die();
 use WFV\Validators\AbstractValidator;
 
 /**
- * Value must be an email
- *  This only validates if the string is formatted as an email
- *  ie. foo@bar.com
+ *
  *
  * @since 0.11.0
  */
