@@ -28,16 +28,6 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 		self::$rule_collection = new RuleCollection( $rules );
 	}
 
-	/**
-	 *
-	 *
-	 */
-	public function test_rules_is_instance() {
-		$expected = 'WFV\Collection\RuleCollection';
-		$result = self::$rule_collection;
-
-		$this->assertInstanceOf( $expected, $result );
-	}
 
 	/**
 	 * Do multiple rules from config string split into an array?
@@ -83,6 +73,51 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 
 		$result = self::$rule_collection->unique();
 		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does get_array(true) return a flat array without params?
+	 *
+	 */
+	public function test_rules_get_array_returns_flat() {
+		$expected = array(
+			'single' => ['required'],
+			'double' => ['required', 'email'],
+			'params' => ['required_if'],
+			'optional' => ['alpha']
+		);
+		$result = self::$rule_collection->get_array(true);
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does get_params() return array param?
+	 *
+	 */
+	public function test_rules_get_params_return_array_param_for_field_rule() {
+		$expected = array(
+			'field', 'value'
+		);
+		$result = self::$rule_collection->get_params('params', 0);
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Does is_optional() return true?
+	 *
+	 */
+	public function test_rules_is_optional_return_true() {
+		$result = self::$rule_collection->is_optional('optional');
+		$this->assertTrue( $result );
+	}
+
+	/**
+	 * Does is_optional() return false?
+	 *
+	 */
+	public function test_rules_is_optional_return_false() {
+		$result = self::$rule_collection->is_optional('double');
+		$this->assertFalse( $result );
 	}
 
 }
