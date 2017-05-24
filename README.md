@@ -1,8 +1,8 @@
-# WFV - WordPress Form Validation
+# WFV Validation
 [![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wp-form-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wp-form-validation/?branch=master)
 
-Elegant input & validation API.
+Elegant input validation for custom forms in WordPress.
 
 **NOTICE:**<br>
 This documentation is for development and testing.
@@ -29,9 +29,9 @@ Have a working instance of WordPress
 ```sh
 $ cd ./wp-content/plugins
 
-$ git clone https://github.com/macder/wp-form-validation.git
+$ git clone https://github.com/macder/wfv-validation.git
 
-$ cd wp-form-validation
+$ cd wfv-validation
 
 $ composer install
 ```
@@ -172,7 +172,7 @@ $: ssh -N -L 5555:127.0.0.1:3306 vagrant@192.168.33.10 -vv
 
 # Then, in a new local terminal:
 
-$: cd ~/wp-form-validation/
+$: cd ~/wfv-validation/
 $: bash bin/lib/install_wp_tests.sh wordpress_test db_user db_pass 127.0.0.1:5555 latest true
 ```
 
