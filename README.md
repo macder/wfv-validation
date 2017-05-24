@@ -1,6 +1,6 @@
 # WFV Validation
-[![Build Status](https://travis-ci.org/macder/wp-form-validation.svg?branch=master)](https://travis-ci.org/macder/wp-form-validation)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wp-form-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wp-form-validation/?branch=master)
+[![Build Status](https://travis-ci.org/macder/wfv-validation.svg?branch=master)](https://travis-ci.org/macder/wfv-validation)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wfv-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wfv-validation/?branch=master)
 
 Elegant input validation for custom forms in WordPress.
 
