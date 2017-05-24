@@ -60,7 +60,10 @@ class RuleCollection extends Collectable {
 	 * @return bool
 	 */
 	public function is_optional( $field ) {
-		return in_array('optional', $this->data[ $field ] );
+		if( $this->has( $field ) ){
+			return in_array('optional', $this->data[ $field ] );
+		}
+		return false;
 	}
 
 	/**
