@@ -2,7 +2,6 @@
 namespace WFV;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Abstraction\Composable;
 use WFV\Artisan\FormArtisan;
 use WFV\Contract\ValidateInterface;
 use WFV\Factory\ValidatorFactory;
@@ -12,7 +11,25 @@ use WFV\Factory\ValidatorFactory;
  *
  * @since 0.10.0
  */
-class FormComposite extends Composable {
+class FormComposite {
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 * @var string
+	 */
+	protected $alias;
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $collection;
 
 	/**
 	 *
@@ -33,7 +50,7 @@ class FormComposite extends Composable {
 	 */
 	public function __construct( FormArtisan $builder, $action ) {
 		$this->alias = $action;
-		$this->install( $builder->collection );
+		$this->collection = $builder->collection;
 		$this->validator = $builder->validator;
 	}
 
@@ -213,5 +230,17 @@ class FormComposite extends Composable {
 	protected function trigger_post_validate_action( $is_valid = false ) {
 		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
 		do_action( $action, $this );
+	}
+
+	/**
+	 * Use a component.
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 *
+	 * @param string $component Key indentifier.
+	 */
+	protected function utilize( $component ) {
+		return $this->collection[ $component ];
 	}
 }
