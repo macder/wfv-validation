@@ -2,8 +2,8 @@
 namespace WFV;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Abstraction\Composable;
 use WFV\Artisan\FormArtisan;
+use WFV\Contract\FormInterface;
 use WFV\Contract\ValidateInterface;
 use WFV\Factory\ValidatorFactory;
 
@@ -12,7 +12,25 @@ use WFV\Factory\ValidatorFactory;
  *
  * @since 0.10.0
  */
-class FormComposite extends Composable {
+class FormComposite {
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 * @var string
+	 */
+	protected $alias;
+
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $collection;
 
 	/**
 	 *
@@ -33,60 +51,8 @@ class FormComposite extends Composable {
 	 */
 	public function __construct( FormArtisan $builder, $action ) {
 		$this->alias = $action;
-		$this->install( $builder->collection );
+		$this->collection = $builder->collection;
 		$this->validator = $builder->validator;
-	}
-
-	/**
-	 * Convenience method to repopulate checkbox input
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $field Field name.
-	 * @param string $value Value to compare against.
-	 * @return string|null
-	 */
-	public function checked_if( $field = null, $value = null ) {
-		return $this->string_or_null( 'checked', $field, $value );
-	}
-
-	/**
-	 * Echo the encoded value of given field from a callback
-	 * Default callback is esc_html()
-	 * Also returns the encoded string for assignment
-	 *
-	 * @since 0.10.1
-	 *
-	 * @param string (optional) $field
-	 * @param callable (optional) $callback
-	 * @return string
-	 */
-	public function display( $field = null, callable $callback = null ) {
-		echo $input = $this->utilize('input')->escape( $field );
-		return $input;
-	}
-
-	/**
-	 * Use error collection
-	 *
-	 *
-	 * @since 0.10.0
-	 *
-	 * @return WFV\Collection\ErrorCollection
-	 */
-	public function errors() {
-		return $this->utilize('errors');
-	}
-
-	/**
-	 * Use input collection
-	 *
-	 * @since 0.10.0
-	 *
-	 * @return WFV\Collection\InputCollection
-	 */
-	public function input() {
-		return $this->utilize('input');
 	}
 
 	/**
@@ -98,51 +64,13 @@ class FormComposite extends Composable {
 	 *
 	 * @return bool
 	 */
-	public function is_valid() {
+	protected function valid() {
 		$is_valid = $this->validator->is_valid();
 		if( false === $is_valid ) {
 			$this->utilize('errors')->set_errors( $this->validator->errors() );
 		}
 		$this->trigger_post_validate_action( $is_valid );
 		return $is_valid;
-	}
-
-	/**
-	 * Use rules collection
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return WFV\Collection\RuleCollection
-	 */
-	public function rules() {
-		return $this->utilize('rules');
-	}
-
-	/**
-	 * Convenience method to repopulate select input
-	 *
-	 * @since 0.10.0
-	 *
-	 * @param string $field Field name.
-	 * @param string $value Value to compare against.
-	 * @return string|null
-	 */
-	public function selected_if( $field = null, $value = null ) {
-		return $this->string_or_null( 'selected', $field, $value );
-	}
-
-	/**
-	 * Convienience method to print the hidden fields
-	 *  for token and action
-	 *
-	 * @since 0.10.0
-	 *
-	 */
-	public function token_fields() {
-		// TODO - Move markup into something - perhaps a renderable interface?
-		$token_name = $this->alias . '_token';
-		echo $nonce_field = wp_nonce_field( $this->alias, $token_name, false, false );
-		echo $action_field = '<input type="hidden" name="action" value="'. $this->alias .'">';
 	}
 
 	/**
@@ -153,7 +81,7 @@ class FormComposite extends Composable {
 	 * @param ValidatorFactory $factory
 	 * @return self
 	 */
-	public function validate( ValidatorFactory $factory ) {
+	protected function validate( ValidatorFactory $factory ) {
 		$rule_collection = $this->utilize('rules');
 		$rules = $rule_collection->get_array( true );
 
@@ -166,7 +94,7 @@ class FormComposite extends Composable {
 				$this->validator->validate( $factory->get( $rule ), $field, $input, $optional, $params );
 			}
 		}
-		return $this;
+		return $this->valid();
 	}
 
 	/**
@@ -199,7 +127,7 @@ class FormComposite extends Composable {
 	 * @return string|null
 	 */
 	protected function string_or_null( $response, $field = null, $value = null ) {
-		return ( $this->input( $field )->contains( $field, $value ) ) ? $response : null;
+		return ( $this->utilize('input')->contains( $field, $value ) ) ? $response : null;
 	}
 
 	/**
@@ -213,5 +141,17 @@ class FormComposite extends Composable {
 	protected function trigger_post_validate_action( $is_valid = false ) {
 		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
 		do_action( $action, $this );
+	}
+
+	/**
+	 * Use a component.
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 *
+	 * @param string $component Key indentifier.
+	 */
+	protected function utilize( $component ) {
+		return $this->collection[ $component ];
 	}
 }
