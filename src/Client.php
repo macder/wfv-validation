@@ -17,7 +17,7 @@ class Client extends FormComposite implements FormInterface {
 	 *
 	 * @since 0.11.0
 	 * @access protected
-	 * @var string
+	 * @var FormComposite
 	 */
 	protected $form;
 
