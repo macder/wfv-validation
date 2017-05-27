@@ -85,11 +85,9 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 
 	self::$builder = new FormArtisan( $form );
 	self::$form = ( new Director( 'phpunit' ) )
-		//->with( 'input', [ $input, $trim ] )
 		->with( 'rules' )
 		->with( 'errors' )
 		->with( 'validator' );
-		//->compose( $builder );
 	}
 
 
@@ -154,6 +152,45 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( $expected, $result );
 	}
 
+	/**
+	 * Does errors() return an instance of ErrorCollection?
+	 *
+	 */
+	public function test_form_errors_returns_error_collection() {
+		$form = self::$form
+			->with( 'input', self::$guard )
+			->compose( self::$builder );
 
+		$expected = 'WFV\Collection\ErrorCollection';
+		$result = $form->errors();
+		$this->assertInstanceOf( $expected, $result );
+	}
 
+	/**
+	 * Does input() return an instance of InputCollection?
+	 *
+	 */
+	public function test_form_input_returns_input_collection() {
+		$form = self::$form
+			->with( 'input', self::$guard )
+			->compose( self::$builder );
+
+		$expected = 'WFV\Collection\InputCollection';
+		$result = $form->input();
+		$this->assertInstanceOf( $expected, $result );
+	}
+
+	/**
+	 * Does rules() return an instance of RuleCollection?
+	 *
+	 */
+	public function test_form_input_returns_rule_collection() {
+		$form = self::$form
+			->with( 'input', self::$guard )
+			->compose( self::$builder );
+
+		$expected = 'WFV\Collection\RuleCollection';
+		$result = $form->rules();
+		$this->assertInstanceOf( $expected, $result );
+	}
 }
