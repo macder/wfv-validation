@@ -47,8 +47,6 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		// self::$validator = new ValidatorAdapter( new Validator() );
-
 		$form = array(
 			'first_name' => [
 				'label' => 'First Name',
