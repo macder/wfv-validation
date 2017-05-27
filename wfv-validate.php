@@ -34,18 +34,17 @@ use WFV\Factory\ValidatorFactory;
  * @param bool $trim Trim whitespace from beginning and end of string
  */
 function wfv_create( $action, array &$form, $trim = true ) {
-	$inspect = new InspectionAgent( $action );
-	$input = ( true === $inspect->safe_submit() ) ? $_POST : array();
+	$guard = new InspectionAgent( $action );
 
 	$builder = new FormArtisan( $form );
 	$form = ( new Director( $action ) )
-		->with( 'input', [ $input, $trim ] )
+		->with( 'input', $guard )
 		->with( 'rules' )
 		->with( 'errors' )
 		->with( 'validator' )
 		->compose( $builder );
 
-	if( $input ) {
+	if( $form->input()->is_populated() ) {
 		wfv_validate( $form );
 	}
 }
