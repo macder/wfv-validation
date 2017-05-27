@@ -2,6 +2,7 @@
 namespace WFV\Artisan;
 defined( 'ABSPATH' ) || die();
 
+use WFV\Agent\InspectionAgent;
 use WFV\Contract\ArtisanInterface;
 use WFV\Collection\ErrorCollection;
 use WFV\Collection\InputCollection;
@@ -106,13 +107,11 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param array $data
+	 * @param InspectionAgent $guard
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function input( array $data = [] ) {
-		$input = $data[0];
-		$trim = $data[1];
-		$this->collection['input'] = new InputCollection( $input, $trim );
+	public function input( InspectionAgent $guard ) {
+		$this->collection['input'] = new InputCollection( $guard );
 		return $this;
 	}
 

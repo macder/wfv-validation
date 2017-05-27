@@ -3,6 +3,7 @@ namespace WFV\Collection;
 defined( 'ABSPATH' ) || die();
 
 use WFV\Abstraction\Collectable;
+use WFV\Agent\InspectionAgent;
 
 /**
  *
@@ -10,7 +11,6 @@ use WFV\Abstraction\Collectable;
  * @since 0.10.0
  */
 class InputCollection extends Collectable {
-
 
 	/**
 	 * __construct
@@ -20,9 +20,19 @@ class InputCollection extends Collectable {
 	 * @param array $data
 	 * @param bool $trim
 	 */
-	public function __construct( array $data = array(), $trim ) {
-		$data = $this->transform_array_leafs( $data, 'stripslashes' );
-		$this->data = ( $trim ) ? $this->transform_array_leafs( $data, 'trim' ) : $data;
+	public function __construct( InspectionAgent $guard ) {
+		if( $guard->safe_submit() ) {
+			$this->populate();
+		}
+
+	}
+
+	protected function populate() {
+		$data = $this->transform_array_leafs( $_POST, 'stripslashes' );
+
+		$this->data = ( $trim )
+			? $this->transform_array_leafs( $data, 'trim' )
+			: $data;
 	}
 
 	/**
