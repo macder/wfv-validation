@@ -74,6 +74,7 @@ class Validator {
 	 * @param string|array $value
 	 * @param bool $optional
 	 * @param array (optional) $params
+	 * @return self
 	 */
 	public function validate( ValidateInterface $rule, $field, $value, $optional, $params = false ) {
 		$params[] = ( $params ) ? $field : false;
@@ -81,6 +82,7 @@ class Validator {
 		if( !$valid ){
 			$this->add_error( $field, $rule->template() );
 		}
+		return $this;
 	}
 
 	/**
