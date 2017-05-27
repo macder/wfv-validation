@@ -20,15 +20,6 @@ class InspectionAgent {
 	private $action;
 
 	/**
-	 * nonce
-	 *
-	 * @since 0.10.0
-	 * @access private
-	 * @var string
-	 */
-	private $token;
-
-	/**
 	 *
 	 *
 	 * @since 0.10.0
@@ -37,7 +28,6 @@ class InspectionAgent {
 	 */
 	public function __construct( $action ) {
 		$this->action = $action;
-		$this->token = wp_create_nonce( $action );
 	}
 
 	/**

@@ -3,6 +3,7 @@ namespace WFV\Collection;
 defined( 'ABSPATH' ) || die();
 
 use WFV\Abstraction\Collectable;
+use WFV\Agent\InspectionAgent;
 
 /**
  *
@@ -11,6 +12,14 @@ use WFV\Abstraction\Collectable;
  */
 class InputCollection extends Collectable {
 
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access private
+	 * @var InspectionAgent
+	 */
+	private $guard;
 
 	/**
 	 * __construct
@@ -20,9 +29,9 @@ class InputCollection extends Collectable {
 	 * @param array $data
 	 * @param bool $trim
 	 */
-	public function __construct( array $data = array(), $trim ) {
-		$data = $this->transform_array_leafs( $data, 'stripslashes' );
-		$this->data = ( $trim ) ? $this->transform_array_leafs( $data, 'trim' ) : $data;
+	public function __construct( InspectionAgent $guard, $trim = true ) {
+		$this->guard = $guard;
+		$this->populate( $trim );
 	}
 
 	/**
@@ -50,5 +59,22 @@ class InputCollection extends Collectable {
 		unset( $input[ $input['action'] .'_token'] );
 		unset( $input['action'] );
 		return $input;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 */
+	protected function populate( $trim ) {
+		if( $this->guard->safe_submit() ) {
+			$data = $this->transform_array_leafs( $_POST, 'stripslashes' );
+
+			$this->data = ( $trim )
+				? $this->transform_array_leafs( $data, 'trim' )
+				: $data;
+		}
 	}
 }
