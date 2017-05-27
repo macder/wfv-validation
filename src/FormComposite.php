@@ -216,7 +216,8 @@ class FormComposite {
 	 * @return string|null
 	 */
 	protected function string_or_null( $response, $field = null, $value = null ) {
-		return ( $this->input( $field )->contains( $field, $value ) ) ? $response : null;
+		$input = $this->utilize('input');
+		return ( $input->contains( $field, $value ) ) ? $response : null;
 	}
 
 	/**
