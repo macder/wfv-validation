@@ -18,11 +18,10 @@ define( 'WFV_VALIDATE__ACTION_POST', 'validate_form' );
 
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
-use WFV\Client;
+use WFV\FormComposite;
 use WFV\Agent\InspectionAgent;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
-use WFV\Contract\FormInterface;
 use WFV\Factory\ValidatorFactory;
 
 /**
@@ -39,13 +38,12 @@ function wfv_create( $action, array &$form, $trim = true ) {
 	$input = ( true === $inspect->safe_submit() ) ? $_POST : array();
 
 	$builder = new FormArtisan( $form );
-	$form = new Client( ( new Director( $action ) )
+	$form = ( new Director( $action ) )
 		->with( 'input', [ $input, $trim ] )
 		->with( 'rules' )
 		->with( 'errors' )
 		->with( 'validator' )
-		->compose( $builder )
-	);
+		->compose( $builder );
 
 	if( $input ) {
 		wfv_validate( $form );
@@ -60,8 +58,8 @@ function wfv_create( $action, array &$form, $trim = true ) {
  * @param FormComposite $form
  * @return bool
  */
-function wfv_validate( FormInterface $form ) {
+function wfv_validate( FormComposite $form ) {
 	$factory = ( new ValidatorFactory() )
 		->add( $form->rules()->unique() );
-	return $form->is_valid( $factory );
+	return $form->validate( $factory )->is_valid();
 }

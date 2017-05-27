@@ -49,7 +49,6 @@ Simple Factory - Validators
 **Structure**<br>
 Composite<br>
 Flyweight<br>
-Proxy
 
 **Behavioural**<br>
 Strategy<br>
