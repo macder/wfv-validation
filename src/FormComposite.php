@@ -3,7 +3,6 @@ namespace WFV;
 defined( 'ABSPATH' ) || die();
 
 use WFV\Artisan\FormArtisan;
-use WFV\Contract\FormInterface;
 use WFV\Contract\ValidateInterface;
 use WFV\Factory\ValidatorFactory;
 
@@ -18,7 +17,7 @@ class FormComposite {
 	 *
 	 *
 	 * @since 0.10.0
-	 * @access protected
+	 * @access private
 	 * @var string
 	 */
 	protected $alias;
@@ -56,6 +55,58 @@ class FormComposite {
 	}
 
 	/**
+	 * Convenience method to repopulate checkbox input
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $field Field name.
+	 * @param string $value Value to compare against.
+	 * @return string|null
+	 */
+	public function checked_if( $field = null, $value = null ) {
+		return $this->string_or_null( 'checked', $field, $value );
+	}
+
+	/**
+	 * Echo the encoded value of given field from a callback
+	 * Default callback is esc_html()
+	 * Also returns the encoded string for assignment
+	 *
+	 * @since 0.10.1
+	 *
+	 * @param string (optional) $field
+	 * @param callable (optional) $callback
+	 * @return string
+	 */
+	public function display( $field = null, callable $callback = null ) {
+		echo $input = $this->utilize('input')->escape( $field );
+		return $input;
+	}
+
+	/**
+	 * Use error collection
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return WFV\Collection\ErrorCollection
+	 */
+	public function errors() {
+		return $this->utilize('errors');
+	}
+
+	/**
+	 * Use input collection
+	 *
+	 * @since 0.10.0
+	 *
+	 * @return WFV\Collection\InputCollection
+	 */
+	public function input() {
+		return $this->utilize('input');
+	}
+
+	/**
 	 * Check if the validation passed or failed
 	 * Sets the error msgs if a fail
 	 * Trigger pass or fail action
@@ -64,13 +115,51 @@ class FormComposite {
 	 *
 	 * @return bool
 	 */
-	protected function valid() {
+	public function is_valid() {
 		$is_valid = $this->validator->is_valid();
 		if( false === $is_valid ) {
 			$this->utilize('errors')->set_errors( $this->validator->errors() );
 		}
 		$this->trigger_post_validate_action( $is_valid );
 		return $is_valid;
+	}
+
+	/**
+	 * Use rules collection
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return WFV\Collection\RuleCollection
+	 */
+	public function rules() {
+		return $this->utilize('rules');
+	}
+
+	/**
+	 * Convenience method to repopulate select input
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $field Field name.
+	 * @param string $value Value to compare against.
+	 * @return string|null
+	 */
+	public function selected_if( $field = null, $value = null ) {
+		return $this->string_or_null( 'selected', $field, $value );
+	}
+
+	/**
+	 * Convienience method to print the hidden fields
+	 *  for token and action
+	 *
+	 * @since 0.10.0
+	 *
+	 */
+	public function token_fields() {
+		// TODO - Move markup into something - perhaps a renderable interface?
+		$token_name = $this->alias . '_token';
+		echo $nonce_field = wp_nonce_field( $this->alias, $token_name, false, false );
+		echo $action_field = '<input type="hidden" name="action" value="'. $this->alias .'">';
 	}
 
 	/**
@@ -81,7 +170,7 @@ class FormComposite {
 	 * @param ValidatorFactory $factory
 	 * @return self
 	 */
-	protected function validate( ValidatorFactory $factory ) {
+	public function validate( ValidatorFactory $factory ) {
 		$rule_collection = $this->utilize('rules');
 		$rules = $rule_collection->get_array( true );
 
@@ -94,7 +183,7 @@ class FormComposite {
 				$this->validator->validate( $factory->get( $rule ), $field, $input, $optional, $params );
 			}
 		}
-		return $this->valid();
+		return $this;
 	}
 
 	/**
@@ -127,7 +216,7 @@ class FormComposite {
 	 * @return string|null
 	 */
 	protected function string_or_null( $response, $field = null, $value = null ) {
-		return ( $this->utilize('input')->contains( $field, $value ) ) ? $response : null;
+		return ( $this->input( $field )->contains( $field, $value ) ) ? $response : null;
 	}
 
 	/**
