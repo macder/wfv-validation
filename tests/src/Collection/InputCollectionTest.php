@@ -1,17 +1,10 @@
 <?php
 namespace WFV\Collection;
 
+use WFV\Agent\InspectionAgent;
 use WFV\Collection\InputCollection;
 
 class InputCollectionTest extends \PHPUnit_Framework_TestCase {
-
-	/**
-	 *
-	 *
-	 * @access protected
-	 * @var
-	 */
-	protected static $data;
 
 	/**
 	 *
@@ -26,15 +19,17 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$data = array(
+		$_POST = array(
 			'name' => 'Foo Bar',
 			'email' => 'foo@bar.com',
 			'trim' => ' should trim   ',
 			'action' => 'phpunit',
-			'phpunit_token' => 'f4f5ef563'
+			'phpunit_token' => wp_create_nonce( 'phpunit' ),
 		);
 
-		self::$input_collection = new InputCollection( self::$data, true );
+		$_REQUEST[ 'phpunit_token' ] = wp_create_nonce( 'phpunit' );
+
+		self::$input_collection = new InputCollection( new InspectionAgent( 'phpunit' ) );
 	}
 
 	/**
@@ -42,7 +37,9 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function tearDown() {
-		self::$data = null;
+		$_POST = null;
+		$_REQUEST = null;
+		self::$input_collection = null;
 	}
 
 	/**
@@ -69,7 +66,7 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 			'email' => 'foo@bar.com',
 			'trim' => 'should trim',
 			'action' => 'phpunit',
-			'phpunit_token' => 'f4f5ef563'
+			'phpunit_token' => wp_create_nonce( 'phpunit' ),
 		);
 		$result = self::$input_collection->get_array();
 		$this->assertEquals( $expected, $result );
