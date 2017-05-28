@@ -1,14 +1,23 @@
 {
-	"require": {
-		"respect/validation": "^1.1"
-	},
-	"autoload": {
-		"psr-4": {
-			"WFV\\": "src/"
-		}
-	},
-    "scripts": {
-    	"pre-autoload-dump": [
-    	]
+    "name": "macder/wfv-validation",
+    "description": "Elegant input validation for custom forms in WordPress",
+    "keywords": ["wordpress", "php", "validation", "form-validation", "plugin"],
+    "homepage": "https://macder.github.io/wfv/",
+    "license": "BSD 3-clause",
+    "authors": [
+        {
+            "name": "macder/wfv-validation Contributors",
+            "homepage": "https://github.com/macder/wfv-validation/graphs/contributors"
+        }
+    ],
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=5.4.0",
+        "respect/validation": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "WFV\\": "src/"
+        }
     }
 }
