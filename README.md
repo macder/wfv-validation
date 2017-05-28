@@ -31,6 +31,12 @@ The client API has standardized and there will be no more breaking changes as WF
 ### Zip
 Download the latest [pre-release zip](https://github.com/macder/wfv-validation/archive/master.zip)
 
+Extract into `./wp-content/plugins`
+
+In the plugin root folder run `composer install`
+
+Activate in the `Plugins` section of the `Admin Dashboard`
+
 ### Git
 
 ```sh
