@@ -33,7 +33,7 @@ Download the latest [pre-release zip](https://github.com/macder/wfv-validation/a
 
 Extract into `./wp-content/plugins`
 
-In the plugin root folder run `composer install`
+In the WFV plugin folder run `composer install`
 
 Activate in the `Plugins` section of the `Admin Dashboard`
 
@@ -49,7 +49,7 @@ $ cd wfv-validation
 $ composer install
 ```
 
-Activate the plugin in the admin dashboard
+Activate in the `Plugins` section of the `Admin Dashboard`
 
 ---
 
