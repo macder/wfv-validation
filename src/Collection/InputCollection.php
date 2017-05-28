@@ -39,11 +39,11 @@ class InputCollection extends Collectable {
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param bool $tokens With or without token and action attributes.
+	 * @param bool $neat With or without token and action attributes.
 	 * @return array
 	 */
-	public function get_array( $tokens = true ) {
-		return ( $tokens ) ? $this->data : $this->neat_array();
+	public function get_array( $neat = true ) {
+		return ( $neat ) ? $this->neat_array() : $this->data;
 	}
 
 	/**
