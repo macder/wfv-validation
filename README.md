@@ -69,6 +69,8 @@ WFV subscribed to the Gitflow Workflow. If you are not familiar with it, please 
 
 ## Testing
 
+**NOTE: This section may be slightly outdated and will be updated ASAP**
+
 ### Prerequisites
 
 A working [wp-cli](http://wp-cli.org) install.
