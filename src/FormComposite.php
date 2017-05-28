@@ -194,6 +194,7 @@ class FormComposite {
 	 * @access protected
 	 *
 	 * @param string $field
+	 * @return string|array|null
 	 */
 	protected function field_value( $field ) {
 		$input = $this->utilize('input');
