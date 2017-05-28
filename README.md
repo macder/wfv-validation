@@ -12,7 +12,8 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 
 # Table of Contents
 * [Install](#install)
-* [Testing]()
+* [Contributing](#contributing)
+* [Testing](#testing)
   * [Prerequisites](#prerequisites)
   * [Setup]()
 * [Support](#support)
@@ -29,7 +30,7 @@ In the meantime, you may install the pre-release by either downloading the zip, 
 The client API has standardized and there will be no more breaking changes as WFV moves towards the v1.0.0 milestone.
 
 ### Zip
-Download the latest [pre-release zip](https://github.com/macder/wfv-validation/archive/master.zip)
+Download the latest [pre-release zip](https://github.com/macder/wfv-validation/releases)
 
 Extract into `./wp-content/plugins`
 
@@ -65,6 +66,13 @@ Contributions are always welcome and encouraged. Before contributing a new featu
 
 WFV subscribed to the Gitflow Workflow. If you are not familiar with it, please read [this](http://nvie.com/posts/a-successful-git-branching-model/) and [this](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow)
 
+**master**<br>
+The `master` branch represents the latest stable release. Each time something is merged into `master` is gets tagged with a new version number.
+
+**develop**<br>
+The `develop` branch is for integrating feature branches. When creating a new feature, you must branch off `develop` to create a new feature branch.
+
+**feature/**<br>
 
 
 ## Testing
