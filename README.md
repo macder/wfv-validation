@@ -2,18 +2,16 @@
 [![Build Status](https://travis-ci.org/macder/wfv-validation.svg?branch=master)](https://travis-ci.org/macder/wfv-validation)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wfv-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wfv-validation/?branch=master)
 
-Elegant input validation for custom forms in WordPress.
+WFV is an elegant way to work with custom forms in WordPress.
 
-**NOTICE:**<br>
-This documentation is for development and testing.
+A simple fluid and concise API to manage user input, validation, feedback, and safe output.
 
-**For usage, refer to [user documentation](https://macder.github.io/wfv/)**
+**User documentation available at [https://macder.github.io/wfv/](https://macder.github.io/wfv/)**
 
-WIP - Content migration in progress
+WFV is intended for developers who prefer creating and managing forms at the code level. This is not a WYSIWYG type plugin and is not targeted for users who are not comfortable writing code.
 
 # Table of Contents
 * [Install](#install)
-* [Architecture](#architecture)
 * [Testing]()
   * [Prerequisites](#prerequisites)
   * [Setup]()
@@ -24,7 +22,16 @@ WIP - Content migration in progress
 
 ## Install
 
-Have a working instance of WordPress
+Note: WFV is in alpha testing and an official packaged release is not yet available. Once alpha testing is complete, WFV will be submitted for review into the official WordPress repo.
+
+In the meantime, you may install the pre-release by either downloading the zip, or with git. Note that [Composer](https://getcomposer.org/) is required for both methods
+
+The client API has standardized and there will be no more breaking changes as WFV moves towards the v1.0.0 milestone.
+
+### Zip
+Download the latest [pre-release zip](https://github.com/macder/wfv-validation/archive/master.zip)
+
+### Git
 
 ```sh
 $ cd ./wp-content/plugins
@@ -40,18 +47,6 @@ Activate the plugin in the admin dashboard
 
 ---
 
-## Architecture
-
-**Creation**<br>
-Builder - FormComposite<br>
-Simple Factory - Validators
-
-**Structure**<br>
-Composite<br>
-Flyweight<br>
-
-**Behavioural**<br>
-Strategy<br>
 
 
 ## Testing
