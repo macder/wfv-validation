@@ -53,7 +53,13 @@ Activate in the `Plugins` section of the `Admin Dashboard`
 
 ---
 
+## Contributing
 
+Contributions are always welcome and encouraged. Before contributing a new feature or fix, please check the [issues](https://github.com/macder/wfv-validation/issues) section (open and closed) to make sure no one is already working on what you intend.
+
+* If there is no open or closed issue, open a new issue so that others know you are working on something.
+* If an issue is already open, you may be able to help. Make a comment in the issue that you intend to help out. If no one is working on the issue, it will be assigned to you, otherwise ask if they require help. Please use a common sense approach
+* If you required help or you stop working on an issue before it is complete, make a comment about it. Please do not hijack an issue by abandoning it without telling anyone.
 
 ## Testing
 
