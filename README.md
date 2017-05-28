@@ -66,14 +66,6 @@ Contributions are always welcome and encouraged. Before contributing a new featu
 
 WFV subscribed to the Gitflow Workflow. If you are not familiar with it, please read [this](http://nvie.com/posts/a-successful-git-branching-model/) and [this](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow)
 
-**master**<br>
-The `master` branch represents the latest stable release. Each time something is merged into `master` is gets tagged with a new version number.
-
-**develop**<br>
-The `develop` branch is for integrating feature branches. When creating a new feature, you must branch off `develop` to create a new feature branch.
-
-**feature/**<br>
-
 
 ## Testing
 
