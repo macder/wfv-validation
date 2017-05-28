@@ -194,11 +194,12 @@ class FormComposite {
 	 * @access protected
 	 *
 	 * @param string $field
+	 * @return string|array|null
 	 */
 	protected function field_value( $field ) {
 		$input = $this->utilize('input');
 		if( $input->has( $field ) ) {
-			$input = $input->get_array( false );
+			$input = $input->get_array();
 			return $input[ $field ];
 		}
 		return null;

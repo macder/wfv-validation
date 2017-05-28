@@ -43,7 +43,7 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does get_array( false ) return array without action and token attr?
+	 * Does get_array() return array without action and token attr?
 	 *
 	 */
 	public function test_input_collection_get_array_return_neat() {
@@ -52,12 +52,12 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 			'email' => 'foo@bar.com',
 			'trim' => 'should trim',
 		);
-		$result = self::$input_collection->get_array( false );
+		$result = self::$input_collection->get_array();
 		$this->assertEquals( $expected, $result );
 	}
 
 	/**
-	 * Does get_array() return array with action and token attr?
+	 * Does get_array(false) return array with action and token attr?
 	 *
 	 */
 	public function test_input_collection_get_array_return_with_action_token() {
@@ -68,7 +68,7 @@ class InputCollectionTest extends \PHPUnit_Framework_TestCase {
 			'action' => 'phpunit',
 			'phpunit_token' => wp_create_nonce( 'phpunit' ),
 		);
-		$result = self::$input_collection->get_array();
+		$result = self::$input_collection->get_array(false);
 		$this->assertEquals( $expected, $result );
 	}
 }
