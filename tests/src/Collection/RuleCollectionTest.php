@@ -84,7 +84,7 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 			'single' => ['required'],
 			'double' => ['required', 'email'],
 			'params' => ['required_if'],
-			'optional' => ['alpha']
+			'optional' => [ 1=> 'alpha']
 		);
 		$result = self::$rule_collection->get_array(true);
 		$this->assertEquals( $expected, $result );
