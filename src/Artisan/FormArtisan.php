@@ -8,6 +8,7 @@ use WFV\Collection\ErrorCollection;
 use WFV\Collection\InputCollection;
 use WFV\Collection\MessageCollection;
 use WFV\Collection\RuleCollection;
+use WFV\Factory\ValidatorFactory;
 
 use WFV\FormComposite;
 use WFV\Validator;
@@ -34,6 +35,8 @@ class FormArtisan implements ArtisanInterface {
 	 * @var \WFV\Validator
 	 */
 	public $validator;
+
+	public $factory;
 
 	/**
 	 *
@@ -98,6 +101,18 @@ class FormArtisan implements ArtisanInterface {
 	 */
 	public function errors() {
 		$this->collection['errors'] = new ErrorCollection( $this->labels() );
+		return $this;
+	}
+
+	/**
+	 *
+	 *
+	 * @since 0.11.2
+	 *
+	 * @return WFV\Artisan\FormArtisan
+	 */
+	public function factory() {
+		$this->factory = new ValidatorFactory();
 		return $this;
 	}
 
