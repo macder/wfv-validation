@@ -46,7 +46,7 @@ class RuleCollection extends Collectable {
 	 * @return array|bool
 	 */
 	public function get_params( $field, $index ) {
-		return ( $this->has_params( $field, $index ) )
+		return ( $this-> has_params( $field, $index ) )
 			? $this->data[ $field ][ $index ]['params']
 			: false;
 	}
@@ -191,9 +191,9 @@ class RuleCollection extends Collectable {
 	 */
 	protected function remove_params() {
 		return array_map( function( $item ) {
-			foreach( $item as $index => $rule ) {
+			foreach( $item as $rule ) {
 				if( $rule !== 'optional' ) {
-					$rules[ $index ] = ( is_string( $rule ) ) ? $rule : $rule['rule'];
+					$rules[] = ( is_string( $rule ) ) ? $rule : $rule['rule'];
 				}
 			}
 			return $rules;

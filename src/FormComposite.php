@@ -34,15 +34,6 @@ class FormComposite {
 	/**
 	 *
 	 *
-	 * @since 0.11.2
-	 * @access protected
-	 * @var WFV\Factory\ValidatorFactory
-	 */
-	protected $factory;
-
-	/**
-	 *
-	 *
 	 * @since 0.11.0
 	 * @access protected
 	 * @var Validator
@@ -60,7 +51,6 @@ class FormComposite {
 	public function __construct( FormArtisan $builder, $action ) {
 		$this->alias = $action;
 		$this->collection = $builder->collection;
-		$this->factory = $builder->factory;
 		$this->validator = $builder->validator;
 	}
 
@@ -117,6 +107,24 @@ class FormComposite {
 	}
 
 	/**
+	 * Check if the validation passed or failed
+	 * Sets the error msgs if a fail
+	 * Trigger pass or fail action
+	 *
+	 * @since 0.11.0
+	 *
+	 * @return bool
+	 */
+	public function is_valid() {
+		$is_valid = $this->validator->is_valid();
+		if( false === $is_valid ) {
+			$this->utilize('errors')->set_errors( $this->validator->errors() );
+		}
+		$this->trigger_post_validate_action( $is_valid );
+		return $is_valid;
+	}
+
+	/**
 	 * Use rules collection
 	 *
 	 * @since 0.11.0
@@ -159,9 +167,10 @@ class FormComposite {
 	 *
 	 * @since 0.11.0
 	 *
-	 * @return bool
+	 * @param ValidatorFactory $factory
+	 * @return self
 	 */
-	public function validate() {
+	public function validate( ValidatorFactory $factory ) {
 		$rule_collection = $this->utilize('rules');
 		$rules = $rule_collection->get_array( true );
 
@@ -171,10 +180,10 @@ class FormComposite {
 
 			foreach( $ruleset as $index => $rule ) {
 				$params = $rule_collection->get_params( $field, $index );
-				$this->validator->validate( $this->factory->get( $rule ), $field, $input, $optional, $params );
+				$this->validator->validate( $factory->get( $rule ), $field, $input, $optional, $params );
 			}
 		}
-		return $this->is_valid();
+		return $this;
 	}
 
 	/**
@@ -194,24 +203,6 @@ class FormComposite {
 			return $input[ $field ];
 		}
 		return null;
-	}
-
-	/**
-	 * Check if the validation passed or failed
-	 * Sets the error msgs if a fail
-	 * Trigger pass or fail action
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return bool
-	 */
-	protected function is_valid() {
-		$is_valid = $this->validator->is_valid();
-		if( false === $is_valid ) {
-			$this->utilize('errors')->set_errors( $this->validator->errors() );
-		}
-		$this->trigger_post_validate_action( $is_valid );
-		return $is_valid;
 	}
 
 	/**
