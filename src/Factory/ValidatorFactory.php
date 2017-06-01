@@ -2,7 +2,7 @@
 namespace WFV\Factory;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Validators;
+use WFV\Rules;
 
 /**
  * Flyweight factory for validators
@@ -47,6 +47,6 @@ class ValidatorFactory {
 	 */
 	protected function class_name( $rule ){
 		$name = str_replace(' ', '', ucwords( str_replace('_', ' ', $rule ) ) );
-		return 'WFV\Validators\\'.$name;
+		return 'WFV\Rules\\'.$name;
 	}
 }
