@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Validators;
+namespace WFV\Rules;
 
 use \Respect\Validation\Validator;
 
