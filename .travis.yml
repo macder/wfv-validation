@@ -9,6 +9,7 @@ notifications:
 
 branches:
   only:
+    - master
 
 php:
   - 5.4
