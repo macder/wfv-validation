@@ -2,19 +2,18 @@
 [![Build Status](https://travis-ci.org/macder/wfv-validation.svg?branch=master)](https://travis-ci.org/macder/wfv-validation)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wfv-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wfv-validation/?branch=master)
 
-Elegant input validation for custom forms in WordPress.
+WFV is an elegant way to work with custom forms in WordPress.
 
-**NOTICE:**<br>
-This documentation is for development and testing.
+A simple fluid and concise API to manage user input, validation, feedback, and safe output.
 
-**For usage, refer to [user documentation](https://macder.github.io/wfv/)**
+**User documentation available at [https://macder.github.io/wfv/](https://macder.github.io/wfv/)**
 
-WIP - Content migration in progress
+WFV is intended for developers who prefer creating and managing forms at the code level. This is not a WYSIWYG type plugin and is not targeted for users who are not comfortable writing code.
 
 # Table of Contents
 * [Install](#install)
-* [Architecture](#architecture)
-* [Testing]()
+* [Contributing](#contributing)
+* [Testing](#testing)
   * [Prerequisites](#prerequisites)
   * [Setup]()
 * [Support](#support)
@@ -24,7 +23,22 @@ WIP - Content migration in progress
 
 ## Install
 
-Have a working instance of WordPress
+Note: WFV is in alpha testing and an official packaged release is not yet available. Once alpha testing is complete, WFV will be submitted for review into the official WordPress repo.
+
+In the meantime, you may install the pre-release by either downloading the zip, or with git. Note that [Composer](https://getcomposer.org/) is required for both methods
+
+The client API has standardized and there will be no more breaking changes as WFV moves towards the v1.0.0 milestone.
+
+### Zip
+Download the latest [pre-release zip](https://github.com/macder/wfv-validation/releases)
+
+Extract into `./wp-content/plugins`
+
+In the WFV plugin folder run `composer install`
+
+Activate in the `Plugins` section of the `Admin Dashboard`
+
+### Git
 
 ```sh
 $ cd ./wp-content/plugins
@@ -36,25 +50,26 @@ $ cd wfv-validation
 $ composer install
 ```
 
-Activate the plugin in the admin dashboard
+Activate in the `Plugins` section of the `Admin Dashboard`
 
 ---
 
-## Architecture
+## Contributing
 
-**Creation**<br>
-Builder - FormComposite<br>
-Simple Factory - Validators
+Contributions are always welcome and encouraged. Before contributing a new feature or fix, please check the [issues](https://github.com/macder/wfv-validation/issues) section (open and closed) to make sure no one is already working on what you intend.
 
-**Structure**<br>
-Composite<br>
-Flyweight<br>
+* If there is no open or closed issue, open a new issue so that others know you are working on something.
+* If an issue is already open, you may be able to help. Make a comment in the issue that you intend to help out. If no one is working on the issue, it will be assigned to you, otherwise ask if they require help. Please use a common sense approach
+* If you require help or you stop working on an issue before it is complete, make a comment about it. Please do not hijack an issue by abandoning it without telling anyone.
 
-**Behavioural**<br>
-Strategy<br>
+### Workflow
+
+WFV subscribed to the Gitflow Workflow. If you are not familiar with it, please read [this](http://nvie.com/posts/a-successful-git-branching-model/) and [this](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow)
 
 
 ## Testing
+
+**NOTE: This section may be slightly outdated and will be updated ASAP**
 
 ### Prerequisites
 
