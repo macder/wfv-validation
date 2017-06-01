@@ -91,6 +91,26 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Does factory return instance of this FormArtisan?
+	 *
+	 */
+	public function test_form_artisan_factory_return_self_instance() {
+		$result = self::$form_artisan->factory();
+
+		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan factory() must return Self' );
+	}
+
+	/**
+	 * Does validator return instance of this FormArtisan?
+	 *
+	 */
+	public function test_form_artisan_validator_return_self_instance() {
+		$result = self::$form_artisan->validator();
+
+		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan validator() must return Self' );
+	}
+
+	/**
 	 * Does actualize method return instance Form?
 	 *
 	 */
