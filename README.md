@@ -23,11 +23,10 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 
 ## Install
 
-Note: WFV is in alpha testing and an official packaged release is not yet available. Once alpha testing is complete, WFV will be submitted for review into the official WordPress repo.
+Note: WFV is currently an alpha pre-release. An official packaged release is not yet available.
 
-In the meantime, you may install the pre-release by either downloading the zip, or with git. Note that [Composer](https://getcomposer.org/) is required for both methods
+In the meantime, you may install the latest alpha by either downloading the zip, or with git. Note that [Composer](https://getcomposer.org/) is required for both methods
 
-The client API has standardized and there will be no more breaking changes as WFV moves towards the v1.0.0 milestone.
 
 ### Zip
 Download the latest [pre-release zip](https://github.com/macder/wfv-validation/releases)
@@ -64,7 +63,7 @@ Contributions are always welcome and encouraged. Before contributing a new featu
 
 ### Workflow
 
-WFV subscribed to the Gitflow Workflow. If you are not familiar with it, please read [this](http://nvie.com/posts/a-successful-git-branching-model/) and [this](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow)
+WFV follows the Gitflow Workflow. If you are not familiar with it, please read [this](http://nvie.com/posts/a-successful-git-branching-model/) and [this](https://www.atlassian.com/git/tutorials/comparing-workflows#gitflow-workflow)
 
 
 ## Testing
