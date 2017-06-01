@@ -8,7 +8,7 @@ Version:     0.11.2
 Author:      Maciej Derulski
 Author URI:  https://github.com/macder
 License:     BSD 3-Clause
-License URI: https://github.com/macder/wp-form-validation/blob/master/LICENSE
+License URI: https://github.com/macder/wfv-validation/blob/master/LICENSE
 */
 
 define( 'WFV_VALIDATE_VERSION', '0.11.2' );
