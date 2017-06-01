@@ -1,5 +1,5 @@
 <?php
-namespace WFV\Validators;
+namespace WFV\Rules;
 defined( 'ABSPATH' ) || die();
 
 use \Respect\Validation\Validator as RespectValidator;

@@ -1,8 +1,8 @@
 <?php
-namespace WFV\Validators;
+namespace WFV\Rules;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Validators\AbstractValidator;
+use WFV\Rules\AbstractValidator;
 
 /**
  * Required with other field
