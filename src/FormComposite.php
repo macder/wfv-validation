@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || die();
 
 use WFV\Artisan\FormArtisan;
 use WFV\Contract\ValidateInterface;
-use WFV\Factory\ValidatorFactory;
+use WFV\RuleFactory;
 
 /**
  * Form Composition
