@@ -2,7 +2,7 @@
 namespace WFV\Rules;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Rules\AbstractValidator;
+use WFV\Rules\AbstractRule;
 
 /**
  * Value must be an email
@@ -11,7 +11,7 @@ use WFV\Rules\AbstractValidator;
  *
  * @since 0.11.0
  */
-class Email extends AbstractValidator {
+class Email extends AbstractRule {
 
 	/**
 	 *
