@@ -32,17 +32,6 @@ abstract class AbstractValidator implements ValidateInterface {
 	}
 
 	/**
-	 * Returns the error message for the field/rule under validation
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return string
-	 */
-	public function error_msg() {
-		return $this->template['message'];
-	}
-
-	/**
 	 * Returns the template array for the field under validation
 	 *
 	 * @since 0.11.0
