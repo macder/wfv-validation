@@ -21,7 +21,8 @@ use WFV\FormComposite;
 use WFV\Agent\InspectionAgent;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
-use WFV\Factory\ValidatorFactory;
+
+use \Respect\Validation\Validator as RespectValidator;
 
 /**
  *
@@ -40,24 +41,11 @@ function wfv_create( $action, array &$form, $trim = true ) {
 		->with( 'input', $guard )
 		->with( 'rules' )
 		->with( 'errors' )
+		->with( 'factory' )
 		->with( 'validator' )
 		->compose( $builder );
 
 	if( $form->input()->is_populated() ) {
-		wfv_validate( $form );
+		$form->validate();
 	}
-}
-
-/**
- *
- *
- * @since 0.11.0
- *
- * @param FormComposite $form
- * @return bool
- */
-function wfv_validate( FormComposite $form ) {
-	$factory = ( new ValidatorFactory() )
-		->add( $form->rules()->unique() );
-	return $form->validate( $factory )->is_valid();
 }
