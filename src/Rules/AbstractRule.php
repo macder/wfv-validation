@@ -10,7 +10,7 @@ use WFV\Contract\ValidateInterface;
  *
  * @since 0.11.0
  */
-abstract class AbstractValidator implements ValidateInterface {
+abstract class AbstractRule implements ValidateInterface {
 
 	/**
 	 *
