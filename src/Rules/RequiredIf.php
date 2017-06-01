@@ -2,7 +2,7 @@
 namespace WFV\Rules;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Rules\AbstractValidator;
+use WFV\Rules\AbstractRule;
 
 /**
  * Required if other field equals a specific value
@@ -10,7 +10,7 @@ use WFV\Rules\AbstractValidator;
  *
  * @since 0.11.0
  */
-class RequiredIf extends AbstractValidator {
+class RequiredIf extends AbstractRule {
 
 	/**
 	 *

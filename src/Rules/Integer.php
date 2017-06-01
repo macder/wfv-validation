@@ -2,14 +2,14 @@
 namespace WFV\Rules;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Rules\AbstractValidator;
+use WFV\Rules\AbstractRule;
 
 /**
  *
  *
  * @since 0.11.0
  */
-class Integer extends AbstractValidator {
+class Integer extends AbstractRule {
 
 	/**
 	 *
