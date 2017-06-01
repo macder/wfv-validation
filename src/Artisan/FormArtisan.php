@@ -31,12 +31,18 @@ class FormArtisan implements ArtisanInterface {
 	/**
 	 *
 	 *
+	 * @since 0.11.2
+	 * @var \WFV\Factory\ValidatorFactory
+	 */
+	public $factory;
+
+	/**
+	 *
+	 *
 	 * @since 0.11.0
 	 * @var \WFV\Validator
 	 */
 	public $validator;
-
-	public $factory;
 
 	/**
 	 *
