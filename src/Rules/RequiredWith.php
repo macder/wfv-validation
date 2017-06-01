@@ -2,7 +2,7 @@
 namespace WFV\Rules;
 defined( 'ABSPATH' ) || die();
 
-use WFV\Rules\AbstractValidator;
+use WFV\Rules\AbstractRule;
 
 /**
  * Required with other field
@@ -11,7 +11,7 @@ use WFV\Rules\AbstractValidator;
  *
  * @since 0.11.0
  */
-class RequiredWith extends AbstractValidator {
+class RequiredWith extends AbstractRule {
 
 	/**
 	 *
