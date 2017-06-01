@@ -36,7 +36,7 @@ class FormComposite {
 	 *
 	 * @since 0.11.2
 	 * @access protected
-	 * @var WFV\Factory\ValidatorFactory
+	 * @var WFV\RuleFactory
 	 */
 	protected $factory;
 
