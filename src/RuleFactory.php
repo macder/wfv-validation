@@ -1,18 +1,18 @@
 <?php
-namespace WFV\Factory;
+namespace WFV;
 defined( 'ABSPATH' ) || die();
 
 use WFV\Rules;
 
 /**
- * Flyweight factory for validators
+ * Flyweight factory for rules
  *
  * @since 0.11.0
  */
-class ValidatorFactory {
+class RuleFactory {
 
 	/**
-	 * Container holds unique validators
+	 * Container holds unique rules
 	 *
 	 * @since 0.11.0
 	 * @access protected
@@ -21,7 +21,7 @@ class ValidatorFactory {
 	protected $pool = array();
 
 	/**
-	 * Returns the validator for given rule
+	 * Returns a rule instance
 	 *
 	 * @since 0.11.0
 	 *
@@ -37,7 +37,7 @@ class ValidatorFactory {
 	}
 
 	/**
-	 * Returns the validator class name for given rule
+	 * Returns a rule's class name
 	 *
 	 * @since 0.11.0
 	 * @access protected
