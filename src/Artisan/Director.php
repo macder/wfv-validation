@@ -1,110 +1,67 @@
 <?php
 namespace WFV\Artisan;
-defined( 'ABSPATH' ) || die( 'envois' );
+defined( 'ABSPATH' ) || die();
 
 use WFV\Contract\ArtisanInterface;
 
 /**
- * Genesis
+ *
  *
  * @since 0.10.0
  *
  */
 class Director {
 
-  /**
-   * nātūra
-   *
-   * @since 0.10.0
-   * @access protected
-   * @var array
-   */
-  protected $aspect = array();
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 * @access protected
+	 * @var array
+	 */
+	protected $component = array();
 
-  /**
-   * identitās
-   *
-   * @since 0.10.0
-   * @access protected
-   * @var string
-   */
-  protected $entity;
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param ArtisanInterface $builder
+	 * @return object
+	 */
+	public function compose( ArtisanInterface $builder ) {
+		$this->amalgamate( $this->component, $builder );
+		return $builder
+			->create()
+			->actualize();
+	}
 
-  /**
-   * chronica
-   *
-   * @since 0.10.0
-   * @access private
-   * @var array
-   */
-  private $scribe = array();
+	/**
+	 *
+	 *
+	 * @since 0.10.0
+	 *
+	 * @param string $name
+	 * @param string|array|object (optional) $params
+	 * @return self
+	 */
+	public function with( $name, $params = null ) {
+		$this->component[ $name ] = $params;
+		return $this;
+	}
 
-  /**
-   * Introduce
-   *
-   * @since 0.10.0
-   *
-   * @param string (optional) $identity
-   */
-  public function __construct( $identity = null ) {
-    $this->entity = $identity;
-  }
-
-  /**
-   * Inscribe quality
-   *
-   * @since 0.10.0
-   *
-   * @param string $attribute
-   * @param mixed $characteristic
-   * @return self
-   */
-  public function describe( $attribute, $characteristic ) {
-    $this->scribe[ $attribute ] = $characteristic;
-    return $this;
-  }
-
-  /**
-   * Evoke maiden /ɪgˈzɪstəns/
-   *
-   * @since 0.10.0
-   *
-   * @param ArtisanInterface $artisan
-   * @return Composite
-   */
-  public function compose( ArtisanInterface $artisan ) {
-    $this->orchestrate( $this->aspect, $artisan );
-    return $artisan
-      ->create( $this->entity )
-      ->actualize();
-  }
-
-  /**
-   * Accord
-   *
-   * @since 0.10.0
-   *
-   * @param string $quality
-   * @param string|array (optional) $attributes
-   * @return self
-   */
-  public function with( $quality, $attributes = null ) {
-    $this->aspect[ $quality ] = $attributes;
-    return $this;
-  }
-
-  /**
-   * Amalgamate
-   *
-   * @since 0.10.0
-   * @access private
-   *
-   * @param array $aspect
-   * @param ArtisanInterface $artisan
-   */
-  private function orchestrate( array $aspect, ArtisanInterface &$artisan ) {
-    foreach( $aspect as $component => $params ) {
-      $artisan->$component( $params );
-    }
-  }
+	/**
+	 * Amalgamate
+	 *
+	 * @since 0.10.0
+	 * @access private
+	 *
+	 * @param array $components
+	 * @param ArtisanInterface $builder
+	 */
+	private function amalgamate( array $components, ArtisanInterface &$builder ) {
+		foreach( $components as $component => $params ) {
+			$builder->$component( $params );
+		}
+	}
 }
