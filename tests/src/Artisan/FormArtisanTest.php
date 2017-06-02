@@ -37,7 +37,7 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 		  ],
 		);
 
-		self::$form_artisan = new FormArtisan( $form );
+		self::$form_artisan = new FormArtisan( $form, 'phpunit' );
 	}
 
 	/**

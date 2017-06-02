@@ -55,10 +55,9 @@ class FormComposite {
 	 * @since 0.10.0
 	 *
 	 * @param ArtisanInterface $builder
-	 * @param string $action
 	 */
-	public function __construct( FormArtisan $builder, $action ) {
-		$this->alias = $action;
+	public function __construct( FormArtisan $builder) {
+		$this->alias = $builder->action;
 		$this->collection = $builder->collection;
 		$this->factory = $builder->factory;
 		$this->validator = $builder->validator;
