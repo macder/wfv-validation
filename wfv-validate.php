@@ -18,7 +18,6 @@ define( 'WFV_VALIDATE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
 use WFV\FormComposite;
-use WFV\Agent\InspectionAgent;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
 
@@ -34,11 +33,10 @@ use \Respect\Validation\Validator as RespectValidator;
  * @param bool $trim Trim whitespace from beginning and end of string
  */
 function wfv_create( $action, array &$form, $trim = true ) {
-	$guard = new InspectionAgent( $action );
 
-	$builder = new FormArtisan( $form );
-	$form = ( new Director( $action ) )
-		->with( 'input', $guard )
+	$builder = new FormArtisan( $form, $action );
+	$form = ( new Director() )
+		->with( 'input' )
 		->with( 'rules' )
 		->with( 'errors' )
 		->with( 'factory' )

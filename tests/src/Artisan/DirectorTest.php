@@ -20,7 +20,7 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$director = new Director( 'entity' );
+		self::$director = new Director();
 	}
 
 	/**
@@ -29,16 +29,6 @@ class DirectorTest extends \PHPUnit_Framework_TestCase {
 	 */
 	protected function tearDown() {
 		self::$director = null;
-	}
-
-	/**
-	 * Does describe method return an instance of this director?
-	 *
-	 */
-	public function test_director_describe_return_self_instance() {
-		$result = self::$director
-			->describe( 'phpunit', 'tested' );
-		$this->assertInstanceOf( 'WFV\Artisan\Director', $result );
 	}
 
 	/**

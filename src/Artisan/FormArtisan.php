@@ -23,6 +23,14 @@ class FormArtisan implements ArtisanInterface {
 	/**
 	 *
 	 *
+	 * @since 0.11.3
+	 * @var string
+	 */
+	public $action;
+
+	/**
+	 *
+	 *
 	 * @since 0.10.0
 	 * @var array
 	 */
@@ -68,9 +76,11 @@ class FormArtisan implements ArtisanInterface {
 	 * @since 0.11.0
 	 *
 	 * @param array $config
+	 * @param string $action
 	 */
-	public function __construct( array $config ) {
+	public function __construct( array $config, $action ) {
 		$this->config = $config;
+		$this->action = $action;
 	}
 
 	/**
@@ -92,8 +102,8 @@ class FormArtisan implements ArtisanInterface {
 	 * @param string $action
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function create( $action ) {
-		$this->form = new FormComposite( $this, $action );
+	public function create() {
+		$this->form = new FormComposite( $this );
 		return $this;
 	}
 
@@ -128,10 +138,10 @@ class FormArtisan implements ArtisanInterface {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param InspectionAgent $guard
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function input( InspectionAgent $guard ) {
+	public function input() {
+		$guard = new InspectionAgent( $this->action );
 		$this->collection['input'] = new InputCollection( $guard );
 		return $this;
 	}
