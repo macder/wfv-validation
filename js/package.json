@@ -1,0 +1,10 @@
+{
+  "name": "wfv-validation-frontend",
+  "description": "Frontend component for WFV validation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maciej Derulski",
+  "license": "BSD-3-Clause"
+}
