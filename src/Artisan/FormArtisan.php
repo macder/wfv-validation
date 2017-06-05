@@ -6,12 +6,9 @@ use WFV\Agent\InspectionAgent;
 use WFV\Contract\ArtisanInterface;
 use WFV\Collection\ErrorCollection;
 use WFV\Collection\InputCollection;
-use WFV\Collection\MessageCollection;
 use WFV\Collection\RuleCollection;
 
-use WFV\RuleFactory;
 use WFV\FormComposite;
-use WFV\Validator;
 
 /**
  *
@@ -23,26 +20,18 @@ class FormArtisan implements ArtisanInterface {
 	/**
 	 *
 	 *
+	 * @since 0.11.3
+	 * @var string
+	 */
+	public $action;
+
+	/**
+	 *
+	 *
 	 * @since 0.10.0
 	 * @var array
 	 */
 	public $collection = array();
-
-	/**
-	 *
-	 *
-	 * @since 0.11.2
-	 * @var \WFV\RuleFactory
-	 */
-	public $factory;
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @var \WFV\Validator
-	 */
-	public $validator;
 
 	/**
 	 *
@@ -68,9 +57,11 @@ class FormArtisan implements ArtisanInterface {
 	 * @since 0.11.0
 	 *
 	 * @param array $config
+	 * @param string $action
 	 */
-	public function __construct( array $config ) {
+	public function __construct( array $config, $action ) {
 		$this->config = $config;
+		$this->action = $action;
 	}
 
 	/**
@@ -92,8 +83,8 @@ class FormArtisan implements ArtisanInterface {
 	 * @param string $action
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function create( $action ) {
-		$this->form = new FormComposite( $this, $action );
+	public function create() {
+		$this->form = new FormComposite( $this );
 		return $this;
 	}
 
@@ -111,27 +102,15 @@ class FormArtisan implements ArtisanInterface {
 	}
 
 	/**
-	 *
-	 *
-	 * @since 0.11.2
-	 *
-	 * @return WFV\Artisan\FormArtisan
-	 */
-	public function factory() {
-		$this->factory = new RuleFactory();
-		return $this;
-	}
-
-	/**
 	 * Create instance of InputCollection
 	 * Save it in $collection array property
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param InspectionAgent $guard
 	 * @return WFV\Artisan\FormArtisan
 	 */
-	public function input( InspectionAgent $guard ) {
+	public function input() {
+		$guard = new InspectionAgent( $this->action );
 		$this->collection['input'] = new InputCollection( $guard );
 		return $this;
 	}
@@ -145,24 +124,7 @@ class FormArtisan implements ArtisanInterface {
 	 * @return WFV\Artisan\FormArtisan
 	 */
 	public function rules() {
-		$rules = array();
-		foreach( $this->config as $field => $options ) {
-			$rules[ $field ] = $options['rules'];
-		}
-		$this->collection['rules'] = new RuleCollection( $rules );
-		return $this;
-	}
-
-	/**
-	 * Create instance of WFV\Validator
-	 * Save it in $validator property
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return WFV\Artisan\FormArtisan
-	 */
-	public function validator() {
-		$this->validator = new Validator( new MessageCollection( $this->config ) );
+		$this->collection['rules'] = new RuleCollection( $this->config );
 		return $this;
 	}
 

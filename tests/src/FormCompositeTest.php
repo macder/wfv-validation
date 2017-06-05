@@ -2,10 +2,8 @@
 namespace WFV;
 
 use WFV\FormComposite;
-use WFV\Agent\InspectionAgent;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
-use WFV\Factory\ValidatorFactory;
 
 class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 
@@ -24,14 +22,6 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 * @var
 	 */
 	protected static $form;
-
-	/**
-	 *
-	 *
-	 * @access protected
-	 * @var
-	 */
-	protected static $guard;
 
 	/**
 	 *
@@ -79,13 +69,10 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 
   $_REQUEST[ 'phpunit_token' ] = self::$http_post['phpunit_token'];
 
-	self::$guard = new InspectionAgent( 'phpunit' );
-
-	self::$builder = new FormArtisan( $form );
-	self::$form = ( new Director( 'phpunit' ) )
+	self::$builder = new FormArtisan( $form, 'phpunit' );
+	self::$form = ( new Director() )
 		->with( 'rules' )
-		->with( 'errors' )
-		->with( 'validator' );
+		->with( 'errors' );
 	}
 
 
@@ -97,7 +84,6 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = null;
 		$_REQUEST = null;
 		self::$form = null;
-		self::$guard = null;
 		self::$builder = null;
 		self::$http_post = null;
 	}
@@ -110,7 +96,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 
 		$form = self::$form
-			->with( 'input', self::$guard )
+			->with( 'input' )
 			->compose( self::$builder );
 
 		$expected = 'checked';
@@ -124,7 +110,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_checked_if_returns_null_when_no_post() {
 		$form = self::$form
-			->with( 'input', self::$guard )
+			->with( 'input' )
 			->compose( self::$builder );
 
 		$expected = null;
@@ -142,7 +128,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 		$_POST = self::$http_post;
 
 		$form = self::$form
-			->with( 'input', self::$guard )
+			->with( 'input' )
 			->compose( self::$builder );
 
 		$expected = null;
@@ -156,7 +142,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_errors_returns_error_collection() {
 		$form = self::$form
-			->with( 'input', self::$guard )
+			->with( 'input' )
 			->compose( self::$builder );
 
 		$expected = 'WFV\Collection\ErrorCollection';
@@ -170,7 +156,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_input_returns_input_collection() {
 		$form = self::$form
-			->with( 'input', self::$guard )
+			->with( 'input' )
 			->compose( self::$builder );
 
 		$expected = 'WFV\Collection\InputCollection';
@@ -184,7 +170,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_form_input_returns_rule_collection() {
 		$form = self::$form
-			->with( 'input', self::$guard )
+			->with( 'input' )
 			->compose( self::$builder );
 
 		$expected = 'WFV\Collection\RuleCollection';

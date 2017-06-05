@@ -34,34 +34,13 @@ class FormComposite {
 	/**
 	 *
 	 *
-	 * @since 0.11.2
-	 * @access protected
-	 * @var WFV\RuleFactory
-	 */
-	protected $factory;
-
-	/**
-	 *
-	 *
-	 * @since 0.11.0
-	 * @access protected
-	 * @var Validator
-	 */
-	protected $validator;
-
-	/**
-	 *
-	 *
 	 * @since 0.10.0
 	 *
 	 * @param ArtisanInterface $builder
-	 * @param string $action
 	 */
-	public function __construct( FormArtisan $builder, $action ) {
-		$this->alias = $action;
+	public function __construct( FormArtisan $builder ) {
+		$this->alias = $builder->action;
 		$this->collection = $builder->collection;
-		$this->factory = $builder->factory;
-		$this->validator = $builder->validator;
 	}
 
 	/**
@@ -117,6 +96,17 @@ class FormComposite {
 	}
 
 	/**
+	 * Return the form name/action
+	 *
+	 * @since 0.11.3
+	 *
+	 * @return string
+	 */
+	public function name() {
+		return $this->alias;
+	}
+
+	/**
 	 * Use rules collection
 	 *
 	 * @since 0.11.0
@@ -155,66 +145,6 @@ class FormComposite {
 	}
 
 	/**
-	 * Perform the validation cycle
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return bool
-	 */
-	public function validate() {
-		$rule_collection = $this->utilize('rules');
-		$rules = $rule_collection->get_array( true );
-
-		foreach( $rules as $field => $ruleset ) {
-			$input = $this->field_value( $field );
-			$optional = $rule_collection->is_optional( $field );
-
-			foreach( $ruleset as $index => $rule ) {
-				$params = $rule_collection->get_params( $field, $index );
-				$this->validator->validate( $this->factory->get( $rule ), $field, $input, $optional, $params );
-			}
-		}
-		return $this->is_valid();
-	}
-
-	/**
-	 * Returns the input value for a field
-	 * When not present, returns null
-	 *
-	 * @since 0.11.0
-	 * @access protected
-	 *
-	 * @param string $field
-	 * @return string|array|null
-	 */
-	protected function field_value( $field ) {
-		$input = $this->utilize('input');
-		if( $input->has( $field ) ) {
-			$input = $input->get_array();
-			return $input[ $field ];
-		}
-		return null;
-	}
-
-	/**
-	 * Check if the validation passed or failed
-	 * Sets the error msgs if a fail
-	 * Trigger pass or fail action
-	 *
-	 * @since 0.11.0
-	 *
-	 * @return bool
-	 */
-	protected function is_valid() {
-		$is_valid = $this->validator->is_valid();
-		if( false === $is_valid ) {
-			$this->utilize('errors')->set_errors( $this->validator->errors() );
-		}
-		$this->trigger_post_validate_action( $is_valid );
-		return $is_valid;
-	}
-
-	/**
 	 *
 	 *
 	 * @since 0.10.0
@@ -228,19 +158,6 @@ class FormComposite {
 	protected function string_or_null( $response, $field = null, $value = null ) {
 		$input = $this->utilize('input');
 		return ( $input->contains( $field, $value ) ) ? $response : null;
-	}
-
-	/**
-	 * Trigger action hook for validation pass or fail
-	 *
-	 * @since 0.10.0
-	 * @access protected
-	 *
-	 * @param bool $is_valid
-	 */
-	protected function trigger_post_validate_action( $is_valid = false ) {
-		$action = ( true === $is_valid ) ? $this->alias : $this->alias .'_fail';
-		do_action( $action, $this );
 	}
 
 	/**
