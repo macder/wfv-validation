@@ -18,10 +18,11 @@ define( 'WFV_VALIDATE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 require_once WFV_VALIDATE__PLUGIN_DIR . '/vendor/autoload.php';
 
 use WFV\FormComposite;
+use WFV\RuleFactory;
+use WFV\Validator;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
-
-use \Respect\Validation\Validator as RespectValidator;
+use WFV\Collection\MessageCollection;
 
 /**
  *
@@ -33,17 +34,16 @@ use \Respect\Validation\Validator as RespectValidator;
  * @param bool $trim Trim whitespace from beginning and end of string
  */
 function wfv_create( $action, array &$form, $trim = true ) {
+	$messages = new MessageCollection( $form );
 
 	$builder = new FormArtisan( $form, $action );
 	$form = ( new Director() )
 		->with( 'input' )
 		->with( 'rules' )
 		->with( 'errors' )
-		->with( 'factory' )
-		->with( 'validator' )
 		->compose( $builder );
 
 	if( $form->input()->is_populated() ) {
-		$form->validate();
+		( new Validator( new RuleFactory(), $messages ) )->validate( $form );
 	}
 }
