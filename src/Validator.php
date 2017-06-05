@@ -2,6 +2,8 @@
 namespace WFV;
 defined( 'ABSPATH' ) || die();
 
+use WFV\FormComposite;
+use WFV\Collection\InputCollection;
 use WFV\Collection\MessageCollection;
 use WFV\Contract\ValidateInterface;
 
@@ -25,7 +27,16 @@ class Validator {
 	/**
 	 *
 	 *
-	 * @since 0.11.0
+	 * @since 0.11.3
+	 * @access protected
+	 * @var RuleFactory
+	 */
+	protected $factory;
+
+	/**
+	 *
+	 *
+	 * @since 0.11.3
 	 * @access protected
 	 * @var MessageCollection
 	 */
@@ -36,53 +47,35 @@ class Validator {
 	 *
 	 * @since 0.11.0
 	 *
-	 * @param
+	 * @param RuleFactory $factory
 	 */
-	public function __construct( MessageCollection $messages ) {
+	public function __construct( RuleFactory $factory, MessageCollection $messages ) {
+		$this->factory = $factory;
 		$this->messages = $messages;
 	}
 
 	/**
-	 * Returns the array of error messages
 	 *
-	 * @since 0.11.0
 	 *
-	 * @return array
-	 */
-	public function errors() {
-		return $this->errors;
-	}
-
-	/**
-	 * Did the full validation cycle pass or fail?
+	 * @since 0.11.3
 	 *
-	 * @since 0.11.0
-	 *
+	 * @param FormComposite $form
 	 * @return bool
 	 */
-	public function is_valid() {
-		return empty( $this->errors );
-	}
+	public function validate( FormComposite $form ) {
+		$rule_collection = $form->rules();
+		$rules = $rule_collection->get_array( true );
 
-	/**
-	 * Validate a single input using provided rule (strategy)
-	 *
-	 * @since 0.11.0
-	 *
-	 * @param ValidateInterface $rule
-	 * @param string $field
-	 * @param string|array $value
-	 * @param bool $optional
-	 * @param array (optional) $params
-	 * @return self
-	 */
-	public function validate( ValidateInterface $rule, $field, $value, $optional, $params = false ) {
-		$params[] = ( $params ) ? $field : false;
-		$valid = $rule->validate( $value, $optional, $params );
-		if( !$valid ){
-			$this->add_error( $field, $rule->template() );
+		foreach( $rules as $field => $ruleset ) {
+			$input = $this->field_value( $form->input(), $field );
+			$optional = $rule_collection->is_optional( $field );
+
+			foreach( $ruleset as $index => $rule ) {
+				$params = $rule_collection->get_params( $field, $index );
+				$this->is_valid( $this->factory->get( $rule ), $field, $input, $optional, $params );
+			}
 		}
-		return $this;
+		return $this->result( $form );
 	}
 
 	/**
@@ -99,5 +92,89 @@ class Validator {
 			? $this->messages->get_msg( $field, $template['name'] )
 			: $template['message'];
 		$this->errors[ $field ][ $template['name'] ] = $message;
+	}
+
+	/**
+	 * Returns the array of error messages
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @return array
+	 */
+	protected function errors() {
+		return $this->errors;
+	}
+
+	/**
+	 * Returns the input value for a field
+	 * When not present, returns null
+	 *
+	 * @since 0.11.0
+	 * @since 0.11.3 Moved from FormComposite
+	 * @access protected
+	 *
+	 * @param InputCollection $input
+	 * @param string $field
+	 * @return string|array|null
+	 */
+	protected function field_value( InputCollection $input, $field ) {
+		if( $input->has( $field ) ) {
+			$input = $input->get_array();
+			return $input[ $field ];
+		}
+		return null;
+	}
+
+	/**
+	 * Validate a single input using provided rule (strategy)
+	 *
+	 * @since 0.11.0
+	 *
+	 * @param ValidateInterface $rule
+	 * @param string $field
+	 * @param string|array $value
+	 * @param bool $optional
+	 * @param array (optional) $params
+	 */
+	protected function is_valid( ValidateInterface $rule, $field, $value, $optional, $params = false ) {
+		$params[] = ( $params ) ? $field : false;
+		$valid = $rule->validate( $value, $optional, $params );
+		if( !$valid ){
+			$this->add_error( $field, $rule->template() );
+		}
+	}
+
+	/**
+	 * Did the full validation cycle pass or fail?
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @param FormComposite $form
+	 * @return bool
+	 */
+	protected function result( FormComposite $form ) {
+		$valid = empty( $this->errors );
+		if( !$valid ) {
+			$form->errors()->set_errors( $this->errors );
+		}
+		$this->trigger_post_validate_action( $form, $valid );
+		return $valid;
+	}
+
+	/**
+	 * Trigger action hook for validation pass or fail
+	 *
+	 * @since 0.10.0
+	 * @since 0.11.3 Moved from FormComposite
+	 * @access protected
+	 *
+	 * @param FormComposite $form
+	 * @param bool $is_valid
+	 */
+	protected function trigger_post_validate_action( FormComposite $form, $is_valid = false ) {
+		$action = ( true === $is_valid ) ? $form->name() : $form->name() .'_fail';
+		do_action( $action, $form );
 	}
 }

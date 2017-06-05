@@ -18,11 +18,28 @@ class RuleCollectionTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
+
 		$rules = array(
-			'single'    => 'required',
-			'double'    => 'required|email',
-			'params'    => 'required_if:field,value',
-			'optional'  => 'optional|alpha'
+		  'single' => [
+		    'label' => 'Single',
+		    'rules' => 'required',
+		  ],
+		  'double' => [
+		    'label' => 'Double',
+		    'rules' => 'required|email',
+		    'messages' => [
+		      'required' => 'Custom required validation error msg',
+		      'email'    => 'No email? No soup for you!',
+		    ],
+		  ],
+		  'params' => [
+		    'label' => 'Params',
+		    'rules' => 'required_if:field,value',
+		  ],
+		  'optional' => [
+		    'label' => 'Optional',
+		    'rules' => 'optional|alpha',
+		  ],
 		);
 
 		self::$rule_collection = new RuleCollection( $rules );

@@ -4,7 +4,6 @@ namespace WFV;
 use WFV\FormComposite;
 use WFV\Artisan\Director;
 use WFV\Artisan\FormArtisan;
-use WFV\Factory\ValidatorFactory;
 
 class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 
@@ -73,8 +72,7 @@ class FormCompositeTest extends \PHPUnit_Framework_TestCase {
 	self::$builder = new FormArtisan( $form, 'phpunit' );
 	self::$form = ( new Director() )
 		->with( 'rules' )
-		->with( 'errors' )
-		->with( 'validator' );
+		->with( 'errors' );
 	}
 
 

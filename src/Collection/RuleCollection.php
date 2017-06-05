@@ -16,10 +16,10 @@ class RuleCollection extends Collectable {
 	 *
 	 * @since 0.10.0
 	 *
-	 * @param array $rules
+	 * @param array $form
 	 */
-	public function __construct( array $rules ) {
-		$this->data = $this->parse_rules( $rules );
+	public function __construct( array $form ) {
+		$this->data = $this->parse_rules( $form );
 	}
 
 
@@ -105,6 +105,22 @@ class RuleCollection extends Collectable {
 	}
 
 	/**
+	 * Extract rules from form config array
+	 *
+	 * @since 0.11.3
+	 * @access protected
+	 *
+	 * @param array $form
+	 * @return array
+	 */
+	protected function extract_rules( array $form ) {
+		foreach( $form as $field => $options ) {
+			$rules[ $field ] = $options['rules'];
+		}
+		return $rules;
+	}
+
+	/**
 	 * Returns a flat index array of rules
 	 *
 	 * @since 0.11.0
@@ -140,30 +156,19 @@ class RuleCollection extends Collectable {
 	}
 
 	/**
-	 * Checks if a rule string has parameters
-	 *
-	 * @since 0.11.0
-	 * @access protected
-	 *
-	 * @param string $rule
-	 * @return bool
-	 */
-	protected function string_has_params( $rule ) {
-		return strpos( $rule, ':' );
-	}
-
-	/**
 	 * Split each string ruleset from config array
 	 *  into a machine friendly multi-dimensional array
 	 *
 	 * @since 0.11.0
 	 * @access protected
 	 *
-	 * @param array $rules
+	 * @param array $form
 	 * @return array
 	 */
-	protected function parse_rules( array $rules ) {
+	protected function parse_rules( array $form ) {
 		// WIP - works, but confusing - simplify or breakdown into small methods
+		$rules = $this->extract_rules( $form );
+
 		$parsed = array();
 		$this->split_rules( $rules );
 		foreach( $rules as $field => $ruleset ) {
@@ -213,5 +218,18 @@ class RuleCollection extends Collectable {
 		$rules = array_map( function( $item ) {
 			return explode( '|', $item );
 		}, $rules );
+	}
+
+	/**
+	 * Checks if a rule string has parameters
+	 *
+	 * @since 0.11.0
+	 * @access protected
+	 *
+	 * @param string $rule
+	 * @return bool
+	 */
+	protected function string_has_params( $rule ) {
+		return strpos( $rule, ':' );
 	}
 }
