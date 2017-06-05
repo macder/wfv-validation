@@ -10,6 +10,7 @@ notifications:
 branches:
   only:
     - master
+    - /^release\/.*$/
 
 php:
   - 5.4
