@@ -74,7 +74,6 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	public function test_form_artisan_create_return_self_instance() {
-		self::$form_artisan->validator();
 		$result = self::$form_artisan->create( 'phpunit' );
 
 		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan create() must return Self' );
@@ -91,26 +90,6 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Does factory return instance of this FormArtisan?
-	 *
-	 */
-	public function test_form_artisan_factory_return_self_instance() {
-		$result = self::$form_artisan->factory();
-
-		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan factory() must return Self' );
-	}
-
-	/**
-	 * Does validator return instance of this FormArtisan?
-	 *
-	 */
-	public function test_form_artisan_validator_return_self_instance() {
-		$result = self::$form_artisan->validator();
-
-		$this->assertInstanceOf( 'WFV\Artisan\FormArtisan', $result, 'FormArtisan validator() must return Self' );
-	}
-
-	/**
 	 * Does actualize method return instance Form?
 	 *
 	 */
@@ -118,7 +97,6 @@ class FormArtisanTest extends \PHPUnit_Framework_TestCase {
 		$result = self::$form_artisan
 			->input( new InspectionAgent( 'test' ) )
 			->rules()
-			->validator()
 			->create('phpunit')
 			->actualize();
 
