@@ -2,11 +2,11 @@
 [![Build Status](https://travis-ci.org/macder/wfv-validation.svg?branch=master)](https://travis-ci.org/macder/wfv-validation)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wfv-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wfv-validation/?branch=master)
 
+**Documentation: [https://macder.github.io/wfv/](https://macder.github.io/wfv/)**
+
 WFV is an elegant way to work with custom forms in WordPress.
 
 A simple fluid and concise API to manage user input, validation, feedback, and safe output.
-
-**User documentation available at [https://macder.github.io/wfv/](https://macder.github.io/wfv/)**
 
 WFV is intended for developers who prefer creating and managing forms at the code level. This is not a WYSIWYG type plugin and is not targeted for users who are not comfortable writing code.
 
