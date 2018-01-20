@@ -58,7 +58,9 @@ class MessageCollection extends Collectable {
 	 */
 	protected function filter_config( array $form ) {
 		return array_filter( $form, function( $item ) {
-			return array_key_exists('messages', $item );
+			if ( array_key_exists('messages', $item ) ) {
+				return !empty($item['messages']);
+			}
 		});
 	}
 
