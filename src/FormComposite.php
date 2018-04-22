@@ -85,6 +85,18 @@ class FormComposite {
 	}
 
 	/**
+	 * Convenience method to check if form has input errors
+	 *
+	 *
+	 * @since 0.12.0
+	 *
+	 * @return bool
+	 */
+	public function has_errors() {
+		return $this->utilize('errors')->is_populated();
+	}
+
+	/**
 	 * Use input collection
 	 *
 	 * @since 0.10.0
@@ -93,6 +105,18 @@ class FormComposite {
 	 */
 	public function input() {
 		return $this->utilize('input');
+	}
+
+	/**
+	 * Convenience method to check if validation passed
+	 *
+	 * @since 0.12.0
+	 *
+	 * @return bool
+	 */
+	public function is_valid() {
+		return ( $this->input()->is_populated() ) &&
+			!$this->has_errors();
 	}
 
 	/**
