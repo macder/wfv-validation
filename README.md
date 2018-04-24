@@ -24,6 +24,7 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 ---
 
 ## Features
+* [Comprehensive documentation with examples](https://macder.github.io/wfv/)
 * 25 [Built-in rules](https://macder.github.io/wfv/guide/rules/)
 * [Custom rules](https://macder.github.io/wfv/guide/rules/#custom)
 * [Custom error messages](https://macder.github.io/wfv/guide/messages/)
@@ -36,8 +37,6 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 * [Robust quality code](https://scrutinizer-ci.com/g/macder/wfv-validation/?branch=master)
 * No rendered markup
 * Developer freedom
-
-**[Official Documentation](https://macder.github.io/wfv/)**
 
 ## Basic Example
 
