@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 
 class EmailTest extends \PHPUnit_Framework_TestCase {
@@ -19,7 +19,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$validator = new Email();
+		self::$validator = new Email( new RespectValidator() );
 	}
 
 	/**

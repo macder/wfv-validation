@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 class AlphaTest extends \PHPUnit_Framework_TestCase {
 
@@ -13,7 +13,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_true_when_not_optional_and_input_alpha() {
 		$optional = false;
-		$validator = new Alpha();
+		$validator = new Alpha( new RespectValidator() );
 
 		$result = $validator->validate( 'abcdefghi', $optional );
 		$this->assertTrue( $result );
@@ -27,7 +27,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_true_when_not_optional_and_input_alpha_spaces() {
 		$optional = false;
-		$validator = new Alpha();
+		$validator = new Alpha( new RespectValidator() );
 
 		$result = $validator->validate( 'abc def ghi', $optional );
 		$this->assertTrue( $result );
@@ -41,7 +41,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_true_when_optional_and_input_empty() {
 		$optional = true;
-		$validator = new Alpha();
+		$validator = new Alpha( new RespectValidator() );
 
 		$result = $validator->validate('', $optional );
 		$this->assertTrue( $result );
@@ -55,7 +55,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_true_when_optional_and_input_alpha() {
 		$optional = true;
-		$validator = new Alpha();
+		$validator = new Alpha( new RespectValidator() );
 
 		$result = $validator->validate( 'abcdefghi', $optional );
 		$this->assertTrue( $result );
@@ -69,7 +69,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_false_when_not_optional_and_input_alphanum() {
 		$optional = false;
-		$validator = new Alpha();
+		$validator = new Alpha( new RespectValidator() );
 
 		$result = $validator->validate( 'abcdefghi123', $optional );
 		$this->assertFalse( $result );
@@ -83,7 +83,7 @@ class AlphaTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function test_alpha_returns_false_when_optional_and_input_alphanum() {
 		$optional = true;
-		$validator = new Alpha();
+		$validator = new Alpha( new RespectValidator() );
 
 		$result = $validator->validate( 'abcdefghi123', $optional );
 		$this->assertFalse( $result );

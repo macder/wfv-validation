@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 
@@ -32,7 +32,7 @@ class RequiredIfTest extends \PHPUnit_Framework_TestCase {
 			'test_field'
 
 		);
-		self::$required_if = new RequiredIf();
+		self::$required_if = new RequiredIf( new RespectValidator() );
 	}
 
 	/**

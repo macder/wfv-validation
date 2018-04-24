@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 class LengthMinTest extends \PHPUnit_Framework_TestCase {
 
@@ -18,7 +18,7 @@ class LengthMinTest extends \PHPUnit_Framework_TestCase {
    *
    */
   protected function setUp() {
-    self::$validator = new LengthMin();
+    self::$validator = new LengthMin( new RespectValidator() );
   }
 
   /**

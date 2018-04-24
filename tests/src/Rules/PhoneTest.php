@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 
 class PhoneTest extends \PHPUnit_Framework_TestCase {
@@ -19,7 +19,7 @@ class PhoneTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$validator = new Phone();
+		self::$validator = new Phone( new RespectValidator() );
 	}
 
 	/**

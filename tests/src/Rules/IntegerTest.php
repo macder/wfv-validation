@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 class IntegerTest extends \PHPUnit_Framework_TestCase {
 
@@ -18,7 +18,7 @@ class IntegerTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$validator = new Integer();
+		self::$validator = new Integer( new RespectValidator() );
 	}
 
 	/**

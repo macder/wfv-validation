@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 class DifferentTest extends \PHPUnit_Framework_TestCase {
 
@@ -29,7 +29,7 @@ class DifferentTest extends \PHPUnit_Framework_TestCase {
 		self::$params = array(
 				'other_field',
 		);
-		self::$validator = new Different();
+		self::$validator = new Different( new RespectValidator() );
 	}
 
 	/**

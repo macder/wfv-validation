@@ -2,7 +2,6 @@
 namespace WFV\Rules;
 defined( 'ABSPATH' ) || die();
 
-use \Respect\Validation\Validator as RespectValidator;
 use WFV\Contract\ValidateInterface;
 
 /**
@@ -27,8 +26,8 @@ abstract class AbstractRule implements ValidateInterface {
 	 * @since 0.11.0
 	 *
 	 */
-	public function __construct() {
-		$this->validator = new RespectValidator();
+	public function __construct( $validator ) {
+		$this->validator = $validator;
 	}
 
 	/**
