@@ -27,9 +27,9 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 * 25 [Built-in rules](https://macder.github.io/wfv/guide/rules/)
 * [Custom rules](https://macder.github.io/wfv/guide/rules/#custom)
 * [Custom error messages](https://macder.github.io/wfv/guide/messages/)
-* [Helper methods for safe output](https://macder.github.io/wfv/guide/input/)
+* [Helper methods for input and safe output](https://macder.github.io/wfv/guide/input/)
 * [Auto populate any type of field](https://macder.github.io/wfv/guide/populate/)
-* XSS and CSFR prevention
+* [XSS](https://macder.github.io/wfv/guide/input/#escape) and [CSFR](https://macder.github.io/wfv/quick-guide/#markup-a-form) prevention
 * Supports multiple forms on same page
 * [Validation Hooks](https://macder.github.io/wfv/guide/hooks/) if you need to execute code after pass or fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
