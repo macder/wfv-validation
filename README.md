@@ -11,6 +11,7 @@ A simple fluid and concise API to manage user input, validation, feedback, and s
 WFV is intended for developers who prefer creating and managing forms at the code level. This is not a WYSIWYG type plugin and is not targeted for users who are not comfortable writing code.
 
 # Table of Contents
+* [Features](#features)
 * [Install](#install)
 * [Contributing](#contributing)
 * [Testing](#testing)
@@ -33,6 +34,39 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 * Self POST - no redirects, no GET vars, no sessions, no cookies
 * No rendered markup
 * Developer freedom
+
+## Basic Example
+
+```php
+<?php
+$contact_form = array(
+  'first_name' => [
+    'label' => 'First name',
+    'rules' => 'required',
+  ],
+  'email' => [
+    'label' => 'Email',
+    'rules' => 'required|email',
+  ],
+  'phone' => [
+    'label' => 'Phone Number',
+    'rules' => 'optional|phone',
+  ],
+  'message' => [
+    'label' => 'Message',
+    'rules' => 'required',
+  ],
+);
+
+// Validation passed.
+add_action( 'contact_form', function ( $form ) {
+  echo 'Thank you '. $form->input()->escape('first_name');
+});
+
+// Turn $contact_form into an instance of FormComposite
+wfv_create( 'contact_form', $contact_form );
+
+```
 
 ## Install
 
