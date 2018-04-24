@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/macder/wfv-validation.svg?branch=master)](https://travis-ci.org/macder/wfv-validation)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/macder/wfv-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/macder/wfv-validation/?branch=master)
 
-**Documentation: [https://macder.github.io/wfv/](https://macder.github.io/wfv/)**
+**Official Documentation: [https://macder.github.io/wfv/](https://macder.github.io/wfv/)**
 
 WFV is an elegant way to work with custom forms in WordPress.
 
@@ -11,6 +11,8 @@ A simple fluid and concise API to manage user input, validation, feedback, and s
 WFV is intended for developers who prefer creating and managing forms at the code level. This is not a WYSIWYG type plugin and is not targeted for users who are not comfortable writing code.
 
 # Table of Contents
+* [Features](#features)
+* [Basic Example](#basic-example)
 * [Install](#install)
 * [Contributing](#contributing)
 * [Testing](#testing)
@@ -20,6 +22,69 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 * [External Resources](#external-resources)
 
 ---
+
+## Features
+* [Comprehensive documentation with examples](https://macder.github.io/wfv/)
+* 25 [Built-in rules](https://macder.github.io/wfv/guide/rules/)
+* [Custom rules](https://macder.github.io/wfv/guide/rules/#custom)
+* [Custom error messages](https://macder.github.io/wfv/guide/messages/)
+* [Helper methods for input and safe output](https://macder.github.io/wfv/guide/input/)
+* [Auto populate any type of field](https://macder.github.io/wfv/guide/populate/)
+* [XSS](https://macder.github.io/wfv/guide/input/#escape) and [CSFR](https://macder.github.io/wfv/quick-guide/#markup-a-form) prevention
+* Supports multiple forms on same page
+* [Validation Hooks](https://macder.github.io/wfv/guide/hooks/) if you need to execute code after pass or fail
+* Self POST - no redirects, no GET vars, no sessions, no cookies
+* [Robust quality code](https://scrutinizer-ci.com/g/macder/wfv-validation/?branch=master)
+* No rendered markup
+* Developer freedom
+
+## Basic Example
+
+**functions.php or anywhere that makes sense**
+```php
+<?php
+$contact_form = array(
+  'first_name' => [
+    'label' => 'First name',
+    'rules' => 'required',
+  ],
+  'email' => [
+    'label' => 'Email',
+    'rules' => 'required|email',
+  ],
+  'message' => [
+    'label' => 'Message',
+    'rules' => 'required',
+  ],
+);
+
+// Validation passed.
+add_action( 'contact_form', function ( $form ) {
+  echo 'Thank you '. $form->input()->escape('first_name');
+});
+
+// Turn $contact_form into an instance of FormComposite
+wfv_create( 'contact_form', $contact_form );
+```
+
+**Theme template**
+```html
+<form method="post">
+
+  <input name="first_name" type="text" value="<?php $contact_form->display('first_name'); ?>">
+  <small><?php echo $contact_form->errors()->first('first_name'); ?></small>
+
+  <input name="email" type="text" value="<?php $contact_form->display('email'); ?>">
+  <small><?php echo $contact_form->errors()->first('email'); ?></small>
+
+  <textarea name="message"><?php $contact_form->display('message'); ?></textarea>
+  <small><?php echo $contact_form->errors()->first('message'); ?></small>
+
+  <?php $contact_form->get_token_fields(); ?>
+  <input type="submit" value="Send">
+
+</form>
+```
 
 ## Install
 
