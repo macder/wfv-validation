@@ -4,14 +4,14 @@ defined( 'ABSPATH' ) || die();
 Plugin Name: WFV - Form Validation
 Plugin URI:  https://macder.github.io/wfv/
 Description: A simple fluid and concise API to manage user input, validation, feedback, and safe output.
-Version:     0.12.0
+Version:     0.12.1
 Author:      Maciej Derulski
 Author URI:  https://github.com/macder
 License:     BSD 3-Clause
 License URI: https://github.com/macder/wfv-validation/blob/master/LICENSE
 */
 
-define( 'WFV_VALIDATE_VERSION', '0.12.0' );
+define( 'WFV_VALIDATE_VERSION', '0.12.1' );
 define( 'WFV_VALIDATE__MINIMUM_WP_VERSION', '3.7' );
 define( 'WFV_VALIDATE__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 

@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 class AlphaDashTest extends \PHPUnit_Framework_TestCase {
 
@@ -18,7 +18,7 @@ class AlphaDashTest extends \PHPUnit_Framework_TestCase {
 	 *
 	 */
 	protected function setUp() {
-		self::$validator = new AlphaDash();
+		self::$validator = new AlphaDash( new RespectValidator() );
 	}
 
 	/**
