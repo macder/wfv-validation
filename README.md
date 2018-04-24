@@ -36,6 +36,8 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 * No rendered markup
 * Developer freedom
 
+**[User Documentation](https://macder.github.io/wfv/)**
+
 ## Basic Example
 
 **functions.php or anywhere that makes sense**
