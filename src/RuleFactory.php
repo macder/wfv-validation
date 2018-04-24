@@ -2,6 +2,7 @@
 namespace WFV;
 defined( 'ABSPATH' ) || die();
 
+use \Respect\Validation\Validator as RespectValidator;
 use WFV\Rules;
 
 /**
@@ -30,8 +31,7 @@ class RuleFactory {
 	 */
 	public function get( $rule ) {
 		if ( !isset( $this->pool[ $rule ] ) ) {
-			$class = $this->class_name( $rule );
-			$this->pool[ $rule ] = new $class();
+			$this->pool[ $rule ] = $this->create( $rule );
 		}
 		return $this->pool[ $rule ];
 	}
@@ -48,5 +48,18 @@ class RuleFactory {
 	protected function class_name( $rule ){
 		$name = str_replace(' ', '', ucwords( str_replace('_', ' ', $rule ) ) );
 		return 'WFV\Rules\\'.$name;
+	}
+
+	/**
+	 * Create a ValidationInterface for a rule
+	 *
+	 * @since 0.12.1
+	 *
+	 * @param string $rule
+	 * @return ValidateInterface
+	 */
+	protected function create( $rule ) {
+		$class = $this->class_name( $rule );
+		return new $class( new RespectValidator() );
 	}
 }
