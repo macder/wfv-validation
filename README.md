@@ -33,6 +33,7 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 * Supports multiple forms on same page
 * [Validation Hooks](https://macder.github.io/wfv/guide/hooks/) if you need to execute code after pass or fail
 * Self POST - no redirects, no GET vars, no sessions, no cookies
+* [Robust quality code](https://scrutinizer-ci.com/g/macder/wfv-validation/?branch=master)
 * No rendered markup
 * Developer freedom
 
