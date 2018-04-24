@@ -66,7 +66,7 @@ wfv_create( 'contact_form', $contact_form );
 ```
 
 **Theme template**
-```php
+```html
 <form method="post">
 
   <input name="first_name" type="text" value="<?php $contact_form->display('first_name'); ?>">
