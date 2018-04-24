@@ -12,6 +12,7 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 
 # Table of Contents
 * [Features](#features)
+* [Basic Example](#basic-example)
 * [Install](#install)
 * [Contributing](#contributing)
 * [Testing](#testing)
@@ -37,6 +38,7 @@ WFV is intended for developers who prefer creating and managing forms at the cod
 
 ## Basic Example
 
+**functions.php or anywhere that makes sense**
 ```php
 <?php
 $contact_form = array(
@@ -47,10 +49,6 @@ $contact_form = array(
   'email' => [
     'label' => 'Email',
     'rules' => 'required|email',
-  ],
-  'phone' => [
-    'label' => 'Phone Number',
-    'rules' => 'optional|phone',
   ],
   'message' => [
     'label' => 'Message',
@@ -65,7 +63,25 @@ add_action( 'contact_form', function ( $form ) {
 
 // Turn $contact_form into an instance of FormComposite
 wfv_create( 'contact_form', $contact_form );
+```
 
+**Theme template**
+```html
+<form method="post">
+
+  <input name="first_name" type="text" value="<?php $contact_form->display('first_name'); ?>">
+  <small><?php echo $contact_form->errors()->first('first_name'); ?></small>
+
+  <input name="email" type="text" value="<?php $contact_form->display('email'); ?>">
+  <small><?php echo $contact_form->errors()->first('email'); ?></small>
+
+  <textarea name="message"><?php $contact_form->display('message'); ?></textarea>
+  <small><?php echo $contact_form->errors()->first('message'); ?></small>
+
+  <?php $contact_form->get_token_fields(); ?>
+  <input type="submit" value="Send">
+
+</form>
 ```
 
 ## Install
