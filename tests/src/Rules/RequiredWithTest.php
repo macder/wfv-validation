@@ -1,7 +1,7 @@
 <?php
 namespace WFV\Rules;
 
-use \Respect\Validation\Validator;
+use \Respect\Validation\Validator as RespectValidator;
 
 class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 
@@ -30,7 +30,7 @@ class RequiredWithTest extends \PHPUnit_Framework_TestCase {
 				'other_field',
 				'test_field'
 		);
-		self::$required_with =new RequiredWith();
+		self::$required_with =new RequiredWith( new RespectValidator() );
 	}
 
 	/**
